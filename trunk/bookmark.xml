@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<bookmark>
+    <item10 name="Register Dll" path="regsvr32" param="%A" virtkey="Ctrl" key="1" />
+    <item11 name="Unregister Dll" path="regsvr32" param="/u %A" virtkey="Ctrl" key="2" />
+</bookmark>
