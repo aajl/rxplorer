@@ -13,4 +13,5 @@
     <item name="Register Dll" path="regsvr32" param="%FPath" virtkey="Ctrl" key="1" />
     <item name="Unregister Dll" path="regsvr32" param="/u %FPath" virtkey="Ctrl" key="2" />
 	<item name="Mp4Parser.exe" path="tools\Mp4Parser.exe" param="-i %FPath -oxml %FPath -dex -detail"/>
+	<item name="MakeCab" path="tools\MakeCabPack.bat" param="%Path" />
 </bookmark>
