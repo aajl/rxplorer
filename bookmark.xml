@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!-- %Win: Windows目录, %Sys: 系统目录 -->
+<!-- %FPath: 选中文件或文件夹的全路径,如果是文件则包括文件名, %Path: 选中文件或文件夹的路径,不包括文件名 -->
+<!-- %Name: 选中文件或文件夹的名称,不带路径 -->
 <bookmark>
-    <item10 name="Register Dll" path="regsvr32" param="%A" virtkey="Ctrl" key="1" />
-    <item11 name="Unregister Dll" path="regsvr32" param="/u %A" virtkey="Ctrl" key="2" />
+	<item name="notepad" path="%Sys\notepad.exe" param="%FPath" key="F3" visible="true"/>
+	<item name="ResourceHacker" path="tools\ResourceHacker.exe" param="%FPath" visible="true"/>
+	<item name="GraphEdit" path="tools\graphedt.exe" param="%FPath" visible="true"/>
+	<item name="procexp" path="tools\procexp.exe" visible="true"/>
+	<item name="Run Dos" path="%Sys\cmd.exe" param="/k cd %Path" visible="true"/>
+	<item name="Dbgview.exe" path="tools\Dbgview.exe" visible="true"/>
+	<item name="IfoEdit.exe" path="tools\IfoEdit.exe" visible="true"/>
+    <item name="Register Dll" path="regsvr32" param="%FPath" virtkey="Ctrl" key="1" />
+    <item name="Unregister Dll" path="regsvr32" param="/u %FPath" virtkey="Ctrl" key="2" />
+	<item name="Mp4Parser.exe" path="tools\Mp4Parser.exe" param="-i %FPath -oxml %FPath -dex -detail"/>
 </bookmark>
