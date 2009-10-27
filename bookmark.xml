@@ -7,7 +7,7 @@
 	<item name="ResourceHacker" path="tools\ResourceHacker.exe" param="%FPath" visible="true"/>
 	<item name="GraphEdit" path="tools\graphedt.exe" param="%FPath" visible="true"/>
 	<item name="procexp" path="tools\procexp.exe" visible="true"/>
-	<item name="Run Dos" path="%Sys\cmd.exe" param="/k cd %Path" visible="true"/>
+	<item name="Run Dos" path="%Sys\cmd.exe" param="/k cd %Path && %Drive" visible="true"/>
 	<item name="Dbgview.exe" path="tools\Dbgview.exe" visible="true"/>
 	<item name="Procmon.exe" path="tools\Procmon.exe" visible="true"/>
 	<item name="Tcpview.exe" path="tools\Tcpview.exe" visible="false"/>
