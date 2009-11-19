@@ -6,6 +6,7 @@
 	<item name="notepad" path="%Sys\notepad.exe" param="%FPath" key="F3" visible="true"/>
 	<item name="ResourceHacker" path="tools\ResourceHacker.exe" param="%FPath" visible="true"/>
 	<item name="GraphEdit" path="tools\graphedt.exe" param="%FPath" visible="true"/>
+	<item name="MPC-HC" path="tools\mpc-hc.exe" param="%FPath" visible="true"/>
 	<item name="procexp" path="tools\procexp.exe" visible="true"/>
 	<item name="Run Dos" path="%Sys\cmd.exe" param="/k cd %Path && %Drive" visible="true"/>
 	<item name="Dbgview.exe" path="tools\Dbgview.exe" visible="true"/>
@@ -18,4 +19,6 @@
     <item name="Unregister Dll" path="regsvr32" param="/u %FPath" virtkey="Ctrl" key="2" />
 	<item name="Mp4Parser.exe" path="tools\Mp4Parser.exe" param="-i %FPath -oxml %FPath -dex -detail"/>
 	<item name="MakeCab" path="tools\MakeCabPack.bat" param="%Path" />
+	<item name="MakeFolderWritable" path="%Sys\cacls.exe" param="%FPath /e /t /g everyone:F" virtkey="Ctrl" key="4" />
+	<item name="MakeFolderUnwritable" path="%Sys\cacls.exe" param="%FPath /e /t /p everyone:N" virtkey="Ctrl" key="5" />
 </bookmark>
