@@ -1,57 +1,47 @@
+::说明: 传入的路径后面必须带\
+
 @echo off
 
-if "%1" == "" goto NoPath
+::如果不加这句,for里的set strPath=%%d就会无效
+setlocal EnableDelayedExpansion
 
-if not exist "%1" goto CheckPathValidable
-goto ValidPath
+::构造CAB文件的输出路径
+set strPath=%2
+if strPath=="" set strPath=%1Package.cab
 
-:CheckPathValidable
-if not exit "%cd%/%1" goto InvalidPath
-goto ValidPath
+echo .OPTION EXPLICIT 							>  MakeCab.tmp
+echo .Set CabinetNameTemplate=%strPath%			>> MakeCab.tmp
+echo .set DiskDirectoryTemplate=. 				>> MakeCab.tmp
+echo .Set CompressionType=LZX 					>> MakeCab.tmp
+echo .Set MaxCabinetSize=0 						>> MakeCab.tmp
+echo .Set MaxDiskFileCount=0 					>> MakeCab.tmp
+echo .Set MaxDiskSize=0 						>> MakeCab.tmp
+echo .Set UniqueFiles="OFF" 					>> MakeCab.tmp
+echo .Set Cabinet=on 							>> MakeCab.tmp
+echo .Set DiskDirectory1=. 						>> MakeCab.tmp
 
-:ValidPath
-echo Dest CAB file path: %1
+echo .Set DestinationDir="" 					>> MakeCab.tmp
+::构造所有需要打包的文件
+for %%f in (%1*.*) do echo %%f 					>> MakeCab.tmp
 
-rem 将打包时需要的参数写入配置文件
-echo .OPTION EXPLICIT 							>  MakeCabPack.tmp
-echo .Set CabinetNameTemplate=Package.cab		>> MakeCabPack.tmp
-echo .set DiskDirectoryTemplate=. 				>> MakeCabPack.tmp
-echo .Set CompressionType=LZX 					>> MakeCabPack.tmp
-echo .Set MaxCabinetSize=0 						>> MakeCabPack.tmp
-echo .Set MaxDiskFileCount=0 					>> MakeCabPack.tmp
-echo .Set MaxDiskSize=0 						>> MakeCabPack.tmp
-echo .Set UniqueFiles="OFF" 					>> MakeCabPack.tmp
-echo .Set Cabinet=on 							>> MakeCabPack.tmp
-echo .Set DiskDirectory1=%1						>> MakeCabPack.tmp
-
-rem 将指定文件夹下的文件文件写入文件列表
-echo .Set DestinationDir="" 					>> MakeCabPack.tmp
-for %%f in (%1\*.*) do echo %%f 				>> MakeCabPack.tmp
-
-rem 将目录也添加到文件列表
-cd %1
-for /D %%d in (*) do (
-echo .Set DestinationDir="%%d" 					>> ..\MakeCabPack.tmp
-for %%f in (%%d\*.*) do echo %1\%%f 			>> ..\MakeCabPack.tmp
+::计算传入路径的长度
+set pathLen = 0
+set strPath=%1
+:next1
+if not "%strPath%"=="" (
+set /a pathLen+=1
+set strPath=%strPath:~1%
+goto next1
 )
-cd..
 
-echo make info file succeeded, begin make cab file...
+::构造需要打包的子目录,并构造子目录下面的文件
+for /D /R %1 %%d in (*) do (
+set strPath=%%d
+echo .Set DestinationDir=!strPath:~%pathLen%!	>> MakeCab.tmp
+for %%f in (%%d\*.*) do echo %%f				>> MakeCab.tmp
+)
 
-makecab /F MakeCabPack.tmp
+makecab.exe /F MakeCab.tmp
 del setup.inf
 del setup.rpt
-del MakeCabPack.tmp
-
-goto Succeeded
-
-:InvalidPath
-echo Invalid path
-goto Succeeded
-
-:NoPath
-echo No path specified
-goto Succeeded
-
-:Succeeded
-pause
+del makecab.tmp
