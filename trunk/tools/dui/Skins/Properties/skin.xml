@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<directui>
+	<script id="jscript" type="javascript">
+		<![CDATA[
+		print("init javascript\n");
+				
+		function OnClose(id)
+		{
+			CloseWindow(id);
+		}
+		]]>
+	</script>
+	
+	<script id="python" type="python">
+		printf("init python\n")
+	</script>
+
+	<script id="lua" type="lua">
+		print("init lua\n");
+	</script>
+	
+	<imgs id="imgs" mainbkgrnd="mainbkgrnd.bmp" images="images.png">
+		<imgs rename="rename.bmp" bookmark="bookmark.bmp" wasteclean="wasteclean.bmp" />
+		<imgs accel="accel.bmp" plugin="plugin.bmp" property="property.bmp" />
+	</imgs>
+
+	<fonts id="fonts">
+		<font id="title" size="14" face="黑体" underline="true"/>
+		<font id="tab" size="18" face="" />
+	</fonts>
+	
+	<scroll type="vertical">
+		<states normal="imgs.images">
+			<normal xoffset="11" yoffset="36" />
+			<hover xoffset="11" yoffset="36" />
+			<down xoffset="11" yoffset="36" />
+			<disabled xoffset="11" yoffset="36" />
+		</states>
+	</scroll>
+	
+	<panel id="options" title="选项" type="app" bkimg="imgs.mainbkgrnd" visible="true" adapt="true">
+		<size x="0" y="0" width="585" height="528" />
+		<hittest>
+			<rect x="38" y="0" width="520" height="29" />
+		</hittest>
+
+		<button id="close" action="window.close('close')" x="559" y="5" width="21" height="21">
+			<states normal="imgs.mainbkgrnd" hover="tab_btn_hover.bmp">
+				<normal xoffset="559" yoffset="5" />
+			</states>
+		</button>
+		
+		<!--tab buttons-->
+		<layer id="prpty_btn">
+			<button id="accel" action="" text="快捷键管理" align="left" x="11" y="36" width="146" height="21">
+				<tabs tab="panel_accel" group="options" />
+				<states normal="imgs.mainbkgrnd" hover="tab_btn_hover.bmp">
+					<normal xoffset="11" yoffset="36" />
+				</states>
+			</button>
+
+			<button id="bookmark" action="" text="书签管理" align="left" x="11" y="58" width="146" height="21">
+				<tabs tab="panel_bookmark" group="options" />
+				<states normal="imgs.mainbkgrnd" hover="tab_btn_hover.bmp">
+					<normal xoffset="11" yoffset="58" />
+				</states>
+			</button>
+			
+			<button id="plugin" action="" text="插件管理" align="left" x="11" y="80" width="146" height="21">
+				<tabs tab="panel_plugin" group="options" />
+				<states normal="imgs.mainbkgrnd" hover="tab_btn_hover.bmp">
+					<normal xoffset="11" yoffset="58" />
+				</states>
+			</button>
+
+			<button id="rename" action="" text="文件(夹)重命名" align="left" x="11" y="102" width="146" height="21">
+				<tabs tab="panel_rename" group="options" />
+				<states normal="imgs.mainbkgrnd" hover="tab_btn_hover.bmp">
+					<normal xoffset="11" yoffset="58" />
+				</states>
+			</button>
+
+			<button id="waster" text="垃圾文件清理" align="left" x="11" y="124" width="146" height="21">
+				<tabs tab="panel_wasteclean" group="options" />
+				<states normal="imgs.mainbkgrnd" hover="tab_btn_hover.bmp">
+					<normal xoffset="11" yoffset="58" />
+				</states>
+			</button>
+		</layer>
+		<!--tab buttons-->
+
+		<!--tab panels-->
+		<panel id="panel_accel" type="child" visible="false" bkimg="imgs.property" adapt="true">
+			<size x="163" y="35" width="411" height="456" />
+			
+			<edit id="accel" text="accel" color="#ff0000" bkclr="#ffffff" visible="true">
+				<size x="170" y="70" width="100" height="20" /> 
+				<properties readonly="true" />
+				<border width="1" color="#7F9DB9" round="3" />
+			</edit>
+			
+			<combox id="cmbx" color="#ff0000" round="5">
+				<size x="7" y="65" width="100" height="20" position="relative" /> 
+				<states>
+					<normal border="1" color="#ff0000" bkclr="#ffff00" />
+					<hover border="1" color="#ff0000" bkclr="#ffffff" />
+					<down border="1" color="#ff00ff" bkclr="#00ffff" />
+				</states>
+				<custom row="0" bkclr="#ff00ff" position="relative">
+					<items width="" height="">
+						<item string="reg" />
+						<item string="green" />
+						<item string="blue" />
+					</items>
+					<button id="lili" text="item.string" x="0" y="0" width="100" height="20">
+						<text offset="2" align="left,vcenter,singleline" />
+						<states>
+							<normal border="0" color="#FFFF00" bkclr="#FFFF00" />
+							<hover border="0" color="#00FFFF" bkclr="#00FFFF" />
+							<down border="0" color="#0000FF" bkclr="#0000FF" />
+						</states>
+					</button>
+				</custom>
+			</combox>
+		</panel>
+
+		<panel id="panel_bookmark" type="child" visible="false" bkimg="imgs.bookmark" adapt="true">
+			<size x="163" y="35" width="411" height="456" />
+			
+			<listctrl id="lstctrl" position="relative" height="200">
+				<headctrl height="20">
+					<separator img="" color="RGB(255, 0, 0)" gradient="" />
+					<column text="Source File" bkclr="RGB(255, 255, 0)" bkimg="" width="100" />
+					<column text="Status"  bkclr="#FF00FF" bkimg="" width="65" />
+				</headctrl>
+				<custom id="tree" row="0" col="1" oninit="build_tree()">					<tracker track="true" bdclr="RGB(49, 106, 197)" bkclr="RGB(198, 214, 239)" alpha="50" />
+					<items width="" height="20">
+						<item name="file1.jpg" status="encrypted">
+							<item name="file2.png" status="decrypted" />
+						</item>
+						<item name="file3.gif" status="encrypted" />
+					</items>
+					<button id="pmus" checkable="true" x="0" y="0" width="20" height="20">
+						<states normal="state.png" width="20" />
+						<states normal="state.png" xoffset="20" />
+					</button>
+					<label text="item.name" x="20" y="0" width="80" height="20" group="resizable" />
+					<label text="item.status" x="101" y="0" width="65" height="20" />
+					<script type="javascript">
+						<![CDATA[
+						function build_tree()
+						{
+							var count = Number(tree.children);
+							print('children: ' + count + '\n');
+							for(var i = 0; i < count; ++i)
+							{
+								var level = Number(tree.item[i].level);
+								print(level + '\n');
+								if(level == 0)
+								{
+									tree.expand(tree.item[i].id, true);
+								}
+							}
+						}
+						]]>
+					</script>
+				</custom>
+			</listctrl>
+		</panel>
+		 
+		<panel id="panel_plugin" type="child" visible="false" bkimg="imgs.plugin" adapt="true">
+			<size x="163" y="35" width="411" height="456" />
+			
+			<progress id="prgrs" position="relative" value="50">
+				<size x="13" y="88" width="386" height="32" />
+				<states normal="imgs.images" xoffset="13">
+					<normal yoffset="13" />
+					<down yoffset="48" />
+				</states>
+			</progress>
+		</panel>
+		<panel id="panel_rename" type="child" visible="false" bkimg="imgs.rename" adapt="true">
+			<size x="163" y="35" width="411" height="456" />
+		</panel>
+
+		<panel id="panel_wasteclean" type="child" visible="false" bkimg="imgs.wasteclean" adapt="true">
+			<size x="163" y="35" width="411" height="456" />
+			
+			<layer id="listbox" x="10" y="10" width="200" height="200" position="relative">
+				<layer text="list text1" align="center" width="100" height="20" />
+				<layer width="100" height="20">
+					<label text="label" width="50" height="20" align="center" position="relative" />
+					<button text="button" x="50" width="50" height="20" position="relative" />
+				</layer>
+				<layer text="list text1" align="center" width="100" height="20" />
+				<layer text="list text2" align="center" width="100" height="20" />
+				<layer text="list text2" align="center" width="100" height="20" />
+				<layer text="list text2" align="center" width="100" height="20" />
+				<layer text="list text2" align="center" width="100" height="20" />
+				<layer text="list text2" align="center" width="100" height="20" />
+				<layer text="list text2" align="center" width="100" height="20" />
+				<layer text="list text2" align="center" width="100" height="20" />
+			</layer>
+		</panel>
+		<!--tab panels-->
+
+		<!--button ok, cancel, apply-->
+		<button id="ok" text="确定" x="367" y="498" width="64" height="20">
+			<states normal="imgs.mainbkgrnd">
+				<normal xoffset="367" yoffset="498" />
+				<hover border="1" color="#FF0000" bkclr="#FFFF00" />
+			</states>
+		</button>
+		
+		<button id="cancel" text="取消" x="438" y="498" width="64" height="20">
+			<states normal="imgs.mainbkgrnd">
+				<normal xoffset="438" yoffset="498" />
+				<hover border="1" color="#FF0000" bkclr="#FFFF00" />
+			</states>
+		</button>
+		
+		<button id="apply" text="" x="510" y="498" width="64" height="20">
+			<states normal="imgs.mainbkgrnd">
+				<normal xoffset="510" yoffset="498" />
+				<hover border="1" color="#FF0000" bkclr="#FFFF00" />
+			</states>
+		</button>
+		<!--button ok, cancel, apply-->
+	</panel>
+</directui>
