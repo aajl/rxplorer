@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<directui>
+	<script type="javascript" file="dialog.js" />
+	<script type="javascript" file="player.js" />
+	<script type="javascript">
+		<![CDATA[
+		function play_file()
+		{
+			var ret = player.play();
+			if(ret == "true")
+			{
+				player.set_video_pos(1, 24, 609, 341);
+				playfile.hide();
+			}
+		}
+		]]>
+	</script>
+
+	<imgs id="imgs" main_normal="main_normal.png" main_hover="main_hover.png">
+		<imgs openas_normal="openas_normal.png" openas_hover="openas_hover.png" />
+	</imgs>
+
+	<fonts id="fonts">
+		<font id="default" size="10" face="新宋体" />
+		<font id="title" size="10" weight="700" />
+	</fonts>
+	
+	<scroll type="vertical">
+		<states normal="imgs.images">
+			<normal xoffset="11" yoffset="36" />
+			<hover xoffset="11" yoffset="36" />
+			<down xoffset="11" yoffset="36" />
+			<disabled xoffset="11" yoffset="36" />
+		</states>
+	</scroll>
+	
+	<panel id="dplayer" title="DPlayer" type="app" bkimg="imgs.main_normal" visible="true" adapt="true">
+		<size x="0" y="0" width="611" height="425" />
+		<hittest>
+			<rect x="0" y="0" width="470" height="24" />
+		</hittest>
+
+		<label id="title" text="DPlayer" x="24" y="4" width="80" height="20" color="#FFFFFF" font="fonts.title" />
+
+		<!--系统按钮-->
+		<layer id="sys" x="521" y ="1" width="85" height="20">
+			<button id="min" action="window.min('min')" width="25" height="20">
+				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
+				</states>
+			</button>
+
+			<button id="max" action="" width="25" height="20">
+				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
+				</states>
+			</button>
+			
+			<button id="close" action="window.close('close')" width="34" height="17">
+				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
+				</states>
+			</button>
+		</layer>
+
+		<!--主页上的打开按钮-->
+		<layer id="playfile">
+			<button id="open" action="play_file()" x="236" y="214" width="109" height="45">
+				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
+				</states>
+			</button>
+			
+			<button id="openas" x="344" y="214" width="31" height="45">
+				<attribs popup="dplayer.dlg_open_as" />
+				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
+				</states>
+			</button>
+		</layer>
+		
+		<panel id="dlg_open_as" type="child" visible="false" bkimg="imgs.openas_normal">
+			<size x="237" y="260" width="138" height="77" xoffset="0" yoffset="0" />
+			<effect show="effect.roll(dlg_open_as.id, 100, true, 2)" clip="this">
+				<clip x="" y="" width="" height="" />
+			</effect>
+			
+			<button id="open_local_file" action="openas.popup();play_file();" position="relative" x="5" y="5" width="129" height="23">
+				<attribs text="打开本地文件" align="center,vcenter,singleline" color="#ffffff" />
+				<states normal="imgs.openas_normal" hover="imgs.openas_hover" xoffset="5" yoffset="5">
+				</states>
+			</button>
+			
+			<button id="open_url" action="openas.popup();" position="relative" x="5" y="34" width="129" height="23">
+				<attribs text="打开URL" align="center,vcenter,singleline" color="#ffffff" />			
+				<states normal="imgs.openas_normal" hover="imgs.openas_hover" xoffset="5" yoffset="34">
+				</states>
+			</button>
+		</panel>
+		
+		<!--播放控制-->
+		<layer id="play_ctrl">
+			<button id="stop" action="player.stop();playfile.show();" x="177" y="384" width="26" height="26">
+				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
+				</states>
+			</button>
+
+			<button id="prev" action="" x="218" y="384" width="26" height="26">
+				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
+				</states>
+			</button>
+
+			<button id="play" action="player.pause()" x="263" y="380" width="26" height="30">
+				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
+				</states>
+			</button>
+
+			<button id="next" action="" x="308" y="384" width="26" height="26">
+				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
+				</states>
+			</button>
+
+			<button id="mute" action="player.mute()" x="352" y="384" width="26" height="26">
+				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
+				</states>
+			</button>
+		</layer>
+
+	</panel> <!--id="dplayer"-->
+</directui>
