@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<filters>
+	<filter name="Async Source Filter" location="Filters\AsyncSource.ax" priority="1" type="source" clsid="{C553F2C0-1529-11D0-B4D1-00805F6CBBEA}" />
+
+	<filter name="Avi Splitter" format="avi" location="Filters\AviSplitter.ax" type="splitter" clsid="{9736D831-9D6C-4E72-B6E7-560EF9181001}" />
+	<filter name="DSM Splitter" format="dsm" location="Filters\DSMSplitter.ax" type="splitter" clsid="{0912B4DD-A30A-4568-B590-7179EBB420EC}" />
+	<filter name="Dirac Splitter" format="dirac" location="Filters\DiracSplitter.ax" type="splitter" clsid="{5899CFB9-948F-4869-A999-5544ECB38BA5}" />
+	<filter name="FLV Splitter" format="flv" location="Filters\FlvSplitter.ax" type="splitter" clsid="{47E792CF-0BBE-4F7A-859C-194B0768650A}" />
+	<filter name="MKV Splitter" format="matroska" location="Filters\MkvSplitter.ax" type="splitter" clsid="{149D2E01-C32E-4939-80F6-C07B81015A7A}" />
+	<filter name="MP4 Splitter" format="mpeg-4,mpeg-4 visual,quicktime" location="Filters\Mp4Splitter.ax" type="splitter" clsid="{61F47056-E400-43d3-AF1E-AB7DFFD4C4AD}" />
+	<filter name="MPA Splitter" format="mpeg audio" location="Filters\Mpasplitter.ax" type="splitter" clsid="{0E9D4BF7-CBCB-46C7-BD80-4EF223A3DC2B}" />
+	<filter name="MPEG Splitter" format="mpeg-ps,mpeg-ts,bdav" location="Filters\MpegSplitter.ax" type="splitter" clsid="{DC257063-045F-4BE2-BD5B-E12279C464F0}" />
+	<filter name="NUT Splitter" format="nut" location="Filters\NutSplitter.ax" type="splitter" clsid="{90514D6A-76B7-4405-88A8-B4B1EF6061C6}" />
+	<filter name="OGG Splitter" format="ogg" location="Filters\OggSplitter.ax" type="splitter" clsid="{9FF48807-E133-40AA-826F-9B2959E5232D}" />
+	<filter name="ROQ Splitter" format="roq" location="Filters\RoqSplitter.ax" type="splitter" clsid="{C73DF7C1-21F2-44C7-A430-D35FB9BB298F}" />
+	<filter name="RealMedia Splitter" format="realmedia" location="Filters\RMSplitter.ax" type="splitter" clsid="{E21BE468-5C18-43EB-B0CC-DB93A847D769}" />
+	<filter name="Windows Media Splitter" format="windows media" location="" type="splitter" clsid="{187463A0-5BB7-11D3-ACBE-0080C75E246E}" />
+
+	<filter name="MPC Audio Decoder" location="Filters\MpcAudioDec.ax" priority="2" type="acodec">
+		<clsid>{3D446B6F-71DE-4437-BE15-8CE47174340F}</clsid>
+		<mediatype sub="MEDIASUBTYPE_PCM">{00000001-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_MP3">{00000055-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_MPEG1AudioPayload">{00000050-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_MPEG1Payload">{e436eb81-524f-11ce-9f53-0020af0ba770}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_MPEG2_AUDIO">{e06d802b-db46-11cf-b4d1-00805f6cbbea}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_DOLBY_AC3">{e06d802c-db46-11cf-b4d1-00805f6cbbea}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_DOLBY_DDPLUS">{a7fb87af-2d02-42fb-a4d4-05cd93843bdd}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_DOLBY_TRUEHD">{eb27cec4-163e-4ca3-8b74-8e25f91b517e}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_WAVE_DOLBY_AC3">{00002000-0000-0010-8000-00aa00389b71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_DTS">{e06d8033-db46-11cf-b4d1-00805f6cbbea}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_WAVE_DTS">{00002001-0000-0010-8000-00aa00389b71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_DVD_LPCM_AUDIO">{e06d8032-db46-11cf-b4d1-00805f6cbbea}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_HDMV_LPCM_AUDIO">{949F97FD-56F6-4527-B4AE-DDEB375AB80F}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_AAC">{000000FF-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_MP4A">{4134504D-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_mp4a">{6134706D-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_AMR">{000000FE-0000-0010-8000-00aa00389b71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_SAMR">{726D6173-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_SAWB">{62776173-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_PS2_PCM">{0000F521-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_PS2_ADPCM">{0000F522-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_Vorbis2">{8D2FD10B-5841-4a6b-8905-588FEC1ADED9}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_FLAC_FRAMED">{1541C5C0-CDDF-477d-BC0A-86F8AE7F8354}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_NELLYMOSER">{4C4C454E-0000-0010-8000-00AA00389B71}</mediatype>
+		<!--// QuickTime PCM-->
+		<mediatype sub="MEDIASUBTYPE_PCM_NONE">{454E4F4E-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_PCM_RAW">{20776172-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_PCM_TWOS">{736f7774-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_PCM_SOWT">{74776f73-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_PCM_IN24">{34326E69-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_PCM_IN32">{32336E69-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_PCM_FL32">{32336C66-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_PCM_FL64">{34366C66-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_PCM_IN24_le">{696E3234-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_PCM_IN32_le">{696E3332-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_PCM_FL32_le">{666C3332-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_PCM_FL64_le">{666C3634-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_IMA4">{34616D69-0000-0010-8000-00AA00389B71}</mediatype>
+
+	</filter>
+	<filter name="FFDShow Audio Decoder" location="" priority="3" type="acodec">
+		<clsid>{0F40E1E5-4F79-4988-B1A9-CC98794E6B55}</clsid>
+		<mediatype></mediatype>
+	</filter>
+	<filter name="RealAudio Decoder" location="Filters\RMSplitter.ax" priority="1" type="acodec">
+		<clsid>{941A4793-A705-4312-8DFC-C11CA05F397E}</clsid>
+	    <mediatype major="MEDIATYPE_Audio" sub="MEDIASUBTYPE_14_4">{345f3431-0000-0010-8000-00aa00389b71}</mediatype>
+	    <mediatype major="MEDIATYPE_Audio" sub="MEDIASUBTYPE_28_8">{385f3832-0000-0010-8000-00aa00389b71}</mediatype>
+	    <mediatype major="MEDIATYPE_Audio" sub="MEDIASUBTYPE_ATRC">{43525441-0000-0010-8000-00aa00389b71}</mediatype>
+	    <mediatype major="MEDIATYPE_Audio" sub="MEDIASUBTYPE_COOK">{4b4f4f43-0000-0010-8000-00aa00389b71}</mediatype>
+	    <mediatype major="MEDIATYPE_Audio" sub="MEDIASUBTYPE_DNET">{54454e44-0000-0010-8000-00aa00389b71}</mediatype>
+	    <mediatype major="MEDIATYPE_Audio" sub="MEDIASUBTYPE_SIPR">{52504953-0000-0010-8000-00aa00389b71}</mediatype>
+	    <mediatype major="MEDIATYPE_Audio" sub="MEDIASUBTYPE_RAAC">{43414152-0000-0010-8000-00aa00389b71}</mediatype>
+	    <mediatype major="MEDIATYPE_Audio" sub="MEDIASUBTYPE_RACP">{50434152-0000-0010-8000-00aa00389b71}</mediatype>
+	</filter>
+
+	<filter name="MPC Video Decoder" location="Filters\MpcVideoDec.ax" priority="3" type="vcodec">
+		<clsid>{008BAC12-FBAF-497B-9670-BC6F6FBAE2C4}</clsid>
+	    <!--// Flash video-->
+	    <mediatype sub="MEDIASUBTYPE_FLV1">{31564C46-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_flv1">{31766C66-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_FLV4">{34564C46-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_flv4">{34766C66-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_VP6F">{46365056-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_vp6f">{66367076-0000-0010-8000-00AA00389B71}</mediatype>
+	    <!--// VP5-->
+		<mediatype sub="MEDIASUBTYPE_VP50">{30355056-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_vp50">{30357076-0000-0010-8000-00AA00389B71}</mediatype>
+	    <!--// VP6-->
+		<mediatype sub="MEDIASUBTYPE_VP60">{30365056-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_vp60">{30367076-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_VP61">{31365056-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_vp61">{31367076-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_VP62">{32365056-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_vp62">{32367076-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_VP6A">{41365056-0000-0010-8000-00AA00389B71}</mediatype>
+		<mediatype sub="MEDIASUBTYPE_vp6a">{61367076-0000-0010-8000-00AA00389B71}</mediatype>
+	    <!--// VP8-->
+		<mediatype sub="MEDIASUBTYPE_VP80">{30385056-0000-0010-8000-00AA00389B71}</mediatype>
+	    <!--// Xvid-->
+		<mediatype sub="MEDIASUBTYPE_XVID">{44495658-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_xvid">{64697678-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_XVIX">{58495658-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_xvix">{78697678-0000-0010-8000-00AA00389B71}</mediatype>
+	    <!--// DivX-->
+		<mediatype sub="MEDIASUBTYPE_DX50">{30355844-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_dx50">{30357864-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_DIVX">{58564944-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_divx">{78766964-0000-0010-8000-00AA00389B71}</mediatype>
+	    <!--// WMV1/2/3-->
+		<mediatype sub="MEDIASUBTYPE_WMV1">{31564D57-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_wmv1">{31766D77-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_WMV2">{32564D57-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_wmv2">{32766D77-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_WMV3">{33564D57-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_wmv3">{33766D77-0000-0010-8000-00AA00389B71}</mediatype>
+	    <!--// MPEG-2-->
+		<mediatype sub="MEDIASUBTYPE_MPEG2_VIDEO">{E06D8026-DB46-11CF-B4D1-00805F6CBBEA}</mediatype>
+	    <!--// MSMPEG-4-->
+		<mediatype sub="MEDIASUBTYPE_DIV3">{33564944-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_div3">{33766964-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_DVX3">{33585644-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_dvx3">{33787664-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_MP43">{3334504D-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_mp43">{3334706D-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_COL1">{314C4F43-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_col1">{316C6F63-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_DIV4">{34564944-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_div4">{34766964-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_DIV5">{35564944-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_div5">{35766964-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_DIV6">{36564944-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_div6">{36766964-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_AP41">{31345041-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_ap41">{31347061-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_MPG3">{3347504D-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_mpg3">{3367706D-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_DIV2">{32564944-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_div2">{32766964-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_MP42">{3234504D-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_mp42">{3234706D-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_MPG4">{3447504D-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_mpg4">{3467706D-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_DIV1">{31564944-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_div1">{31766964-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_MP41">{3134504D-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_mp41">{3134706D-0000-0010-8000-00AA00389B71}</mediatype>
+	    <!--// AMV Video-->
+		<mediatype sub="MEDIASUBTYPE_AMVV">{56564D41-0000-0010-8000-00AA00389B71}</mediatype>
+	    <!--// H264/AVC-->
+		<mediatype sub="MEDIASUBTYPE_H264">{34363248-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_h264">{34363268-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_X264">{34363258-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_x264">{34363278-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_VSSH">{48535356-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_vssh">{68737376-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_DAVC">{43564144-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_davc">{63766164-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_PAVC">{43564150-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_pavc">{63766170-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_AVC1">{31435641-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_avc1">{31637661-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_H264_bis">{8D2D71CB-243F-45E3-B2D8-5FD7967EC09B}</mediatype>
+	    <!--// SVQ3-->
+		<mediatype sub="MEDIASUBTYPE_SVQ3">{33515653-0000-0010-8000-00AA00389B71}</mediatype>
+	    <!--// SVQ1-->
+		<mediatype sub="MEDIASUBTYPE_SVQ1">{31515653-0000-0010-8000-00AA00389B71}</mediatype>
+	    <!--// H263-->
+		<mediatype sub="MEDIASUBTYPE_H263">{33363248-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_h263">{33363268-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_S263">{33363273-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_s263">{33363273-0000-0010-8000-00AA00389B71}</mediatype>
+	    <!--// Real video-->
+		<mediatype sub="MEDIASUBTYPE_RV10">{30315652-0000-0010-8000-00AA00389B71}</mediatype>
+	  	<mediatype sub="MEDIASUBTYPE_RV20">{30325652-0000-0010-8000-00aa00389b71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_RV30">{30335652-0000-0010-8000-00aa00389b71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_RV40">{30345652-0000-0010-8000-00aa00389b71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_RV41">{31345652-0000-0010-8000-00aa00389b71}</mediatype>
+		<!--// Theora-->
+		<mediatype sub="MEDIASUBTYPE_THEORA">{4F454854-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_theora">{6F656874-0000-0010-8000-00AA00389B71}</mediatype>
+	    <!--// VC1-->
+		<mediatype sub="MEDIASUBTYPE_WVC1">{31435657-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_wvc1">{31637677-0000-0010-8000-00AA00389B71}</mediatype>
+		<!--// Other MPEG-4-->
+		<mediatype sub="MEDIASUBTYPE_MP4V">{5634504D-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_mp4v">{7634706D-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_M4S2">{3273346D-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_m4s2">{3273346D-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_MP4S">{5334504D-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_mp4s">{7334706D-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_3IV1">{31564933-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_3iv1">{31766933-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_3IV2">{32564933-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_3iv2">{32766933-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_3IVX">{58564933-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_3ivx">{78766933-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_BLZ0">{305A4C42-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_blz0">{307A6C62-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_DM4V">{56344D44-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_dm4v">{76346D64-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_FFDS">{53444646-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_ffds">{73646666-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_FVFW">{57465646-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_fvfw">{77667666-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_DXGM">{4D475844-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_dxgm">{6D677864-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_FMP4">{34504D46-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_fmp4">{34706D66-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_HDX4">{34584448-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_hdx4">{34786468-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_LMP4">{34504D4C-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_lmp4">{34706D6C-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_NDIG">{4749444E-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_ndig">{6769646E-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_RMP4">{34504D52-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_rmp4">{34706D72-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_SMP4">{34504D53-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_smp4">{34706D73-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_SEDG">{47444553-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_sedg">{67646573-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_UMP4">{34504D55-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_ump4">{34706D75-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_WV1F">{46315657-0000-0010-8000-00AA00389B71}</mediatype>
+	    <mediatype sub="MEDIASUBTYPE_wv1f">{66317677-0000-0010-8000-00AA00389B71}</mediatype>
+	</filter>
+	<filter name="Xvid Video Decoder" location="" priority="2" type="vcodec">
+		<clsid>{64697678-0000-0010-8000-00AA00389B71}</clsid>
+		<mediatype></mediatype>
+	</filter>
+	<filter name="FFDShow Video Decoder" location="" priority="4" type="vcodec">
+		<clsid>{04FE9017-F873-410E-871E-AB91661A4EF7}</clsid>
+		<mediatype></mediatype>
+	</filter>
+	<filter name="RealVideo Decoder" location="Filters\RMSplitter.ax" priority="1" type="vcodec">
+		<clsid>{238D0F23-5DC9-45A6-9BE2-666160C324DD}</clsid>
+	    <mediatype major="MEDIATYPE_Video" sub="MEDIASUBTYPE_RV20">{30325652-0000-0010-8000-00aa00389b71}</mediatype>
+	    <mediatype major="MEDIATYPE_Video" sub="MEDIASUBTYPE_RV30">{30335652-0000-0010-8000-00aa00389b71}</mediatype>
+	    <mediatype major="MEDIATYPE_Video" sub="MEDIASUBTYPE_RV40">{30345652-0000-0010-8000-00aa00389b71}</mediatype>
+	    <mediatype major="MEDIATYPE_Video" sub="MEDIASUBTYPE_RV41">{31345652-0000-0010-8000-00aa00389b71}</mediatype>
+	</filter>
+	
+	<filter name="DC-DSP Filter" location="Filters\DCDSPFilter.ax" priority="1" type="audio processor" clsid="{B38C58A0-1809-11D6-A458-EDAE78F1DF12}" />
+
+	<filter name="Direct Vob Sub" location="Filters\VSFilter.ax" priority="1" type="subtitle" clsid="{93A22E7A-5091-45EF-BA61-6DA26156A5D0}" />
+	
+	<filter name="DSound Renderer" location="" priority="1" type="audio renderer" clsid="{79376820-07D0-11cf-A24D-0020AFD79767}" />
+	<filter name="Waveout Audio Renderer" location="" priority="2" type="audio renderer" clsid="{e30629d1-27e5-11ce-875d-00608cb78066}" />
+
+	<filter name="VMR9" location="" priority="1" type="video renderer" clsid="{51b4abf3-748f-4e3b-a276-c828330e926a}" />
+	<filter name="VMR7" location="" priority="2" type="video renderer" clsid="{B87BEB7B-8D29-423f-AE4D-6582C10175AC}" />
+	<filter name="Default Video Renderer" location="" priority="3" type="video renderer" clsid="{6BC1CFFA-8FC1-4261-AC22-CFB4CC38DB50}" />
+
+</filters>
