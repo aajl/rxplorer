@@ -10,8 +10,18 @@
 			if(ret == "true")
 			{
 				player.set_video_pos(1, 24, 609, 341);
-				playfile.hide();
+				openfile.hide();
 			}
+		}
+		
+		function change_volume()
+		{
+			var pos = Number(volume.pos);
+			var new_pos = pos + 5;
+			if(new_pos > 100)
+				new_pos = 0;
+			
+			volume.pos = new_pos;
 		}
 		]]>
 	</script>
@@ -61,7 +71,7 @@
 		</layer>
 
 		<!--主页上的打开按钮-->
-		<layer id="playfile">
+		<layer id="openfile">
 			<button id="open" action="play_file()" x="236" y="214" width="109" height="45">
 				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
 				</states>
@@ -95,7 +105,7 @@
 		
 		<!--播放控制-->
 		<layer id="play_ctrl">
-			<button id="stop" action="player.stop();playfile.show();" x="177" y="384" width="26" height="26">
+			<button id="stop" action="player.stop();openfile.show();" x="177" y="384" width="26" height="26">
 				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
 				</states>
 			</button>
@@ -115,10 +125,15 @@
 				</states>
 			</button>
 
-			<button id="mute" action="player.mute()" x="352" y="384" width="26" height="26">
+			<button id="mute" action="change_volume();" x="352" y="384" width="26" height="26">
 				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
 				</states>
 			</button>
+			
+			<progress id="volume" x="380" y="396" width="60" height="4" range="0,100" pos="30">
+				<states normal="imgs.main_normal" down="imgs.main_hover" xoffset="x" yoffset="y">
+				</states>
+			</progress>
 		</layer>
 
 	</panel> <!--id="dplayer"-->
