@@ -62,7 +62,7 @@
 		<clsid>{0F40E1E5-4F79-4988-B1A9-CC98794E6B55}</clsid>
 		<mediatype></mediatype>
 	</filter>
-	<filter name="RealAudio Decoder" location="Filters\RMSplitter.ax" priority="1" type="acodec">
+	<filter name="RealAudio Decoder" location="Filters\RealMediaSplitter.ax" priority="1" type="acodec">
 		<clsid>{941A4793-A705-4312-8DFC-C11CA05F397E}</clsid>
 	    <mediatype major="MEDIATYPE_Audio" sub="MEDIASUBTYPE_14_4">{345f3431-0000-0010-8000-00aa00389b71}</mediatype>
 	    <mediatype major="MEDIATYPE_Audio" sub="MEDIASUBTYPE_28_8">{385f3832-0000-0010-8000-00aa00389b71}</mediatype>
@@ -232,7 +232,7 @@
 		<clsid>{04FE9017-F873-410E-871E-AB91661A4EF7}</clsid>
 		<mediatype></mediatype>
 	</filter>
-	<filter name="RealVideo Decoder" location="Filters\RMSplitter.ax" priority="1" type="vcodec">
+	<filter name="RealVideo Decoder" location="Filters\RealMediaSplitter.ax" priority="1" type="vcodec">
 		<clsid>{238D0F23-5DC9-45A6-9BE2-666160C324DD}</clsid>
 	    <mediatype major="MEDIATYPE_Video" sub="MEDIASUBTYPE_RV20">{30325652-0000-0010-8000-00aa00389b71}</mediatype>
 	    <mediatype major="MEDIATYPE_Video" sub="MEDIASUBTYPE_RV30">{30335652-0000-0010-8000-00aa00389b71}</mediatype>
