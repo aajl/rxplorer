@@ -4,137 +4,440 @@
 	<script type="javascript" file="player.js" />
 	<script type="javascript">
 		<![CDATA[
-		function play_file()
+		var timer_play_pos;
+		
+		function open_file()
 		{
 			var ret = player.play();
 			if(ret == "true")
 			{
-				player.set_video_pos(1, 24, 609, 341);
+				set_video_pos();
 				openfile.hide();
+				play_time.show();
+				var duration = player.duration();
+				if(duration == 0)
+					play_progress.set_range(0, 100);
+				else
+					play_progress.set_range(0, duration);
+					
+				timer_play_pos = window.setInterval(1000, 'get_play_pos()');
+			}
+		}
+		
+		function stop_play()
+		{
+			player.stop();
+			openfile.show();
+			play_time.hide();
+			play_progress.pos = 0;
+		}
+		
+		function set_video_pos()
+		{
+			player.set_video_pos(videowindow.x, videowindow.y, videowindow.width, videowindow.height);
+		}
+		
+		function set_play_pos()
+		{
+			var duration = player.duration();
+			if(duration == 0)
+				return;
+			
+			player.set_play_pos(play_progress.pos);
+		}
+		
+		function get_play_pos()
+		{
+			var duration = player.duration();
+			if(duration == 0)
+				return;
+
+			var playpos = player.get_play_pos();
+			play_progress.pos = playpos;
+			
+			function fmt(tt)
+			{
+				return tt < 10 ? '0' + tt : tt;
+			}
+
+			var hh = parseInt(playpos / 3600);
+			var mm = parseInt((playpos / 60) % 60);
+			var ss = parseInt(playpos % 60);
+			var text = fmt(hh) + ":" + fmt(mm) + ":" + fmt(ss) + " / ";
+			hh = parseInt(duration / 3600);
+			mm = parseInt((duration / 60) % 60);
+			ss = parseInt(duration % 60);
+			text += fmt(hh) + ":" + fmt(mm) + ":" + fmt(ss);
+			play_time.text = text;
+			
+			if(duration == playpos)
+			{
+				stop_play();
+				window.clearInterval(timer_play_pos);
 			}
 		}
 		
 		function change_volume()
 		{
-			var pos = Number(volume.pos);
+			var pos = volume.pos;
 			var new_pos = pos + 5;
 			if(new_pos > 100)
 				new_pos = 0;
 			
 			volume.pos = new_pos;
 		}
+		
+		function move_main_menu()
+		{
+			if(menu.popuped)
+				return;
+				
+			var rc_menu_btn = menu.screen_rect();
+			var rc_main_menu = main_menu.rect();
+			var top = rc_main_menu[1] + rc_menu_btn[3] + 4;
+			main_menu.move(rc_menu_btn[0], top, rc_main_menu[2], rc_main_menu[3]);
+		}
 		]]>
 	</script>
 
 	<imgs id="imgs" main_normal="main_normal.png" main_hover="main_hover.png">
 		<imgs openas_normal="openas_normal.png" openas_hover="openas_hover.png" />
+		<imgs logo="logo.png" />
 	</imgs>
 
 	<fonts id="fonts">
 		<font id="default" size="10" face="新宋体" />
-		<font id="title" size="10" weight="700" />
+		<font id="bold_10" size="10" weight="700" />
+		<font id="bold_8" size="8" weight="700" />
+		<font id="about_dplayer" size="13" weight="700" />
+		<font id="song_10" size="10" face="新宋体" />
+		<font id="song_8" size="8" face="新宋体" />
+		<font id="arial_8" size="8" face="Arial" />
 	</fonts>
 	
 	<scroll type="vertical">
 		<states normal="imgs.images">
-			<normal xoffset="11" yoffset="36" />
-			<hover xoffset="11" yoffset="36" />
-			<down xoffset="11" yoffset="36" />
-			<disabled xoffset="11" yoffset="36" />
+			<normal x="11" y="36" />
+			<hover x="11" y="36" />
+			<down x="11" y="36" />
+			<disabled x="11" y="36" />
 		</states>
 	</scroll>
-	
-	<panel id="dplayer" title="DPlayer" type="app" bkimg="imgs.main_normal" visible="true" adapt="true">
+			
+	<panel id="dplayer" title="DPlayer" type="app" bkimg="imgs.main_normal">
+		<events maximize="max.check(true)" restore="max.check(0)" />
 		<size x="0" y="0" width="611" height="425" />
+		<resize>
+			<top x="463" y="0" width="10" height="24" />
+			<left x="0" y="24" width="1" height="20" />
+			<right x="610" y="24" width="1" height="20" />
+			<bottom_left x="3" y="377" width="121" height="48" />
+			<bottom_right x="486" y="377" width="66" height="48" />
+		</resize>
 		<hittest>
 			<rect x="0" y="0" width="470" height="24" />
 		</hittest>
 
-		<label id="title" text="DPlayer" x="24" y="4" width="80" height="20" color="#FFFFFF" font="fonts.title" />
+		<label id="title" text="DPlayer" x="24" y="4" width="80" height="20" color="#FFFFFF" font="fonts.bold_10" />
 
 		<!--系统按钮-->
-		<layer id="sys" x="521" y ="1" width="85" height="20">
-			<button id="min" action="window.min('min')" width="25" height="20">
-				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
-				</states>
+		<layer id="sys" x="501" y="1" width="110" height="21" float="right" margin="0,4">
+			<button id="menu" action="move_main_menu();" x="0" y="0" width="19" height="19" popup="main_menu">
+				<states normal="imgs.main_hover" dy="2" y="32" width="19" height="19">
+					<normal x="444" />
+					<hover x="463" />
+					<down x="482" />
+				</state>
 			</button>
 
-			<button id="max" action="" width="25" height="20">
-				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
-				</states>
+			<button id="min" action="window.min()" x="0" y="0" width="19" height="19">
+				<states normal="imgs.main_hover" dy="2" y="32" width="19" height="19">
+					<normal x="502" />
+					<hover x="521" />
+					<down x="540" />
+				</state>
+			</button>
+
+			<button id="max" action="window.max()" x="0" y="0" width="19" height="19" checkable="true">
+				<states normal="imgs.main_hover" dy="2" y="52" width="19" height="19">
+					<normal x="444" />
+					<hover x="463" />
+					<down x="482" />
+				</state>
+				<states normal="imgs.main_hover" dy="2" y="52" width="19" height="19">
+					<normal x="502" />
+					<hover x="521" />
+					<down x="540" />
+				</state>
 			</button>
 			
-			<button id="close" action="window.close('close')" width="34" height="17">
-				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
-				</states>
+			<button id="close" action="window.close()" x="0" y="0" width="38" height="21">
+				<states normal="imgs.main_hover" y="72" width="38" height="21">
+					<normal x="444" />
+					<hover x="482" />
+					<down x="520" />
+				</state>
 			</button>
 		</layer>
 
-		<!--主页上的打开按钮-->
-		<layer id="openfile">
-			<button id="open" action="play_file()" x="236" y="214" width="109" height="45">
-				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
-				</states>
-			</button>
+		<!--视频窗口-->
+		<panel id="videowindow" x="1" y="24" width="609" height="341" bkclr="#141414" float="width,height">
+			<events resize="set_video_pos();" />
 			
-			<button id="openas" x="344" y="214" width="31" height="45">
-				<attribs popup="dplayer.dlg_open_as" />
-				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
-				</states>
-			</button>
-		</layer>
-		
-		<panel id="dlg_open_as" type="child" visible="false" bkimg="imgs.openas_normal">
-			<size x="237" y="260" width="138" height="77" xoffset="0" yoffset="0" />
-			<effect show="effect.roll(dlg_open_as.id, 100, true, 2)" clip="this">
-				<clip x="" y="" width="" height="" />
-			</effect>
-			
-			<button id="open_local_file" action="openas.popup();play_file();" position="relative" x="5" y="5" width="129" height="23">
-				<attribs text="打开本地文件" align="center,vcenter,singleline" color="#ffffff" />
-				<states normal="imgs.openas_normal" hover="imgs.openas_hover" xoffset="5" yoffset="5">
-				</states>
-			</button>
-			
-			<button id="open_url" action="openas.popup();" position="relative" x="5" y="34" width="129" height="23">
-				<attribs text="打开URL" align="center,vcenter,singleline" color="#ffffff" />			
-				<states normal="imgs.openas_normal" hover="imgs.openas_hover" xoffset="5" yoffset="34">
-				</states>
-			</button>
+			<layer id="logo_panel" float="center,vcenter">
+				<!--logo-->
+				<img id="logo" src="imgs.logo" x="127" y="44" width="357" height="165" />
+				
+				<!--弹出窗口-->
+				<panel id="dlg_open_as" type="child" visible="false" bkimg="imgs.openas_normal">
+					<size x="237" y="260" width="138" height="77" />
+					<effect show="effect.roll(dlg_open_as.id, 100, true, 2)" clip="this">
+						<clip x="" y="" width="" height="" />
+					</effect>
+					
+					<button action="openas.popup();play_file();" position="relative" x="5" y="5" width="129" height="23">
+						<attribs text="打开本地文件" align="center,vcenter,singleline" color="#ffffff" />
+						<states normal="imgs.openas_normal" hover="imgs.openas_hover" x="5" y="5">
+						</states>
+					</button>
+					
+					<button action="openas.popup();" position="relative" x="5" y="34" width="129" height="23">
+						<attribs text="打开URL" align="center,vcenter,singleline" color="#ffffff" />			
+						<states normal="imgs.openas_normal" hover="imgs.openas_hover" x="5" y="34">
+						</states>
+					</button>
+				</panel>
+
+				<!--主页上的打开按钮-->
+				<layer id="openfile" x="236" y="214">
+					<button id="open" action="open_file()" x="236" y="214" width="109" height="45">
+						<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
+						</states>
+					</button>
+					
+					<button id="openas" x="344" y="214" width="31" height="45">
+						<attribs popup="javascript:dlg_open_as.id" />
+						<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
+						</states>
+					</button>
+				</layer>
+			</layer>
 		</panel>
 		
+		<img src="imgs.main_normal" x="1" y="365" width="609" height="12" adapt="true" float="width,bottom">
+			<image x="5" y="365" width="5" height="12" />
+		</img>
+		
+		<layer id="prgrs" visible="false">
+			<img src="imgs.main_normal" width="2" height="8" float="bottom">
+				<image x="20" y="369" width="2" height="8" />
+			</img>
+			<img src="imgs.main_normal" width="2" height="8" adapt="true" float="width,bottom">
+				<image x="28" y="369" width="2" height="8" />
+			</img>
+			<img src="imgs.main_normal" width="2" height="8" float="right,bottom">
+				<image x="589" y="369" width="2" height="8" />
+			</img>
+		</layer>
+		
+		<layer id="prgrs_down" visible="false">
+			<img src="imgs.main_hover" width="1" height="8" float="bottom">
+				<image x="20" y="369" width="1" height="8" />
+			</img>
+			<img src="imgs.main_hover" width="2" height="8" adapt="true" float="width,bottom">
+				<image x="28" y="369" width="2" height="8" />
+			</img>
+			<img src="imgs.main_hover" width="1" height="8" float="right,bottom">
+				<image x="590" y="369" width="1" height="8" />
+			</img>
+		</layer>
+
+		<progress id="play_progress" x="20" y="369" width="572" height="8" range="0,100" pos="0" float="width,bottom">
+			<slider x="16" y="31" width="15" height="5" img="imgs.main_hover" />
+			<events track="set_play_pos()" tracking="" />
+			<states>
+				<normal link="javascript:prgrs.id" />
+				<down link="javascript:prgrs_down.id" />
+			</states>
+		</progress>
+
+		<label id="play_time" text="00:00:00 / 00:00:00" visible="false" x="20" y="395" width="120" height="20">
+			<attribs bkimg="imgs.main_normal" font="fonts.arial_8" color="#c2c2c2" float="bottom" />
+			<image x="20" y="395" width="120" height="20" />
+		</label>
+		
 		<!--播放控制-->
-		<layer id="play_ctrl">
-			<button id="stop" action="player.stop();openfile.show();" x="177" y="384" width="26" height="26">
-				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
+		<layer id="play_ctrl" x="305" float="center,bottom">
+			<button id="stop" action="stop_play();" x="177" y="384" width="26" height="26">
+				<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
 				</states>
 			</button>
 
 			<button id="prev" action="" x="218" y="384" width="26" height="26">
-				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
+				<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
 				</states>
 			</button>
 
-			<button id="play" action="player.pause()" x="263" y="380" width="26" height="30">
-				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
-				</states>
+			<button id="play" action="player.pause()" x="258" y="380" width="32" height="32" checkable="true">
+				<states normal="imgs.main_hover" y="38" width="32" height="32">
+					<normal x="113" />
+					<hover x="145" />
+					<down x="177" />
+				</state>
+				<states normal="imgs.main_hover" y="38" width="32" height="32">
+					<normal x="16" />
+					<hover x="48" />
+					<down x="80" />
+				</state>
 			</button>
 
 			<button id="next" action="" x="308" y="384" width="26" height="26">
-				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
+				<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
 				</states>
 			</button>
 
 			<button id="mute" action="change_volume();" x="352" y="384" width="26" height="26">
-				<states normal="imgs.main_normal" hover="imgs.main_hover" xoffset="x" yoffset="y">
+				<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
 				</states>
 			</button>
 			
-			<progress id="volume" x="380" y="396" width="60" height="4" range="0,100" pos="30">
-				<states normal="imgs.main_normal" down="imgs.main_hover" xoffset="x" yoffset="y">
+			<progress id="volume" x="380" y="396" width="60" height="8" range="0,100" pos="100">
+				<slider x="16" y="31" width="15" height="5" img="imgs.main_hover" />
+				<states normal="imgs.main_normal" down="imgs.main_hover" x="x" y="y">
 				</states>
 			</progress>
 		</layer>
+		
+		<!--截图及播放列表-->
+		<layer x="556" y="394" width="55" height="20" margin="5" float="right,bottom">
+			<button id="" action="" x="0" y="0" width="20" height="19">
+				<states normal="imgs.main_hover" y="112" width="20" height="19">
+					<normal x="444" />
+					<hover x="464" />
+					<down x="484" />
+				</state>
+			</button>
+			<button id="playlist" action="" x="0" y="0" width="20" height="19" checkable="true">
+				<states normal="imgs.main_hover" y="112" width="20" height="19">
+					<normal x="505" />
+					<hover x="525" />
+					<down x="545" />
+				</state>
+				<states normal="imgs.main_hover" y="132" width="20" height="19">
+					<normal x="505" />
+					<hover x="525" />
+					<down x="545" />
+				</state>
+			</button>
+		</layer>
+	</panel> <!--end dplayer-->
+	
+	<!--主菜单-->
+	<panel id="main_menu" type="modeless" visible="false" bkclr="#ffffff">
+		<size x="504" y="24" width="128" height="150" />
+		<border width="1" color="#aca899" />
+		<effect show="" clip="this">
+		</effect>
 
-	</panel> <!--id="dplayer"-->
+		<layer x="3" y="0" width="122" height="150" margin="1,0,3">
+			<button id="" action="menu.popup();open_file()" x="0" y="0" width="122" height="23">
+				<attribs text="文件" offset="22" align="left,vcenter,singleline" color="#626262" />
+				<attribs font="fonts.arial_8" />
+				<states>
+					<normal border="0" bkclr="#ffffff" />
+					<hover border="0" bkclr="#d2d2d2" />
+					<down border="0" bkclr="#d2d2d2" />
+				</states>
+			</button>
+			
+			<button id="" action="" x="0" y="0" width="122" height="23">
+				<attribs text="播放" offset="22" align="left,vcenter,singleline" color="#626262" />			
+				<attribs font="fonts.arial_8" />
+				<states>
+					<normal border="0" bkclr="#ffffff" />
+					<hover border="0" bkclr="#d2d2d2" />
+					<down border="0" bkclr="#d2d2d2" />
+				</states>
+			</button>
+			
+			<button id="" action="" x="0" y="0" width="122" height="23">
+				<attribs text="显示" offset="22" align="left,vcenter,singleline" color="#626262" />			
+				<attribs font="fonts.arial_8" />
+				<states>
+					<normal border="0" bkclr="#ffffff" />
+					<hover border="0" bkclr="#d2d2d2" />
+					<down border="0" bkclr="#d2d2d2" />
+				</states>
+			</button>
+
+			<button id="" action="" x="0" y="0" width="122" height="23">
+				<attribs text="设置" offset="22" align="left,vcenter,singleline" color="#626262" />			
+				<attribs font="fonts.arial_8" />
+				<states>
+					<normal border="0" bkclr="#ffffff" />
+					<hover border="0" bkclr="#d2d2d2" />
+					<down border="0" bkclr="#d2d2d2" />
+				</states>
+			</button>
+
+			<button id="" action="menu.popup();about.show()" x="0" y="0" width="122" height="23">
+				<attribs text="关于DPlayer" offset="22" align="left,vcenter,singleline" color="#626262" />			
+				<attribs font="fonts.arial_8" />
+				<states>
+					<normal border="0" bkclr="#ffffff" />
+					<hover border="0" bkclr="#d2d2d2" />
+					<down border="0" bkclr="#d2d2d2" />
+				</states>
+			</button>
+			
+			<button id="" action="dplayer.close()" x="0" y="0" width="122" height="23">
+				<attribs text="退出" offset="22" align="left,vcenter,singleline" color="#626262" />			
+				<attribs font="fonts.arial_8" />
+				<states>
+					<normal border="0" bkclr="#ffffff" />
+					<hover border="0" bkclr="#d2d2d2" />
+					<down border="0" bkclr="#d2d2d2" />
+				</states>
+			</button>
+		</layer>
+	</panel>
+
+	<!--关于对话框-->
+	<panel id="about" type="modal" visible="false" bkimg="about.png">
+		<size x="0" y="0" width="375" height="283" />
+		<hittest>
+			<rect x="0" y="0" width="330" height="24" />
+		</hittest>
+		
+		<label text="关于DPlayer" x="24" y="4" width="180" height="20" color="#c2c2c2" font="fonts.bold_8" />
+
+		<label text="DPlayer" x="14" y="44" width="180" height="28" size="13" weight="700" />
+
+		<label text="Beta 1.0.1.10" x="20" y="75" width="100" height="20" font="fonts.song_10" />
+
+		<label x="18" y="133" width="400" height="60" font111="fonts.song_10">
+			<text>
+				Tristar 版权所有
+				Copyright (C) 2011 Tristar. All Rights Reserved.
+			</text>
+		</label>
+
+		<button action="dplayer.close()" x="330" y="1" width="38" height="21">
+			<states normal="imgs.main_hover" y="72" width="38" height="21">
+				<normal x="444" />
+				<hover x="482" />
+				<down x="520" />
+			</state>
+		</button>
+		
+		<button text="确定" action="dplayer.close()" x="295" y="251" width="59" height="24">
+			<attribs align="singleline,center,vcenter" />
+			<states normal="imgs.main_hover" y="38" width="59" height="24">
+				<normal x="232" />
+				<hover x="291" />
+				<down x="350" />
+			</state>
+		</button>
+	</panel>
+
 </directui>

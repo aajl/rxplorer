@@ -28,4 +28,19 @@ player_class.prototype.set_video_pos = function(x, y, width, height)
 	return window.call('', 'player.SetVideoPos', x, y, width, height);
 };
 
+player_class.prototype.duration = function()
+{
+	return Number(window.call('', 'player.GetDuration'));
+};
+
+player_class.prototype.get_play_pos = function()
+{
+	return Number(window.call('', 'player.GetPlayPos'));
+};
+
+player_class.prototype.set_play_pos = function(pos)
+{
+	return Number(window.call('', 'player.SetPlayPos', pos));
+};
+
 player = new player_class();
