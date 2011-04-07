@@ -2,9 +2,8 @@ function player_class()
 {
 };
 
-player_class.prototype.play = function()
+player_class.prototype.play = function(filepath)
 {
-	var filepath = dialog.open();
 	return window.call('', 'player.play', filepath);
 };
 

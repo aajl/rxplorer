@@ -8,7 +8,15 @@
 		
 		function open_file()
 		{
-			var ret = player.play();
+			var filepath = dialog.open();
+			play_file(filepath);
+		}
+		
+		function play_file(filepath)
+		{
+			print(filepath + '\n');
+			
+			var ret = player.play(filepath);
 			if(ret == "true")
 			{
 				set_video_pos();
@@ -413,7 +421,7 @@
 
 		<label text="DPlayer" x="14" y="44" width="180" height="28" size="13" weight="700" />
 
-		<label text="Beta 1.0.1.10" x="20" y="75" width="100" height="20" font="fonts.song_10" />
+		<label text="Beta 1.0.2.11" x="20" y="75" width="100" height="20" font="fonts.song_10" />
 
 		<label x="18" y="133" width="400" height="60" font111="fonts.song_10">
 			<text>
