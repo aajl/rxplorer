@@ -13,7 +13,7 @@
 	<filter name="NUT Splitter" format="nut" location="Filters\NutSplitter.ax" type="splitter" clsid="{90514D6A-76B7-4405-88A8-B4B1EF6061C6}" />
 	<filter name="OGG Splitter" format="ogg" location="Filters\OggSplitter.ax" type="splitter" clsid="{9FF48807-E133-40AA-826F-9B2959E5232D}" />
 	<filter name="ROQ Splitter" format="roq" location="Filters\RoqSplitter.ax" type="splitter" clsid="{C73DF7C1-21F2-44C7-A430-D35FB9BB298F}" />
-	<filter name="RealMedia Splitter" format="realmedia" location="Filters\RMSplitter.ax" type="splitter" clsid="{E21BE468-5C18-43EB-B0CC-DB93A847D769}" />
+	<filter name="RealMedia Splitter" format="realmedia" location="Filters\RealMediaSplitter.ax" type="splitter" clsid="{E21BE468-5C18-43EB-B0CC-DB93A847D769}" />
 	<filter name="Windows Media Splitter" format="windows media" location="" type="splitter" clsid="{187463A0-5BB7-11D3-ACBE-0080C75E246E}" />
 
 	<filter name="MPC Audio Decoder" location="Filters\MpcAudioDec.ax" priority="2" type="acodec">
