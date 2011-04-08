@@ -56,7 +56,6 @@
 		<mediatype sub="MEDIASUBTYPE_PCM_FL32_le">{666C3332-0000-0010-8000-00AA00389B71}</mediatype>
 		<mediatype sub="MEDIASUBTYPE_PCM_FL64_le">{666C3634-0000-0010-8000-00AA00389B71}</mediatype>
 		<mediatype sub="MEDIASUBTYPE_IMA4">{34616D69-0000-0010-8000-00AA00389B71}</mediatype>
-
 	</filter>
 	<filter name="FFDShow Audio Decoder" location="" priority="3" type="acodec">
 		<clsid>{0F40E1E5-4F79-4988-B1A9-CC98794E6B55}</clsid>

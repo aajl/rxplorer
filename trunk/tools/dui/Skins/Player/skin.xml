@@ -22,6 +22,7 @@
 				set_video_pos();
 				openfile.hide();
 				play_time.show();
+				play.check(true);
 				var duration = player.duration();
 				if(duration == 0)
 					play_progress.set_range(0, 100);
@@ -35,6 +36,7 @@
 		function stop_play()
 		{
 			player.stop();
+			play.check(false);
 			openfile.show();
 			play_time.hide();
 			play_progress.pos = 0;
@@ -146,7 +148,7 @@
 			<rect x="0" y="0" width="470" height="24" />
 		</hittest>
 
-		<label id="title" text="DPlayer" x="24" y="4" width="80" height="20" color="#FFFFFF" font="fonts.bold_10" />
+		<label id="title" text="DPlayer" x="24" y="4" width="80" height="20" color="#c2c2c2" font="fonts.bold_10" />
 
 		<!--系统按钮-->
 		<layer id="sys" x="501" y="1" width="110" height="21" float="right" margin="0,4">
@@ -203,14 +205,14 @@
 						<clip x="" y="" width="" height="" />
 					</effect>
 					
-					<button action="openas.popup();play_file();" position="relative" x="5" y="5" width="129" height="23">
-						<attribs text="打开本地文件" align="center,vcenter,singleline" color="#ffffff" />
+					<button action="openas.popup();open_file();" position="relative" x="5" y="5" width="129" height="23">
+						<attribs text="打开本地文件" align="center,vcenter,singleline" color="#959595" />
 						<states normal="imgs.openas_normal" hover="imgs.openas_hover" x="5" y="5">
 						</states>
 					</button>
 					
 					<button action="openas.popup();" position="relative" x="5" y="34" width="129" height="23">
-						<attribs text="打开URL" align="center,vcenter,singleline" color="#ffffff" />			
+						<attribs text="打开URL" align="center,vcenter,singleline" color="#959595" />			
 						<states normal="imgs.openas_normal" hover="imgs.openas_hover" x="5" y="34">
 						</states>
 					</button>
