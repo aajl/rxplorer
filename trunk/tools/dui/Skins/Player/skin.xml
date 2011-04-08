@@ -90,11 +90,7 @@
 		function change_volume()
 		{
 			var pos = volume.pos;
-			var new_pos = pos + 5;
-			if(new_pos > 100)
-				new_pos = 0;
-			
-			volume.pos = new_pos;
+			player.set_volume(pos);
 		}
 		
 		function move_main_menu()
@@ -306,13 +302,22 @@
 				</states>
 			</button>
 
-			<button id="mute" action="change_volume();" x="352" y="384" width="26" height="26">
-				<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
-				</states>
+			<button id="mute" action="player.mute();" x="355" y="387" width="20" height="20" checkable="true">
+				<states normal="imgs.main_hover" y="91" width="20" height="20">
+					<normal x="15" />
+					<hover x="35" />
+					<down x="55" />
+				</state>
+				<states normal="imgs.main_hover" y="91" width="20" height="20">
+					<normal x="76" />
+					<hover x="96" />
+					<down x="116" />
+				</state>
 			</button>
 			
 			<progress id="volume" x="380" y="396" width="60" height="8" range="0,100" pos="100">
 				<slider x="16" y="31" width="15" height="5" img="imgs.main_hover" />
+				<events track="change_volume()" />
 				<states normal="imgs.main_normal" down="imgs.main_hover" x="x" y="y">
 				</states>
 			</progress>
@@ -423,7 +428,7 @@
 
 		<label text="DPlayer" x="14" y="44" width="180" height="28" size="13" weight="700" />
 
-		<label text="Beta 1.0.2.11" x="20" y="75" width="100" height="20" font="fonts.song_10" />
+		<label text="Beta 1.0.3.12" x="20" y="75" width="100" height="20" font="fonts.song_10" />
 
 		<label x="18" y="133" width="400" height="60" font111="fonts.song_10">
 			<text>
