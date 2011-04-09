@@ -109,6 +109,7 @@
 	<imgs id="imgs" main_normal="main_normal.png" main_hover="main_hover.png">
 		<imgs openas_normal="openas_normal.png" openas_hover="openas_hover.png" />
 		<imgs logo="logo.png" />
+		<imgs walle="walle.png" />
 	</imgs>
 
 	<fonts id="fonts">
@@ -192,7 +193,8 @@
 			
 			<layer id="logo_panel" float="center,vcenter">
 				<!--logo-->
-				<img id="logo" src="imgs.logo" x="127" y="44" width="357" height="165" />
+				<!--img id="logo" src="imgs.logo" x="127" y="44" width="357" height="165" /-->
+				<img id="logo" src="imgs.walle" x="241" y="70" width="128" height="128" />
 				
 				<!--弹出窗口-->
 				<panel id="dlg_open_as" type="child" visible="false" bkimg="imgs.openas_normal">
