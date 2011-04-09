@@ -22,6 +22,16 @@ player_class.prototype.mute = function()
 	return window.call('', 'player.mute');
 };
 
+player_class.prototype.set_volume = function(volume)
+{
+	return window.call('', 'player.SetVolume', volume);
+};
+
+player_class.prototype.amplify = function(multiple)
+{
+	return window.call('', 'player.AmplifyVolume', multiple);
+};
+
 player_class.prototype.set_video_pos = function(x, y, width, height)
 {
 	return window.call('', 'player.SetVideoPos', x, y, width, height);
