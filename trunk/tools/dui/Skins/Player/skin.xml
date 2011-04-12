@@ -5,6 +5,7 @@
 	<script type="javascript">
 		<![CDATA[
 		var timer_play_pos;
+		var channel = 0;
 		
 		function open_file()
 		{
@@ -13,12 +14,12 @@
 		}
 		
 		function play_file(filepath)
-		{
-			print(filepath + '\n');
-			
+		{			
 			var ret = player.play(filepath);
 			if(ret == "true")
 			{
+				logo.hide();
+				play_progress.enable(true);
 				set_video_pos();
 				openfile.hide();
 				play_time.show();
@@ -35,11 +36,14 @@
 		
 		function stop_play()
 		{
-			player.stop();
+			logo.show();
+			footer.show();
 			play.check(false);
 			openfile.show();
 			play_time.hide();
 			play_progress.pos = 0;
+			play_progress.enable(false);
+			player.stop();
 		}
 		
 		function set_video_pos()
@@ -103,6 +107,24 @@
 			var top = rc_main_menu[1] + rc_menu_btn[3] + 4;
 			main_menu.move(rc_menu_btn[0], top, rc_main_menu[2], rc_main_menu[3]);
 		}
+		
+		function drop_files(files)
+		{
+			if(files.length == 0)
+				return;
+				
+			play_file(files[0]);
+		}
+		
+		function fullscreen()
+		{
+			var full = !player.get_fullscreen();
+			player.set_fullscreen(Number(full));
+			if(full)
+				footer.hide();
+			else
+				footer.show();
+		}
 		]]>
 	</script>
 
@@ -130,9 +152,9 @@
 			<disabled x="11" y="36" />
 		</states>
 	</scroll>
-			
-	<panel id="dplayer" title="DPlayer" type="app" bkimg="imgs.main_normal">
-		<events maximize="max.check(true)" restore="max.check(0)" />
+
+	<panel id="dplayer" title="DPlayer" type="app" bkimg="imgs.main_normal" drag="true">
+		<events maximize="max.check(true)" restore="max.check(0)" drop="drop_files()" />
 		<size x="0" y="0" width="611" height="425" />
 		<resize>
 			<top x="463" y="0" width="10" height="24" />
@@ -189,7 +211,7 @@
 
 		<!--视频窗口-->
 		<panel id="videowindow" x="1" y="24" width="609" height="341" bkclr="#141414" float="width,height">
-			<events resize="set_video_pos();" />
+			<events resize="set_video_pos();" dbclk="fullscreen()" />
 			
 			<layer id="logo_panel" float="center,vcenter">
 				<!--logo-->
@@ -218,15 +240,20 @@
 
 				<!--主页上的打开按钮-->
 				<layer id="openfile" x="236" y="214">
-					<button id="open" action="open_file()" x="236" y="214" width="109" height="45">
-						<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
-						</states>
+					<button id="open" action="open_file()" x="236" y="214" width="108" height="45">
+						<states normal="imgs.main_hover" x="232" width="108" height="45">
+							<normal y="109"  />
+							<hover y="155" />
+						</state>
 					</button>
 					
 					<button id="openas" x="344" y="214" width="31" height="45">
 						<attribs popup="javascript:dlg_open_as.id" />
-						<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
-						</states>
+						<states normal="imgs.main_hover" y="63" width="31" height="45">
+							<normal x="232" />
+							<hover x="263" />
+							<down x="294" />
+						</state>
 					</button>
 				</layer>
 			</layer>
@@ -260,94 +287,97 @@
 			</img>
 		</layer>
 
-		<progress id="play_progress" x="20" y="369" width="572" height="8" range="0,100" pos="0" float="width,bottom">
-			<slider x="16" y="31" width="15" height="5" img="imgs.main_hover" />
-			<events track="set_play_pos()" tracking="" />
-			<states>
-				<normal link="javascript:prgrs.id" />
-				<down link="javascript:prgrs_down.id" />
-			</states>
-		</progress>
-
-		<label id="play_time" text="00:00:00 / 00:00:00" visible="false" x="20" y="395" width="120" height="20">
-			<attribs bkimg="imgs.main_normal" font="fonts.arial_8" color="#c2c2c2" float="bottom" />
-			<image x="20" y="395" width="120" height="20" />
-		</label>
-		
-		<!--播放控制-->
-		<layer id="play_ctrl" x="305" float="center,bottom">
-			<button id="stop" action="stop_play();" x="177" y="384" width="26" height="26">
-				<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
-				</states>
-			</button>
-
-			<button id="prev" action="" x="218" y="384" width="26" height="26">
-				<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
-				</states>
-			</button>
-
-			<button id="play" action="player.pause()" x="258" y="380" width="32" height="32" checkable="true">
-				<states normal="imgs.main_hover" y="38" width="32" height="32">
-					<normal x="113" />
-					<hover x="145" />
-					<down x="177" />
-				</state>
-				<states normal="imgs.main_hover" y="38" width="32" height="32">
-					<normal x="16" />
-					<hover x="48" />
-					<down x="80" />
-				</state>
-			</button>
-
-			<button id="next" action="" x="308" y="384" width="26" height="26">
-				<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
-				</states>
-			</button>
-
-			<button id="mute" action="player.mute();" x="355" y="387" width="20" height="20" checkable="true">
-				<states normal="imgs.main_hover" y="91" width="20" height="20">
-					<normal x="15" />
-					<hover x="35" />
-					<down x="55" />
-				</state>
-				<states normal="imgs.main_hover" y="91" width="20" height="20">
-					<normal x="76" />
-					<hover x="96" />
-					<down x="116" />
-				</state>
-			</button>
-			
-			<progress id="volume" x="380" y="396" width="60" height="8" range="0,100" pos="100">
+		<layer id="footer">
+			<progress id="play_progress" x="20" y="369" width="572" height="8" range="0,100" pos="0">
+				<attribs float="width,bottom" enable="false" />
 				<slider x="16" y="31" width="15" height="5" img="imgs.main_hover" />
-				<events track="change_volume()" />
-				<states normal="imgs.main_normal" down="imgs.main_hover" x="x" y="y">
+				<events track="set_play_pos()" tracking="" />
+				<states>
+					<normal link="javascript:prgrs.id" />
+					<down link="javascript:prgrs_down.id" />
 				</states>
 			</progress>
-		</layer>
-		
-		<!--截图及播放列表-->
-		<layer x="556" y="394" width="55" height="20" margin="5" float="right,bottom">
-			<button id="" action="" x="0" y="0" width="20" height="19">
-				<states normal="imgs.main_hover" y="112" width="20" height="19">
-					<normal x="444" />
-					<hover x="464" />
-					<down x="484" />
-				</state>
-			</button>
-			<button id="playlist" action="" x="0" y="0" width="20" height="19" checkable="true">
-				<states normal="imgs.main_hover" y="112" width="20" height="19">
-					<normal x="505" />
-					<hover x="525" />
-					<down x="545" />
-				</state>
-				<states normal="imgs.main_hover" y="132" width="20" height="19">
-					<normal x="505" />
-					<hover x="525" />
-					<down x="545" />
-				</state>
-			</button>
-		</layer>
-	</panel> <!--end dplayer-->
+
+			<label id="play_time" text="00:00:00 / 00:00:00" visible="false" x="20" y="395" width="120" height="20">
+				<attribs bkimg="imgs.main_normal" font="fonts.arial_8" color="#c2c2c2" float="bottom" />
+				<image x="20" y="395" width="120" height="20" />
+			</label>
+			
+			<!--播放控制-->
+			<layer id="play_ctrl" x="305" float="center,bottom">
+				<button id="stop" action="stop_play();" x="177" y="384" width="26" height="26">
+					<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
+					</states>
+				</button>
+
+				<button id="prev" action="" x="218" y="384" width="26" height="26">
+					<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
+					</states>
+				</button>
+
+				<button id="play" action="player.pause()" x="258" y="380" width="32" height="32" checkable="true">
+					<states normal="imgs.main_hover" y="38" width="32" height="32">
+						<normal x="113" />
+						<hover x="145" />
+						<down x="177" />
+					</state>
+					<states normal="imgs.main_hover" y="38" width="32" height="32">
+						<normal x="16" />
+						<hover x="48" />
+						<down x="80" />
+					</state>
+				</button>
+
+				<button id="next" action="" x="308" y="384" width="26" height="26">
+					<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
+					</states>
+				</button>
+
+				<button id="mute" action="player.mute();" x="355" y="387" width="20" height="20" checkable="true">
+					<states normal="imgs.main_hover" y="91" width="20" height="20">
+						<normal x="15" />
+						<hover x="35" />
+						<down x="55" />
+					</state>
+					<states normal="imgs.main_hover" y="91" width="20" height="20">
+						<normal x="76" />
+						<hover x="96" />
+						<down x="116" />
+					</state>
+				</button>
+				
+				<progress id="volume" x="380" y="396" width="60" height="8" range="0,100" pos="100">
+					<slider x="16" y="31" width="15" height="5" img="imgs.main_hover" />
+					<events track="change_volume()" />
+					<states normal="imgs.main_normal" down="imgs.main_hover" x="x" y="y">
+					</states>
+				</progress>
+			</layer>
+			
+			<!--截图及播放列表-->
+			<layer x="556" y="394" width="55" height="20" margin="5" float="right,bottom">
+				<button id="" action="player.set_channel(++channel % 3);" x="0" y="0" width="20" height="19">
+					<states normal="imgs.main_hover" y="112" width="20" height="19">
+						<normal x="444" />
+						<hover x="464" />
+						<down x="484" />
+					</state>
+				</button>
+				<button id="playlist" action="" x="0" y="0" width="20" height="19" checkable="true">
+					<states normal="imgs.main_hover" y="112" width="20" height="19">
+						<normal x="505" />
+						<hover x="525" />
+						<down x="545" />
+					</state>
+					<states normal="imgs.main_hover" y="132" width="20" height="19">
+						<normal x="505" />
+						<hover x="525" />
+						<down x="545" />
+					</state>
+				</button>
+			</layer>
+		</layer> <!-- end footer -->
+	</panel> <!-- end dplayer -->
 	
 	<!--主菜单-->
 	<panel id="main_menu" type="modeless" visible="false" bkclr="#ffffff">
@@ -430,7 +460,7 @@
 
 		<label text="DPlayer" x="14" y="44" width="180" height="28" size="13" weight="700" />
 
-		<label text="Beta 1.0.3.12" x="20" y="75" width="100" height="20" font="fonts.song_10" />
+		<label text="Beta 1.0.4.13" x="20" y="75" width="100" height="20" font="fonts.song_10" />
 
 		<label x="18" y="133" width="400" height="60" font111="fonts.song_10">
 			<text>

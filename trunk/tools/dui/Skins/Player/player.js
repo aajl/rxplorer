@@ -32,6 +32,11 @@ player_class.prototype.amplify = function(multiple)
 	return window.call('', 'player.AmplifyVolume', multiple);
 };
 
+player_class.prototype.set_channel = function(channel)
+{
+	return window.call('', 'player.SetChannel', channel);
+};
+
 player_class.prototype.set_video_pos = function(x, y, width, height)
 {
 	return window.call('', 'player.SetVideoPos', x, y, width, height);
@@ -49,7 +54,17 @@ player_class.prototype.get_play_pos = function()
 
 player_class.prototype.set_play_pos = function(pos)
 {
-	return Number(window.call('', 'player.SetPlayPos', pos));
+	return window.call('', 'player.SetPlayPos', pos);
+};
+
+player_class.prototype.get_fullscreen = function()
+{
+	return Boolean(Number(window.call('', 'player.GetFullscreen')));
+};
+
+player_class.prototype.set_fullscreen = function(fullscreen)
+{
+	return window.call('', 'player.SetFullscreen', fullscreen);
 };
 
 player = new player_class();
