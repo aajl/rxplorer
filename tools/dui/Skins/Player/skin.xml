@@ -14,7 +14,7 @@
 		}
 		
 		function play_file(filepath)
-		{			
+		{
 			var ret = player.play(filepath);
 			if(ret == "true")
 			{
@@ -119,7 +119,9 @@
 		function fullscreen()
 		{
 			var full = !player.get_fullscreen();
-			player.set_fullscreen(Number(full));
+			if(!player.set_fullscreen(Number(full)))
+				return;
+				
 			if(full)
 				footer.hide();
 			else
@@ -431,7 +433,7 @@
 
 		<label text="DPlayer" x="14" y="44" width="180" height="28" size="13" weight="700" />
 
-		<label text="Beta 1.0.4.13" x="20" y="75" width="100" height="20" font="fonts.song_10" />
+		<label text="Beta 1.0.5.14" x="20" y="75" width="100" height="20" font="fonts.song_10" />
 
 		<label x="18" y="133" width="400" height="60" font111="fonts.song_10">
 			<text>
