@@ -130,8 +130,6 @@
 
 	<imgs id="imgs" main_normal="main_normal.png" main_hover="main_hover.png">
 		<imgs openas_normal="openas_normal.png" openas_hover="openas_hover.png" />
-		<imgs logo="logo.png" />
-		<imgs walle="walle.png" />
 	</imgs>
 
 	<fonts id="fonts">
@@ -215,9 +213,9 @@
 			
 			<layer id="logo_panel" float="center,vcenter">
 				<!--logo-->
-				<!--img id="logo" src="imgs.logo" x="127" y="44" width="357" height="165" /-->
-				<img id="logo" src="imgs.walle" x="241" y="70" width="128" height="128" />
-				
+				<!--img id="logo" src="logo.png" x="127" y="44" width="357" height="165" /-->
+				<img id="logo" src="walle.png" x="241" y="70" width="128" height="128" />
+												
 				<!--弹出窗口-->
 				<panel id="dlg_open_as" type="child" visible="false" bkimg="imgs.openas_normal">
 					<size x="237" y="260" width="138" height="77" />
@@ -379,37 +377,48 @@
 		</layer> <!-- end footer -->
 	</panel> <!-- end dplayer -->
 	
-	<!--主菜单-->
-	<panel id="main_menu" type="modeless" visible="false" bkclr="#ffffff">
-		<size x="504" y="24" width="128" height="150" />
+	<menu id="main_menu" x="504" y="24" width="128" height="145" visible="false" bkclr="#ffffff">
 		<border width="1" color="#aca899" />
-		<effect show="" clip="this">
-		</effect>
+		
+		<items height="23">
+			<item id="menu_file" text="文件" img="imgs.main_hover" src="submenu.png" x="444" y="32" action="menu.popup();open_file()">
+				<item text="打开文件" />
+				<item text="打开URL" />
+				<separator />
+				<item text="文件信息" />
+			</item>
+			<item id="menu_play" text="播放" src="submenu.png">
+				<item text="播放/暂停" />
+				<item text="停止" />
+			</item>
+			<item id="menu_display" text="显示" img="imgs.main_hover" src="submenu.png" x="444" y="52">
+				<item text="全屏" />
+				<item text="普通模式" />
+				<separator />
+				<item text="播放时置顶" />
+				<item text="总时置顶" />
+				<item text="取消置顶" />
+			</item>
+			<item id="menu_setting" text="设置" />
+			<separator />
+			<item id="menu_about" text="关于DPlayer" action="menu.popup();about.show()" />
+			<item id="menu_exit" text="退出" img="close.png" x="0" y="0" action="dplayer.close()" />
+		</items>
+		
+		<layer id="item.id" x="0" y="0" width="122" height="23" action="item.action">
+			<states>
+				<normal border="0" bkclr="#ffffff" />
+				<hover border="0" bkclr="#d2d2d2" />
+				<down border="0" bkclr="#d2d2d2" />
+			</states>
 
-		<custom x="3" y="3" width="122" height="139" margin="2,0,0,0">
-			<items height="23">
-				<item id="menu_file" text="文件" img="imgs.main_hover" src="submenu.png" x="444" y="32" action="menu.popup();open_file()" />
-				<item id="menu_play" text="播放" src="submenu.png" />
-				<item id="menu_display" text="显示" img="imgs.main_hover" src="submenu.png" x="444" y="52" />
-				<item id="menu_setting" text="设置" />
-				<item id="menu_about" text="关于DPlayer" action="menu.popup();about.show()" />
-				<item id="menu_exit" text="退出" img="close.png" x="0" y="0" action="dplayer.close()" />
-			</items>
-			<layer id="item.id" x="0" y="0" width="122" height="23" action="item.action">
-				<states>
-					<normal border="0" bkclr="#ffffff" />
-					<hover border="0" bkclr="#d2d2d2" />
-					<down border="0" bkclr="#d2d2d2" />
-				</states>
-
-				<label bkimg="item.img" x="0" y="0" width="122" height="23">
-					<attribs text="item.text" offset="23" align="singleline,vcenter" />
-					<image x="item.x" y="item.y" width="19" height="19" dx="2" dy="2" />
-				</label>
-				<img src="item.src" position="relative" x="110" y="8" width="7" height="7" />
-			</layer>
-		</custom>
-	</panel>
+			<label bkimg="item.img" x="0" y="0" width="122" height="23">
+				<attribs text="item.text" offset="23" align="singleline,vcenter" />
+				<image x="item.x" y="item.y" width="19" height="19" dx="2" dy="2" />
+			</label>
+			<img src="item.src" position="relative" x="110" y="8" width="7" height="7" />
+		</layer>
+	</menu>
 
 	<!--关于对话框-->
 	<panel id="about" type="modal" visible="false" bkimg="about.png">
