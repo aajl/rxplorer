@@ -386,67 +386,29 @@
 		<effect show="" clip="this">
 		</effect>
 
-		<layer x="3" y="0" width="122" height="150" margin="1,0,3">
-			<button id="" action="menu.popup();open_file()" x="0" y="0" width="122" height="23">
-				<attribs text="文件" offset="22" align="left,vcenter,singleline" color="#626262" />
-				<attribs font="fonts.arial_8" />
+		<custom x="3" y="3" width="122" height="139" margin="2,0,0,0">
+			<items height="23">
+				<item id="menu_file" text="文件" img="imgs.main_hover" src="submenu.png" x="444" y="32" action="menu.popup();open_file()" />
+				<item id="menu_play" text="播放" src="submenu.png" />
+				<item id="menu_display" text="显示" img="imgs.main_hover" src="submenu.png" x="444" y="52" />
+				<item id="menu_setting" text="设置" />
+				<item id="menu_about" text="关于DPlayer" action="menu.popup();about.show()" />
+				<item id="menu_exit" text="退出" img="close.png" x="0" y="0" action="dplayer.close()" />
+			</items>
+			<layer id="item.id" x="0" y="0" width="122" height="23" action="item.action">
 				<states>
 					<normal border="0" bkclr="#ffffff" />
 					<hover border="0" bkclr="#d2d2d2" />
 					<down border="0" bkclr="#d2d2d2" />
 				</states>
-			</button>
-			
-			<button id="" action="" x="0" y="0" width="122" height="23">
-				<attribs text="播放" offset="22" align="left,vcenter,singleline" color="#626262" />			
-				<attribs font="fonts.arial_8" />
-				<states>
-					<normal border="0" bkclr="#ffffff" />
-					<hover border="0" bkclr="#d2d2d2" />
-					<down border="0" bkclr="#d2d2d2" />
-				</states>
-			</button>
-			
-			<button id="" action="" x="0" y="0" width="122" height="23">
-				<attribs text="显示" offset="22" align="left,vcenter,singleline" color="#626262" />			
-				<attribs font="fonts.arial_8" />
-				<states>
-					<normal border="0" bkclr="#ffffff" />
-					<hover border="0" bkclr="#d2d2d2" />
-					<down border="0" bkclr="#d2d2d2" />
-				</states>
-			</button>
 
-			<button id="" action="" x="0" y="0" width="122" height="23">
-				<attribs text="设置" offset="22" align="left,vcenter,singleline" color="#626262" />			
-				<attribs font="fonts.arial_8" />
-				<states>
-					<normal border="0" bkclr="#ffffff" />
-					<hover border="0" bkclr="#d2d2d2" />
-					<down border="0" bkclr="#d2d2d2" />
-				</states>
-			</button>
-
-			<button id="" action="menu.popup();about.show()" x="0" y="0" width="122" height="23">
-				<attribs text="关于DPlayer" offset="22" align="left,vcenter,singleline" color="#626262" />			
-				<attribs font="fonts.arial_8" />
-				<states>
-					<normal border="0" bkclr="#ffffff" />
-					<hover border="0" bkclr="#d2d2d2" />
-					<down border="0" bkclr="#d2d2d2" />
-				</states>
-			</button>
-			
-			<button id="" action="dplayer.close()" x="0" y="0" width="122" height="23">
-				<attribs text="退出" offset="22" align="left,vcenter,singleline" color="#626262" />			
-				<attribs font="fonts.arial_8" />
-				<states>
-					<normal border="0" bkclr="#ffffff" />
-					<hover border="0" bkclr="#d2d2d2" />
-					<down border="0" bkclr="#d2d2d2" />
-				</states>
-			</button>
-		</layer>
+				<label bkimg="item.img" x="0" y="0" width="122" height="23">
+					<attribs text="item.text" offset="23" align="singleline,vcenter" />
+					<image x="item.x" y="item.y" width="19" height="19" dx="2" dy="2" />
+				</label>
+				<img src="item.src" position="relative" x="110" y="8" width="7" height="7" />
+			</layer>
+		</custom>
 	</panel>
 
 	<!--关于对话框-->
