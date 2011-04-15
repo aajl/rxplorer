@@ -64,7 +64,7 @@ player_class.prototype.get_fullscreen = function()
 
 player_class.prototype.set_fullscreen = function(fullscreen)
 {
-	return window.call('', 'player.SetFullscreen', fullscreen);
+	return Boolean(Number(window.call('', 'player.SetFullscreen', fullscreen)));
 };
 
 player = new player_class();
