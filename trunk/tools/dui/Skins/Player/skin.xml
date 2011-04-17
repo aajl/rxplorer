@@ -101,10 +101,10 @@
 		{
 			if(menu.popuped)
 				return;
-				
+
 			var rc_menu_btn = menu.screen_rect();
 			var rc_main_menu = main_menu.rect();
-			var top = rc_main_menu[1] + rc_menu_btn[3] + 4;
+			var top = rc_menu_btn[1] + rc_menu_btn[3] + 4;
 			main_menu.move(rc_menu_btn[0], top, rc_main_menu[2], rc_main_menu[3]);
 		}
 		
@@ -379,21 +379,24 @@
 		</layer> <!-- end footer -->
 	</panel> <!-- end dplayer -->
 	
-	<menu id="main_menu" x="504" y="24" width="128" height="145" visible="false" bkclr="#ffffff">
+	<menu id="main_menu" x="504" y="24" width="128" height="145" visible="false" bkclr="#ffffff" margin="2,0,0,0">
 		<border width="1" color="#aca899" />
 		
 		<items height="23">
-			<item id="menu_file" text="文件" img="imgs.main_hover" src="submenu.png" x="444" y="32" action="menu.popup();open_file()">
-				<item text="打开文件" />
+			<item id="menu_file" text="文件" img="imgs.main_hover" src="submenu.png" x="444" y="32"
+				  mouse_in="menu_file.show()" mouse_out="menu_file.hide()">
+				<item text="打开文件" action="menu.popup();open_file()" />
 				<item text="打开URL" />
 				<separator />
 				<item text="文件信息" />
 			</item>
-			<item id="menu_play" text="播放" src="submenu.png">
+			<item id="menu_play" text="播放" src="submenu.png"
+				  mouse_in="menu_play.show()" mouse_out="menu_play.hide()">
 				<item text="播放/暂停" />
 				<item text="停止" />
 			</item>
-			<item id="menu_display" text="显示" img="imgs.main_hover" src="submenu.png" x="444" y="52">
+			<item id="menu_display" text="显示" img="imgs.main_hover" src="submenu.png" x="444" y="52"
+				  mouse_in="menu_display.show()" mouse_out="menu_display.hide()">
 				<item text="全屏" />
 				<item text="普通模式" />
 				<separator />
@@ -407,7 +410,8 @@
 			<item id="menu_exit" text="退出" img="close.png" x="0" y="0" action="dplayer.close()" />
 		</items>
 		
-		<layer id="item.id" x="0" y="0" width="122" height="23" action="item.action">
+		<layer x="0" y="0" width="122" height="23" action="item.action">
+			<events mouse_in="item.mouse_in" mouse_out="item.mouse_out" />
 			<states>
 				<normal border="0" bkclr="#ffffff" />
 				<hover border="0" bkclr="#d2d2d2" />
@@ -433,7 +437,7 @@
 
 		<label text="DPlayer" x="14" y="44" width="180" height="28" size="13" weight="700" />
 
-		<label text="Beta 1.0.5.14" x="20" y="75" width="100" height="20" font="fonts.song_10" />
+		<label text="Beta 1.0.6.15" x="20" y="75" width="100" height="20" font="fonts.song_10" />
 
 		<label x="18" y="133" width="400" height="60" font111="fonts.song_10">
 			<text>
