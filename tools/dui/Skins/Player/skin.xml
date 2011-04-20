@@ -379,7 +379,7 @@
 		</layer> <!-- end footer -->
 	</panel> <!-- end dplayer -->
 	
-	<menu id="main_menu" x="504" y="24" width="126" height="145" visible="false" bkclr="#ffffff" margin="0,0,0,0">
+	<menu id="main_menu" x="504" y="24" width="126" height="145" visible="false" bkclr="#ffffff" margin="1,0,0,0">
 		<border width="1" color="#aca899" />
 		
 		<items height="23">
@@ -403,6 +403,12 @@
 				<item text="播放时置顶" />
 				<item text="总时置顶" />
 				<item text="取消置顶" />
+			</item>
+			<item id="menu_channel" text="声道" src="submenu.png"
+				  mouse_in="menu_channel.show()" mouse_out="menu_channel.hide()">
+				<item text="左声道" action="player.set_channel(0);menu.popup()" />
+				<item text="右声道" action="player.set_channel(1);menu.popup()"/>
+				<item text="立体声" action="player.set_channel(2);menu.popup()"/>
 			</item>
 			<item id="menu_setting" text="设置" />
 			<separator />
@@ -437,7 +443,7 @@
 
 		<label text="DPlayer" x="14" y="44" width="180" height="28" size="13" weight="700" />
 
-		<label text="Beta 1.0.8.17" x="20" y="75" width="100" height="20" font="fonts.song_10" />
+		<label text="Beta 1.0.9.18" x="20" y="75" width="100" height="20" font="fonts.song_10" />
 
 		<label x="18" y="133" width="400" height="60" font111="fonts.song_10">
 			<text>
