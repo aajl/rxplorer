@@ -621,7 +621,7 @@
 	</menu>
 
 	<!--关于对话框-->
-	<panel id="about" type="modal" visible="false" bkimg="about.png">
+	<panel id="about" type="modal" visible="false" bkimg="about.png" alpha="95">
 		<size x="0" y="0" width="375" height="283" />
 		<hittest>
 			<rect x="0" y="0" width="330" height="24" />
@@ -631,7 +631,7 @@
 
 		<label text="DPlayer" x="14" y="44" width="180" height="28" size="13" weight="700" />
 
-		<label text="Beta 1.0.11.20" x="20" y="75" width="100" height="20" font="fonts.song_10" />
+		<label text="Beta 1.0.11.21" x="20" y="75" width="100" height="20" font="fonts.song_10" />
 
 		<label x="18" y="133" width="400" height="60" font111="fonts.song_10">
 			<text>
