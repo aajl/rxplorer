@@ -4,8 +4,11 @@
 	<script type="javascript" file="player.js" />
 	<script type="javascript">
 		<![CDATA[
-		var timer_play_pos;
-		var channel = 0;
+		var timer_play_pos = 0;
+		var show_cursor = true;
+		var prev_cursor_x = 0;
+		var prev_cursor_y = 0;
+		var cursor_count = 0;
 		
 		function open_file()
 		{
@@ -15,6 +18,10 @@
 		
 		function play_file(filepath)
 		{
+			show_cursor = true;
+			prev_cursor_x = 0;
+			prev_cursor_y = 0;
+			
 			var ret = player.play(filepath);
 			if(ret == "true")
 			{
@@ -26,10 +33,16 @@
 				play.check(true);
 				var duration = player.duration();
 				if(duration == 0)
+				{
 					play_progress.set_range(0, 100);
+					footer_play_progress.set_range(0, 100);
+				}
 				else
+				{
 					play_progress.set_range(0, duration);
-
+					footer_play_progress.set_range(0, duration);
+				}
+				
 				filename.text = filepath.substr(filepath.lastIndexOf('\\') + 1);
 				timer_play_pos = window.setInterval(1000, 'get_play_pos()');
 			}
@@ -37,6 +50,10 @@
 		
 		function stop_play()
 		{
+			var full = player.get_fullscreen();
+			if(full)
+				player.set_fullscreen(Number(!full));
+
 			filename.text = "";
 			logo.show();
 			footer.show();
@@ -44,7 +61,9 @@
 			openfile.show();
 			play_time.hide();
 			play_progress.pos = 0;
+			footer_play_progress.pos = 0;
 			play_progress.enable(false);
+			footer_ctrl_bar.hide();
 			player.stop();
 		}
 		
@@ -53,13 +72,13 @@
 			player.set_video_pos(videowindow.x, videowindow.y, videowindow.width, videowindow.height);
 		}
 		
-		function set_play_pos()
+		function set_play_pos(play_prgrs)
 		{
 			var duration = player.duration();
 			if(duration == 0)
 				return;
 			
-			player.set_play_pos(play_progress.pos);
+			player.set_play_pos(play_prgrs.pos);
 		}
 		
 		function get_play_pos()
@@ -67,9 +86,31 @@
 			var duration = player.duration();
 			if(duration == 0)
 				return;
-
+			
+			var full = player.get_fullscreen();
+			if(full)
+			{
+				var pt = window.cursor_pos();
+				if(prev_cursor_x == pt.x && prev_cursor_y == pt.y)
+				{
+					if(show_cursor && ++cursor_count == 5)
+					{
+						show_cursor = false;
+						window.show_cursor(false);
+						footer_ctrl_bar.hide();
+					}				
+				}
+				else
+				{
+					cursor_count = 0;
+					prev_cursor_x = pt.x;
+					prev_cursor_y = pt.y;
+				}
+			}
+			
 			var playpos = player.get_play_pos();
 			play_progress.pos = playpos;
+			footer_play_progress.pos = playpos;
 			
 			function fmt(tt)
 			{
@@ -85,6 +126,7 @@
 			ss = parseInt(duration % 60);
 			text += fmt(hh) + ":" + fmt(mm) + ":" + fmt(ss);
 			play_time.text = text;
+			footer_play_time.text = text;
 			
 			if(duration == playpos)
 			{
@@ -93,9 +135,26 @@
 			}
 		}
 		
-		function change_volume()
+		function show_ctrl_bar()
 		{
-			var pos = volume.pos;
+			if(show_cursor)
+				return;
+				
+			var pt = window.cursor_pos();
+			if(prev_cursor_x == pt.x && prev_cursor_y == pt.y)
+				return;
+
+			cursor_count = 0;
+			show_cursor = true;
+			prev_cursor_x = 0;
+			prev_cursor_y = 0;
+			window.show_cursor(true);
+			footer_ctrl_bar.show();
+		}
+		
+		function change_volume(volume_ctrl)
+		{
+			var pos = volume_ctrl.pos;
 			player.set_volume(pos);
 		}
 		
@@ -106,8 +165,8 @@
 
 			var rc_menu_btn = menu.screen_rect();
 			var rc_main_menu = main_menu.rect();
-			var top = rc_menu_btn[1] + rc_menu_btn[3] + 4;
-			main_menu.move(rc_menu_btn[0], top, rc_main_menu[2], rc_main_menu[3]);
+			var top = rc_menu_btn.top + rc_menu_btn.height + 4;
+			main_menu.move(rc_menu_btn.left, top, rc_main_menu.width, rc_main_menu.height);
 		}
 		
 		function drop_files(files)
@@ -125,9 +184,21 @@
 				return;
 				
 			if(full)
+			{
+				var rc_ctrl_bar = footer_ctrl_bar.rect();
+				var rc_player = dplayer.screen_rect();
+				var left = rc_player.left;
+				var top = rc_player.top + rc_player.height - rc_ctrl_bar.height;
+				footer_ctrl_bar.move(left, top, rc_player.width, rc_ctrl_bar.height);			
+				
 				footer.hide();
+				footer_ctrl_bar.show();
+			}
 			else
+			{
 				footer.show();
+				footer_ctrl_bar.hide();
+			}
 		}
 		]]>
 	</script>
@@ -155,24 +226,32 @@
 		</states>
 	</scroll>
 
-	<panel id="dplayer" title="DPlayer" type="app" bkimg="imgs.main_normal" drag="true">
+	<panel id="dplayer" title="DPlayer" type="app" bkimg="" drag="true">
 		<events maximize="max.check(true)" restore="max.check(0)" drop="drop_files()" />
-		<size x="0" y="0" width="611" height="425" />
-		<resize>
+		<size x="0" y="0" width="611" height="425" resize="true" min-width="611" min-height="425" />
+		<eresize>
 			<top x="463" y="0" width="10" height="24" />
 			<left x="0" y="24" width="1" height="20" />
 			<right x="610" y="24" width="1" height="20" />
 			<bottom_left x="3" y="377" width="121" height="48" />
 			<bottom_right x="486" y="377" width="66" height="48" />
-		</resize>
+		</eresize>
 		<hittest>
 			<rect x="0" y="0" width="470" height="24" />
 		</hittest>
 
-		<label id="title" text="DPlayer" x="24" y="4" width="80" height="20" color="#c2c2c2" font="fonts.bold_10" />
+		<img src="imgs.main_hover" x="80" y="0" width="531" height="23" adapt="true" float="width">
+			<image x="x" y="y" width="5" height="height" />
+		</img>
+
+		<label id="title" text="DPlayer" x="0" y="0" width="80" height="23" color="#c2c2c2" font="fonts.bold_10">
+			<attribs bkimg="imgs.main_hover" offset="24" align="left,vcenter,singleline" />
+			<image x="x" y="y" width="width" height="height" />
+		</label>
+		
 		<label id="filename" text="" x="80" y="0" width="415" height="23" color="#c2c2c2" font="fonts.bold_8">
-			<attribs bkimg="imgs.main_normal" float="center" align="center,vcenter,singleline" />
-			<image x="80" y="0" width="415" height="23" />
+			<attribs bkimg="imgs.main_hover" float="width" align="center,vcenter,singleline" />
+			<image x="x" y="y" width="width" height="height" />
 		</label>
 		
 		<!--系统按钮-->
@@ -217,7 +296,7 @@
 
 		<!--视频窗口-->
 		<panel id="videowindow" type="" x="1" y="24" width="609" height="341" bkclr="#141414" float="width,height">
-			<events resize="set_video_pos();" dbclk="fullscreen()" />
+			<events resize="set_video_pos();" dbclk="fullscreen()" mouse_move="show_ctrl_bar()" />
 
 			<layer id="logo_panel" float="center,vcenter">
 				<!--logo-->
@@ -265,19 +344,23 @@
 			</layer>
 		</panel>
 		
-		<img src="imgs.main_normal" x="1" y="365" width="609" height="12" adapt="true" float="width,bottom">
-			<image x="5" y="365" width="5" height="12" />
+		<img src="imgs.main_hover" x="1" y="365" width="609" height="60" adapt="true" float="width,bottom">
+			<image x="15" y="y" width="5" height="height" />
 		</img>
 		
+		<img src="imgs.main_hover" x="124" y="377" width="365" height="42" adapt="true" float="center,bottom">
+			<image x="x" y="y" width="width" height="height" />
+		</img>
+
 		<layer id="prgrs" visible="false">
-			<img src="imgs.main_normal" width="2" height="8" float="bottom">
-				<image x="20" y="369" width="2" height="8" />
+			<img src="imgs.main_hover" width="2" height="8" float="bottom">
+				<image x="20" y="356" width="2" height="8" />
 			</img>
-			<img src="imgs.main_normal" width="2" height="8" adapt="true" float="width,bottom">
-				<image x="28" y="369" width="2" height="8" />
+			<img src="imgs.main_hover" width="2" height="8" adapt="true" float="width,bottom">
+				<image x="28" y="356" width="2" height="8" />
 			</img>
-			<img src="imgs.main_normal" width="2" height="8" float="right,bottom">
-				<image x="589" y="369" width="2" height="8" />
+			<img src="imgs.main_hover" width="2" height="8" float="right,bottom">
+				<image x="589" y="356" width="2" height="8" />
 			</img>
 		</layer>
 		
@@ -297,7 +380,7 @@
 			<progress id="play_progress" x="20" y="369" width="572" height="8" range="0,100" pos="0">
 				<attribs float="width,bottom" enable="false" />
 				<slider x="16" y="31" width="15" height="5" img="imgs.main_hover" />
-				<events track="set_play_pos()" tracking="" />
+				<events track="set_play_pos(play_progress)" tracking="" />
 				<states>
 					<normal link="javascript:prgrs.id" />
 					<down link="javascript:prgrs_down.id" />
@@ -305,20 +388,26 @@
 			</progress>
 
 			<label id="play_time" text="00:00:00 / 00:00:00" visible="false" x="20" y="395" width="120" height="20">
-				<attribs bkimg="imgs.main_normal" font="fonts.arial_8" color="#c2c2c2" float="bottom" />
+				<attribs bkimg="imgs.main_hover" font="fonts.arial_8" color="#c2c2c2" float="bottom" />
 				<image x="20" y="395" width="120" height="20" />
 			</label>
 			
 			<!--播放控制-->
 			<layer id="play_ctrl" x="305" float="center,bottom">
-				<button id="stop" action="stop_play();" x="177" y="384" width="26" height="26">
-					<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
-					</states>
+				<button id="stop" action="stop_play();" x="177" y="389" width="17" height="17">
+					<states normal="imgs.main_hover" y="71" width="17" height="17">
+						<normal x="16" />
+						<hover x="33" />
+						<down x="50" />
+					</state>
 				</button>
 
-				<button id="prev" action="" x="218" y="384" width="26" height="26">
-					<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
-					</states>
+				<button id="prev" action="" x="218" y="388" width="19" height="19">
+					<states normal="imgs.main_hover" y="71" width="19" height="19">
+						<normal x="68" />
+						<hover x="87" />
+						<down x="106" />
+					</state>
 				</button>
 
 				<button id="play" action="player.pause()" x="258" y="380" width="32" height="32" checkable="true">
@@ -334,9 +423,12 @@
 					</state>
 				</button>
 
-				<button id="next" action="" x="308" y="384" width="26" height="26">
-					<states normal="imgs.main_normal" hover="imgs.main_hover" x="x" y="y">
-					</states>
+				<button id="next" action="" x="308" y="388" width="19" height="19">
+					<states normal="imgs.main_hover" y="71" width="19" height="19">
+						<normal x="126" />
+						<hover x="145" />
+						<down x="164" />
+					</state>
 				</button>
 
 				<button id="mute" action="player.mute();" x="355" y="387" width="20" height="20" checkable="true">
@@ -354,8 +446,10 @@
 				
 				<progress id="volume" x="380" y="396" width="60" height="8" range="0,100" pos="100">
 					<slider x="16" y="31" width="15" height="5" img="imgs.main_hover" />
-					<events track="change_volume()" />
-					<states normal="imgs.main_normal" down="imgs.main_hover" x="x" y="y">
+					<events track="change_volume(volume)" />
+					<states>
+						<normal link="javascript:prgrs.id" />
+						<down link="javascript:prgrs_down.id" />
 					</states>
 				</progress>
 			</layer>
@@ -385,7 +479,95 @@
 		</layer> <!-- end footer -->
 	</panel> <!-- end dplayer -->
 	
-	<menu id="main_menu" x="504" y="24" width="126" height="145" visible="false" bkclr="#ffffff" margin="1,0,0,0">
+	<!--全屏时的底部控制栏-->
+	<panel id="footer_ctrl_bar" type="modeless" visible="false" x="0" y="430" width="611" height="60">
+	
+		<img src="imgs.main_hover" x="0" y="0" width="611" height="60" adapt="true" float="width,bottom">
+			<image x="15" y="365" width="5" height="height" />
+		</img>
+
+		<img src="imgs.main_hover" x="124" y="12" width="365" height="42" adapt="true" float="center,bottom">
+			<image x="x" y="377" width="width" height="height" />
+		</img>
+
+		<progress id="footer_play_progress" x="20" y="4" width="572" height="8" range="0,100" pos="0">
+			<attribs float="width,bottom" enable="true" />
+			<slider x="16" y="31" width="15" height="5" img="imgs.main_hover" />
+			<events track="set_play_pos(footer_play_progress)" tracking="" />
+			<states>
+				<normal link="javascript:prgrs.id" />
+				<down link="javascript:prgrs_down.id" />
+			</states>
+		</progress>
+
+		<label id="footer_play_time" text="00:00:00 / 00:00:00" visible="true" x="20" y="30" width="120" height="20">
+			<attribs bkimg="imgs.main_hover" font="fonts.arial_8" color="#c2c2c2" float="bottom" />
+			<image x="20" y="395" width="120" height="20" />
+		</label>
+		
+		<layer id="" x="305" float="center,bottom">
+				<button id="" action="stop_play();" x="177" y="24" width="17" height="17">
+					<states normal="imgs.main_hover" y="71" width="17" height="17">
+						<normal x="16" />
+						<hover x="33" />
+						<down x="51" />
+					</state>
+				</button>
+
+				<button id="" action="" x="218" y="23" width="19" height="19">
+					<states normal="imgs.main_hover" y="71" width="19" height="19">
+						<normal x="68" />
+						<hover x="87" />
+						<down x="106" />
+					</state>
+				</button>
+
+				<button id="" action="player.pause()" x="258" y="17" width="32" height="32" checkable="true">
+					<states normal="imgs.main_hover" y="38" width="32" height="32">
+						<normal x="113" />
+						<hover x="145" />
+						<down x="177" />
+					</state>
+					<states normal="imgs.main_hover" y="38" width="32" height="32">
+						<normal x="16" />
+						<hover x="48" />
+						<down x="80" />
+					</state>
+				</button>
+
+				<button id="" action="" x="308" y="23" width="19" height="19">
+					<states normal="imgs.main_hover" y="71" width="19" height="19">
+						<normal x="126" />
+						<hover x="145" />
+						<down x="164" />
+					</state>
+				</button>
+
+				<button id="" action="player.mute();" x="355" y="22" width="20" height="20" checkable="true">
+					<states normal="imgs.main_hover" y="91" width="20" height="20">
+						<normal x="15" />
+						<hover x="35" />
+						<down x="55" />
+					</state>
+					<states normal="imgs.main_hover" y="91" width="20" height="20">
+						<normal x="76" />
+						<hover x="96" />
+						<down x="116" />
+					</state>
+				</button>
+				
+				<progress id="footer_volume" x="380" y="31" width="60" height="8" range="0,100" pos="100">
+					<slider x="16" y="31" width="15" height="5" img="imgs.main_hover" />
+					<events track="change_volume(footer_volume)" />
+					<states>
+						<normal link="javascript:prgrs.id" />
+						<down link="javascript:prgrs_down.id" />
+					</states>
+				</progress>
+			</layer>
+	</panel>
+	
+	<menu id="main_menu" x="504" y="24" width="126" height="145" visible="false" alpha="80" bkclr="#ffffff" margin="1,0,0,0">
 		<border width="1" color="#aca899" />
 		
 		<items height="23">
@@ -449,7 +631,7 @@
 
 		<label text="DPlayer" x="14" y="44" width="180" height="28" size="13" weight="700" />
 
-		<label text="Beta 1.0.10.19" x="20" y="75" width="100" height="20" font="fonts.song_10" />
+		<label text="Beta 1.0.11.20" x="20" y="75" width="100" height="20" font="fonts.song_10" />
 
 		<label x="18" y="133" width="400" height="60" font111="fonts.song_10">
 			<text>
