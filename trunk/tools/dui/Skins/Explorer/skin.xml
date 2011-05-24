@@ -1,0 +1,417 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<directui>
+	<script type="javascript">
+		<![CDATA[
+		]]>
+	</script>
+
+	<imgs id="imgs" main_hover="main_hover.png">
+	</imgs>
+
+	<icons id="icons" notepad="C:\windows\system32\notepad.exe">
+	</icons>
+	
+	<fonts id="fonts">
+		<font id="default" size="10" face="新宋体" />
+		<font id="bold_10" size="10" weight="700" />
+		<font id="bold_8" size="8" weight="700" />
+		<font id="about_dplayer" size="13" weight="700" />
+		<font id="song_10" size="10" face="新宋体" />
+		<font id="song_8" size="8" face="新宋体" />
+		<font id="arial_8" size="8" face="Arial" />
+	</fonts>
+	
+	<states id="states">
+		<states id="close" normal="imgs.main_hover" y="72" width="38" height="21">
+			<normal x="444" />
+			<hover x="482" />
+			<down x="520" />
+		</states>
+		<states id="ok" normal="imgs.main_hover" y="38" width="59" height="24">
+			<normal x="232" />
+			<hover x="291" />
+			<down x="350" />
+		</states>
+		<states id="stop" normal="imgs.main_hover" y="71" width="17" height="17">
+			<normal x="16" />
+			<hover x="33" />
+			<down x="50" />
+		</states>
+		<states id="prev" normal="imgs.main_hover" y="71" width="19" height="19">
+			<normal x="68" />
+			<hover x="87" />
+			<down x="106" />
+		</states>
+		<states id="play" normal="imgs.main_hover" y="38" width="32" height="32">
+			<normal x="113" />
+			<hover x="145" />
+			<down x="177" />
+		</states>
+		<states id="pause" normal="imgs.main_hover" y="38" width="32" height="32">
+			<normal x="16" />
+			<hover x="48" />
+			<down x="80" />
+		</states>
+		<states id="next" normal="imgs.main_hover" y="71" width="19" height="19">
+			<normal x="126" />
+			<hover x="145" />
+			<down x="164" />
+		</states>
+		<states id="mute_off" normal="imgs.main_hover" y="91" width="20" height="20">
+			<normal x="15" />
+			<hover x="35" />
+			<down x="55" />
+		</states>
+		<states id="mute_on" normal="imgs.main_hover" y="91" width="20" height="20">
+			<normal x="76" />
+			<hover x="96" />
+			<down x="116" />
+		</states>
+	</states>
+	
+	<scroll type="vertical">
+		<states normal="imgs.images">
+			<normal x="11" y="36" />
+			<hover x="11" y="36" />
+			<down x="11" y="36" />
+			<disabled x="11" y="36" />
+		</states>
+	</scroll>
+
+	<panel id="explorer" title="Explorer" type="app" bkclr="#E5E5E5">
+		<size x="0" y="0" width="880" height="660" resize="true" min-width="880" min-height="660" />
+		<events maximize="max.check(true)" restore="max.check(0)" />
+		<hittest>
+			<rect x="475" y="0" width="295" height="23" />
+		</hittest>
+
+		<label id="title" text="Explorer" x="0" y="0" width="105" height="23" color="#ffffff" font="fonts.bold_10">
+			<attribs bkimg="imgs.main_hover" offset="9" align="center,vcenter" />
+			<image x="x" y="y" width="width" height="height" />
+		</label>
+
+		<layer id="border">
+			<!--顶部边框-->
+			<img src="imgs.main_hover" x="105" y="0" width="768" height="23" adapt="true" float="width">
+				<image x="x" y="y" width="5" height="height" />
+			</img>
+
+			<img src="imgs.main_hover" x="873" y="0" width="7" height="23" adapt="true" float="right">
+				<image x="x" y="y" width="width" height="height" />
+			</img>
+
+			<!--底部边框-->
+			<img src="imgs.main_hover" x="0" y="637" width="7" height="23" adapt="true" float="left,bottom">
+				<image x="x" y="y" width="width" height="height" />
+			</img>
+
+			<img src="imgs.main_hover" x="7" y="637" width="866" height="23" adapt="true" float="width,bottom">
+				<image x="x" y="y" width="5" height="height" />
+			</img>
+
+			<img src="imgs.main_hover" x="873" y="637" width="7" height="23" adapt="true" float="right,bottom">
+				<image x="x" y="y" width="width" height="height" />
+			</img>
+
+			<!--两侧边框-->
+			<img src="imgs.main_hover" x="0" y="23" width="1" height="614" adapt="true" float="left,height">
+				<image x="x" y="y" width="width" height="height" />
+			</img>
+
+			<img src="imgs.main_hover" x="879" y="23" width="1" height="614" adapt="true" float="right,height">
+				<image x="x" y="y" width="width" height="height" />
+			</img>
+		</layer>
+		
+		<!--系统按钮-->
+		<layer id="sys" x="770" y="2" width="103" height="18" float="right" margin="0,0">
+			<button id="min" action="window.min();" width="28">
+				<states normal="imgs.main_hover" x="770" width="width" height="height">
+					<normal y="2" />
+					<hover y="23" />
+				</states>
+			</button>
+
+			<button id="max" action="window.max()" width="27" checkable="true">
+				<states normal="imgs.main_hover" x="798" width="width" height="height">
+					<normal y="2" />
+					<hover y="23" />
+				</states>
+				<states normal="imgs.main_hover" y="44" width="width" height="height">
+					<normal x="771" />
+					<hover x="798" />
+				</states>
+			</button>
+
+			<button id="close" action="window.close()" width="48">
+				<states normal="imgs.main_hover" x="825" width="width" height="height">
+					<normal y="2" />
+					<hover y="23" />
+				</states>
+			</button>
+		</layer> <!--系统按钮-->
+		
+		<!--主菜单按钮-->
+		<custom x="110" y="2" width="365" height="20" col="6" margin="0,3" bkclr="#E5E5E5">
+			<items width="58" height="20">
+				<item text="文件(F)" />
+				<item text="书签(B)" />
+				<item text="插件(P)" />
+				<item text="工具(T)" />
+				<item text="窗口(W)" />
+				<item text="帮助(H)" />
+			</items>
+			<button text="item.text" x="0" y="0" width="58" height="20" align="center,vcenter,singleline">
+				<states>
+					<normal border="0" bkclr="#E5E5E5" />
+					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<down border="1" color="#8A867A" bkclr="#E5E5E5" />
+				</states>
+			</button>
+		</custom>
+
+		<!--常用工具栏-->
+		<custom x="1" y="24" width="131" height="29" col="4" type="tiled" margin="0,2,0,7" bkclr="#E5E5E5" bkimg="dragable.png">
+			<image dx="2" dy="3" />
+			<items width="29" height="29">
+				<item img="computer.png" />
+				<item img="folder.png" />
+				<item img="search.png" />
+				<item img="thumb.png" />
+			</items>
+			<button width="29" height="29">
+				<states normal="item.img" width="width" height="width">
+					<normal dx="3" dy="3" border="0" bkclr="#E5E5E5" />
+					<hover dx="2" dy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<down dx="3" dy="3"/>
+				</states>
+			</button>
+		</custom>
+		
+		<!--收藏的工具栏-->
+		<custom x="134" y="24" width="254" height="29" col="7" type="tiled" margin="0,2,0,7" bkclr="#E5E5E5" bkimg="dragable.png">
+			<image dx="2" dy="3" />
+			<items width="29" height="29">
+				<item icon="C:\windows\system32\notepad.exe" />
+				<item icon="D:\tri_soft\Notepad++\notepad++.exe" />
+				<item icon="D:\tri_soft\mplayer\mplayer.exe" />
+				<item icon="D:\tri_soft\c32asm\C32Asm.exe" />
+				<item icon="D:\tri_soft\FileCompare\BC2.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\SQLite Database Browser.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
+			</items>
+			<button width="29" height="29">
+				<states width="24" height="24">
+					<normal icon="item.icon" dx="3" dy="3" border="0" bkclr="#E5E5E5" />
+					<hover dx="2" dy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<down dx="3" dy="3"/>
+				</states>
+			</button>
+		</custom>
+
+		<!--地址栏-->
+		<layer id="addrbar" x="68" y="56" width="653" height="25" bkclr="#FFFFFF">
+			<border width="1" color="#316AC5" />
+
+			<custom x="1" y="54" width="67" height="29" col="4" type="tiled" margin="0,2,0,7" bkclr="#E5E5E5" bkimg="dragable.png">
+				<image dx="2" dy="3" />
+				<items width="29" height="29">
+					<item img="undo.png" action="addr.path='c:\\skins\\default'" />
+					<item img="redo.png" action="addr.path='c:\\skins\\default\\old'" />
+				</items>
+				<button width="29" height="29" action="item.action">
+					<states normal="item.img" width="width" height="width">
+						<normal dx="3" dy="3" border="0" bkclr="#E5E5E5" />
+						<hover dx="2" dy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
+						<down dx="3" dy="3"/>
+					</states>
+				</button>
+			</custom>
+
+			<button x="71" y="58" width="21" height="21" action="addr.path='D:\\Skins'">
+				<states normal="cmptr.png" width="width" height="width">
+					<normal border="0" bkclr="#FFFFFF" />
+					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+			</button>
+
+			<button x="94" y="58" width="9" height="21" adapt="false" action="addr.path='c:\\skins\\default\\new'">
+				<states normal="triangle.png" dx="3" dy="9">
+					<normal border="0" bkclr="#FFFFFF" />
+					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+			</button>
+
+			<addr id="addr" path="C:\Skins\Default" x="104" y="57" width="580" height="23" bkclr="#FFFFFF">
+				<states width="0" height="0">
+					<normal border="0" bkclr="#FFFFFF" />
+					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+				<states normal="triangle.png" dx="3" dy="9">
+					<normal border="0" bkclr="#FFFFFF" />
+					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+				<states width="0" height="0">
+					<normal border="0" bkclr="#C0C0C0" />
+					<hover border="1" color="#316AC5" bkclr="#C0C0C0" />
+				</states>
+				<states normal="triangle.png" dx="3" dy="9">
+					<normal border="0" bkclr="#C0C0C0" />
+					<hover border="1" color="#316AC5" bkclr="#C0C0C0" />
+				</states>
+			</addr>
+			
+			<button x="685" y="58" width="12" height="21" adapt="false">
+				<states normal="fav.png" dx="1" dy="6">
+					<normal border="0" bkclr="#FFFFFF" />
+					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+			</button>
+
+			<button x="698" y="58" width="21" height="21" adapt="false">
+				<states normal="dropdown.png" dx="7" dy="9">
+					<normal border="0" bkclr="#FFFFFF" />
+					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+			</button>
+		</layer>
+		
+		<layer id="top_tab_normal" visible="false">
+			<img src="tab_normal.png" width="22" height="20" float="bottom">
+				<image x="0" y="0" width="width" height="height" />
+			</img>
+			<img src="tab_normal.png" width="2" height="20" adapt="true" float="width,bottom">
+				<image x="23" y="0" width="2" height="height" />
+			</img>
+			<img src="tab_normal.png" width="2" height="20" float="right,bottom">
+				<image x="69" y="0" width="2" height="height" />
+			</img>
+		</layer>
+
+		<layer id="top_tab_hover" visible="false">
+			<img src="tab_down.png" width="22" height="20" float="bottom">
+				<image x="0" y="0" width="width" height="height" />
+			</img>
+			<img src="tab_down.png" width="2" height="20" adapt="true" float="width,bottom">
+				<image x="23" y="0" width="2" height="height" />
+			</img>
+			<img src="tab_down.png" width="2" height="20" float="right,bottom">
+				<image x="69" y="0" width="2" height="height" />
+			</img>
+		</layer>
+
+		<label x="3" y="85" width="874" height="555" float="width,height">
+			<border width="1" color="#ACA899" />
+		</layer>
+
+		<!--上面的tab页-->
+		<custom x="5" y="86" width="790" height="20" col="10" margin="0,0">
+			<items width="adapt" height="20">
+				<item text="OpenSrc" tab="" />
+				<item text="gtl" tab="" />
+				<item text="常用软件" tab="" />
+				<item text="iPhone" tab="" />
+				<item text="Output" tab="" />
+				<item text="pragma" tab="" />
+				<item text="Download" tab="" />
+				<item text="lib" tab="" />
+			</items>
+			<button width="adapt,15" height="20" text="item.text" align="left,vcenter" offset="24">
+				<tabs tab="item.tab" group="" />
+				<states>
+					<normal link="javascript:top_tab_normal.id" />
+					<hover link="javascript:top_tab_hover.id" />
+				</states>
+			</button>
+		</custom>
+		
+		<layer x="5" y="106" width="870" height="532" float="width,height">
+			<border width="1" color="#316AC5" />
+		</layer>
+				
+	</panel> <!-- end dplayer -->
+	
+	<menu id="main_menu" x="504" y="24" width="126" height="145" visible="false" alpha="80" bkclr="#ffffff" margin="1,0,0,0,-1">
+		<border width="1" color="#aca899" />
+		
+		<items height="23">
+			<item id="menu_file" text="文件" img="imgs.main_hover" src="submenu.png" x="444" y="32"
+				  mouse_in="menu_file.show()" mouse_out="menu_file.hide()">
+				<item text="打开文件" action="menu.popup();open_file()" />
+				<item text="打开URL" />
+				<separator />
+				<item text="文件信息" action="show_media_info()" />
+			</item>
+			<item id="menu_play" text="播放" src="submenu.png"
+				  mouse_in="menu_play.show()" mouse_out="menu_play.hide()">
+				<item text="播放/暂停" />
+				<item text="停止" />
+			</item>
+			<item id="menu_display" text="显示" img="imgs.main_hover" src="submenu.png" x="444" y="52"
+				  mouse_in="menu_display.show()" mouse_out="menu_display.hide()">
+				<item text="全屏" />
+				<item text="普通模式" />
+				<separator />
+				<item text="播放时置顶" />
+				<item text="总时置顶" />
+				<item text="取消置顶" />
+			</item>
+			<item id="menu_channel" text="声道" src="submenu.png"
+				  mouse_in="menu_channel.show()" mouse_out="menu_channel.hide()">
+				<item text="左声道" action="player.set_channel(0);menu.popup()" />
+				<item text="右声道" action="player.set_channel(1);menu.popup()"/>
+				<item text="立体声" action="player.set_channel(2);menu.popup()"/>
+			</item>
+			<item id="menu_setting" text="设置" />
+			<separator />
+			<item id="menu_about" text="关于DPlayer" action="menu.popup();about.show()" />
+			<item id="menu_exit" text="退出" img="close.png" x="0" y="0" action="dplayer.close()" />
+		</items>
+		
+		<layer x="0" y="0" width="122" height="23" action="item.action">
+			<events mouse_in="item.mouse_in" mouse_out="item.mouse_out" />
+			<states>
+				<normal border="0" bkclr="#ffffff" />
+				<hover border="0" bkclr="#d2d2d2" />
+				<down border="0" bkclr="#d2d2d2" />
+			</states>
+
+			<label bkimg="item.img" x="0" y="0" width="122" height="23">
+				<attribs text="item.text" offset="23" align="singleline,vcenter" />
+				<image x="item.x" y="item.y" width="19" height="19" dx="2" dy="2" />
+			</label>
+			<img src="item.src" position="relative" x="110" y="8" width="7" height="7" />
+		</layer>
+	</menu>
+	
+	<!--关于对话框-->
+	<panel id="about" type="modal" visible="false" bkimg="about.png" alpha="90">
+		<size x="0" y="0" width="375" height="283" />
+		<hittest>
+			<rect x="0" y="0" width="330" height="24" />
+		</hittest>
+		
+		<label text="关于DPlayer" x="24" y="4" width="180" height="20" color="#c2c2c2" font="fonts.bold_8" />
+
+		<label text="DPlayer" x="14" y="44" width="180" height="28" size="13" weight="700" />
+
+		<label text="Beta 1.0.15.25" x="20" y="75" width="100" height="20" font="fonts.song_10" />
+
+		<label x="18" y="133" width="400" height="60" font111="fonts.song_10">
+			<text>
+				Tristar 版权所有
+				Copyright (C) 2011 Tristar. All Rights Reserved.
+			</text>
+		</label>
+
+		<button action="window.close()" x="330" y="1" width="38" height="21">
+			<states link="states.close" />
+		</button>
+		
+		<button text="确定" action="window.close()" x="295" y="251" width="59" height="24">
+			<attribs align="singleline,center,vcenter" />
+			<states link="states.ok" />
+		</button>
+	</panel>
+
+</directui>
