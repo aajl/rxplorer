@@ -5,12 +5,15 @@
 		]]>
 	</script>
 
+	<!--图片集-->
 	<imgs id="imgs" main_hover="main_hover.png">
 	</imgs>
 
+	<!--图标集-->
 	<icons id="icons" notepad="C:\windows\system32\notepad.exe">
 	</icons>
 	
+	<!--字体集-->
 	<fonts id="fonts">
 		<font id="default" size="10" face="新宋体" />
 		<font id="bold_10" size="10" weight="700" />
@@ -21,7 +24,37 @@
 		<font id="arial_8" size="8" face="Arial" />
 	</fonts>
 	
+	<!--用于组合成按钮图片-->
+	<layer id="top_tab_normal" visible="false">
+		<img src="tab_normal.png" width="22" height="20" float="bottom">
+			<image x="0" y="0" width="width" height="height" />
+		</img>
+		<img src="tab_normal.png" width="2" height="20" adapt="true" float="width,bottom">
+			<image x="23" y="0" width="2" height="height" />
+		</img>
+		<img src="tab_normal.png" width="2" height="20" float="right,bottom">
+			<image x="69" y="0" width="2" height="height" />
+		</img>
+	</layer>
+
+	<layer id="top_tab_hover" visible="false">
+		<img src="tab_down.png" width="22" height="20" float="bottom">
+			<image x="0" y="0" width="width" height="height" />
+		</img>
+		<img src="tab_down.png" width="2" height="20" adapt="true" float="width,bottom">
+			<image x="23" y="0" width="2" height="height" />
+		</img>
+		<img src="tab_down.png" width="2" height="20" float="right,bottom">
+			<image x="69" y="0" width="2" height="height" />
+		</img>
+	</layer>
+
+	<!--状态集-->
 	<states id="states">
+		<states id="top_tab">
+			<normal link="javascript:top_tab_normal.id" />
+			<hover link="javascript:top_tab_hover.id" />
+		</states>
 		<states id="close" normal="imgs.main_hover" y="72" width="38" height="21">
 			<normal x="444" />
 			<hover x="482" />
@@ -31,41 +64,6 @@
 			<normal x="232" />
 			<hover x="291" />
 			<down x="350" />
-		</states>
-		<states id="stop" normal="imgs.main_hover" y="71" width="17" height="17">
-			<normal x="16" />
-			<hover x="33" />
-			<down x="50" />
-		</states>
-		<states id="prev" normal="imgs.main_hover" y="71" width="19" height="19">
-			<normal x="68" />
-			<hover x="87" />
-			<down x="106" />
-		</states>
-		<states id="play" normal="imgs.main_hover" y="38" width="32" height="32">
-			<normal x="113" />
-			<hover x="145" />
-			<down x="177" />
-		</states>
-		<states id="pause" normal="imgs.main_hover" y="38" width="32" height="32">
-			<normal x="16" />
-			<hover x="48" />
-			<down x="80" />
-		</states>
-		<states id="next" normal="imgs.main_hover" y="71" width="19" height="19">
-			<normal x="126" />
-			<hover x="145" />
-			<down x="164" />
-		</states>
-		<states id="mute_off" normal="imgs.main_hover" y="91" width="20" height="20">
-			<normal x="15" />
-			<hover x="35" />
-			<down x="55" />
-		</states>
-		<states id="mute_on" normal="imgs.main_hover" y="91" width="20" height="20">
-			<normal x="76" />
-			<hover x="96" />
-			<down x="116" />
 		</states>
 	</states>
 	
@@ -90,6 +88,7 @@
 			<image x="x" y="y" width="width" height="height" />
 		</label>
 
+		<!--界面的外边框-->
 		<layer id="border">
 			<!--顶部边框-->
 			<img src="imgs.main_hover" x="105" y="0" width="768" height="23" adapt="true" float="width">
@@ -276,35 +275,12 @@
 			</button>
 		</layer>
 		
-		<layer id="top_tab_normal" visible="false">
-			<img src="tab_normal.png" width="22" height="20" float="bottom">
-				<image x="0" y="0" width="width" height="height" />
-			</img>
-			<img src="tab_normal.png" width="2" height="20" adapt="true" float="width,bottom">
-				<image x="23" y="0" width="2" height="height" />
-			</img>
-			<img src="tab_normal.png" width="2" height="20" float="right,bottom">
-				<image x="69" y="0" width="2" height="height" />
-			</img>
-		</layer>
-
-		<layer id="top_tab_hover" visible="false">
-			<img src="tab_down.png" width="22" height="20" float="bottom">
-				<image x="0" y="0" width="width" height="height" />
-			</img>
-			<img src="tab_down.png" width="2" height="20" adapt="true" float="width,bottom">
-				<image x="23" y="0" width="2" height="height" />
-			</img>
-			<img src="tab_down.png" width="2" height="20" float="right,bottom">
-				<image x="69" y="0" width="2" height="height" />
-			</img>
-		</layer>
-
+		<!--tab控件外的边框-->
 		<label x="3" y="85" width="874" height="555" float="width,height">
 			<border width="1" color="#ACA899" />
 		</layer>
 
-		<!--上面的tab页-->
+		<!--上面的tab控件-->
 		<custom x="5" y="86" width="790" height="20" col="10" margin="0,0">
 			<items width="adapt" height="20">
 				<item text="OpenSrc" tab="" />
@@ -317,11 +293,8 @@
 				<item text="lib" tab="" />
 			</items>
 			<button width="adapt,15" height="20" text="item.text" align="left,vcenter" offset="24">
-				<tabs tab="item.tab" group="" />
-				<states>
-					<normal link="javascript:top_tab_normal.id" />
-					<hover link="javascript:top_tab_hover.id" />
-				</states>
+				<tabs tab="item.tab" group="folders" />
+				<states link="states.top_tab" />
 			</button>
 		</custom>
 		
@@ -329,7 +302,7 @@
 			<border width="1" color="#316AC5" />
 		</layer>
 				
-	</panel> <!-- end dplayer -->
+	</panel> <!-- end explorer -->
 	
 	<menu id="main_menu" x="504" y="24" width="126" height="145" visible="false" alpha="80" bkclr="#ffffff" margin="1,0,0,0,-1">
 		<border width="1" color="#aca899" />
