@@ -260,19 +260,45 @@
 				</states>
 			</addr>
 			
-			<button x="685" y="58" width="12" height="21" adapt="false">
+			<!--收藏夹按钮-->
+			<button x="685" y="58" width="12" height="21" adapt="false" popup="explorer.folder_fav">
 				<states normal="fav.png" dx="1" dy="6">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
 				</states>
 			</button>
 
+			<!--下拉列表按钮-->
 			<button x="698" y="58" width="21" height="21" adapt="false">
 				<states normal="dropdown.png" dx="7" dy="9">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
 				</states>
 			</button>
+		</layer>
+		
+		<!--目录收藏夹-->
+		<layer id="folder_fav" x="685" y="81" width="155" height="215" bkclr="#FDFDFD" visible="false">
+			<border width="1" color="#808080" />
+			<label x="1" y="2" width="28" height="211" bkclr="#F2F2F2" position="relative" />
+			<custom x="2" y="2" width="151" height="211" margin="1" position="relative">
+				<items height="20">
+					<item text="收藏当前文件夹" />
+					<item text="C:\Windows" />
+				</items>
+				<layer x="0" y="0" width="151" height="20" action="item.action">
+					<states>
+						<normal border="0" />
+						<hover border="0" bkclr="#d2d2d2" />
+						<down border="0" bkclr="#d2d2d2" />
+					</states>
+					<label bkimg="item.img" x="0" y="0" width="151" height="20">
+						<attribs text="item.text" offset="32" align="singleline,vcenter" />
+						<image x="item.x" y="item.y" width="19" height="19" dx="2" dy="2" />
+					</label>
+					<img src="item.src" position="relative" x="110" y="8" width="7" height="7" />
+				</layer>
+			</custom>
 		</layer>
 		
 		<!--tab控件外的边框-->
