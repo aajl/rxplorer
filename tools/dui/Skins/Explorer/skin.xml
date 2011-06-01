@@ -2,6 +2,18 @@
 <directui>
 	<script type="javascript">
 		<![CDATA[
+		function move_menu(menu_btn, menu_pane)
+		{
+			print(menu_btn + "\n");
+			print(menu_pane + "\n");
+			if(menu_btn.popuped)
+				return;
+
+			var rc_menu_btn = menu_btn.screen_rect();
+			var rc_main_menu = menu_pane.rect();
+			var top = rc_menu_btn.top + rc_menu_btn.height - 1;
+			menu_pane.move(rc_menu_btn.left, top, rc_main_menu.width, rc_main_menu.height);
+		}
 		]]>
 	</script>
 
@@ -163,16 +175,18 @@
 		</layer> <!--系统按钮-->
 		
 		<!--主菜单按钮-->
-		<custom x="110" y="2" width="365" height="20" col="6" margin="0,3" bkclr="#E5E5E5">
+		<custom id="main_menu_btns" type="tiled" x="110" y="2" width="365" height="20" col="6" margin="0,3" bkclr="#E5E5E5">
 			<items width="58" height="20">
-				<item text="文件(F)" />
-				<item text="书签(B)" />
-				<item text="插件(P)" />
-				<item text="工具(T)" />
-				<item text="窗口(W)" />
-				<item text="帮助(H)" />
+				<item id="menu_file_btn" text="文件(F)" action="move_menu(menu_file_btn, menu_file)" popup="main_menu.menu_file" />
+				<item id="menu_bookmark_btn" text="书签(B)" action="move_menu(menu_bookmark_btn, menu_bookmark)" popup="main_menu.menu_bookmark" />
+				<item id="menu_plugin_btn" text="插件(P)" action="move_menu(menu_plugin_btn, menu_plugin)" popup="main_menu.menu_plugin" />
+				<item id="menu_tools_btn" text="工具(T)" action="move_menu(menu_tools_btn, menu_tools)" popup="main_menu.menu_tools" />
+				<item id="menu_windows_btn" text="窗口(W)" action="move_menu(menu_windows_btn, menu_windows)" popup="main_menu.menu_windows" />
+				<item id="menu_help_btn" text="帮助(H)" action="move_menu(menu_help_btn, menu_help)" popup="main_menu.menu_help" />
 			</items>
-			<button text="item.text" x="0" y="0" width="58" height="20" align="center,vcenter,singleline">
+			<button x="0" y="0" width="58" height="20" align="center,vcenter,singleline">
+				<attribs id="item.id" text="item.text" action="item.action" popup="item.popup" />
+				<events mouse_in="print('mouse in menu btn\n')" mouse_out="print('mouse out menu btn\n')" />
 				<states>
 					<normal border="0" bkclr="#E5E5E5" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -200,8 +214,9 @@
 		</custom>
 		
 		<!--收藏的工具栏-->
-		<custom x="134" y="24" width="254" height="29" col="7" type="tiled" margin="0,2,0,7" bkclr="#E5E5E5" bkimg="dragable.png">
+		<custom x="134" y="24" width="743" height="29" col="50" type="tiled" margin="0,2,0,7" float="width">
 			<image dx="2" dy="3" />
+			<attribs bkclr="#E5E5E5" bkimg="dragable.png" />
 			<items width="29" height="29">
 				<item icon="C:\windows\system32\notepad.exe" />
 				<item icon="D:\tri_soft\Notepad++\notepad++.exe" />
@@ -209,6 +224,22 @@
 				<item icon="D:\tri_soft\c32asm\C32Asm.exe" />
 				<item icon="D:\tri_soft\FileCompare\BC2.exe" />
 				<item icon="D:\tri_soft\Explorer\tools\SQLite Database Browser.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
+				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
 				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
 			</items>
 			<button width="29" height="29">
@@ -322,7 +353,7 @@
 		</layer>
 
 		<!--上面的tab控件-->
-		<custom type="tiled" x="5" y="86" width="790" height="20" col="10" margin="0,0">
+		<custom id="top_tab_ctrl" type="tiled" x="5" y="86" width="870" height="20" col="10" margin="0,0" float="width">
 			<items width="adapt" height="20">
 				<item text="OpenSrc" tab="t1" />
 				<item text="gtl" tab="t2" />
@@ -344,7 +375,7 @@
 		</label>
 
 		<!--下面的tab控件-->
-		<custom type="tiled" x="6" y="618" width="790" height="20" col="10" margin="0,0">
+		<custom type="tiled" x="6" y="618" width="868" height="20" col="10" margin="0,0" float="bottom,width">
 			<items width="adapt" height="20">
 				<item text="OpenSrc" tab="t1" />
 				<item text="gtl" tab="t2" />
@@ -364,37 +395,44 @@
 		<border width="1" color="#aca899" />
 		
 		<items height="23">
-			<item id="menu_file" text="文件" img="imgs.main_hover" src="submenu.png" x="444" y="32"
-				  mouse_in="menu_file.show()" mouse_out="menu_file.hide()">
-				<item text="打开文件" action="menu.popup();open_file()" />
-				<item text="打开URL" />
+			<item id="menu_file" text="文件">
+				<item text="新建视图" />
+				<item text="新建子视图" />
 				<separator />
-				<item text="文件信息" action="show_media_info()" />
-			</item>
-			<item id="menu_play" text="播放" src="submenu.png"
-				  mouse_in="menu_play.show()" mouse_out="menu_play.hide()">
-				<item text="播放/暂停" />
-				<item text="停止" />
-			</item>
-			<item id="menu_display" text="显示" img="imgs.main_hover" src="submenu.png" x="444" y="52"
-				  mouse_in="menu_display.show()" mouse_out="menu_display.hide()">
-				<item text="全屏" />
-				<item text="普通模式" />
+				<item text="打开会话" />
+				<item text="保存会话" />
+				<item text="会话另存为" />
 				<separator />
-				<item text="播放时置顶" />
-				<item text="总时置顶" />
-				<item text="取消置顶" />
+				<item text="退出" />
 			</item>
-			<item id="menu_channel" text="声道" src="submenu.png"
-				  mouse_in="menu_channel.show()" mouse_out="menu_channel.hide()">
-				<item text="左声道" action="player.set_channel(0);menu.popup()" />
-				<item text="右声道" action="player.set_channel(1);menu.popup()"/>
-				<item text="立体声" action="player.set_channel(2);menu.popup()"/>
+			<item id="menu_bookmark" text="书签">
+				<item text="添加书签" />
+				<item text="整理书签" />
+				<separator />
 			</item>
-			<item id="menu_setting" text="设置" />
-			<separator />
-			<item id="menu_about" text="关于DPlayer" action="menu.popup();about.show()" />
-			<item id="menu_exit" text="退出" img="close.png" x="0" y="0" action="dplayer.close()" />
+			<item id="menu_plugin" text="插件">
+				<item text="插件管理" />
+				<separator />
+			</item>
+			<item id="menu_tools" text="工具">
+				<item text="选项" />
+				<separator />
+				<item text="书签管理" />
+				<item text="插件管理" />
+				<item text="快捷键管理" />
+				<item text="垃圾文件清理" />
+				<item text="文件(夹)重命名" />
+			</item>
+			<item id="menu_windows" text="窗口">
+				<item text="关闭" />
+				<item text="全部关闭" />
+				<separator />
+			</item>
+			<item id="menu_help" text="帮助">
+				<item text="帮助" />
+				<item text="检查更新" />
+				<item text="关于Explorer" />
+			</item>
 		</items>
 		
 		<layer x="0" y="0" width="122" height="23" action="item.action">
