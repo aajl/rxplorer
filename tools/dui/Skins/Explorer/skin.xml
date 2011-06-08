@@ -2,6 +2,9 @@
 <directui>
 	<script type="javascript">
 		<![CDATA[
+		var folder_index = 0;
+		var sub_folder_index = 0;
+		
 		function move_menu(menu_btn, menu_pane)
 		{
 			print(menu_btn + "\n");
@@ -13,6 +16,27 @@
 			var rc_main_menu = menu_pane.rect();
 			var top = rc_menu_btn.top + rc_menu_btn.height - 1;
 			menu_pane.move(rc_menu_btn.left, top, rc_main_menu.width, rc_main_menu.height);
+		}
+		
+		function add_folder()
+		{
+			++folder_index;
+			var fid = "ft" + folder_index;
+			folder_tabs.insert("<item text='MyComputer' tab='fxplorer." + fid + "' />");
+			
+			fxplorer.insert("<item tab='" + fid "' />");
+			
+			fid = fxplorer.id + "." + fid;
+			var folder = new layer(fid);
+			
+			++sub_folder_index;
+			var sfid = "sf" + sub_folder_index;
+			folder.sub_folders.insert("<item id='" + sfid + "'/>");
+			folder.sub_folder_tabs.insert("<item text='MyComputer' tab='javascript:" + sfid + ".id' />");
+		}
+		
+		function add_sub_folder()
+		{
 		}
 		]]>
 	</script>
@@ -353,11 +377,11 @@
 		</layer>
 
 		<!--上面的tab控件-->
-		<custom id="top_tab_ctrl" type="tiled" x="5" y="86" width="870" height="20" col="10" margin="0,0" float="width">
+		<custom id="folder_tabs" type="tiled" x="5" y="86" width="870" height="20" col="10" margin="0,0" float="width">
 			<items width="adapt" height="20">
-				<item text="OpenSrc" tab="t1" />
-				<item text="gtl" tab="t2" />
-				<item text="常用软件" tab="t3" />
+				<item text="OpenSrc" tab="fxplorer.t1" />
+				<item text="gtl" tab="fxplorer.t2" />
+				<item text="常用软件" tab="fxplorer.t3" />
 				<item text="iPhone" tab="t4" />
 				<item text="Output" tab="t5" />
 				<item text="pragma" tab="t6" />
@@ -374,8 +398,37 @@
 			<border width="1" color="#316AC5" />
 		</label>
 
+		<custom id="fxplorer" type="tiled" x="5" y="86" width="870" height="512" col="10" float="width">
+			<items width="adapt" height="20">
+				<item text="OpenSrc" tab="t1" color="#ff0000" />
+				<item text="gtl" tab="t2" color="#00ff00" />
+				<item text="常用软件" tab="t3" color="#0000ff" />
+			</items>
+			<layer id="item.tab" x="0" y="20" width="870" height="512">
+				<custom id=".sub_folders" x="6" y="106" width="868" height="512" type="tiled" col="10">
+					<border width="1" color="item.color" />
+					<items width="adapt" height="20">
+						<item id="sf1" bkclr="#808080" />
+						<item id="sf2" bkclr="#808080" />
+					</items>
+					<panel id="item.id" x="1" y="1" width="866" height="510" bkclr="item.bkclr">
+					</panel>
+				</custom>
+				<custom id=".sub_folder_tabs" type="tiled" x="6" y="618" width="868" height="20" col="10" margin="0,0" float="bottom,width">
+					<items width="adapt" height="20">
+						<item text="OpenSrc" tab="javascript:sf1.id" />
+						<item text="gtl" tab="javascript:sf2.id" />
+					</items>
+					<button width="adapt,15" height="20" text="item.text" align="left,vcenter" offset="24">
+						<tabs tab="item.tab" group="subfolders" />
+						<states link="states.top_tab" />
+					</button>
+				</custom>
+			</layer>
+		</custom>
+		
 		<!--下面的tab控件-->
-		<custom type="tiled" x="6" y="618" width="868" height="20" col="10" margin="0,0" float="bottom,width">
+		<!--custom type="tiled" x="6" y="618" width="868" height="20" col="10" margin="0,0" float="bottom,width">
 			<items width="adapt" height="20">
 				<item text="OpenSrc" tab="t1" />
 				<item text="gtl" tab="t2" />
@@ -387,7 +440,7 @@
 				<tabs tab="item.tab" group="subfolders" />
 				<states link="states.top_tab" />
 			</button>
-		</custom>
+		</custom-->
 
 	</panel> <!-- end explorer -->
 	
