@@ -4,11 +4,9 @@
 		<![CDATA[
 		var folder_index = 0;
 		var sub_folder_index = 0;
-		
+
 		function move_menu(menu_btn, menu_pane)
 		{
-			print(menu_btn + "\n");
-			print(menu_pane + "\n");
 			if(menu_btn.popuped)
 				return;
 
@@ -24,13 +22,15 @@
 			var fid = "ft" + folder_index;
 			var sfcid = "sfc" + folder_index;
 			var stid = "st" + folder_index;
-			folder_tabs.insert("<item id='fxplorer." + fid + "' sid='" + sfcid + "' tid='" + stid + "' />");
+			folder_tabs.insert("<item text='OpenSrc' tab='fxplorer." + fid + "' />");
 			
-			fxplorer.insert("<item id='" + fid "' />");
+			fxplorer.insert("<item id='" + fid + "' sid='" + sfcid + "' tid='" + stid + "' />");
 			
 			fid = fxplorer.id + "." + fid;
 			var sub_folders = new custom(fid + "." + sfcid);
 			var sub_folder_tabs = new custom(fid + "." + stid);
+			
+			print(sub_folders.id + "\n");
 			
 			++sub_folder_index;
 			var sfid = "sf" + sub_folder_index;
@@ -38,7 +38,7 @@
 			sub_folder_tabs.insert("<item text='MyComputer' tab='javascript:" + sfid + ".id' />");
 		}
 		
-		function add_sub_folder(var ft)
+		function add_sub_folder(ft)
 		{
 		}
 		]]>
@@ -174,7 +174,7 @@
 		</layer>
 		
 		<!--系统按钮-->
-		<layer id="sys" x="770" y="2" width="103" height="18" float="right" margin="0,0">
+		<layer id="sys_btn" x="770" y="2" width="103" height="18" float="right" margin="0,0">
 			<button id="min" action="window.min();" width="28">
 				<states normal="imgs.main_hover" x="770" width="width" height="height">
 					<normal y="2" />
@@ -204,26 +204,36 @@
 		<!--主菜单按钮-->
 		<custom id="main_menu_btns" type="tiled" x="110" y="2" width="365" height="20" col="6" margin="0,3" bkclr="#E5E5E5">
 			<items width="58" height="20">
-				<item id="menu_file_btn" text="文件(F)" action="move_menu(menu_file_btn, menu_file)" popup="main_menu.menu_file" />
-				<item id="menu_bookmark_btn" text="书签(B)" action="move_menu(menu_bookmark_btn, menu_bookmark)" popup="main_menu.menu_bookmark" />
-				<item id="menu_plugin_btn" text="插件(P)" action="move_menu(menu_plugin_btn, menu_plugin)" popup="main_menu.menu_plugin" />
-				<item id="menu_tools_btn" text="工具(T)" action="move_menu(menu_tools_btn, menu_tools)" popup="main_menu.menu_tools" />
-				<item id="menu_windows_btn" text="窗口(W)" action="move_menu(menu_windows_btn, menu_windows)" popup="main_menu.menu_windows" />
-				<item id="menu_help_btn" text="帮助(H)" action="move_menu(menu_help_btn, menu_help)" popup="main_menu.menu_help" />
+				<item id="menu_file_btn" text="文件(F)" action="move_main_menu()" popup="main_menu.menu_file" />
+				<item id="menu_bookmark_btn" text="书签(B)" action="move_main_menu()" popup="main_menu.menu_bookmark" />
+				<item id="menu_plugin_btn" text="插件(P)" action="move_main_menu()" popup="main_menu.menu_plugin" />
+				<item id="menu_tools_btn" text="工具(T)" action="move_main_menu()" popup="main_menu.menu_tools" />
+				<item id="menu_windows_btn" text="窗口(W)" action="move_main_menu()" popup="main_menu.menu_windows" />
+				<item id="menu_help_btn" text="帮助(H)" action="move_main_menu()" popup="main_menu.menu_help" />
 			</items>
 			<button x="0" y="0" width="58" height="20" align="center,vcenter,singleline">
-				<attribs id="item.id" text="item.text" action="item.action" popup="item.popup" />
-				<events mouse_in="print('mouse in menu btn\n')" mouse_out="print('mouse out menu btn\n')" />
+				<attribs id="item.id" text="item.text" action="item.action" popup="item.popup" group="main_menu" />
 				<states>
 					<normal border="0" bkclr="#E5E5E5" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
 					<down border="1" color="#8A867A" bkclr="#E5E5E5" />
 				</states>
 			</button>
+			<script type="javascript">
+				function move_main_menu()
+				{
+					move_menu(menu_file_btn, menu_file);
+					move_menu(menu_bookmark_btn, menu_bookmark);
+					move_menu(menu_plugin_btn, menu_plugin);
+					move_menu(menu_tools_btn, menu_tools);
+					move_menu(menu_windows_btn, menu_windows);
+					move_menu(menu_help_btn, menu_help);
+				}
+			</script>
 		</custom>
 
 		<!--常用工具栏-->
-		<custom x="1" y="24" width="131" height="29" col="4" type="tiled" margin="0,2,0,7" bkclr="#E5E5E5" bkimg="dragable.png">
+		<custom id="toolbar" x="1" y="24" width="131" height="29" col="4" type="tiled" margin="0,2,0,7" bkclr="#E5E5E5" bkimg="dragable.png">
 			<image dx="2" dy="3" />
 			<items width="29" height="29">
 				<item img="computer.png" />
@@ -235,47 +245,50 @@
 				<states normal="item.img" width="width" height="width">
 					<normal dx="3" dy="3" border="0" bkclr="#E5E5E5" />
 					<hover dx="2" dy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
-					<down dx="3" dy="3"/>
+					<down dx="3" dy="3" border="1" color="#316AC5" bkclr="#C1D2EE" />
 				</states>
 			</button>
 		</custom>
 		
 		<!--收藏的工具栏-->
-		<custom x="134" y="24" width="743" height="29" col="50" type="tiled" margin="0,2,0,7" float="width">
+		<custom id="fav_toolbar" x="134" y="24" width="743" height="29" col="50" type="tiled" margin="0,2,0,7" float="width">
 			<image dx="2" dy="3" />
 			<attribs bkclr="#E5E5E5" bkimg="dragable.png" />
+			<!--tem id="" icon="%Sys\\notepad.exe" action="sys.shell_execute(this.attrib('path'))"/-->
 			<items width="29" height="29">
-				<item icon="C:\windows\system32\notepad.exe" />
-				<item icon="D:\tri_soft\Notepad++\notepad++.exe" />
-				<item icon="D:\tri_soft\mplayer\mplayer.exe" />
-				<item icon="D:\tri_soft\c32asm\C32Asm.exe" />
-				<item icon="D:\tri_soft\FileCompare\BC2.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\SQLite Database Browser.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
-				<item icon="D:\tri_soft\Explorer\tools\dui\App.exe" />
 			</items>
-			<button width="29" height="29">
+			<button id="item.id" width="29" height="29" path="item.icon" action="sys.shell_execute(this.attrib('path'))">
 				<states width="24" height="24">
 					<normal icon="item.icon" dx="3" dy="3" border="0" bkclr="#E5E5E5" />
 					<hover dx="2" dy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
-					<down dx="3" dy="3"/>
+					<down dx="3" dy="3" border="1" color="#316AC5" bkclr="#C1D2EE" />
 				</states>
 			</button>
+			<script type="javascript">
+				<![CDATA[
+				var file = new jfile;
+				var app_path = sys.get_path(sys.app_path);
+				if(file.open(app_path + "\\Skins\\Explorer\\bookmark.json", "r"))
+				{
+					var sys_path = sys.get_path(sys.sys_path);
+					
+					var data =file.read();
+					var bm = eval("(" + data + ")");
+					for(var i = 0; i < bm.bookmark.length; ++i)
+					{
+						var path = bm.bookmark[i].path;
+						
+						path = path.replace(/%Sys/gi, sys_path);
+						path = path.replace(/%App/gi, app_path);
+						
+						var id = sys.hash(path);
+						fav_toolbar.insert("<item id='btn" + id + "' icon='" + path + "' />", -1, 0);
+					}
+				}
+				
+				file = null;
+				]]>
+			</script>
 		</custom>
 
 		<!--地址栏-->
@@ -292,7 +305,7 @@
 					<states normal="item.img" width="width" height="width">
 						<normal dx="3" dy="3" border="0" bkclr="#E5E5E5" />
 						<hover dx="2" dy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
-						<down dx="3" dy="3"/>
+						<down dx="3" dy="3" border="1" color="#316AC5" bkclr="#C1D2EE" />
 					</states>
 				</button>
 			</custom>
@@ -382,14 +395,6 @@
 		<!--上面的tab控件-->
 		<custom id="folder_tabs" type="tiled" x="5" y="86" width="870" height="20" col="10" margin="0,0" float="width">
 			<items width="adapt" height="20">
-				<item text="OpenSrc" tab="fxplorer.t1" />
-				<item text="gtl" tab="fxplorer.t2" />
-				<item text="常用软件" tab="fxplorer.t3" />
-				<item text="iPhone" tab="t4" />
-				<item text="Output" tab="t5" />
-				<item text="pragma" tab="t6" />
-				<item text="Download" tab="t7" />
-				<item text="lib" tab="t8" />
 			</items>
 			<button width="adapt,15" height="20" text="item.text" align="left,vcenter" offset="24">
 				<tabs tab="item.tab" group="folders" />
@@ -397,30 +402,23 @@
 			</button>
 		</custom>
 		
-		<label x="5" y="106" width="870" height="512" float="width,height">
+		<!--label x="5" y="106" width="870" height="512" float="width,height">
 			<border width="1" color="#316AC5" />
-		</label>
+		</label-->
 
 		<custom id="fxplorer" type="tiled" x="5" y="86" width="870" height="512" col="10" float="width">
 			<items width="adapt" height="20">
-				<item id="t1" sid="sfc1" tid="st1" color="#ff0000" />
-				<item id="t2" sid="" tid="" color="#00ff00" />
-				<item id="t3" sid="" tid="" color="#0000ff" />
 			</items>
 			<layer id="item.id" x="0" y="20" width="870" height="512">
 				<custom id="item.sid" x="6" y="106" width="868" height="512" type="tiled" col="10">
-					<border width="1" color="item.color" />
+					<border width="1" color="#ff0000" />
 					<items width="adapt" height="20">
-						<item id="sf1" bkclr="#808080" />
-						<item id="sf2" bkclr="#808080" />
 					</items>
-					<panel id="item.id" x="1" y="1" width="866" height="510" bkclr="item.bkclr">
+					<panel id="item.id" x="1" y="1" width="866" height="510" bkclr="#808080">
 					</panel>
 				</custom>
 				<custom id="item.tid" type="tiled" x="6" y="618" width="868" height="20" col="10" margin="0,0" float="bottom,width">
 					<items width="adapt" height="20">
-						<item text="OpenSrc" tab="javascript:sf1.id" />
-						<item text="gtl" tab="javascript:sf2.id" />
 					</items>
 					<button width="adapt,15" height="20" text="item.text" align="left,vcenter" offset="24">
 						<tabs tab="item.tab" group="subfolders" />
@@ -428,7 +426,40 @@
 					</button>
 				</custom>
 			</layer>
+			<script type="javascript">
+				add_folder();
+			</script>
 		</custom>
+		
+		<!--custom id="fexplorer" type="tiled" x="5" y="106" width="870" height="512" position="relative">
+			<items width="870" height="512">
+				<item id="t1" bkclr="#646464" />
+				<item id="t2" bkclr="#808080" />
+				<item id="t3" bkclr="#C0C0C0" />
+			</items>
+			<layer id="item.id" x="0" y="0" width="870" height="512">
+				<custom id=".shell_panel" type="tiled" x="6" y="107" width="868" height="500" float="width,height" bkclr="item.bkclr">
+					<items width="868" height="512">
+						<item id="st1" />
+						<item id="st2" />
+						<item id="st3" />
+					</items>
+					<panel id="item.id" x="0" y="0" width="868" height="510" type="child" position="relative">
+					</panel>
+				</custom>
+				<custom id=".sub_tabs" type="tiled" x="6" y="618" width="868" height="20" col="10" margin="0,0" float="bottom,width">
+					<items width="adapt" height="20">
+						<item text="OpenSrc" tab="javascript:st1.id" />
+						<item text="gtl" tab="javascript:st2.id" />
+						<item text="常用软件" tab="javascript:st3.id" />
+					</items>
+					<button width="adapt,15" height="20" text="item.text" align="left,vcenter" offset="24">
+						<tabs tab="item.tab" group="subfolders" />
+						<states link="states.top_tab" />
+					</button>
+				</custom>
+			</layer>
+		</custom-->
 		
 		<!--下面的tab控件-->
 		<!--custom type="tiled" x="6" y="618" width="868" height="20" col="10" margin="0,0" float="bottom,width">

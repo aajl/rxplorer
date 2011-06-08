@@ -1,0 +1,6 @@
+{ "bookmark":
+	[
+		{ "name": "notepad", "path": "%Sys\notepad.exe" },
+		{ "name": "notepad++", "path": "D:\tri_soft\Notepad++\notepad++.exe" },
+	[
+}
