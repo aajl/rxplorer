@@ -47,7 +47,7 @@
 				}
 				
 				filename.text = filepath.substr(filepath.lastIndexOf('\\') + 1);
-				timer_play_pos = window.setInterval(1000, 'get_play_pos()');
+				timer_play_pos = sys.setInterval(1000, 'get_play_pos()');
 			}
 		}
 		
@@ -68,6 +68,8 @@
 			footer_ctrl_bar.hide();
 			footer.show();
 			player.stop();
+			
+			sys.clearInterval(timer_play_pos);
 		}
 		
 		function set_video_pos()
@@ -85,21 +87,21 @@
 		}
 		
 		function get_play_pos()
-		{
+		{			
 			var duration = player.duration();
 			if(duration == 0)
 				return;
-			
+						
 			var full = player.get_fullscreen();
 			if(full)
 			{
-				var pt = window.cursor_pos();
+				var pt = sys.cursor_pos();
 				if(prev_cursor_x == pt.x && prev_cursor_y == pt.y)
 				{
 					if(show_cursor && ++cursor_count == 5)
 					{
 						show_cursor = false;
-						window.show_cursor(false);
+						sys.show_cursor(false);
 						footer_ctrl_bar.hide();
 					}				
 				}
@@ -134,7 +136,7 @@
 			if(duration == playpos)
 			{
 				stop_play();
-				window.clearInterval(timer_play_pos);
+				sys.clearInterval(timer_play_pos);
 			}
 		}
 		
@@ -143,7 +145,7 @@
 			if(show_cursor)
 				return;
 				
-			var pt = window.cursor_pos();
+			var pt = sys.cursor_pos();
 			if(prev_cursor_x == pt.x && prev_cursor_y == pt.y)
 				return;
 
@@ -151,7 +153,7 @@
 			show_cursor = true;
 			prev_cursor_x = 0;
 			prev_cursor_y = 0;
-			window.show_cursor(true);
+			sys.show_cursor(true);
 			footer_ctrl_bar.show();
 		}
 		
@@ -334,7 +336,7 @@
 		</states>
 	</scroll>
 
-	<panel id="dplayer" title="DPlayer" type="app" bkimg="" drag="true">
+	<panel id="dplayer" title="DPlayer" type="app" bkimg="" bkclr="#141414" drag="true">
 		<events maximize="max.check(true)" restore="max.check(0)" drop="drop_files()" />
 		<size x="0" y="0" width="611" height="425" resize="true" min-width="611" min-height="425" />
 		<eresize>
@@ -363,7 +365,7 @@
 		</label>
 		
 		<!--系统按钮-->
-		<layer id="sys" x="501" y="1" width="110" height="21" float="right" margin="0,4">
+		<layer id="sys_btn" x="501" y="1" width="110" height="21" float="right" margin="0,4">
 			<button id="menu" action="move_main_menu();" x="0" y="0" width="19" height="19" popup="main_menu">
 				<states normal="imgs.main_hover" dy="2" y="32" width="19" height="19">
 					<normal x="444" />
@@ -408,8 +410,8 @@
 
 			<layer id="logo_panel" float="center,vcenter">
 				<!--logo-->
-				<!--img id="logo" src="logo.png" x="127" y="44" width="357" height="165" /-->
-				<img id="logo" src="walle.png" x="241" y="70" width="128" height="128" />
+				<img id="logo" src="logo.png" x="127" y="44" width="357" height="165" />
+				<!--img id="logo" src="panda.gif" x="241" y="70" width="128" height="128" /-->
 												
 				<!--弹出窗口-->
 				<panel id="dlg_open_as" visible="false" bkimg="imgs.openas_normal">
@@ -618,7 +620,7 @@
 		</layer>
 	</panel>
 	
-	<menu id="main_menu" x="504" y="24" width="126" height="145" visible="false" alpha="80" bkclr="#ffffff" margin="1,0,0,0">
+	<menu id="main_menu" x="504" y="24" width="126" height="145" visible="false" alpha="80" bkclr="#ffffff" margin="1,0,0,0,-1">
 		<border width="1" color="#aca899" />
 		
 		<items height="23">
@@ -768,7 +770,7 @@
 
 		<label text="DPlayer" x="14" y="44" width="180" height="28" size="13" weight="700" />
 
-		<label text="Beta 1.0.15.25" x="20" y="75" width="100" height="20" font="fonts.song_10" />
+		<label text="Beta 1.0.16.26" x="20" y="75" width="100" height="20" font="fonts.song_10" />
 
 		<label x="18" y="133" width="400" height="60" font111="fonts.song_10">
 			<text>
