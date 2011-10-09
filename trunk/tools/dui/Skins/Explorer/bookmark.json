@@ -1,6 +1,17 @@
-{ "bookmark":
-	[
-		{ "name": "notepad", "path": "%Sys\notepad.exe" },
-		{ "name": "notepad++", "path": "D:\tri_soft\Notepad++\notepad++.exe" },
-	[
-}
+{ "bookmark":[
+	{ "name": "notepad", 		"path": "%Sys\\notepad.exe" },
+	{ "name": "mspaint", 		"path": "%Sys\\mspaint.exe" },
+	{ "name": "calc", 			"path": "%Sys\\calc.exe" },
+	{ "name": "cmd.exe", 		"path": "%Sys\\cmd.exe" },
+	{ "name": "notepad++", 		"path": "D:\\tri_soft\\Notepad++\\notepad++.exe" },
+	{ "name": "mpc-hc", 		"path": "%App\\Skins\\Explorer\\tools\\mpc-hc.exe" },
+	//{ "name": "graphedt", 		"path": "%App\\Skins\\Explorer\\tools\\tools\\graphedt.exe" },
+	//{ "name": "procexp", 		"path": "%App\\Skins\\Explorer\\tools\\tools\\procexp.exe" },
+	{ "name": "ResourceHacker", "path": "%App\\Skins\\Explorer\\tools\\ResourceHacker.exe" },
+	{ "name": "ResourceHacker", "path": "D:\\tri_soft\\Notepad++\\notepad++.exe" },
+	{ "name": "ResourceHacker", "path": "D:\\tri_soft\\mplayer\\mplayer.exe" },
+	{ "name": "ResourceHacker", "path": "D:\\tri_soft\\c32asm\\C32Asm.exe" },
+	{ "name": "ResourceHacker", "path": "D:\\tri_soft\\FileCompare\\BC2.exe" },
+	{ "name": "ResourceHacker", "path": "D:\\tri_soft\\Explorer\\tools\\SQLite Database Browser.exe" },
+	{ "name": "ResourceHacker", "path": "D:\\tri_soft\\Explorer\\tools\\dui\\App.exe" }	
+]}
