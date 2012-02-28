@@ -1,269 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <directui>
-	<script type="javascript" file="dialog.js" />
-	<script type="javascript" file="player.js" />
-	<script type="javascript" file="mediainfo.js" />
-	<script type="javascript">
-		<![CDATA[
-		var timer_play_pos = 0;
-		var show_cursor = true;
-		var prev_cursor_x = 0;
-		var prev_cursor_y = 0;
-		var cursor_count = 0;
-		var media_file_path = "";
-		
-		function open_file()
-		{
-			var filepath = dialog.open();
-			play_file(filepath);
-		}
-		
-		function play_file(filepath)
-		{
-			show_cursor = true;
-			prev_cursor_x = 0;
-			prev_cursor_y = 0;
-			
-			if(player.play(filepath))
-			{
-				media_file_path = filepath;
-				
-				logo.hide();
-				play_progress.enable(true);
-				set_video_pos();
-				openfile.hide();
-				play_time.show();
-				play.check(true);
-				var duration = player.duration();
-				if(duration == 0)
-				{
-					play_progress.set_range(0, 100);
-					footer_play_progress.set_range(0, 100);
-				}
-				else
-				{
-					play_progress.set_range(0, duration);
-					footer_play_progress.set_range(0, duration);
-				}
-				
-				filename.text = filepath.substr(filepath.lastIndexOf('\\') + 1);
-				timer_play_pos = sys.setInterval(1000, 'get_play_pos()');
-			}
-		}
-		
-		function stop_play()
-		{
-			var full = player.get_fullscreen();
-			if(full)
-				player.set_fullscreen(Number(!full));
-
-			play_time.hide();
-			filename.text = "";
-			logo.show();
-			play.check(false);
-			openfile.show();
-			play_progress.pos = 0;
-			footer_play_progress.pos = 0;
-			play_progress.enable(false);
-			footer_ctrl_bar.hide();
-			footer.show();
-			player.stop();
-			
-			sys.clearInterval(timer_play_pos);
-		}
-		
-		function set_video_pos()
-		{
-			player.set_video_pos(videowindow.x, videowindow.y, videowindow.width, videowindow.height);
-		}
-		
-		function set_play_pos(play_prgrs)
-		{
-			var duration = player.duration();
-			if(duration == 0)
-				return;
-			
-			player.set_play_pos(play_prgrs.pos);
-		}
-		
-		function get_play_pos()
-		{			
-			var duration = player.duration();
-			if(duration == 0)
-				return;
-						
-			var full = player.get_fullscreen();
-			if(full)
-			{
-				var pt = sys.cursor_pos();
-				if(prev_cursor_x == pt.x && prev_cursor_y == pt.y)
-				{
-					if(show_cursor && ++cursor_count == 5)
-					{
-						show_cursor = false;
-						sys.show_cursor(false);
-						footer_ctrl_bar.hide();
-					}				
-				}
-				else
-				{
-					cursor_count = 0;
-					prev_cursor_x = pt.x;
-					prev_cursor_y = pt.y;
-				}
-			}
-			
-			var playpos = player.get_play_pos();
-			play_progress.pos = playpos;
-			footer_play_progress.pos = playpos;
-			
-			function fmt(tt)
-			{
-				return tt < 10 ? '0' + tt : tt;
-			}
-
-			var hh = parseInt(playpos / 3600);
-			var mm = parseInt((playpos / 60) % 60);
-			var ss = parseInt(playpos % 60);
-			var text = fmt(hh) + ":" + fmt(mm) + ":" + fmt(ss) + " / ";
-			hh = parseInt(duration / 3600);
-			mm = parseInt((duration / 60) % 60);
-			ss = parseInt(duration % 60);
-			text += fmt(hh) + ":" + fmt(mm) + ":" + fmt(ss);
-			play_time.text = text;
-			footer_play_time.text = text;
-			
-			if(duration == playpos)
-			{
-				stop_play();
-				sys.clearInterval(timer_play_pos);
-			}
-		}
-		
-		function show_ctrl_bar()
-		{
-			if(show_cursor)
-				return;
-				
-			var pt = sys.cursor_pos();
-			if(prev_cursor_x == pt.x && prev_cursor_y == pt.y)
-				return;
-
-			cursor_count = 0;
-			show_cursor = true;
-			prev_cursor_x = 0;
-			prev_cursor_y = 0;
-			sys.show_cursor(true);
-			footer_ctrl_bar.show();
-		}
-		
-		function change_volume(volume_ctrl)
-		{
-			var pos = volume_ctrl.pos;
-			player.set_volume(pos);
-		}
-		
-		function move_main_menu()
-		{
-			if(menu.popuped)
-				return;
-
-			var rc_menu_btn = menu.screen_rect();
-			var rc_main_menu = main_menu.rect();
-			var top = rc_menu_btn.top + rc_menu_btn.height + 4;
-			main_menu.move(rc_menu_btn.left, top, rc_main_menu.width, rc_main_menu.height);
-		}
-		
-		function drop_files(files)
-		{
-			if(files.length == 0)
-				return;
-				
-			play_file(files[0]);
-		}
-		
-		function fullscreen()
-		{
-			var full = !player.get_fullscreen();
-			if(!player.set_fullscreen(Number(full)))
-				return;
-				
-			if(full)
-			{
-				var rc_ctrl_bar = footer_ctrl_bar.rect();
-				var rc_player = dplayer.screen_rect();
-				var left = rc_player.left;
-				var top = rc_player.top + rc_player.height - rc_ctrl_bar.height;
-				footer_ctrl_bar.move(left, top, rc_player.width, rc_ctrl_bar.height);			
-				
-				footer.hide();
-				footer_ctrl_bar.show();
-			}
-			else
-			{
-				footer.show();
-				footer_ctrl_bar.hide();
-			}
-		}
-		
-		function show_media_info()
-		{
-			menu.popup();
-
-			if(!mediainfo.open(media_file_path))
-				return;
-			
-			filefmt.text = mediainfo.file_format();
-			filerate.text = mediainfo.vbitrate();
-			duration.text = mediainfo.duration();
-
-
-			var vcodecinfo = mediainfo.vcodec_id();
-			var vcodec_info = mediainfo.vcodec_info();
-			var vcodec_profile = mediainfo.vcodec_profile();
-			
-			if(vcodecinfo == "")
-				vcodecinfo = vcodec_info;
-			else if(vcodec_info != "")
-				vcodecinfo += "/" + vcodec_info;
-						
-			if(vcodecinfo == "")
-				vcodecinfo = vcodec_profile;
-			else if(vcodec_profile != "")
-				vcodecinfo += "/" + vcodec_profile;
-			
-			videofmt.text = mediainfo.video_format();
-			vcodec.text = vcodecinfo;
-			vbitrate.text = mediainfo.vbitrate();
-			fps.text = mediainfo.fps();
-			resolution.text = mediainfo.resolution();
-			aspect_ratio.text = mediainfo.aspect_ratio();
-			
-			var acodecinfo = mediainfo.acodec_id();
-			var acodec_info = mediainfo.acodec_info();
-			var acodec_profile = mediainfo.acodec_profile();
-
-			if(acodecinfo == "")
-				acodecinfo = acodec_info;
-			else if(acodec_info != "")
-				acodecinfo += "/" + acodec_info;
-			
-			if(acodecinfo == "")
-				acodecinfo = acodec_profile;
-			else if(acodec_profile != "")
-				acodecinfo += "/" + acodec_profile;
-
-			audiofmt.text = mediainfo.audio_format();
-			acodec.text = acodecinfo;
-			abitrate.text = mediainfo.abitrate();
-			channels.text = mediainfo.channels();
-			srate.text = mediainfo.srate();
-			bitdepth.text = mediainfo.bit_depth();
-
-			fileinfo.show()
-		}
-		]]>
-	</script>
+	<script type="javascript" src="skin.js" />
 
 	<imgs id="imgs" main_normal="main_normal.png" main_hover="main_hover.png">
 		<imgs openas_normal="openas_normal.png" openas_hover="openas_hover.png" />
@@ -395,7 +132,7 @@
 				</states>
 			</button>
 			
-			<button id="close" action="window.close()" x="0" y="0" width="38" height="21">
+			<button id="close" action="on_close()" x="0" y="0" width="38" height="21">
 				<states normal="imgs.main_hover" y="72" width="38" height="21">
 					<normal x="444" />
 					<hover x="482" />
@@ -511,7 +248,7 @@
 					<states link="states.prev" />
 				</button>
 
-				<button id="play" action="player.pause()" x="258" y="380" width="32" height="32" checkable="true">
+				<button id="play" action="on_play()" x="258" y="380" width="32" height="32" checkable="true">
 					<states link="states.play" />
 					<states link="states.pause" />
 				</button>
@@ -520,7 +257,7 @@
 					<states link="states.next" />
 				</button>
 
-				<button id="mute" action="player.mute();" x="355" y="387" width="20" height="20" checkable="true">
+				<button id="mute" action="sys.player.mute();" x="355" y="387" width="20" height="20" checkable="true">
 					<states link="states.mute_off" />
 					<states link="states.mute_on" />
 				</button>
@@ -537,7 +274,7 @@
 			
 			<!--截图及播放列表-->
 			<layer x="556" y="394" width="55" height="20" margin="5" float="right,bottom">
-				<button id="" action="player.set_channel(++channel % 3);" x="0" y="0" width="20" height="19">
+				<button id="" action="sys.player.set_channel(++channel % 3);" x="0" y="0" width="20" height="19">
 					<states normal="imgs.main_hover" y="112" width="20" height="19">
 						<normal x="444" />
 						<hover x="464" />
@@ -595,7 +332,7 @@
 				<states link="states.prev" />
 			</button>
 
-			<button id="" action="player.pause()" x="258" y="17" width="32" height="32" checkable="true">
+			<button id="" action="sys.player.pause()" x="258" y="17" width="32" height="32" checkable="true">
 				<states link="states.play" />
 				<states link="states.pause" />
 			</button>
@@ -604,7 +341,7 @@
 				<states link="states.next" />
 			</button>
 
-			<button id="" action="player.mute();" x="355" y="22" width="20" height="20" checkable="true">
+			<button id="" action="sys.player.mute();" x="355" y="22" width="20" height="20" checkable="true">
 				<states link="states.mute_off" />
 				<states link="states.mute_on" />
 			</button>
@@ -627,29 +364,30 @@
 			<item id="menu_file" text="文件" img="imgs.main_hover" src="submenu.png" x="444" y="32"
 				  mouse_in="menu_file.show()" mouse_out="menu_file.hide()">
 				<item text="打开文件" action="menu.popup();open_file()" />
-				<item text="打开URL" />
+				<item text="打开URL" action="menu.popup();" />
 				<separator />
 				<item text="文件信息" action="show_media_info()" />
 			</item>
 			<item id="menu_play" text="播放" src="submenu.png"
 				  mouse_in="menu_play.show()" mouse_out="menu_play.hide()">
-				<item text="播放/暂停" />
-				<item text="停止" />
+				<item text="播放/暂停" action="" />
+				<item text="停止" action="menu.popup();" />
+				<item text="重复" action="repeat=!repeat;menu.popup();print(this.id);print(main_menu.menu_play.id)" img="check.png" />
 			</item>
 			<item id="menu_display" text="显示" img="imgs.main_hover" src="submenu.png" x="444" y="52"
 				  mouse_in="menu_display.show()" mouse_out="menu_display.hide()">
-				<item text="全屏" />
-				<item text="普通模式" />
+				<item text="全屏" action="menu.popup();" />
+				<item text="普通模式" action="menu.popup();" />
 				<separator />
-				<item text="播放时置顶" />
-				<item text="总时置顶" />
-				<item text="取消置顶" />
+				<item text="播放时置顶" action="menu.popup();" />
+				<item text="总时置顶" action="menu.popup();" />
+				<item text="取消置顶" action="menu.popup();" />
 			</item>
 			<item id="menu_channel" text="声道" src="submenu.png"
 				  mouse_in="menu_channel.show()" mouse_out="menu_channel.hide()">
-				<item text="左声道" action="player.set_channel(0);menu.popup()" />
-				<item text="右声道" action="player.set_channel(1);menu.popup()"/>
-				<item text="立体声" action="player.set_channel(2);menu.popup()"/>
+				<item text="左声道" action="sys.player.set_channel(0);menu.popup()" />
+				<item text="右声道" action="sys.player.set_channel(1);menu.popup()"/>
+				<item text="立体声" action="sys.player.set_channel(2);menu.popup()"/>
 			</item>
 			<item id="menu_setting" text="设置" />
 			<separator />
@@ -669,7 +407,7 @@
 				<attribs text="item.text" offset="23" align="singleline,vcenter" />
 				<image x="item.x" y="item.y" width="19" height="19" dx="2" dy="2" />
 			</label>
-			<img src="item.src" position="relative" x="110" y="8" width="7" height="7" />
+			<img id=".img" src="item.src" position="relative" x="110" y="8" width="7" height="7" />
 		</layer>
 	</menu>
 

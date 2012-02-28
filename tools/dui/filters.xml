@@ -10,6 +10,8 @@
 	<filter name="MP4 Splitter" format="mpeg-4,mpeg-4 visual,quicktime" location="Filters\Mp4Splitter.ax" type="splitter" clsid="{61F47056-E400-43d3-AF1E-AB7DFFD4C4AD}" />
 	<filter name="MPA Splitter" format="mpeg audio" location="Filters\Mpasplitter.ax" type="splitter" clsid="{0E9D4BF7-CBCB-46C7-BD80-4EF223A3DC2B}" />
 	<filter name="MPEG Splitter" format="mpeg-ps,mpeg-ts,bdav" location="Filters\MpegSplitter.ax" type="splitter" clsid="{DC257063-045F-4BE2-BD5B-E12279C464F0}" />
+	<filter name="MPEG1 Splitter" format="cdxa/mpeg-ps,mpeg video,cdxa" location="" type="splitter" clsid="{336475D0-942A-11CE-A870-00AA002FEAB5}" />
+	<filter name="MPEG2 Splitter" format="" location="" type="splitter" clsid="{3AE86B20-7BE8-11D1-ABE6-00A0C905F375}" />
 	<filter name="NUT Splitter" format="nut" location="Filters\NutSplitter.ax" type="splitter" clsid="{90514D6A-76B7-4405-88A8-B4B1EF6061C6}" />
 	<filter name="OGG Splitter" format="ogg" location="Filters\OggSplitter.ax" type="splitter" clsid="{9FF48807-E133-40AA-826F-9B2959E5232D}" />
 	<filter name="ROQ Splitter" format="roq" location="Filters\RoqSplitter.ax" type="splitter" clsid="{C73DF7C1-21F2-44C7-A430-D35FB9BB298F}" />
