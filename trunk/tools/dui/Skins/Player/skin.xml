@@ -12,6 +12,7 @@
 		<font id="bold_8" size="8" weight="700" />
 		<font id="about_dplayer" size="13" weight="700" />
 		<font id="song_10" size="10" face="新宋体" />
+		<font id="song_9" size="9" face="新宋体" />
 		<font id="song_8" size="8" face="新宋体" />
 		<font id="arial_8" size="8" face="Arial" />
 	</fonts>
@@ -372,7 +373,7 @@
 				  mouse_in="menu_play.show()" mouse_out="menu_play.hide()">
 				<item text="播放/暂停" action="" />
 				<item text="停止" action="menu.popup();" />
-				<item text="重复" action="repeat=!repeat;menu.popup();print(this.id);print(main_menu.menu_play.id)" img="check.png" />
+				<item text="重复" action="repeat=!repeat;menu.popup();" img="check.png" checkable="1" />
 			</item>
 			<item id="menu_display" text="显示" img="imgs.main_hover" src="submenu.png" x="444" y="52"
 				  mouse_in="menu_display.show()" mouse_out="menu_display.hide()">
@@ -385,9 +386,9 @@
 			</item>
 			<item id="menu_channel" text="声道" src="submenu.png"
 				  mouse_in="menu_channel.show()" mouse_out="menu_channel.hide()">
-				<item text="左声道" action="sys.player.set_channel(0);menu.popup()" />
-				<item text="右声道" action="sys.player.set_channel(1);menu.popup()"/>
-				<item text="立体声" action="sys.player.set_channel(2);menu.popup()"/>
+				<item text="左声道" action="sys.player.set_channel(0);menu.popup()" img="check.png" group="audio_channel" checkable="1" />
+				<item text="右声道" action="sys.player.set_channel(1);menu.popup()" img="check.png" group="audio_channel" checkable="1" />
+				<item text="立体声" action="sys.player.set_channel(2);menu.popup()" img="check.png" group="audio_channel" checkable="1" />
 			</item>
 			<item id="menu_setting" text="设置" />
 			<separator />
@@ -395,7 +396,7 @@
 			<item id="menu_exit" text="退出" img="close.png" x="0" y="0" action="dplayer.close()" />
 		</items>
 		
-		<layer x="0" y="0" width="122" height="23" action="item.action">
+		<layer x="0" y="0" width="122" height="23">
 			<events mouse_in="item.mouse_in" mouse_out="item.mouse_out" />
 			<states>
 				<normal border="0" bkclr="#ffffff" />
@@ -403,10 +404,11 @@
 				<down border="0" bkclr="#d2d2d2" />
 			</states>
 
-			<label bkimg="item.img" x="0" y="0" width="122" height="23">
-				<attribs text="item.text" offset="23" align="singleline,vcenter" />
-				<image x="item.x" y="item.y" width="19" height="19" dx="2" dy="2" />
-			</label>
+			<button text="item.text" offset="23" align="left,vcenter" action="item.action" adapt="false">
+				<pos x="0" y="0" width="122" height="23" group="item.group" checkable="item.checkable" />
+				<states normal="item.img" x="item.x" y="item.y" width="19" height="19" dx="2" dy="2" />
+				<states/>
+			</button>
 			<img id=".img" src="item.src" position="relative" x="110" y="8" width="7" height="7" />
 		</layer>
 	</menu>
@@ -508,13 +510,14 @@
 
 		<label text="DPlayer" x="14" y="44" width="180" height="28" size="13" weight="700" />
 
-		<label text="Beta 1.0.16.26" x="20" y="75" width="100" height="20" font="fonts.song_10" />
+		<label text="Beta 1.0.17.27" x="20" y="75" width="100" height="20" font="fonts.song_9" />
 
-		<label x="18" y="133" width="400" height="60" font111="fonts.song_10">
+		<label x="18" y="133" width="337" height="60" font="fonts.song_9" align="multiline">
 			<text>
 				Tristar 版权所有
-				Copyright (C) 2011 Tristar. All Rights Reserved.
+				Copyright (C) 2011-2012 Tristar. All Rights Reserved.
 			</text>
+			<border width="1" />
 		</label>
 
 		<button action="window.close()" x="330" y="1" width="38" height="21">
