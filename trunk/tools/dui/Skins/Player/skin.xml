@@ -517,7 +517,6 @@
 				Tristar 版权所有
 				Copyright (C) 2011-2012 Tristar. All Rights Reserved.
 			</text>
-			<border width="1" />
 		</label>
 
 		<button action="window.close()" x="330" y="1" width="38" height="21">
