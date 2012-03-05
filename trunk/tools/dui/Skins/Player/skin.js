@@ -38,7 +38,7 @@ String.prototype.toJSON = function(){
         '"'
 }
 
-$(function(){
+$(function(argv){
 	// 构造播放信息的路径
 	var path = sys.get_path(sys.app_path);
 	path +=  "\\playinfo.json";
@@ -49,6 +49,9 @@ $(function(){
 	// 读取播放信息,构造json对象
 	var play_info_json = file.read();
 	playinfo = eval('(' + play_info_json + ')');
+	
+	if(argv.length > 0)
+		play_file(argv[0]);
 });
 
 function on_play()
@@ -90,7 +93,7 @@ function play_file(filepath)
 	show_cursor = true;
 	prev_cursor_x = 0;
 	prev_cursor_y = 0;
-	
+		
 	if(sys.player.play(filepath))
 	{
 		media_file_path = filepath;
