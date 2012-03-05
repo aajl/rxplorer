@@ -362,20 +362,20 @@
 		<border width="1" color="#aca899" />
 		
 		<items height="23">
-			<item id="menu_file" text="文件" img="imgs.main_hover" src="submenu.png" x="444" y="32"
+			<item id="menu_file" text="文件" icon="imgs.main_hover" sub="submenu.png" x="444" y="32"
 				  mouse_in="menu_file.show()" mouse_out="menu_file.hide()">
 				<item text="打开文件" action="menu.popup();open_file()" />
 				<item text="打开URL" action="menu.popup();" />
 				<separator />
 				<item text="文件信息" action="show_media_info()" />
 			</item>
-			<item id="menu_play" text="播放" src="submenu.png"
+			<item id="menu_play" text="播放" sub="submenu.png"
 				  mouse_in="menu_play.show()" mouse_out="menu_play.hide()">
 				<item text="播放/暂停" action="" />
 				<item text="停止" action="menu.popup();" />
-				<item text="重复" action="repeat=!repeat;menu.popup();" img="check.png" checkable="1" />
+				<item text="重复" action="repeat=!repeat;menu.popup();" chkicon="check.png" checkable="1" />
 			</item>
-			<item id="menu_display" text="显示" img="imgs.main_hover" src="submenu.png" x="444" y="52"
+			<item id="menu_display" text="显示" icon="imgs.main_hover" sub="submenu.png" x="444" y="52"
 				  mouse_in="menu_display.show()" mouse_out="menu_display.hide()">
 				<item text="全屏" action="menu.popup();" />
 				<item text="普通模式" action="menu.popup();" />
@@ -384,32 +384,33 @@
 				<item text="总时置顶" action="menu.popup();" />
 				<item text="取消置顶" action="menu.popup();" />
 			</item>
-			<item id="menu_channel" text="声道" src="submenu.png"
+			<item id="menu_channel" text="声道" sub="submenu.png"
 				  mouse_in="menu_channel.show()" mouse_out="menu_channel.hide()">
-				<item text="左声道" action="sys.player.set_channel(0);menu.popup()" img="check.png" group="audio_channel" checkable="1" />
-				<item text="右声道" action="sys.player.set_channel(1);menu.popup()" img="check.png" group="audio_channel" checkable="1" />
-				<item text="立体声" action="sys.player.set_channel(2);menu.popup()" img="check.png" group="audio_channel" checkable="1" />
+				<item text="左声道" action="sys.player.set_channel(0);menu.popup()" chkicon="check.png" group="audio_channel" checkable="1" />
+				<item text="右声道" action="sys.player.set_channel(1);menu.popup()" chkicon="check.png" group="audio_channel" checkable="1" />
+				<item text="立体声" action="sys.player.set_channel(2);menu.popup()" chkicon="check.png" group="audio_channel" checkable="1" />
 			</item>
 			<item id="menu_setting" text="设置" />
 			<separator />
 			<item id="menu_about" text="关于DPlayer" action="menu.popup();about.show()" />
-			<item id="menu_exit" text="退出" img="close.png" x="0" y="0" action="dplayer.close()" />
+			<item id="menu_exit" text="退出" icon="close.png" x="0" y="0" action="dplayer.close()" />
 		</items>
 		
-		<layer x="0" y="0" width="122" height="23">
+		<layer x="0" y="0" width="122" height="23" action="item.action" adapt="false" group="item.group" checkable="item.checkable">
 			<events mouse_in="item.mouse_in" mouse_out="item.mouse_out" />
-			<states>
+			<states normal="item.icon" x="item.x" y="item.y" width="19" height="19" dx="2" dy="2">
 				<normal border="0" bkclr="#ffffff" />
 				<hover border="0" bkclr="#d2d2d2" />
 				<down border="0" bkclr="#d2d2d2" />
 			</states>
-
-			<button text="item.text" offset="23" align="left,vcenter" action="item.action" adapt="false">
-				<pos x="0" y="0" width="122" height="23" group="item.group" checkable="item.checkable" />
-				<states normal="item.img" x="item.x" y="item.y" width="19" height="19" dx="2" dy="2" />
-				<states/>
-			</button>
-			<img id=".img" src="item.src" position="relative" x="110" y="8" width="7" height="7" />
+			<states normal="item.chkicon" x="item.x" y="item.y" width="19" height="19" dx="2" dy="2">
+				<normal border="0" bkclr="#ffffff" />
+				<hover border="0" bkclr="#d2d2d2" />
+				<down border="0" bkclr="#d2d2d2" />
+			</states>
+			
+			<label x="0" y="0" width="122" height="23" text="item.text" offset="23" align="singleline,vcenter" />
+			<img id="" src="item.sub" position="relative" x="110" y="8" width="7" height="7" />
 		</layer>
 	</menu>
 
@@ -510,7 +511,7 @@
 
 		<label text="DPlayer" x="14" y="44" width="180" height="28" size="13" weight="700" />
 
-		<label text="Beta 1.0.17.27" x="20" y="75" width="100" height="20" font="fonts.song_9" />
+		<label text="Beta 1.0.18.28" x="20" y="75" width="100" height="20" font="fonts.song_9" />
 
 		<label x="18" y="133" width="337" height="60" font="fonts.song_9" align="multiline">
 			<text>
