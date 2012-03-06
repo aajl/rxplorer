@@ -43,12 +43,12 @@ $(function(argv){
 	var path = sys.get_path(sys.app_path);
 	path +=  "\\playinfo.json";
 	var file = new jfile;
-	if(!file.open(path, "r"))
-		return;
-
-	// 读取播放信息,构造json对象
-	var play_info_json = file.read();
-	playinfo = eval('(' + play_info_json + ')');
+	if(file.open(path, "r"))
+	{
+		// 读取播放信息,构造json对象
+		var play_info_json = file.read();
+		playinfo = eval('(' + play_info_json + ')');
+	}
 	
 	if(argv.length > 0)
 		play_file(argv[0]);
@@ -75,6 +75,12 @@ function on_close()
 		file.write(playinfo.toJSON());
 	}
 
+	if(is_playing)
+	{
+		sys.clearInterval(timer_play_pos);
+		sys.player.stop();
+	}
+	
 	dplayer.close();
 }
 
@@ -170,7 +176,7 @@ function on_play_pos()
 	var duration = sys.player.duration();
 	if(duration == 0)
 		return;
-				
+
 	var full = sys.player.get_fullscreen();
 	if(full)
 	{
