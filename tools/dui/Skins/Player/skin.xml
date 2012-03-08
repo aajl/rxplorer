@@ -85,7 +85,7 @@
 			<bottom_right x="486" y="377" width="66" height="48" />
 		</eresize>
 		<hittest>
-			<rect x="0" y="0" width="470" height="24" />
+			<rect x="0" y="0" width="500" height="24" float="width" />
 		</hittest>
 
 		<img src="imgs.main_hover" x="80" y="0" width="531" height="23" adapt="true" float="width">
@@ -98,8 +98,9 @@
 		</label>
 		
 		<label id="filename" text="" x="80" y="0" width="415" height="23" color="#c2c2c2" font="fonts.bold_8">
-			<attribs bkimg="imgs.main_hover" float="width" align="center,vcenter,singleline" />
+			<attribs bkimg="imgs.main_hover" float="width" align="center,vcenter,singleline" clickable="true" />
 			<image x="x" y="y" width="width" height="height" />
+			<events dbclk="dplayer.max()" />
 		</label>
 		
 		<!--系统按钮-->
@@ -174,7 +175,7 @@
 				<layer id="openfile" x="236" y="214">
 					<button id="open" action="open_file()" x="236" y="214" width="108" height="45">
 						<states normal="imgs.main_hover" x="232" width="108" height="45">
-							<normal y="109"  />
+							<normal y="109" />
 							<hover y="155" />
 						</states>
 					</button>
@@ -511,7 +512,7 @@
 
 		<label text="DPlayer" x="14" y="44" width="180" height="28" size="13" weight="700" />
 
-		<label text="Beta 1.0.19.29" x="20" y="75" width="100" height="20" font="fonts.song_9" />
+		<label text="Beta 1.0.20" x="20" y="75" width="100" height="20" font="fonts.song_9" />
 
 		<label x="18" y="133" width="337" height="60" font="fonts.song_9" align="multiline">
 			<text>
