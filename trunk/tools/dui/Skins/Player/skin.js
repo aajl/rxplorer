@@ -8,47 +8,17 @@ var is_playing = false;
 var repeat = false;
 var playinfo = {};
 
-Object.prototype.toJSON = function(){  
-    var json = [];  
-    for(var i in this){  
-        if(!this.hasOwnProperty(i)) continue;  
-        json.push(  
-            i.toJSON() + " : " +  
-            ((this[i] != null) ? this[i].toJSON() : "null")  
-        )  
-    }  
-    return "{\n " + json.join(",\n ") + "\n}";  
-}
-
-Array.prototype.toJSON = function(){  
-    for(var i=0,json=[];i<this.length;i++)  
-        json[i] = (this[i] != null) ? this[i].toJSON() : "null";  
-    return "["+json.join(", ")+"]"  
-}
-
-String.prototype.toJSON = function(){  
-    return '"' +  
-        this.replace(/(\\|\")/g,"\\$1")  
-        .replace(/\n|\r|\t/g,function(){  
-            var a = arguments[0];  
-            return  (a == '\n') ? '\\n':  
-                    (a == '\r') ? '\\r':  
-                    (a == '\t') ? '\\t': ""  
-        }) +  
-        '"'
-}
-
 $(function(argv){
 	// 构造播放信息的路径
 	var path = sys.get_path(sys.app_path);
 	path +=  "\\playinfo.json";
 	var file = new jfile;
-	if(file.open(path, "r"))
-	{
-		// 读取播放信息,构造json对象
-		var play_info_json = file.read();
-		playinfo = eval('(' + play_info_json + ')');
-	}
+	if(!file.open(path, "r"))
+		return;
+
+	// 读取播放信息,构造json对象
+	var play_info_json = file.read();
+	playinfo = eval('(' + play_info_json + ')');
 	
 	if(argv.length > 0)
 		play_file(argv[0]);
@@ -75,12 +45,6 @@ function on_close()
 		file.write(playinfo.toJSON());
 	}
 
-	if(is_playing)
-	{
-		sys.clearInterval(timer_play_pos);
-		sys.player.stop();
-	}
-	
 	dplayer.close();
 }
 
@@ -99,7 +63,9 @@ function play_file(filepath)
 	show_cursor = true;
 	prev_cursor_x = 0;
 	prev_cursor_y = 0;
-		
+	
+	print("file: " + filepath + "\n");
+	
 	if(sys.player.play(filepath))
 	{
 		media_file_path = filepath;
@@ -176,7 +142,7 @@ function on_play_pos()
 	var duration = sys.player.duration();
 	if(duration == 0)
 		return;
-
+				
 	var full = sys.player.get_fullscreen();
 	if(full)
 	{
