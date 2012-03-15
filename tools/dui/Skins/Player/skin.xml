@@ -156,7 +156,7 @@
 				<panel id="dlg_open_as" visible="false" bkimg="imgs.openas_normal">
 					<size x="237" y="260" width="138" height="77" />
 					<effects show="effect.roll(dlg_open_as.id, 100, true, 2)" hide="effect.roll(dlg_open_as.id, 100, false, 1)">
-					</effect>
+					</effects>
 					
 					<button action="openas.popup();open_file();" position="relative" x="5" y="5" width="129" height="23">
 						<attribs text="打开本地文件" align="center,vcenter,singleline" color="#959595" />
