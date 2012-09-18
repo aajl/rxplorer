@@ -2,7 +2,15 @@
 <directui>
 	<script type="javascript" src="skin.js" />
 
-	<imgs id="imgs" main_normal="main_normal.png" main_hover="main_hover.png">
+	<imgs id="theme" main_normal="main_normal.png" main_hover="main_hover.jpg">
+		<imgs openas_normal="openas_normal.png" openas_hover="openas_hover.png" />
+	</imgs>
+
+	<imgs id="imgs_default" main_normal="main_normal.png" main_hover="main_hover.jpg">
+		<imgs openas_normal="openas_normal.png" openas_hover="openas_hover.png" />
+	</imgs>
+
+	<imgs id="imgs_blue" main_normal="main_normal.png" main_hover="main_blue_hover.jpg">
 		<imgs openas_normal="openas_normal.png" openas_hover="openas_hover.png" />
 	</imgs>
 
@@ -18,47 +26,52 @@
 	</fonts>
 	
 	<states id="states">
-		<states id="close" normal="imgs.main_hover" y="72" width="38" height="21">
+		<states id="close" normal="theme.main_hover" y="72" width="38" height="21">
 			<normal x="444" />
 			<hover x="482" />
 			<down x="520" />
 		</states>
-		<states id="ok" normal="imgs.main_hover" y="38" width="59" height="24">
+		<states id="close_min" normal="theme.main_hover" y="179" width="25" height="20">
+			<normal x="444" />
+			<hover x="469" />
+			<down x="494" />
+		</states>
+		<states id="ok" normal="theme.main_hover" y="38" width="59" height="24">
 			<normal x="232" />
 			<hover x="291" />
 			<down x="350" />
 		</states>
-		<states id="stop" normal="imgs.main_hover" y="71" width="17" height="17">
+		<states id="stop" normal="theme.main_hover" y="71" width="17" height="17">
 			<normal x="16" />
 			<hover x="33" />
 			<down x="50" />
 		</states>
-		<states id="prev" normal="imgs.main_hover" y="71" width="19" height="19">
+		<states id="prev" normal="theme.main_hover" y="71" width="19" height="19">
 			<normal x="68" />
 			<hover x="87" />
 			<down x="106" />
 		</states>
-		<states id="play" normal="imgs.main_hover" y="38" width="32" height="32">
+		<states id="play" normal="theme.main_hover" y="38" width="32" height="32">
 			<normal x="113" />
 			<hover x="145" />
 			<down x="177" />
 		</states>
-		<states id="pause" normal="imgs.main_hover" y="38" width="32" height="32">
+		<states id="pause" normal="theme.main_hover" y="38" width="32" height="32">
 			<normal x="16" />
 			<hover x="48" />
 			<down x="80" />
 		</states>
-		<states id="next" normal="imgs.main_hover" y="71" width="19" height="19">
+		<states id="next" normal="theme.main_hover" y="71" width="19" height="19">
 			<normal x="126" />
 			<hover x="145" />
 			<down x="164" />
 		</states>
-		<states id="mute_off" normal="imgs.main_hover" y="91" width="20" height="20">
+		<states id="mute_off" normal="theme.main_hover" y="91" width="20" height="20">
 			<normal x="15" />
 			<hover x="35" />
 			<down x="55" />
 		</states>
-		<states id="mute_on" normal="imgs.main_hover" y="91" width="20" height="20">
+		<states id="mute_on" normal="theme.main_hover" y="91" width="20" height="20">
 			<normal x="76" />
 			<hover x="96" />
 			<down x="116" />
@@ -66,7 +79,7 @@
 	</states>
 	
 	<scroll type="vertical">
-		<states normal="imgs.images">
+		<states normal="theme.images">
 			<normal x="11" y="36" />
 			<hover x="11" y="36" />
 			<down x="11" y="36" />
@@ -85,28 +98,39 @@
 			<bottom_right x="486" y="377" width="66" height="48" />
 		</eresize>
 		<hittest>
-			<rect x="0" y="0" width="500" height="24" float="width" />
+			<rect x="0" y="0" width="465" height="24" float="width" />
 		</hittest>
 
-		<img src="imgs.main_hover" x="80" y="0" width="531" height="23" adapt="true" float="width">
+		<img src="theme.main_hover" x="80" y="0" width="531" height="23" adapt="true" float="width">
 			<image x="x" y="y" width="5" height="height" />
 		</img>
 
 		<label id="title" text="DPlayer" x="0" y="0" width="80" height="23" color="#c2c2c2" font="fonts.bold_10">
-			<attribs bkimg="imgs.main_hover" offset="24" align="left,vcenter,singleline" />
+			<attribs bkimg="theme.main_hover" offset="24" align="left,vcenter,singleline" />
 			<image x="x" y="y" width="width" height="height" />
 		</label>
 		
-		<label id="filename" text="" x="80" y="0" width="415" height="23" color="#c2c2c2" font="fonts.bold_8">
-			<attribs bkimg="imgs.main_hover" float="width" align="center,vcenter,singleline" clickable="true" />
+		<label id="filename" text="" x="80" y="0" width="385" height="23" color="#c2c2c2" font="fonts.bold_8">
+			<attribs bkimg="theme.main_hover" float="width" align="center,vcenter,singleline" clickable="true" />
 			<image x="x" y="y" width="width" height="height" />
 			<events dbclk="dplayer.max()" />
 		</label>
 		
 		<!--系统按钮-->
-		<layer id="sys_btn" x="501" y="1" width="110" height="21" float="right" margin="0,4">
-			<button id="menu" action="move_main_menu();" x="0" y="0" width="19" height="19" popup="main_menu">
-				<states normal="imgs.main_hover" dy="2" y="32" width="19" height="19">
+		<layer id="sys_btn" x="466" y="1" width="145" height="21" float="right" margin="0,4">
+			<border width="1" clolor="#ff0000" />
+			<button id="skin_btn" action="" x="0" y="0" width="25" height="21" popup="skin">
+				<popup type="modeless" position="auto" />
+				<states normal="theme.main_hover" dy="1" y="157" width="25" height="21">
+					<normal x="444" />
+					<hover x="469" />
+					<down x="494" />
+				</states>
+			</button>
+
+			<button id="menu" action="" x="0" y="0" width="19" height="19" popup="main_menu">
+				<popup position="auto" />
+				<states normal="theme.main_hover" dy="2" y="32" width="19" height="19">
 					<normal x="444" />
 					<hover x="463" />
 					<down x="482" />
@@ -114,7 +138,7 @@
 			</button>
 
 			<button id="min" action="window.min()" x="0" y="0" width="19" height="19">
-				<states normal="imgs.main_hover" dy="2" y="32" width="19" height="19">
+				<states normal="theme.main_hover" dy="2" y="32" width="19" height="19">
 					<normal x="502" />
 					<hover x="521" />
 					<down x="540" />
@@ -122,12 +146,12 @@
 			</button>
 
 			<button id="max" action="window.max()" x="0" y="0" width="19" height="19" checkable="true">
-				<states normal="imgs.main_hover" dy="2" y="52" width="19" height="19">
+				<states normal="theme.main_hover" dy="2" y="52" width="19" height="19">
 					<normal x="444" />
 					<hover x="463" />
 					<down x="482" />
 				</states>
-				<states normal="imgs.main_hover" dy="2" y="52" width="19" height="19">
+				<states normal="theme.main_hover" dy="2" y="52" width="19" height="19">
 					<normal x="502" />
 					<hover x="521" />
 					<down x="540" />
@@ -135,7 +159,7 @@
 			</button>
 			
 			<button id="close" action="on_close()" x="0" y="0" width="38" height="21">
-				<states normal="imgs.main_hover" y="72" width="38" height="21">
+				<states normal="theme.main_hover" y="72" width="38" height="21">
 					<normal x="444" />
 					<hover x="482" />
 					<down x="520" />
@@ -153,20 +177,20 @@
 				<!--img id="logo" src="panda.gif" x="241" y="70" width="128" height="128" /-->
 												
 				<!--弹出窗口-->
-				<panel id="dlg_open_as" visible="false" bkimg="imgs.openas_normal">
+				<panel id="dlg_open_as" visible="false" bkimg="theme.openas_normal">
 					<size x="237" y="260" width="138" height="77" />
 					<effects show="effect.roll(dlg_open_as.id, 100, true, 2)" hide="effect.roll(dlg_open_as.id, 100, false, 1)">
-					</effects>
+					</effect>
 					
-					<button action="openas.popup();open_file();" position="relative" x="5" y="5" width="129" height="23">
+					<button action="open_file();" position="relative" x="5" y="5" width="129" height="23">
 						<attribs text="打开本地文件" align="center,vcenter,singleline" color="#959595" />
-						<states normal="imgs.openas_normal" hover="imgs.openas_hover" x="5" y="5">
+						<states normal="theme.openas_normal" hover="theme.openas_hover" x="5" y="5">
 						</states>
 					</button>
 					
-					<button action="openas.popup();" position="relative" x="5" y="34" width="129" height="23">
+					<button action="" position="relative" x="5" y="34" width="129" height="23">
 						<attribs text="打开URL" align="center,vcenter,singleline" color="#959595" />			
-						<states normal="imgs.openas_normal" hover="imgs.openas_hover" x="5" y="34">
+						<states normal="theme.openas_normal" hover="theme.openas_hover" x="5" y="34">
 						</states>
 					</button>
 				</panel>
@@ -174,7 +198,8 @@
 				<!--主页上的打开按钮-->
 				<layer id="openfile" x="236" y="214">
 					<button id="open" action="open_file()" x="236" y="214" width="108" height="45">
-						<states normal="imgs.main_hover" x="232" width="108" height="45">
+						<txt text="打开文件" color="#ffffff" offset="35" />
+						<states normal="theme.main_hover" x="232" width="108" height="45">
 							<normal y="109" />
 							<hover y="155" />
 						</states>
@@ -182,7 +207,7 @@
 					
 					<button id="openas" x="344" y="214" width="31" height="45">
 						<attribs popup="javascript:dlg_open_as.id" />
-						<states normal="imgs.main_hover" y="63" width="31" height="45">
+						<states normal="theme.main_hover" y="63" width="31" height="45">
 							<normal x="232" />
 							<hover x="263" />
 							<down x="294" />
@@ -192,34 +217,34 @@
 			</layer>
 		</panel>
 		
-		<img src="imgs.main_hover" x="1" y="365" width="609" height="60" adapt="true" float="width,bottom">
+		<img src="theme.main_hover" x="1" y="365" width="609" height="60" adapt="true" float="width,bottom">
 			<image x="15" y="y" width="5" height="height" />
 		</img>
 		
-		<img src="imgs.main_hover" x="124" y="377" width="365" height="42" adapt="true" float="center,bottom">
+		<img src="theme.main_hover" x="124" y="377" width="365" height="42" adapt="true" float="center,bottom">
 			<image x="x" y="y" width="width" height="height" />
 		</img>
 
 		<layer id="prgrs" visible="false">
-			<img src="imgs.main_hover" width="2" height="8" float="bottom">
+			<img src="theme.main_hover" width="2" height="8" float="bottom">
 				<image x="20" y="356" width="2" height="8" />
 			</img>
-			<img src="imgs.main_hover" width="2" height="8" adapt="true" float="width,bottom">
+			<img src="theme.main_hover" width="2" height="8" adapt="true" float="width,bottom">
 				<image x="28" y="356" width="2" height="8" />
 			</img>
-			<img src="imgs.main_hover" width="2" height="8" float="right,bottom">
+			<img src="theme.main_hover" width="2" height="8" float="right,bottom">
 				<image x="589" y="356" width="2" height="8" />
 			</img>
 		</layer>
 		
 		<layer id="prgrs_down" visible="false">
-			<img src="imgs.main_hover" width="1" height="8" float="bottom">
+			<img src="theme.main_hover" width="1" height="8" float="bottom">
 				<image x="20" y="369" width="1" height="8" />
 			</img>
-			<img src="imgs.main_hover" width="2" height="8" adapt="true" float="width,bottom">
+			<img src="theme.main_hover" width="2" height="8" adapt="true" float="width,bottom">
 				<image x="28" y="369" width="2" height="8" />
 			</img>
-			<img src="imgs.main_hover" width="1" height="8" float="right,bottom">
+			<img src="theme.main_hover" width="1" height="8" float="right,bottom">
 				<image x="590" y="369" width="1" height="8" />
 			</img>
 		</layer>
@@ -227,7 +252,7 @@
 		<layer id="footer">
 			<progress id="play_progress" x="20" y="369" width="572" height="8" range="0,100" pos="0">
 				<attribs float="width,bottom" enable="false" />
-				<slider x="16" y="31" width="15" height="5" img="imgs.main_hover" />
+				<slider x="16" y="31" width="15" height="5" img="theme.main_hover" />
 				<events track="set_play_pos(play_progress)" tracking="" />
 				<states>
 					<normal link="javascript:prgrs.id" />
@@ -236,7 +261,7 @@
 			</progress>
 
 			<label id="play_time" text="00:00:00 / 00:00:00" visible="false" x="20" y="395" width="100" height="20">
-				<attribs bkimg="imgs.main_hover" font="fonts.arial_8" color="#c2c2c2" float="bottom" />
+				<attribs bkimg="theme.main_hover" font="fonts.arial_8" color="#c2c2c2" float="bottom" />
 				<image x="20" y="395" width="120" height="20" />
 			</label>
 			
@@ -265,7 +290,7 @@
 				</button>
 				
 				<progress id="volume" x="380" y="396" width="60" height="8" range="0,100" pos="100">
-					<slider x="16" y="31" width="15" height="5" img="imgs.main_hover" />
+					<slider x="16" y="31" width="15" height="5" img="theme.main_hover" />
 					<events track="change_volume(volume)" />
 					<states>
 						<normal link="javascript:prgrs.id" />
@@ -276,20 +301,20 @@
 			
 			<!--截图及播放列表-->
 			<layer x="556" y="394" width="55" height="20" margin="5" float="right,bottom">
-				<button id="" action="sys.player.set_channel(++channel % 3);" x="0" y="0" width="20" height="19">
-					<states normal="imgs.main_hover" y="112" width="20" height="19">
+				<button id="" action="play_progress.pos = play_progress.pos + 1;dplayer.redraw();" x="0" y="0" width="20" height="19">
+					<states normal="theme.main_hover" y="112" width="20" height="19">
 						<normal x="444" />
 						<hover x="464" />
 						<down x="484" />
 					</states>
 				</button>
-				<button id="playlist" action="" x="0" y="0" width="20" height="19" checkable="true">
-					<states normal="imgs.main_hover" y="112" width="20" height="19">
+				<button id="playlist" action="mute.check(1);" x="0" y="0" width="20" height="19" checkable="true">
+					<states normal="theme.main_hover" y="112" width="20" height="19">
 						<normal x="505" />
 						<hover x="525" />
 						<down x="545" />
 					</states>
-					<states normal="imgs.main_hover" y="132" width="20" height="19">
+					<states normal="theme.main_hover" y="132" width="20" height="19">
 						<normal x="505" />
 						<hover x="525" />
 						<down x="545" />
@@ -302,17 +327,17 @@
 	<!--全屏时的底部控制栏-->
 	<panel id="footer_ctrl_bar" type="modeless" visible="false" x="0" y="430" width="611" height="60">
 	
-		<img src="imgs.main_hover" x="0" y="0" width="611" height="60" adapt="true" float="width,bottom">
+		<img src="theme.main_hover" x="0" y="0" width="611" height="60" adapt="true" float="width,bottom">
 			<image x="15" y="365" width="5" height="height" />
 		</img>
 
-		<img src="imgs.main_hover" x="124" y="12" width="365" height="42" adapt="true" float="center,bottom">
+		<img src="theme.main_hover" x="124" y="12" width="365" height="42" adapt="true" float="center,bottom">
 			<image x="x" y="377" width="width" height="height" />
 		</img>
 
 		<progress id="footer_play_progress" x="20" y="4" width="572" height="8" range="0,100" pos="0">
 			<attribs float="width,bottom" enable="true" />
-			<slider x="16" y="31" width="15" height="5" img="imgs.main_hover" />
+			<slider x="16" y="31" width="15" height="5" img="theme.main_hover" />
 			<events track="set_play_pos(footer_play_progress)" tracking="" />
 			<states>
 				<normal link="javascript:prgrs.id" />
@@ -321,7 +346,7 @@
 		</progress>
 
 		<label id="footer_play_time" text="00:00:00 / 00:00:00" visible="true" x="20" y="30" width="100" height="20">
-			<attribs bkimg="imgs.main_hover" font="fonts.arial_8" color="#c2c2c2" float="bottom" />
+			<attribs bkimg="theme.main_hover" font="fonts.arial_8" color="#c2c2c2" float="bottom" />
 			<image x="20" y="395" width="120" height="20" />
 		</label>
 		
@@ -349,7 +374,7 @@
 			</button>
 			
 			<progress id="footer_volume" x="380" y="31" width="60" height="8" range="0,100" pos="100">
-				<slider x="16" y="31" width="15" height="5" img="imgs.main_hover" />
+				<slider x="16" y="31" width="15" height="5" img="theme.main_hover" />
 				<events track="change_volume(footer_volume)" />
 				<states>
 					<normal link="javascript:prgrs.id" />
@@ -363,41 +388,41 @@
 		<border width="1" color="#aca899" />
 		
 		<items height="23">
-			<item id="menu_file" text="文件" icon="imgs.main_hover" sub="submenu.png" x="444" y="32"
+			<item id="menu_file" text="文件" icon="theme.main_hover" sub="submenu.png" x="444" y="32"
 				  mouse_in="menu_file.show()" mouse_out="menu_file.hide()">
-				<item text="打开文件" action="menu.popup();open_file()" />
-				<item text="打开URL" action="menu.popup();" />
+				<item text="打开文件" action="open_file()" />
+				<item text="打开URL" action="" />
 				<separator />
 				<item text="文件信息" action="show_media_info()" />
 			</item>
 			<item id="menu_play" text="播放" sub="submenu.png"
 				  mouse_in="menu_play.show()" mouse_out="menu_play.hide()">
 				<item text="播放/暂停" action="" />
-				<item text="停止" action="menu.popup();" />
-				<item text="重复" action="repeat=!repeat;menu.popup();" chkicon="check.png" checkable="1" />
+				<item text="停止" action="" />
+				<item text="重复" action="repeat=!repeat;" chkicon="check.png" checkable="1" />
 			</item>
-			<item id="menu_display" text="显示" icon="imgs.main_hover" sub="submenu.png" x="444" y="52"
+			<item id="menu_display" text="显示" icon="theme.main_hover" sub="submenu.png" x="444" y="52"
 				  mouse_in="menu_display.show()" mouse_out="menu_display.hide()">
-				<item text="全屏" action="menu.popup();" />
-				<item text="普通模式" action="menu.popup();" />
+				<item text="全屏" action="" />
+				<item text="普通模式" action="" />
 				<separator />
-				<item text="播放时置顶" action="menu.popup();" />
-				<item text="总时置顶" action="menu.popup();" />
-				<item text="取消置顶" action="menu.popup();" />
+				<item text="播放时置顶" action="" />
+				<item text="总时置顶" action="" />
+				<item text="取消置顶" action="" />
 			</item>
 			<item id="menu_channel" text="声道" sub="submenu.png"
 				  mouse_in="menu_channel.show()" mouse_out="menu_channel.hide()">
-				<item text="左声道" action="sys.player.set_channel(0);menu.popup()" chkicon="check.png" group="audio_channel" checkable="1" />
-				<item text="右声道" action="sys.player.set_channel(1);menu.popup()" chkicon="check.png" group="audio_channel" checkable="1" />
-				<item text="立体声" action="sys.player.set_channel(2);menu.popup()" chkicon="check.png" group="audio_channel" checkable="1" />
+				<item text="左声道" action="sys.player.set_channel(0);" chkicon="check.png" group="audio_channel" checkable="1" />
+				<item text="右声道" action="sys.player.set_channel(1);" chkicon="check.png" group="audio_channel" checkable="1" />
+				<item text="立体声" action="sys.player.set_channel(2);" chkicon="check.png" group="audio_channel" checkable="1" />
 			</item>
 			<item id="menu_setting" text="设置" />
 			<separator />
-			<item id="menu_about" text="关于DPlayer" action="menu.popup();about.show()" />
+			<item id="menu_about" text="关于DPlayer" action="about.show()" />
 			<item id="menu_exit" text="退出" icon="close.png" x="0" y="0" action="dplayer.close()" />
 		</items>
 		
-		<layer x="0" y="0" width="122" height="23" action="item.action" adapt="false" group="item.group" checkable="item.checkable">
+		<layer id=".auto" x="0" y="0" width="122" height="23" action="item.action" adapt="false" group="item.group" checkable="item.checkable">
 			<events mouse_in="item.mouse_in" mouse_out="item.mouse_out" />
 			<states normal="item.icon" x="item.x" y="item.y" width="19" height="19" dx="2" dy="2">
 				<normal border="0" bkclr="#ffffff" />
@@ -423,11 +448,11 @@
 			<rect x="0" y="0" width="330" height="24" />
 		</hittest>
 
-		<img src="imgs.main_hover" x="0" y="0" width="30" height="24" adapt="true">
+		<img src="theme.main_hover" x="0" y="0" width="30" height="24" adapt="true">
 			<image x="0" y="0" width="width" height="height" />
 		</img>
 
-		<img src="imgs.main_hover" x="30" y="0" width="345" height="24" adapt="true">
+		<img src="theme.main_hover" x="30" y="0" width="345" height="24" adapt="true">
 			<image x="30" y="0" width="2" height="height" />
 		</img>
 		
@@ -480,12 +505,12 @@
 			</items>
 			<button id="item.id" width="81" height="24" text="item.text" checkable="true">
 				<attribs align="singleline,center,vcenter" tab="item.tab" group="fileinfo" />
-				<states normal="imgs.main_hover" width="81" height="24">
+				<states normal="theme.main_hover" width="81" height="24">
 					<normal x="232" y="201" />
 					<hover x="313" y="201" />
 					<down x="232" y="226" />
 				</states>
-				<states normal="imgs.main_hover" width="81" height="24">
+				<states normal="theme.main_hover" width="81" height="24">
 					<normal x="313" y="226" />
 				</states>
 			</button>
@@ -529,6 +554,34 @@
 			<attribs align="singleline,center,vcenter" />
 			<states link="states.ok" />
 		</button>
+	</panel>
+
+	<!--换肤对话框-->
+	<panel id="skin" type="modeless" visible="false" bkimg="skin.png" alpha="90">
+		<size x="0" y="0" width="234" height="158" />
+		
+		<button action="window.close()" x="205" y="2" width="25" height="20">
+			<states link="states.close_min" />
+		</button>
+		
+		<custom type="tiled" col="3" x="10" y="39" width="215" height="106" margin="42,13">
+			<items width="63" height="47">
+				<item check="true" action="theme.change(imgs_default.id);dplayer.redraw();" nx="15" hx="79" dx="143" y="112" y2="160"/>
+				<item action="theme.change(imgs_blue.id);dplayer.redraw();" nx="15" hx="79" dx="143" y="208" y2="256"/>
+			</items>
+			<button action="item.action" x="0" y="0" width="63" height="47" checkable="true" check="item.check" group="skin">
+				<states normal="theme.main_hover" y="item.y" width="width" height="height">
+					<normal x="item.nx" />
+					<hover x="item.hx" />
+					<down x="item.dx" />
+				</states>
+				<states normal="theme.main_hover" y="item.y2" width="width" height="height">
+					<normal x="item.nx" />
+					<hover x="item.hx" />
+					<down x="item.dx" />
+				</states>
+			</button>
+		</custom>
 	</panel>
 
 </directui>
