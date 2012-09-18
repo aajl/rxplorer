@@ -36,15 +36,6 @@ function on_play()
 
 function on_close()
 {
-	// 保存播放位置信息
-	var path = sys.get_path(sys.app_path);
-	path +=  "\\playinfo.json";
-	var file = new jfile;
-	if(file.open(path, "w"))
-	{
-		file.write(playinfo.toJSON());
-	}
-
 	dplayer.close();
 }
 
@@ -56,6 +47,18 @@ function open_file()
 				 "All Files(*.*)|*.*||";
 	var filepath = sys.dialog.open(filter);
 	play_file(filepath);
+}
+
+function save_play_info()
+{
+	// 保存播放位置信息
+	var path = sys.get_path(sys.app_path);
+	path +=  "\\playinfo.json";
+	var file = new jfile;
+	if(file.open(path, "w"))
+	{
+		file.write(playinfo.toJSON());
+	}
 }
 
 function play_file(filepath)
@@ -168,6 +171,7 @@ function on_play_pos()
 	play_progress.pos = playpos;
 	footer_play_progress.pos = playpos;
 	playinfo[media_file_path] = playpos;
+	//save_play_info();
 
 	function fmt(tt)
 	{
@@ -217,17 +221,6 @@ function change_volume(volume_ctrl)
 {
 	var pos = volume_ctrl.pos;
 	sys.player.set_volume(pos);
-}
-
-function move_main_menu()
-{
-	if(menu.popuped)
-		return;
-
-	var rc_menu_btn = menu.screen_rect();
-	var rc_main_menu = main_menu.rect();
-	var top = rc_menu_btn.top + rc_menu_btn.height + 4;
-	main_menu.move(rc_menu_btn.left, top, rc_main_menu.width, rc_main_menu.height);
 }
 
 function drop_files(files)
