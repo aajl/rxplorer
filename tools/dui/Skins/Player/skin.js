@@ -171,7 +171,7 @@ function on_play_pos()
 	play_progress.pos = playpos;
 	footer_play_progress.pos = playpos;
 	playinfo[media_file_path] = playpos;
-	//save_play_info();
+	save_play_info();
 
 	function fmt(tt)
 	{
