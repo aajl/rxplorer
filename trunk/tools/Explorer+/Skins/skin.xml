@@ -137,12 +137,12 @@
 		</custom>
 
 		<!--地址栏-->
-		<layer id="addrbar" x="68" y="56" width="653" height="25" bkclr="#FFFFFF">
+		<layer id="addrbar" x="68" y="56" width="562" height="25" bkclr="#FFFFFF" float="width">
 			<border width="1" color="#316AC5" />
 
 			<!--Undo/Redo-->
-			<custom x="1" y="54" width="67" height="29" col="4" type="tiled" margin="0,2,0,7" bkclr="#E5E5E5" bkimg="dragable.png">
-				<bkimg dx="2" dy="3" />
+			<custom x="1" y="54" width="67" height="29" col="4" type="tiled" margin="0,2,0,7" bkclr="#E5E5E5">
+				<bkimg src="dragable.png" dx="2" dy="3" />
 				<items width="29" height="29">
 					<item img="undo.png" action="addr.path='D:\\Download\\TeamPlayer'" />
 					<item img="redo.png" action="addr.path='D:\\Download'" />
@@ -173,7 +173,7 @@
 			</button>
 
 			<!--地址栏按钮-->
-			<addr id="addr" path="D:\\Download\\Music" x="104" y="57" width="580" height="23" bkclr="#FFFFFF">
+			<addr id="addr" path="D:\\Download\\Music" x="104" y="57" width="489" height="23" bkclr="#FFFFFF" float="width">
 				<states width="0" height="0">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -193,7 +193,7 @@
 			</addr>
 			
 			<!--收藏夹按钮-->
-			<button x="685" y="58" width="12" height="21" adapt="false" popup="explorer.folder_fav">
+			<button x="594" y="58" width="12" height="21" adapt="false" popup="explorer.folder_fav" float="right">
 				<states normal="fav.png" dx="1" dy="6">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -201,10 +201,23 @@
 			</button>
 
 			<!--下拉列表按钮-->
-			<button x="698" y="58" width="21" height="21" adapt="false">
+			<button x="607" y="58" width="21" height="21" adapt="false" float="right">
 				<states normal="dropdown.png" dx="7" dy="9">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+			</button>
+			
+		</layer>
+		
+		<!--搜索栏-->
+		<layer x="637" y="56" width="240" height="25" bkclr="#ffffff" float="right">
+			<border width="1" color="#316AC5" />
+			
+			<edit id="search" x="638" y="57" width="216" height="23" bkclr="#ffffff" hint="搜索" />
+			
+			<button x="854" y="57" width="23" height="23" adapt="false">
+				<states normal="search_icon.png" dx="3" dy="3">
 				</states>
 			</button>
 		</layer>
@@ -237,11 +250,11 @@
 		</panel>
 		
 		<!--tab控件外的边框-->
-		<label x="3" y="85" width="874" height="555" float="width,height">
+		<label x="3" y="85" width="874" height="480" float="width,height">
 			<border width="1" color="#ACA899" />
 		</label>
 		
-		<custom id="xplorer" type="tiled" x="5" y="86" width="870" height="512" col="10" float="width,height">
+		<custom id="xplorer" type="tiled" x="5" y="86" width="870" height="437" col="10" float="width,height">
 			<items width="adapt" height="20">
                 <!--<item id="frms1" />-->
 			</items>
@@ -255,17 +268,17 @@
                         <states link="states.top_tab" />
                     </button>
                 </custom>
-                <custom id=".frms" type="tiled" x="5" y="86" width="870" height="512" col="10" float="width,height">
+                <custom id=".frms" type="tiled" x="5" y="86" width="870" height="437" col="10" float="width,height">
                     <items width="adapt" height="20">
                         <!--<item id="frm1" />-->
                     </items>
 			        <layer id="item.id">
-				        <custom id=".views" x="6" y="106" width="868" height="512" type="tiled" col="10" float="width,height">
+				        <custom id=".views" x="6" y="106" width="868" height="437" type="tiled" col="10" float="width,height">
 					        <border width="1" color="#ff0000" />
 					        <items width="adapt" height="20">
                                 <!--<item id="view1" />-->
 					        </items>
-					        <panel id="item.id" x="1" y="1" width="866" height="510" bkclr="#808080" float="width,height">
+					        <panel id="item.id" x="1" y="1" width="866" height="435" bkclr="#808080" float="width,height">
 					        </panel>
 				        </custom>
 				        <custom id=".tabs" type="tiled" x="6" y="618" width="868" height="20" col="10" margin="0,0" float="bottom,width">
@@ -282,10 +295,13 @@
             </layer>
             <script type="javascript">
                 <![CDATA[
+				// 默认增加一个子框架,方便增加视图.
                 xplorer.insert("<item id='.frms1'/>");
                 ]]>
             </script>
         </custom>
+
+		<img src="statusbar.png" x="1" y="567" width="878" height="90" adapt="true" float="width,bottom" />
 
 	</panel> <!-- end explorer -->
 	
