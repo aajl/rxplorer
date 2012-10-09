@@ -1,0 +1,426 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<directui>
+	<script type="javascript" src="action.js">
+	</script>
+
+	<!--图片集-->
+	<imgs id="imgs" main_hover="main_hover.png">
+	</imgs>
+
+	<!--图标集-->
+	<icons id="icons" notepad="C:\windows\system32\notepad.exe">
+	</icons>
+	
+	<!--字体集-->
+	<fonts id="fonts">
+		<font id="default" size="10" face="新宋体" />
+		<font id="bold_10" size="10" weight="700" />
+		<font id="bold_8" size="8" weight="700" />
+		<font id="about_dplayer" size="13" weight="700" />
+		<font id="song_10" size="10" face="新宋体" />
+		<font id="song_8" size="8" face="新宋体" />
+		<font id="arial_8" size="8" face="Arial" />
+	</fonts>
+	
+	<!--用于组合成按钮图片-->
+	<layer id="top_tab_normal" visible="false">
+		<img src="tab_normal.png" width="22" height="20" float="bottom">
+			<image x="0" y="0" width="width" height="height" />
+		</img>
+		<img src="tab_normal.png" width="2" height="20" adapt="true" float="width,bottom">
+			<image x="23" y="0" width="2" height="height" />
+		</img>
+		<img src="tab_normal.png" width="2" height="20" float="right,bottom">
+			<image x="69" y="0" width="2" height="height" />
+		</img>
+	</layer>
+
+	<layer id="top_tab_down" visible="false">
+		<img src="tab_down.png" width="22" height="20" float="bottom">
+			<image x="0" y="0" width="width" height="height" />
+		</img>
+		<img src="tab_down.png" width="2" height="20" adapt="true" float="width,bottom">
+			<image x="23" y="0" width="2" height="height" />
+		</img>
+		<img src="tab_down.png" width="2" height="20" float="right,bottom">
+			<image x="69" y="0" width="2" height="height" />
+		</img>
+	</layer>
+
+	<layer id="menu_item" visible="false">
+		<label x="0" y="0" width="28" height="20" float="bottom" bkclr="#F2F2F2" />
+		<label x="28" y="0" width="103" height="20" float="width,bottom" bkclr="#FDFDFD" />
+		<label x="131" y="0" width="20" height="20" float="right,bottom" bkclr="#FDFDFD" />
+	</layer>
+	
+	<!--状态集-->
+	<states id="states">
+		<states id="top_tab">
+			<normal link="javascript:top_tab_normal.id" />
+			<hover link="javascript:top_tab_down.id" />
+			<down link="javascript:top_tab_down.id" />
+		</states>
+		<states id="menu_item">
+			<normal link="javascript:menu_item.id" />
+			<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+			<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+		</states>
+		<states id="close" normal="imgs.main_hover" y="72" width="38" height="21">
+			<normal x="444" />
+			<hover x="482" />
+			<down x="520" />
+		</states>
+		<states id="ok" normal="imgs.main_hover" y="38" width="59" height="24">
+			<normal x="232" />
+			<hover x="291" />
+			<down x="350" />
+		</states>
+	</states>
+	
+	<scroll type="vertical">
+		<states normal="imgs.images">
+			<normal x="11" y="36" />
+			<hover x="11" y="36" />
+			<down x="11" y="36" />
+			<disabled x="11" y="36" />
+		</states>
+	</scroll>
+
+	<panel id="explorer" title="xplorer" type="app" bkclr="#E5E5E5">
+		<size x="0" y="0" width="880" height="660" resize="true" min-width="880" min-height="660" />
+		<events maximize="max.check(true)" restore="max.check(0)" />
+		<hittest>
+			<rect x="475" y="0" width="295" height="23" />
+		</hittest>
+
+		<label id="title" text="xplorer" x="0" y="0" width="105" height="23" color="#ffffff" font="fonts.bold_10">
+			<attribs bkimg="imgs.main_hover" offset="9" align="center,vcenter" />
+			<image x="x" y="y" width="width" height="height" />
+		</label>
+
+		<!--界面的外边框-->
+		<layer id="border">
+			<!--顶部边框-->
+			<img src="imgs.main_hover" x="105" y="0" width="768" height="23" adapt="true" float="width">
+				<image x="x" y="y" width="5" height="height" />
+			</img>
+
+			<img src="imgs.main_hover" x="873" y="0" width="7" height="23" adapt="true" float="right">
+				<image x="x" y="y" width="width" height="height" />
+			</img>
+
+			<!--底部边框-->
+			<img src="imgs.main_hover" x="0" y="637" width="7" height="23" adapt="true" float="left,bottom">
+				<image x="x" y="y" width="width" height="height" />
+			</img>
+
+			<img src="imgs.main_hover" x="7" y="637" width="866" height="23" adapt="true" float="width,bottom">
+				<image x="x" y="y" width="5" height="height" />
+			</img>
+
+			<img src="imgs.main_hover" x="873" y="637" width="7" height="23" adapt="true" float="right,bottom">
+				<image x="x" y="y" width="width" height="height" />
+			</img>
+
+			<!--两侧边框-->
+			<img src="imgs.main_hover" x="0" y="23" width="1" height="614" adapt="true" float="left,height">
+				<image x="x" y="y" width="width" height="height" />
+			</img>
+
+			<img src="imgs.main_hover" x="879" y="23" width="1" height="614" adapt="true" float="right,height">
+				<image x="x" y="y" width="width" height="height" />
+			</img>
+		</layer>
+		
+		<!--系统按钮-->
+		<layer id="sys_btn" x="770" y="2" width="103" height="18" float="right" margin="0,0">
+			<button id="min" action="window.min();" width="28">
+				<states normal="imgs.main_hover" x="770" width="width" height="height">
+					<normal y="2" />
+					<hover y="23" />
+				</states>
+			</button>
+
+			<button id="max" action="window.max()" width="27" checkable="true">
+				<states normal="imgs.main_hover" x="798" width="width" height="height">
+					<normal y="2" />
+					<hover y="23" />
+				</states>
+				<states normal="imgs.main_hover" y="44" width="width" height="height">
+					<normal x="771" />
+					<hover x="798" />
+				</states>
+			</button>
+
+			<button id="close" action="window.close()" width="48">
+				<states normal="imgs.main_hover" x="825" width="width" height="height">
+					<normal y="2" />
+					<hover y="23" />
+				</states>
+			</button>
+		</layer> <!--系统按钮-->
+		
+		<!--主菜单按钮-->
+		<custom id="main_menu_btns" type="tiled" x="110" y="2" width="365" height="20" col="6" margin="0,3" bkclr="#E5E5E5">
+			<items width="58" height="20">
+				<item id="menu_file_btn" text="文件(F)" action="move_main_menu()" popup="main_menu.menu_file" />
+				<item id="menu_bookmark_btn" text="书签(B)" action="move_main_menu()" popup="main_menu.menu_bookmark" />
+				<item id="menu_plugin_btn" text="插件(P)" action="move_main_menu()" popup="main_menu.menu_plugin" />
+				<item id="menu_tools_btn" text="工具(T)" action="move_main_menu()" popup="main_menu.menu_tools" />
+				<item id="menu_windows_btn" text="窗口(W)" action="move_main_menu()" popup="main_menu.menu_windows" />
+				<item id="menu_help_btn" text="帮助(H)" action="move_main_menu()" popup="main_menu.menu_help" />
+			</items>
+			<button x="0" y="0" width="58" height="20" align="center,vcenter,singleline">
+				<attribs id="item.id" text="item.text" action="item.action" popup="item.popup" group="main_menu" />
+				<states>
+					<normal border="0" bkclr="#E5E5E5" />
+					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<down border="1" color="#8A867A" bkclr="#E5E5E5" />
+				</states>
+			</button>
+		</custom>
+
+		<!--常用工具栏-->
+		<custom id="toolbar" x="1" y="24" width="131" height="29" col="4" type="tiled" margin="0,2,0,7" bkclr="#E5E5E5" bkimg="dragable.png">
+			<image dx="2" dy="3" />
+			<items width="29" height="29">
+				<item img="computer.png" action="add_sub_folder()" />
+				<item img="folder.png" action="add_folder()" />
+				<item img="search.png" />
+				<item img="thumb.png" />
+			</items>
+			<button width="29" height="29" action="item.action">
+				<states normal="item.img" width="width" height="width">
+					<normal dx="3" dy="3" border="0" bkclr="#E5E5E5" />
+					<hover dx="2" dy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<down dx="3" dy="3" border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+			</button>
+		</custom>
+		
+		<!--收藏的工具栏-->
+		<custom id="fav_toolbar" x="134" y="24" width="743" height="29" col="50" type="tiled" margin="0,2,0,7" float="width">
+			<attribs bkclr="#E5E5E5" bkimg="dragable.png" oninit="load_favorite_tools()" />
+			<image dx="2" dy="3" />
+			<items width="29" height="29">
+			</items>
+			<button id="item.id" width="29" height="29" path="item.icon" action="sys.shell_execute(this.attrib('path'))">
+				<states width="24" height="24">
+					<normal icon="item.icon" dx="3" dy="3" border="0" bkclr="#E5E5E5" />
+					<hover dx="2" dy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<down dx="3" dy="3" border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+			</button>
+		</custom>
+
+		<!--地址栏-->
+		<layer id="addrbar" x="68" y="56" width="653" height="25" bkclr="#FFFFFF">
+			<border width="1" color="#316AC5" />
+
+			<custom x="1" y="54" width="67" height="29" col="4" type="tiled" margin="0,2,0,7" bkclr="#E5E5E5" bkimg="dragable.png">
+				<image dx="2" dy="3" />
+				<items width="29" height="29">
+					<item img="undo.png" action="addr.path='c:\\skins\\default'" />
+					<item img="redo.png" action="addr.path='c:\\skins\\default\\old'" />
+				</items>
+				<button width="29" height="29" action="item.action">
+					<states normal="item.img" width="width" height="width">
+						<normal dx="3" dy="3" border="0" bkclr="#E5E5E5" />
+						<hover dx="2" dy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
+						<down dx="3" dy="3" border="1" color="#316AC5" bkclr="#C1D2EE" />
+					</states>
+				</button>
+			</custom>
+
+			<button x="71" y="58" width="21" height="21" action="addr.path='D:\\Skins'">
+				<states normal="cmptr.png" width="width" height="width">
+					<normal border="0" bkclr="#FFFFFF" />
+					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+			</button>
+
+			<button x="94" y="58" width="9" height="21" adapt="false" action="addr.path='c:\\skins\\default\\new'">
+				<states normal="triangle.png" dx="3" dy="9">
+					<normal border="0" bkclr="#FFFFFF" />
+					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+			</button>
+
+			<addr id="addr" path="C:\Skins\Default" x="104" y="57" width="580" height="23" bkclr="#FFFFFF">
+				<states width="0" height="0">
+					<normal border="0" bkclr="#FFFFFF" />
+					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+				<states normal="triangle.png" dx="3" dy="9">
+					<normal border="0" bkclr="#FFFFFF" />
+					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+				<states width="0" height="0">
+					<normal border="0" bkclr="#C0C0C0" />
+					<hover border="1" color="#316AC5" bkclr="#C0C0C0" />
+				</states>
+				<states normal="triangle.png" dx="3" dy="9">
+					<normal border="0" bkclr="#C0C0C0" />
+					<hover border="1" color="#316AC5" bkclr="#C0C0C0" />
+				</states>
+			</addr>
+			
+			<!--收藏夹按钮-->
+			<button x="685" y="58" width="12" height="21" adapt="false" popup="explorer.folder_fav">
+				<states normal="fav.png" dx="1" dy="6">
+					<normal border="0" bkclr="#FFFFFF" />
+					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+			</button>
+
+			<!--下拉列表按钮-->
+			<button x="698" y="58" width="21" height="21" adapt="false">
+				<states normal="dropdown.png" dx="7" dy="9">
+					<normal border="0" bkclr="#FFFFFF" />
+					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+			</button>
+		</layer>
+		
+		<!--目录收藏夹-->
+		<panel id="folder_fav" x="685" y="81" width="155" height="215" bkclr="#FDFDFD" visible="false">
+			<border width="1" color="#808080" />
+			<effects show="effect.roll(folder_fav.id, 50, true, 2|8)" hide="effect.roll(folder_fav.id, 50, false, 1|4)" />
+			<label x="1" y="2" width="28" height="211" bkclr="#F2F2F2" position="relative" />
+			<custom x="2" y="2" width="151" height="211" margin="1" position="relative">
+				<items height="20">
+					<item text="收藏当前文件夹" src="favorite.png" />
+					<item text="收藏当前文件夹" />
+					<item text="收藏当前文件夹" />
+					<item text="收藏当前文件夹" />
+					<item text="收藏当前文件夹" />
+					<item text="收藏当前文件夹" />
+					<item text="收藏当前文件夹" />
+					<item text="C:\Windows" />
+				</items>
+				<layer x="0" y="0" width="151" height="20" action="item.action">
+					<states link="states.menu_item" />
+					<label bkimg="item.src" x="0" y="0" width="151" height="20">
+						<attribs text="item.text" offset="32" align="singleline,vcenter" />
+						<image dx="6" dy="2" />
+					</label>
+					<img src="item.src" position="relative" x="110" y="8" width="7" height="7" />
+				</layer>
+			</custom>
+		</panel>
+		
+		<!--tab控件外的边框-->
+		<label x="3" y="85" width="874" height="555" float="width,height">
+			<border width="1" color="#ACA899" />
+		</label>
+
+		<custom id="xplorer" type="tiled" x="5" y="86" width="870" height="512" col="10" float="width,height">
+			<items width="adapt" height="20">
+                <!--<item id="frms1" />-->
+			</items>
+            <layer id="item.id">
+                <custom id=".tabs" type="tiled" x="5" y="86" width="870" height="20" col="10" margin="0,0" float="width">
+                    <items width="adapt" height="20">
+                        <!--<items id="tab1" text="" tab="item.tab" />-->
+                    </items>
+                    <button id="item.id" width="adapt,15" height="20" text="item.text" align="left,vcenter" offset="24">
+                        <tabs tab="item.tab" group="folders" />
+                        <states link="states.top_tab" />
+                    </button>
+                </custom>
+                <custom id=".frms" type="tiled" x="5" y="86" width="870" height="512" col="10" float="width,height">
+                    <items width="adapt" height="20">
+                        <!--<item id="frm1" />-->
+                    </items>
+			        <layer id="item.id">
+				        <custom id=".views" x="6" y="106" width="868" height="512" type="tiled" col="10" float="width,height">
+					        <border width="1" color="#ff0000" />
+					        <items width="adapt" height="20">
+                                <!--<item id="view1" />-->
+					        </items>
+					        <panel id="item.id" x="1" y="1" width="866" height="510" bkclr="#808080" float="width,height">
+					        </panel>
+				        </custom>
+				        <custom id=".tabs" type="tiled" x="6" y="618" width="868" height="20" col="10" margin="0,0" float="bottom,width">
+					        <items width="adapt" height="20">
+                                <!--<item id="tab1" tab="view1" text="" />-->
+					        </items>
+					        <button id="item.id" width="adapt,15" height="20" text="item.text" align="left,vcenter" offset="24">
+						        <tabs tab="item.tab" group="subfolders" />
+						        <states link="states.top_tab" />
+					        </button>
+				        </custom>
+			        </layer>
+		        </custom>
+            </layer>
+            <script type="javascript">
+                <![CDATA[
+                xplorer.insert("<item id='.frms1'/>");
+                ]]>
+            </script>
+        </custom>
+
+	</panel> <!-- end explorer -->
+	
+	<menu id="main_menu" x="504" y="24" width="126" height="145" visible="false" alpha="80" bkclr="#ffffff" margin="1,0,0,0,-1">
+		<border width="1" color="#aca899" />
+		
+		<items height="23">
+			<item id="menu_file" text="文件">
+				<item text="新建视图" />
+				<item text="新建子视图" />
+				<separator />
+				<item text="打开会话" />
+				<item text="保存会话" />
+				<item text="会话另存为" />
+				<separator />
+				<item text="退出" />
+			</item>
+			<item id="menu_bookmark" text="书签">
+				<item text="添加书签" />
+				<item text="整理书签" />
+				<separator />
+			</item>
+			<item id="menu_plugin" text="插件">
+				<item text="插件管理" />
+				<separator />
+			</item>
+			<item id="menu_tools" text="工具">
+				<item text="选项" />
+				<separator />
+				<item text="书签管理" />
+				<item text="插件管理" />
+				<item text="快捷键管理" />
+				<item text="垃圾文件清理" />
+				<item text="文件(夹)重命名" />
+			</item>
+			<item id="menu_windows" text="窗口">
+				<item text="关闭" />
+				<item text="全部关闭" />
+				<separator />
+			</item>
+			<item id="menu_help" text="帮助">
+				<item text="帮助" />
+				<item text="检查更新" />
+				<item text="关于Explorer" />
+			</item>
+		</items>
+		
+		<layer x="0" y="0" width="122" height="23" action="item.action">
+			<events mouse_in="item.mouse_in" mouse_out="item.mouse_out" />
+			<states>
+				<normal border="0" bkclr="#ffffff" />
+				<hover border="0" bkclr="#d2d2d2" />
+				<down border="0" bkclr="#d2d2d2" />
+			</states>
+
+			<label bkimg="item.img" x="0" y="0" width="122" height="23">
+				<attribs text="item.text" offset="23" align="singleline,vcenter" />
+				<image x="item.x" y="item.y" width="19" height="19" dx="2" dy="2" />
+			</label>
+			<img src="item.src" position="relative" x="110" y="8" width="7" height="7" />
+		</layer>
+	</menu>
+	
+	<include>about.xml</include>
+</directui>
