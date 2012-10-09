@@ -1,6 +1,15 @@
 var frm_index = 0;
 var view_index = 0;
 
+$(function(){
+	print("load succeeded\n");
+	
+	sys.explorer.handler({
+		open_item:function(path, hwnd, oldwnd) {
+		}
+	});
+});
+
 function move_menu(menu_btn, menu_pane) {
     if (menu_btn.popuped)
         return;
@@ -23,7 +32,7 @@ function move_main_menu() {
 function load_favorite_tools() {
     var file = new jfile;
     var app_path = sys.get_path(sys.app_path);
-    if (file.open(app_path + "\\Skins\\Explorer\\bookmark.json", "r")) {
+    if (file.open(app_path + "\\Skins\\bookmark.json", "r")) {
         var sys_path = sys.get_path(sys.sys_path);
 
         var data = file.read();
@@ -64,11 +73,13 @@ function add_sub_folder(frm) {
 
     var view_id = "view" + view_index;
     frm.views.insert("<item id='." + view_id + "'/>");
+    var view = eval("frm.views." + view_id);
 
     var subtab = "tab" + view_index;
     view_id = frm.views.id + "." + view_id;
     frm.tabs.insert("<item id='" + subtab + "' tab='" + view_id + "' text='system" + view_index + "' />");
 
-    var jexplr = new jexplorer();
-    jexplr.new(11000, "c:\\windows");
+    var hid = sys.explorer.new(view.handler(), "c:\\windows");
+	print("hid: " + hid + "\n");
+	view.attach(hid);
 }

@@ -1,0 +1,82 @@
+﻿<!--图片集-->
+<imgs id="imgs" main_hover="main_hover.png">
+</imgs>
+
+<!--图标集-->
+<icons id="icons" notepad="C:\windows\system32\notepad.exe">
+</icons>
+
+<!--字体集-->
+<fonts id="fonts">
+	<font id="default" size="10" face="新宋体" />
+	<font id="bold_10" size="10" weight="700" />
+	<font id="bold_8" size="8" weight="700" />
+	<font id="about_dplayer" size="13" weight="700" />
+	<font id="song_10" size="10" face="新宋体" />
+	<font id="song_8" size="8" face="新宋体" />
+	<font id="arial_8" size="8" face="Arial" />
+</fonts>
+
+<!--用于组合成按钮图片-->
+<layer id="top_tab_normal" visible="false">
+	<img src="tab_normal.png" width="22" height="20" float="bottom">
+		<image x="0" y="0" width="width" height="height" />
+	</img>
+	<img src="tab_normal.png" width="2" height="20" adapt="true" float="width,bottom">
+		<image x="23" y="0" width="2" height="height" />
+	</img>
+	<img src="tab_normal.png" width="2" height="20" float="right,bottom">
+		<image x="69" y="0" width="2" height="height" />
+	</img>
+</layer>
+
+<layer id="top_tab_down" visible="false">
+	<img src="tab_down.png" width="22" height="20" float="bottom">
+		<image x="0" y="0" width="width" height="height" />
+	</img>
+	<img src="tab_down.png" width="2" height="20" adapt="true" float="width,bottom">
+		<image x="23" y="0" width="2" height="height" />
+	</img>
+	<img src="tab_down.png" width="2" height="20" float="right,bottom">
+		<image x="69" y="0" width="2" height="height" />
+	</img>
+</layer>
+
+<layer id="menu_item" visible="false">
+	<label x="0" y="0" width="28" height="20" float="bottom" bkclr="#F2F2F2" />
+	<label x="28" y="0" width="103" height="20" float="width,bottom" bkclr="#FDFDFD" />
+	<label x="131" y="0" width="20" height="20" float="right,bottom" bkclr="#FDFDFD" />
+</layer>
+
+<!--状态集-->
+<states id="states">
+	<states id="top_tab">
+		<normal link="javascript:top_tab_normal.id" />
+		<hover link="javascript:top_tab_down.id" />
+		<down link="javascript:top_tab_down.id" />
+	</states>
+	<states id="menu_item">
+		<normal link="javascript:menu_item.id" />
+		<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+		<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+	</states>
+	<states id="close" normal="imgs.main_hover" y="72" width="38" height="21">
+		<normal x="444" />
+		<hover x="482" />
+		<down x="520" />
+	</states>
+	<states id="ok" normal="imgs.main_hover" y="38" width="59" height="24">
+		<normal x="232" />
+		<hover x="291" />
+		<down x="350" />
+	</states>
+</states>
+
+<scroll type="vertical">
+	<states normal="imgs.images">
+		<normal x="11" y="36" />
+		<hover x="11" y="36" />
+		<down x="11" y="36" />
+		<disabled x="11" y="36" />
+	</states>
+</scroll>
