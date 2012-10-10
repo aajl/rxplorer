@@ -307,10 +307,14 @@
 		</layer>
 
 		<!--状态栏-->
-		<layer id="statusbar" x="1" y="567" width="878" height="90" float="width,bottom">
+		<layer id="statusbar" x="1" y="569" width="878" height="90" float="width,bottom">
 			<border width="1" color="#ACA899" />
 			
-			<img src="statusbar.png" position="relative" x="0" y="0" width="878" height="90" float="width" adapt="true"/>
+			<img src="statusbar.png" position="relative" x="0" y="0" width="878" height="90" float="width">
+				<bkimg x="0" y="0" width="20" height="90">
+					<y x="7" y="0" width="5" height="90" />
+				</bkimg>
+			</img>
 		</layer>
 
 	</panel> <!-- end explorer -->
