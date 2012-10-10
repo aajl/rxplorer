@@ -278,27 +278,26 @@
 				</states>
 			</button>
 			
-			<custom id=".tabs" type="tiled" position="relative" x="2" y="2" width="612" height="20" col="10" margin="0,0" float="width">
+			<custom id=".tabs" type="tiled" position="relative" x="2" y="2" width="612" height="20" col="100" float="width">
 				<items width="adapt" height="20">
 					<!--<items id="tab1" text="" icon="" tab="item.tab" />-->
 				</items>
 				<button id="item.id" width="adapt,15" height="20" text="item.text" align="center,vcenter" offset="24">
 					<tabs tab="item.tab" group="folders" />
-					<states>
-						<normal link="javascript:top_tab_normal.id" />
+					<states dx="2" dy="2">
+						<normal icon="item.icon" link="javascript:tabbtn.id" />
+						<hover icon="item.icon" link="javascript:tabbtn.id" />
+						<down icon="item.icon" link="javascript:tabbtn.id" />
 					</states>
 				</button>
-				<script type="javascript">
-					<![CDATA[
-					]]>
-				</script>
 			</custom>
 
-			<custom id=".views" position="relative" x="1" y="22" width="628" height="457" bkclr="#ffffff" type="tiled" col="10" float="width,height">
-				<items width="adapt" height="20">
+			<custom id=".views" type="tiled" position="relative" x="1" y="22" width="628" height="457" bkclr="#ffffff" col="1" float="width,height">
+				<items width="adapt" height="0">
 					<!--<item id="view1" />-->
 				</items>
 				<panel id="item.id" x="1" y="1" width="866" height="435" bkclr="#808080" float="width,height">
+					<border width="1" />
 				</panel>
 			</custom>
 		</layer>
