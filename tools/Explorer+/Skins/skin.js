@@ -1,4 +1,5 @@
 var folder_index = 0;
+var xplorer_left_pos = 0;
 
 $(function(){
 	print("load succeeded\n");
@@ -53,24 +54,10 @@ function load_favorite_tools() {
 function show_treeview() {
 	if(treeview.visible()) {
 		treeview.hide();
-		
-		var rc_treeview = treeview.rect();
-		var rect = xplorer.rect();
-		
-		print("width: " + xplorer.width);
-
-		rect.left = rc_treeview.left;
-		xplorer.move(rect.left, rect.top, 630 + 240 + 3, rect.height);
-		//xplorer.move(treeview.x, xplorer.y, xplorer.width + xplorer.left - treeview.left, xplorer.height);
-		print("width: " + xplorer.width);
+		xplorer.move(treeview.x, xplorer.y, xplorer.width + xplorer.x - treeview.x, xplorer.height);
 	} else {
 		treeview.show();
-		
-		var rc_treeview = treeview.rect();
-		var rect = xplorer.rect();
-		
-		rect.left = 247;
-		xplorer.move(rect.left, rect.top, 630, rect.height);
+		xplorer.move(247, xplorer.y, 630, xplorer.height);
 	}
 }
 
@@ -87,5 +74,5 @@ function add_folder() {
 
 	// 增加一个tab按钮
 	 var tab_id = "tab" + folder_index;
-	 xplorer.tabs.insert("<item id='." + tab_id + "' tab='" + view_id + "' text='Download' icon='C:\\Windows\\explorer.exe' />");
+	 xplorer.tabs.insert("<item id='." + tab_id + "' tab='" + view.id + "' text='Windows Download' icon='C:\\Windows\\explorer.exe' />");
 }

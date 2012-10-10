@@ -18,6 +18,12 @@
 </fonts>
 
 <!--用于组合成按钮图片-->
+<img id="tabbtn" src="tab_normal.png">
+	<bkimg x="0" y="0" width="63" height="20">
+		<y x="30" y="0" width="5" height="20" />
+	</bkimg>
+</img>
+
 <layer id="top_tab_normal" visible="false">
 	<img src="tab_normal.png" width="10" height="20" float="bottom">
 		<bkimg x="0" y="0" width="width" height="height" />
