@@ -284,10 +284,8 @@
 				</items>
 				<button id="item.id" width="adapt,15" height="20" text="item.text" align="center,vcenter" offset="24">
 					<tabs tab="item.tab" group="folders" />
-					<states dx="2" dy="2">
+					<states dx="6" dy="1">
 						<normal icon="item.icon" link="javascript:tabbtn.id" />
-						<hover icon="item.icon" link="javascript:tabbtn.id" />
-						<down icon="item.icon" link="javascript:tabbtn.id" />
 					</states>
 				</button>
 			</custom>
