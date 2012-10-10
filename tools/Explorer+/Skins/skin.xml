@@ -296,9 +296,13 @@
 				<items width="adapt" height="0">
 					<!--<item id="view1" />-->
 				</items>
-				<panel id="item.id" x="1" y="1" width="866" height="435" bkclr="#808080" float="width,height">
-					<border width="1" />
+				<panel id="item.id" x="0" y="0" width="628" height="457" bkclr="#ffffff" float="width,height">
 				</panel>
+				<script type="javascript">
+				<![CDATA[
+					//xplorer.views.insert("<item id='view1' />");
+				]]>
+				</script>
 			</custom>
 		</layer>
 
