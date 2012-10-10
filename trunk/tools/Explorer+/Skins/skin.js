@@ -1,5 +1,4 @@
-var frm_index = 0;
-var view_index = 0;
+var folder_index = 0;
 
 $(function(){
 	print("load succeeded\n");
@@ -32,54 +31,61 @@ function move_main_menu() {
 function load_favorite_tools() {
     var file = new jfile;
     var app_path = sys.get_path(sys.app_path);
-    if (file.open(app_path + "\\Skins\\bookmark.json", "r")) {
-        var sys_path = sys.get_path(sys.sys_path);
+    if (!file.open(app_path + "\\Skins\\bookmark.json", "r"))
+		return;
+		
+	var data = file.read();
+	var bm = eval("(" + data + ")");
+	var sys_path = sys.get_path(sys.sys_path);
+	for (var i = 0; i < bm.bookmark.length; ++i) {
+		var path = bm.bookmark[i].path;
 
-        var data = file.read();
-        var bm = eval("(" + data + ")");
-        for (var i = 0; i < bm.bookmark.length; ++i) {
-            var path = bm.bookmark[i].path;
+		path = path.replace(/%Sys/gi, sys_path);
+		path = path.replace(/%App/gi, app_path);
 
-            path = path.replace(/%Sys/gi, sys_path);
-            path = path.replace(/%App/gi, app_path);
-
-            var id = sys.hash(path);
-            fav_toolbar.insert("<item id='btn" + id + "' icon='" + path + "' />", -1, 0);
-        }
-    }
+		var id = sys.hash(path);
+		fav_toolbar.insert("<item id='btn" + id + "' icon='" + path + "' />", -1, 0);
+	}
 
     file = null;
 }
 
-function add_folder() {
-    ++frm_index;
+function show_treeview() {
+	if(treeview.visible()) {
+		treeview.hide();
+		
+		var rc_treeview = treeview.rect();
+		var rect = xplorer.rect();
+		
+		print("width: " + xplorer.width);
 
-    var frm_id = "frm" + frm_index;
-    xplorer.frms1.frms.insert("<item id='." + frm_id + "' />");
-    var frm = eval("xplorer.frms1.frms." + frm_id);
-
-    var tab_id = "tab" + frm_index;
-    xplorer.frms1.tabs.insert("<item id='." + tab_id + "' text='windows" + frm_index + "' tab='" + frm.id + "'/>");
-
-    add_sub_folder(frm);
+		rect.left = rc_treeview.left;
+		xplorer.move(rect.left, rect.top, 630 + 240 + 3, rect.height);
+		//xplorer.move(treeview.x, xplorer.y, xplorer.width + xplorer.left - treeview.left, xplorer.height);
+		print("width: " + xplorer.width);
+	} else {
+		treeview.show();
+		
+		var rc_treeview = treeview.rect();
+		var rect = xplorer.rect();
+		
+		rect.left = 247;
+		xplorer.move(rect.left, rect.top, 630, rect.height);
+	}
 }
 
-function add_sub_folder(frm) {
-    if (typeof (frm) == "undefined") {
-        return;
-    }
+function add_folder() {
+	++folder_index;
 
-    ++view_index;
+	// 增加一个视图
+	var view_id = "view" + folder_index;
+	xplorer.views.insert("<item id='." + view_id + "' />");
+	
+    var view = eval("xplorer.views." + view_id);
+	var hid = sys.explorer.new(view.handler(), "c:\\windows", view.rect());
+   	view.attach(hid);
 
-    var view_id = "view" + view_index;
-    frm.views.insert("<item id='." + view_id + "'/>");
-    var view = eval("frm.views." + view_id);
-
-    var subtab = "tab" + view_index;
-    view_id = frm.views.id + "." + view_id;
-    frm.tabs.insert("<item id='" + subtab + "' tab='" + view_id + "' text='system" + view_index + "' />");
-
-    var hid = sys.explorer.new(view.handler(), "c:\\windows");
-	print("hid: " + hid + "\n");
-	view.attach(hid);
+	// 增加一个tab按钮
+	 var tab_id = "tab" + folder_index;
+	 xplorer.tabs.insert("<item id='." + tab_id + "' tab='" + view_id + "' text='Download' icon='C:\\Windows\\explorer.exe' />");
 }

@@ -19,14 +19,14 @@
 
 <!--用于组合成按钮图片-->
 <layer id="top_tab_normal" visible="false">
-	<img src="tab_normal.png" width="22" height="20" float="bottom">
-		<image x="0" y="0" width="width" height="height" />
+	<img src="tab_normal.png" width="10" height="20" float="bottom">
+		<bkimg x="0" y="0" width="width" height="height" />
 	</img>
 	<img src="tab_normal.png" width="2" height="20" adapt="true" float="width,bottom">
-		<image x="23" y="0" width="2" height="height" />
+		<bkimg x="23" y="0" width="width" height="height" />
 	</img>
-	<img src="tab_normal.png" width="2" height="20" float="right,bottom">
-		<image x="69" y="0" width="2" height="height" />
+	<img src="tab_normal.png" width="4" height="20" float="right,bottom">
+		<bkimg x="59" y="0" width="width" height="height" />
 	</img>
 </layer>
 
