@@ -8,15 +8,13 @@
 
 <!--字体集-->
 <fonts id="fonts">
-	<font id="default" size="10" face="新宋体" />
+	<font id="default" size="9" face="Arial" />
 	<font id="bold_10" size="10" weight="700" />
 	<font id="bold_8" size="8" weight="700" />
 	<font id="about_dplayer" size="13" weight="700" />
 	<font id="song_10" size="10" face="新宋体" />
 	<font id="song_8" size="8" face="新宋体" />
 	<font id="arial_8" size="8" face="Arial" />
-	<font id="arial_9" size="9" face="Arial" />
-	<font id="arial_10" size="9" face="Arial" />
 </fonts>
 
 <!--用于组合成按钮图片-->
