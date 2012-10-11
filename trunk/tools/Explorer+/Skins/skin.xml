@@ -280,7 +280,7 @@
 			
 			<custom id=".tabs" type="tiled" position="relative" x="2" y="2" width="612" height="20" col="100" float="width">
 				<items width="adapt" height="20">
-					<!--<item id="tab1" text="" icon="" tab="item.tab" />-->
+					<!--<item id=".tab1" text="" icon="" tab="item.tab" />-->
 				</items>
 				<button id="item.id" width="adapt,15" height="20" text="item.text" align="center,vcenter" offset="24">
 					<tabs tab="item.tab" group="folders" />
@@ -292,7 +292,7 @@
 
 			<custom id=".views" type="tiled" position="relative" x="1" y="22" width="628" height="477" bkclr="#ffffff" col="1" float="width,height">
 				<items width="adapt" height="0">
-					<!--<item id="view1" />-->
+					<!--<item id=".view1" />-->
 				</items>
 				<panel id="item.id" x="0" y="0" width="628" height="477" bkclr="#ffffff" float="width,height">
 				</panel>
