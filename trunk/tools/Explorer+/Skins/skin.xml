@@ -103,7 +103,7 @@
 		</custom>
 
 		<!--常用工具栏-->
-		<custom id="toolbar" x="1" y="24" width="131" height="29" col="4" type="tiled" margin="0,2,0,7" bkclr="#E5E5E5" bkimg="dragable.png">
+		<custom id="toolbar" x="1" y="24" width="131" height="29" col="4" type="tiled" margin="0,1,0,7" bkclr="#E5E5E5" bkimg="dragable.png">
 			<bkimg dx="2" dy="3" />
 			<items width="29" height="29">
 				<item img="computer.png" action="add_folder()" />
@@ -121,7 +121,7 @@
 		</custom>
 		
 		<!--收藏的工具栏-->
-		<custom id="fav_toolbar" x="134" y="24" width="743" height="29" col="50" type="tiled" margin="0,2,0,7" float="width">
+		<custom id="fav_toolbar" x="134" y="24" width="743" height="29" col="50" type="tiled" margin="0,1,0,7" float="width">
 			<attribs bkclr="#E5E5E5" bkimg="dragable.png" oninit="load_favorite_tools()" />
 			<bkimg dx="2" dy="3" />
 			<events dbclk="print('db clk\n')" rbtn="print('rbutton\n')" />
@@ -141,7 +141,7 @@
 			<border width="1" color="#316AC5" />
 
 			<!--Undo/Redo-->
-			<custom x="1" y="54" width="67" height="29" col="4" type="tiled" margin="0,2,0,7" bkclr="#E5E5E5">
+			<custom x="1" y="54" width="67" height="29" col="4" type="tiled" margin="0,1,0,7" bkclr="#E5E5E5">
 				<bkimg src="dragable.png" dx="2" dy="3" />
 				<items width="29" height="29">
 					<item img="undo.png" action="addr.path='D:\\Download\\TeamPlayer'" />
@@ -206,7 +206,7 @@
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
 				</states>
-			</button>			
+			</button>
 		</layer>
 		
 		<!--搜索栏-->
@@ -249,7 +249,7 @@
 		</panel>
 		
 		<!--文件夹树控件-->
-		<layer id="treeview" x="3" y="85" width="240" height="480" float="height">
+		<layer id="treeview" x="3" y="85" width="240" height="500" float="height">
 			<border width="1" color="#ACA899" />
 			
 			<label text="文件夹" position="relative" x="0" y="0" width="240" height="22" align="vcenter" offset="2">
@@ -261,12 +261,12 @@
 				</states>
 			</button>
 			
-			<panel id="" position="relative" x="1" y="22" width="238" height="457" bkclr="#ffffff" float="height">
+			<panel id="" position="relative" x="1" y="22" width="238" height="477" bkclr="#ffffff" float="height">
 			</panel>
 		</layer>
 
 		<!--文件视图-->
-		<layer id="xplorer" x="247" y="85" width="630" height="480" float="width,height">
+		<layer id="xplorer" x="247" y="85" width="630" height="500" float="width,height">
 			<border width="1" color="#ACA899" />
 			
 			<label position="relative" x="0" y="0" width="630" height="22" float="width">
@@ -280,7 +280,7 @@
 			
 			<custom id=".tabs" type="tiled" position="relative" x="2" y="2" width="612" height="20" col="100" float="width">
 				<items width="adapt" height="20">
-					<!--<items id="tab1" text="" icon="" tab="item.tab" />-->
+					<!--<item id="tab1" text="" icon="" tab="item.tab" />-->
 				</items>
 				<button id="item.id" width="adapt,15" height="20" text="item.text" align="center,vcenter" offset="24">
 					<tabs tab="item.tab" group="folders" />
@@ -290,11 +290,11 @@
 				</button>
 			</custom>
 
-			<custom id=".views" type="tiled" position="relative" x="1" y="22" width="628" height="457" bkclr="#ffffff" col="1" float="width,height">
+			<custom id=".views" type="tiled" position="relative" x="1" y="22" width="628" height="477" bkclr="#ffffff" col="1" float="width,height">
 				<items width="adapt" height="0">
 					<!--<item id="view1" />-->
 				</items>
-				<panel id="item.id" x="0" y="0" width="628" height="457" bkclr="#ffffff" float="width,height">
+				<panel id="item.id" x="0" y="0" width="628" height="477" bkclr="#ffffff" float="width,height">
 				</panel>
 				<script type="javascript">
 				<![CDATA[
@@ -305,14 +305,33 @@
 		</layer>
 
 		<!--状态栏-->
-		<layer id="statusbar" x="1" y="569" width="878" height="90" float="width,bottom">
+		<layer id="statusbar" x="1" y="589" width="878" height="70" float="width,bottom">
 			<border width="1" color="#ACA899" />
 			
-			<img src="statusbar.png" position="relative" x="0" y="0" width="878" height="90" float="width">
-				<bkimg x="0" y="0" width="20" height="90">
-					<y x="7" y="0" width="5" height="90" />
+			<img src="statusbar.png" position="relative" x="0" y="0" width="878" height="70" float="width">
+				<bkimg x="0" y="0" width="20" height="70">
+					<y x="7" y="0" width="5" height="70" />
 				</bkimg>
 			</img>
+			
+			<img src="Explorer.png" position="relative" x="13" y="3" width="64" height="64" adapt="half">
+				<bkimg dx="center" dy="center" />
+			</img>
+			
+			<label id=".filename" text="给我一个温暖空间.avi" position="relative" x="90" y="5" width="150" height="18" font="fonts.arial_10" align="vcenter" />
+			<label id=".filetype" text="配置设置" position="relative" x="92" y="23" width="100" height="18" font="fonts.arial_9" color="#5A6779" align="vcenter" />
+
+			<custom id=".info" type="tiled" position="relative" x="240" y="5" width="500" height="60" margin="2,15" col="2" float="width">
+				<items width="155" height="18">
+					<!--<item text="" />-->
+					<item text="修改日期: 2011-06-01 13:47" />
+					<item text="长度: 00:05:38" />
+					<item text="        大小: 50.7M" />
+					<item text="" />
+					<item text="创建日期: 2011-06-01 13:47" />
+				</items>
+				<label text="item.text" width="155" height="18" font="fonts.arial_9" color="#5A6779" align="vcenter" />
+			</custom>
 		</layer>
 
 	</panel> <!-- end explorer -->
