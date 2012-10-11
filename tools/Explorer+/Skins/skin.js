@@ -68,9 +68,9 @@ function add_folder() {
 	var view_id = "view" + folder_index;
 	xplorer.views.insert("<item id='." + view_id + "' />");
 	
-    var view = eval("xplorer.views." + view_id);
-	var hid = sys.explorer.new(view.handler(), "c:\\windows", view.rect());
-   	view.attach(hid);
+	view_id = "xplorer.views." + view_id;
+    var view = eval(view_id);
+	var hid = sys.explorer.new(view.handler(), "c:\\windows", view.rect(), view_id);
 
 	// 增加一个tab按钮
 	 var tab_id = "tab" + folder_index;
