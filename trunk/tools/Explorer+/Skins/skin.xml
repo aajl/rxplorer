@@ -219,7 +219,7 @@
 			</addr>
 			
 			<!--收藏夹按钮-->
-			<button position="relative" x="329" y="2" width="12" height="21" adapt="false" popup="explorer.folder_fav" float="right">
+			<button position="relative" x="-36" y="2" width="12" height="21" adapt="false" popup="explorer.folder_fav" float="right">
 				<states normal="fav.png" dx="1" dy="6">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -227,7 +227,7 @@
 			</button>
 
 			<!--下拉列表按钮-->
-			<button position="relative" x="342" y="2" width="21" height="21" adapt="false" float="right">
+			<button position="relative" x="-23" y="2" width="21" height="21" adapt="false" float="right">
 				<states normal="dropdown.png" dx="7" dy="9">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -241,7 +241,7 @@
 			
 			<edit id="search" position="relative" x="1" y="1" width="216" height="23" bkclr="#ffffff" hint="搜索" />
 			
-			<button position="relative" x="217" y="1" width="23" height="23" adapt="false">
+			<button position="relative" x="-24" y="1" width="23" height="23" adapt="false">
 				<states normal="search_icon.png" dx="3" dy="3">
 				</states>
 			</button>
