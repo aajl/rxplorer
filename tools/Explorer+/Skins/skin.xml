@@ -137,16 +137,11 @@
 		</custom>
 
 		<!--磁盘栏-->
-		<custom id="fav_toolbar" x="1" y="54" width="200" height="29" col="26" type="tiled" margin="0,1,0,7">
+		<custom id="drivebar" x="1" y="54" width="200" height="29" col="26" type="tiled" margin="0,1,0,7">
 			<attribs bkclr="#E5E5E5" oninit="" />
 			<bkimg src="dragable.png" dx="2" dy="3" />
 			<items width="29" height="29">
-				<item text="C" pos="4" icon="drive.ico" down="progress_hover.png" />
-				<item text="D" pos="5" icon="drive.ico" down="progress_hover.png" />
-				<item text="E" pos="6" icon="drive.ico" down="progress_hover.png" />
-				<item text="F" pos="7" icon="drive.ico" down="progress_hover.png" />
-				<item text="G" pos="8" icon="drive.ico" down="progress_hover.png" />
-				<item text="H" pos="9" icon="drive.ico" down="progress_hover_red.png" />
+				<!--item text="C" pos="4" icon="drive.ico" down="progress_hover.png" /-->
 			</items>
 			<layer width="29" height="29" action="">
 				<states width="16" height="16">

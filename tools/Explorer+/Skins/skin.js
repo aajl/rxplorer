@@ -4,6 +4,14 @@ var xplorer_left_pos = 0;
 $(function(){
 	print("load succeeded\n");
 	
+	var obj = sys.explorer.drives();
+	for(var i = 0; i < obj.drives.length; ++i) {
+		var drive = obj.drives[i];
+		var percent = parseInt((drive.total - drive.free) / drive.total * 10);
+		var down = percent >= 9 ? "progress_hover_red.png" : "progress_hover.png";
+		drivebar.insert("<item text='" + drive.drive + "' pos='" + percent + "' icon='drive.ico' down='" + down + "' />");
+	}
+	
 	sys.explorer.handler({
 		open_item:function(path, hwnd, oldwnd) {
 		}
