@@ -12,6 +12,11 @@ $(function(){
 		drivebar.insert("<item text='" + drive.drive + "' pos='" + percent + "' icon='drive.ico' down='" + down + "' />");
 	}
 	
+	var width = 7 + obj.drives.length * 29 + obj.drives.length + 5;
+	var rc = addrbar.rect();
+	var offset = drivebar.width - width;
+	addrbar.move(rc.x - offset, rc.y, rc.width + offset, rc.height);
+	
 	sys.explorer.handler({
 		open_item:function(path, hwnd, oldwnd) {
 		}
