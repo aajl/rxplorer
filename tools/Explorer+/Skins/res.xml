@@ -14,6 +14,7 @@
 	<font id="about_dplayer" size="13" weight="700" />
 	<font id="song_10" size="10" face="新宋体" />
 	<font id="song_8" size="8" face="新宋体" />
+	<font id="arial_7" size="7" face="Arial" />
 	<font id="arial_8" size="8" face="Arial" />
 </fonts>
 
