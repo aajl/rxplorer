@@ -150,13 +150,13 @@
 			</items>
 			<layer width="29" height="29" action="">
 				<states width="16" height="16">
-					<normal icon="item.icon" dx="6" dy="1" border="0" bkclr="#E5E5E5" />
-					<hover dx="6" dy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<normal icon="item.icon" dx="6" dy="2" border="0" bkclr="#E5E5E5" />
+					<hover dx="5" dy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
 					<down dx="6" dy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
 				</states>
 				<label position="relative" x="1" y="16" width="8" height="12" text="item.text" font="fonts.arial_8" />
-				<progress position="relative" x="9" y="16" width="18" height="11" range="0,10" pos="item.pos" enable="false">
-					<states normal="progress.png" down="progress_hover.png" width="18" height="11">
+				<progress position="relative" x="9" y="17" width="18" height="10" range="0,10" pos="item.pos" enable="false">
+					<states normal="progress.png" down="progress_hover.png" width="18" height="10">
 					</states>
 				</progress>
 			</layer>
