@@ -120,7 +120,7 @@
 			</button>
 		</custom>
 		
-		<!--收藏的工具栏-->
+		<!--收藏工具栏-->
 		<custom id="fav_toolbar" x="134" y="24" width="743" height="29" col="50" type="tiled" margin="0,1,0,7" float="width">
 			<attribs bkclr="#E5E5E5" bkimg="dragable.png" oninit="load_favorite_tools()" />
 			<bkimg dx="2" dy="3" />
@@ -136,12 +136,38 @@
 			</button>
 		</custom>
 
+		<!--磁盘栏-->
+		<custom id="fav_toolbar" x="1" y="54" width="200" height="29" col="26" type="tiled" margin="0,1,0,7">
+			<attribs bkclr="#E5E5E5" oninit="" />
+			<bkimg src="dragable.png" dx="2" dy="3" />
+			<items width="29" height="29">
+				<item text="C" pos="4" icon="drive.ico" />
+				<item text="D" pos="5" icon="drive.ico" />
+				<item text="E" pos="6" icon="drive.ico" />
+				<item text="F" pos="7" icon="drive.ico" />
+				<item text="G" pos="8" icon="drive.ico" />
+				<item text="H" pos="9" icon="drive.ico" />
+			</items>
+			<layer width="29" height="29" action="">
+				<states width="16" height="16">
+					<normal icon="item.icon" dx="6" dy="1" border="0" bkclr="#E5E5E5" />
+					<hover dx="6" dy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<down dx="6" dy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+				<label position="relative" x="1" y="16" width="8" height="12" text="item.text" font="fonts.arial_8" />
+				<progress position="relative" x="9" y="16" width="18" height="11" range="0,10" pos="item.pos" enable="false">
+					<states normal="progress.png" down="progress_hover.png" width="18" height="11">
+					</states>
+				</progress>
+			</layer>
+		</custom>
+		
 		<!--地址栏-->
-		<layer id="addrbar" x="68" y="56" width="565" height="25" bkclr="#FFFFFF" float="width">
+		<layer id="addrbar" x="268" y="56" width="365" height="25" bkclr="#FFFFFF" float="width">
 			<border width="1" color="#316AC5" />
 
 			<!--Undo/Redo-->
-			<custom x="1" y="54" width="67" height="29" col="4" type="tiled" margin="0,1,0,7" bkclr="#E5E5E5">
+			<custom x="201" y="54" width="67" height="29" col="4" type="tiled" margin="0,1,0,7" bkclr="#E5E5E5">
 				<bkimg src="dragable.png" dx="2" dy="3" />
 				<items width="29" height="29">
 					<item img="undo.png" action="addr.path='D:\\Download\\TeamPlayer'" />
@@ -173,7 +199,7 @@
 			</button>
 
 			<!--地址栏按钮-->
-			<addr id="addr" path="D:\\Download\\Music" position="relative" x="36" y="1" width="492" height="23" bkclr="#FFFFFF" float="width">
+			<addr id="addr" path="D:\\Download\\Music" position="relative" x="36" y="1" width="292" height="23" bkclr="#FFFFFF" float="width">
 				<states width="0" height="0">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -193,7 +219,7 @@
 			</addr>
 			
 			<!--收藏夹按钮-->
-			<button x="529" position="relative" y="2" width="12" height="21" adapt="false" popup="explorer.folder_fav" float="right">
+			<button position="relative" x="329" y="2" width="12" height="21" adapt="false" popup="explorer.folder_fav" float="right">
 				<states normal="fav.png" dx="1" dy="6">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -201,7 +227,7 @@
 			</button>
 
 			<!--下拉列表按钮-->
-			<button x="542" position="relative" y="2" width="21" height="21" adapt="false" float="right">
+			<button position="relative" x="342" y="2" width="21" height="21" adapt="false" float="right">
 				<states normal="dropdown.png" dx="7" dy="9">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -294,7 +320,7 @@
 				<items width="adapt" height="0">
 					<!--<item id=".view1" />-->
 				</items>
-				<panel id="item.id" x="0" y="0" width="628" height="477" bkclr="#ffffff" float="width,height">
+				<panel id="item.id" x="0" y="0" width="width" height="height" bkclr="#ffffff" float="width,height">
 				</panel>
 				<script type="javascript">
 				<![CDATA[
