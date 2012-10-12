@@ -141,12 +141,12 @@
 			<attribs bkclr="#E5E5E5" oninit="" />
 			<bkimg src="dragable.png" dx="2" dy="3" />
 			<items width="29" height="29">
-				<item text="C" pos="4" icon="drive.ico" />
-				<item text="D" pos="5" icon="drive.ico" />
-				<item text="E" pos="6" icon="drive.ico" />
-				<item text="F" pos="7" icon="drive.ico" />
-				<item text="G" pos="8" icon="drive.ico" />
-				<item text="H" pos="9" icon="drive.ico" />
+				<item text="C" pos="4" icon="drive.ico" down="progress_hover.png" />
+				<item text="D" pos="5" icon="drive.ico" down="progress_hover.png" />
+				<item text="E" pos="6" icon="drive.ico" down="progress_hover.png" />
+				<item text="F" pos="7" icon="drive.ico" down="progress_hover.png" />
+				<item text="G" pos="8" icon="drive.ico" down="progress_hover.png" />
+				<item text="H" pos="9" icon="drive.ico" down="progress_hover_red.png" />
 			</items>
 			<layer width="29" height="29" action="">
 				<states width="16" height="16">
@@ -156,7 +156,7 @@
 				</states>
 				<label position="relative" x="1" y="16" width="8" height="12" text="item.text" font="fonts.arial_8" />
 				<progress position="relative" x="9" y="17" width="18" height="10" range="0,10" pos="item.pos" enable="false">
-					<states normal="progress.png" down="progress_hover.png" width="18" height="10">
+					<states normal="progress.png" down="item.down" width="18" height="10">
 					</states>
 				</progress>
 			</layer>
