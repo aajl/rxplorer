@@ -15,13 +15,19 @@ $(function(){
 	addrbar.move(addrbar.x - offset, addrbar.y, addrbar.width + offset, addrbar.height);
 	
 	for(var i = 0; i < obj.drives.length; ++i) {
-		var drv = obj.drives[i];
+		var drv = obj.drives[i];		
 		var percent = parseInt((drv.total - drv.free) / drv.total * 10);
-		var down = percent >= 9 ? "progress_hover_red.png" : "progress_hover.png";
-		var item = "<item text='" + drv.drive + "' pos='" + percent + "' icon='icons." + drv.type + "' down='" + down + "' />";
+		
+		var id = "id='drive" + i + "' "; 
+		var text = "text='" + drv.drive + "' ";
+		var path = "path='" + drv.drive +":\\' ";
+		var pos = "pos='" + percent + "' ";
+		var icon = "icon='icons." + drv.type + "' ";
+		var down = "down='" + (percent >= 9 ? "progress_hover_red.png" : "progress_hover.png");
+		var item = "<item " + id + text + path + pos + icon + down + "' />";
 		drivebar.insert(item);
 	}
-			
+	
 	sys.explorer.handler({
 		open_item:function(path, hwnd, oldwnd) {
 		}
