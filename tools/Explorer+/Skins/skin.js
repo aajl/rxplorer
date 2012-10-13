@@ -63,7 +63,7 @@ function load_favorite_tools() {
 		path = path.replace(/%App/gi, app_path);
 
 		var id = sys.hash(path);
-		fav_toolbar.insert("<item id='btn" + id + "' icon='" + path + "|0|large' />", -1, 0);
+		fav_toolbar.insert("<item id='btn" + id + "' path='" + path + "' icon='" + path + "|0|large' />", -1, 0);
 	}
 
     file = null;

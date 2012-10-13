@@ -127,7 +127,7 @@
 			<events dbclk="print('db clk\n')" rbtn="print('rbutton\n')" />
 			<items width="29" height="29">
 			</items>
-			<button id="item.id" width="29" height="29" path="item.icon" action="sys.shell_execute(this.attrib('path'))">
+			<button id="item.id" width="29" height="29" path="item.path" action="sys.shell_execute(this.attrib('path'))">
 				<states width="24" height="24">
 					<normal icon="item.icon" dx="3" dy="3" border="0" bkclr="#E5E5E5" />
 					<hover dx="2" dy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -143,7 +143,7 @@
 			<items width="29" height="29">
 				<!--item text="C" pos="4" icon="drive.ico" down="progress_hover.png" /-->
 			</items>
-			<layer width="29" height="29" action="">
+			<layer width="29" height="29" action="" path="item.path">
 				<states width="16" height="15">
 					<normal icon="item.icon" dx="6" dy="2" bkclr="#E5E5E5" />
 					<hover dx="5" dy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
