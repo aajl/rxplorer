@@ -5,18 +5,22 @@ $(function(){
 	print("load succeeded\n");
 	
 	var obj = sys.explorer.drives();
+	
+	// 计算drivebar实际所需宽度
+	var width = 7 + obj.drives.length * 29 + obj.drives.length + 5;
+	
+	// 移动工具栏
+	var offset = drivebar.width - width;
+	drivebar.move(drivebar.x, drivebar.y, drivebar.width - offset, drivebar.height);
+	addrbar.move(addrbar.x - offset, addrbar.y, addrbar.width + offset, addrbar.height);
+	
 	for(var i = 0; i < obj.drives.length; ++i) {
 		var drive = obj.drives[i];
 		var percent = parseInt((drive.total - drive.free) / drive.total * 10);
 		var down = percent >= 9 ? "progress_hover_red.png" : "progress_hover.png";
 		drivebar.insert("<item text='" + drive.drive + "' pos='" + percent + "' icon='drive.ico' down='" + down + "' />");
 	}
-	
-	var width = 7 + obj.drives.length * 29 + obj.drives.length + 5;
-	var rc = addrbar.rect();
-	var offset = drivebar.width - width;
-	addrbar.move(rc.x - offset, rc.y, rc.width + offset, rc.height);
-	
+			
 	sys.explorer.handler({
 		open_item:function(path, hwnd, oldwnd) {
 		}
