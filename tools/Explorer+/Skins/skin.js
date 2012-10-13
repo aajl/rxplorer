@@ -15,10 +15,11 @@ $(function(){
 	addrbar.move(addrbar.x - offset, addrbar.y, addrbar.width + offset, addrbar.height);
 	
 	for(var i = 0; i < obj.drives.length; ++i) {
-		var drive = obj.drives[i];
-		var percent = parseInt((drive.total - drive.free) / drive.total * 10);
+		var drv = obj.drives[i];
+		var percent = parseInt((drv.total - drv.free) / drv.total * 10);
 		var down = percent >= 9 ? "progress_hover_red.png" : "progress_hover.png";
-		drivebar.insert("<item text='" + drive.drive + "' pos='" + percent + "' icon='drive.ico' down='" + down + "' />");
+		var item = "<item text='" + drv.drive + "' pos='" + percent + "' icon='icons." + drv.type + "' down='" + down + "' />";
+		drivebar.insert(item);
 	}
 			
 	sys.explorer.handler({
@@ -62,7 +63,7 @@ function load_favorite_tools() {
 		path = path.replace(/%App/gi, app_path);
 
 		var id = sys.hash(path);
-		fav_toolbar.insert("<item id='btn" + id + "' icon='" + path + "' />", -1, 0);
+		fav_toolbar.insert("<item id='btn" + id + "' icon='" + path + "|0|large' />", -1, 0);
 	}
 
     file = null;
