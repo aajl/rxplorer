@@ -1,5 +1,6 @@
 var folder_index = 0;
 var xplorer_left_pos = 0;
+var curr_view_id;
 
 $(function(){
 	print("load succeeded\n");
@@ -22,14 +23,15 @@ $(function(){
 		var text = "text='" + drv.drive + "' ";
 		var path = "path='" + drv.drive +":\\' ";
 		var pos = "pos='" + percent + "' ";
-		var icon = "icon='icons." + drv.type + "' ";
+		//var icon = "icon='icons." + drv.type + "' ";
+		var icon = "icon='" + drv.drive + ":\\' ";
 		var down = "down='" + (percent >= 9 ? "progress_hover_red.png" : "progress_hover.png");
 		var item = "<item " + id + text + path + pos + icon + down + "' />";
 		drivebar.insert(item);
 	}
 	
 	sys.explorer.handler({
-		open_item:function(path, hwnd, oldwnd) {
+		open:function(path, hwnd, oldwnd) {
 		}
 	});
 });
@@ -79,9 +81,13 @@ function show_treeview() {
 	if(treeview.visible()) {
 		treeview.hide();
 		xplorer.move(treeview.x, xplorer.y, xplorer.width + xplorer.x - treeview.x, xplorer.height);
+		xplorer.redraw(true);
 	} else {
-		treeview.show();
 		xplorer.move(247, xplorer.y, 630, xplorer.height);
+		treeview.show();
+		//treeview.redraw(true);
+		xplorer.redraw(true);
+		explorer.redraw(true);
 	}
 }
 
@@ -92,11 +98,18 @@ function add_folder() {
 	var view_id = "view" + folder_index;
 	xplorer.views.insert("<item id='." + view_id + "' />");
 	
-	view_id = "xplorer.views." + view_id;
-    var view = eval(view_id);
-	var hid = sys.explorer.new(view.handler(), "c:\\windows", view.rect(), view_id);
-
+	curr_view_id = "xplorer.views." + view_id;
+    var view = eval(curr_view_id);
+	var hid = sys.explorer.new(view.handler(), "c:\\windows", view.rect(), curr_view_id);
+	
 	// 增加一个tab按钮
 	 var tab_id = "tab" + folder_index;
 	 xplorer.tabs.insert("<item id='." + tab_id + "' tab='" + view.id + "' text='Windows Download' icon='C:\\Windows\\explorer.exe' />");
+	 if(folder_index == 1)
+		xplorer.tabs.tab1.check(true);
+}
+
+function open_folder(path) {
+	addr.path = path;
+	sys.explorer.open(0, path);
 }
