@@ -143,7 +143,7 @@
 			<items width="29" height="29">
 				<!--item text="C" pos="4" icon="drive.ico" down="progress_hover.png" /-->
 			</items>
-			<layer id="item.id" width="29" height="29" path="item.path" action="sys.shell_execute(this.attrib('path'))">
+			<layer id="item.id" width="29" height="29" path="item.path" action="open_folder(this.attrib('path'))">
 				<states width="16" height="15">
 					<normal icon="item.icon" dx="6" dy="2" bkclr="#E5E5E5" />
 					<hover dx="5" dy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -273,7 +273,7 @@
 		<layer id="treeview" x="3" y="85" width="240" height="500" float="height">
 			<border width="1" color="#ACA899" />
 			
-			<label text="文件夹" position="relative" x="0" y="0" width="240" height="22" align="vcenter" offset="2">
+			<label text="文件夹" position="relative" x="0" y="0" width="240" height="22" bkclr="#E5E5E5" align="vcenter" offset="2">
 				<border width="1" color="#ACA899" />
 			</label>
 			
@@ -290,7 +290,7 @@
 		<layer id="xplorer" x="247" y="85" width="630" height="500" float="width,height">
 			<border width="1" color="#ACA899" />
 			
-			<label position="relative" x="0" y="0" width="630" height="22" float="width">
+			<label position="relative" x="0" y="0" width="630" height="22" bkclr="#E5E5E5" float="width">
 				<border width="1" color="#ACA899" />
 			</label>
 			
@@ -307,6 +307,11 @@
 					<tabs tab="item.tab" group="folders" />
 					<states dx="6" dy="1">
 						<normal icon="item.icon" link="javascript:tabbtn.id" />
+						<hover icon="item.icon" link="javascript:tabbtn_hover.id" />
+						<down icon="item.icon" link="javascript:tabbtn_down.id" />
+					</states>
+					<states dx="6" dy="1">
+						<normal icon="item.icon" link="javascript:tabbtn_down.id" />
 					</states>
 				</button>
 			</custom>

@@ -24,7 +24,19 @@
 
 <!--用于组合成按钮图片-->
 <img id="tabbtn" src="tab_normal.png">
-	<bkimg x="0" y="0" width="63" height="20">
+	<bkimg x="0" y="0" width="45" height="20">
+		<y x="30" y="0" width="5" height="20" />
+	</bkimg>
+</img>
+
+<img id="tabbtn_hover" src="tab_hover.png">
+	<bkimg x="0" y="0" width="45" height="20">
+		<y x="30" y="0" width="5" height="20" />
+	</bkimg>
+</img>
+
+<img id="tabbtn_down" src="tab_down.png">
+	<bkimg x="0" y="0" width="45" height="20">
 		<y x="30" y="0" width="5" height="20" />
 	</bkimg>
 </img>
