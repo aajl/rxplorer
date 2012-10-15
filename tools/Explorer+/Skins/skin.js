@@ -1,6 +1,7 @@
 var folder_index = 0;
 var xplorer_left_pos = 0;
-var curr_view_id;
+var session = {};
+var session_open = {};
 
 $(function(){
 	print("load succeeded\n");
@@ -34,6 +35,8 @@ $(function(){
 		open:function(path, hwnd, oldwnd) {
 		}
 	});
+	
+	load_session();
 });
 
 function move_menu(menu_btn, menu_pane) {
@@ -58,14 +61,14 @@ function move_main_menu() {
 function load_favorite_tools() {
     var file = new jfile;
     var app_path = sys.get_path(sys.app_path);
-    if (!file.open(app_path + "\\Skins\\bookmark.json", "r"))
+    if (!file.open(app_path + "\\bookmark.json", "r"))
 		return;
-		
+
 	var data = file.read();
-	var bm = eval("(" + data + ")");
+	var bookmark = eval("(" + data + ")");
 	var sys_path = sys.get_path(sys.sys_path);
-	for (var i = 0; i < bm.bookmark.length; ++i) {
-		var path = bm.bookmark[i].path;
+	for (var i = 0; i < bookmark.length; ++i) {
+		var path = bookmark[i].path;
 
 		path = path.replace(/%Sys/gi, sys_path);
 		path = path.replace(/%App/gi, app_path);
@@ -75,6 +78,27 @@ function load_favorite_tools() {
 	}
 
     file = null;
+}
+
+function load_session() {
+	var file = new jfile;
+    var app_path = sys.get_path(sys.app_path);
+    if (!file.open(app_path + "\\session.json", "r"))
+		return;
+
+	var data = file.read();
+	session = eval("(" + data + ")");
+	for(var i = 0; i < session.length; ++i) {
+		session_open[session[i].view] = 0;
+	}
+	
+	if(session.length > 0) {
+		new_tab_view(session[0].path);
+	} else {
+		new_tab_view();
+	}
+		
+	file = null;
 }
 
 function show_treeview() {
@@ -91,21 +115,30 @@ function show_treeview() {
 	}
 }
 
-function add_folder() {
+function new_tab() {
 	++folder_index;
 
+}
+
+function new_tab_view(path) {
+	++folder_index;
+
+	if(typeof(path) == "undefined")
+		path = "C:\\";
+	
 	// 增加一个视图
 	var view_id = "view" + folder_index;
 	xplorer.views.insert("<item id='." + view_id + "' />");
 	
-	curr_view_id = "xplorer.views." + view_id;
-    var view = eval(curr_view_id);
-	var hid = sys.explorer.new(view.handler(), "c:\\windows", view.rect(), curr_view_id);
+	view_id = "xplorer.views." + view_id;
+    var view = eval(view_id);
+	var hid = sys.explorer.new(view.handler(), path, view.rect(), view_id);
 	
 	// 增加一个tab按钮
 	 var tab_id = "tab" + folder_index;
-	 xplorer.tabs.insert("<item id='." + tab_id + "' tab='" + view.id + "' text='Windows Download' icon='C:\\Windows\\explorer.exe' />");
-	 if(folder_index == 1)
+	 xplorer.tabs.insert("<item id='." + tab_id + "' tab='" + view.id + "' text='Windows Download' icon='" + path + "' />");
+	
+	if(folder_index == 1)
 		xplorer.tabs.tab1.check(true);
 }
 
