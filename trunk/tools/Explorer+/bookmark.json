@@ -1,4 +1,4 @@
-{ "bookmark":[
+[
 	{ "name": "notepad", 		"path": "%Sys\\notepad.exe" },
 	{ "name": "mspaint", 		"path": "%Sys\\mspaint.exe" },
 	{ "name": "calc", 			"path": "%Sys\\calc.exe" },
@@ -13,4 +13,4 @@
 	{ "name": "BC2", 			"path": "D:\\Soft\\FileCompare\\BC2.exe" },
 	{ "name": "SQLite", 		"path": "D:\\Soft\\Explorer\\tools\\SQLite Database Browser.exe" },
 	{ "name": "DPlayer", 		"path": "D:\\Soft\\Explorer\\tools\\dui\\App.exe" }	
-]}
+]

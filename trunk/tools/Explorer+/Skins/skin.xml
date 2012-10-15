@@ -106,7 +106,7 @@
 		<custom id="toolbar" x="1" y="24" width="131" height="29" col="4" type="tiled" margin="0,1,0,7" bkclr="#E5E5E5" bkimg="dragable.png">
 			<bkimg dx="2" dy="3" />
 			<items width="29" height="29">
-				<item img="computer.png" action="add_folder()" />
+				<item img="computer.png" action="new_tab_view()" />
 				<item img="folder.png" action="show_treeview()" />
 				<item img="search.png" />
 				<item img="thumb.png" />
@@ -274,7 +274,7 @@
 			<border width="1" color="#ACA899" />
 			
 			<layer x="0" y="0" width="240" height="250" float="height">
-				<label text="文件夹" position="relative" x="0" y="0" width="240" height="22" bkclr="#E5E5E5" align="vcenter" offset="2">
+				<label text="文件夹" position="relative" x="" y="0" width="240" height="22" bkclr="#E5E5E5" align="vcenter" offset="3">
 					<border width="1" color="#ACA899" />
 				</label>
 				
@@ -288,7 +288,7 @@
 			</layer>
 			
 			<layer x="0" y="272" width="240" height="228" float="bottom">
-				<label text="文件过滤器" position="relative" x="0" y="0" width="240" height="22" bkclr="#E5E5E5" align="vcenter" offset="2">
+				<label text="文件过滤器" position="relative" x="0" y="0" width="240" height="22" bkclr="#E5E5E5" align="vcenter" offset="3">
 					<border width="1" color="#ACA899" />
 				</label>
 				
