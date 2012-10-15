@@ -32,8 +32,21 @@ $(function(){
 	}
 	
 	sys.explorer.handler({
-		open:function(path, hwnd, oldwnd) {
-		}
+		open:function(path, display_name, view_id) {
+			print("open: " + path + " " + display_name + " " + view_id + "\n");
+		},
+		active:function(path, display_name, view_id) {
+			print("active: " + path + " " + display_name + " " + view_id + "\n");
+		},
+		selected:function(files) {
+			print("selected files: " + files.length + "\n");
+		},
+		filter:function(types) {
+			print("filter types\n");
+			for(var i = 0; i < types.length; ++i) {
+				print(types[i] + "\n");
+			}
+		},
 	});
 	
 	load_session();
