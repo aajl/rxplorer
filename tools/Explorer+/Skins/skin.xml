@@ -129,9 +129,9 @@
 			</items>
 			<button id="item.id" width="29" height="29" path="item.path" action="sys.shell_execute(this.attrib('path'))">
 				<states width="24" height="24">
-					<normal icon="item.icon" dx="3" dy="3" border="0" bkclr="#E5E5E5" />
-					<hover dx="2" dy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
-					<down dx="3" dy="3" border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<normal icon="item.icon" ix="3" iy="3" size="24" border="0" bkclr="#E5E5E5" />
+					<hover ix="2" iy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<down ix="3" iy="3" border="1" color="#316AC5" bkclr="#C1D2EE" />
 				</states>
 			</button>
 		</custom>
@@ -144,10 +144,10 @@
 				<!--item text="C" pos="4" icon="drive.ico" down="progress_hover.png" /-->
 			</items>
 			<layer id="item.id" width="29" height="29" path="item.path" action="open_folder(this.attrib('path'))">
-				<states width="15" height="16">
-					<normal icon="item.icon" dx="6" dy="2" bkclr="#E5E5E5" />
-					<hover dx="5" dy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
-					<down dx="6" dy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
+				<states width="16" height="16" ix="6" iy="2">
+					<normal icon="item.icon" bkclr="#E5E5E5" />
+					<hover ix="5" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
 				</states>
 				<label position="relative" x="1" y="16" width="8" height="12" text="item.text" font="fonts.arial_8" />
 				<progress position="relative" x="9" y="19" width="18" height="8" range="0,10" pos="item.pos" enable="false">
@@ -280,21 +280,21 @@
 						<item text="压缩文件(*.rar)" icon=".rar" />
 					</items>
 					<layer width="238" height="20" text="item.text" offset="38" align="vcenter" checkable="true" adapt="false">
-						<states normal="checkbox.png" dx="3" dy="3" width="13" height="13">
-							<normal x="0" />
+						<states normal="checkbox.png" ix="19" iy="2" dx="3" dy="3" width="13" height="13">
+							<normal icon="item.icon" x="0" bkclr="#ffffff" />
 							<hover x="13" />
 							<down x="26" />
 						</states>
-						<states normal="checkbox.png" dx="3" dy="3" width="13" height="13">
-							<normal x="39" />
+						<states normal="checkbox.png" ix="19" iy="2" dx="3" dy="3" width="13" height="13">
+							<normal icon="item.icon" x="39" bkclr="#ffffff" />
 							<hover x="52" />
 							<down x="65" />
 						</states>
-						<button enable="false" position="relative" x="19" y="2" width="16" height="16">
+						<!--button enable="false" position="relative" x="19" y="2" width="16" height="16">
 							<states width="16" height="16">
 								<normal icon="item.icon" />
 							</states>
-						</button>
+						</button-->
 					</layer>
 				</custom>
 			</layer>
@@ -319,12 +319,12 @@
 				</items>
 				<button id="item.id" width="adapt,15" height="20" text="item.text" align="center,vcenter" offset="24">
 					<tabs tab="item.tab" group="folders" action="click_tab(eval(xplorer.tabs.this))" />
-					<states dx="6" dy="1">
+					<states ix="6" iy="1">
 						<normal icon="item.icon" link="javascript:tabbtn.id" />
 						<hover icon="item.icon" link="javascript:tabbtn_hover.id" />
 						<down icon="item.icon" link="javascript:tabbtn_down.id" />
 					</states>
-					<states dx="6" dy="1">
+					<states ix="6" iy="1">
 						<normal icon="item.icon" link="javascript:tabbtn_down.id" />
 					</states>
 				</button>
