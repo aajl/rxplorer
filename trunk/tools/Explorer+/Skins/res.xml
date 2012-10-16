@@ -1,5 +1,5 @@
 ﻿<!--图片集-->
-<imgs id="imgs" main_hover="main_hover.png">
+<imgs id="imgs" main_hover="main_hover.png" statusbar="statusbar.png">
 </imgs>
 
 <!--图标集-->

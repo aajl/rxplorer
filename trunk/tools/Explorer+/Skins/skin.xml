@@ -214,7 +214,8 @@
 			</addr>
 			
 			<!--收藏夹按钮-->
-			<button position="relative" x="-36" y="2" width="12" height="21" adapt="false" popup="explorer.folder_fav" float="right">
+			<button position="relative" x="-36" y="2" width="12" height="21" adapt="false" popup="folder_fav" float="right">
+				<popup position="auto" />
 				<states normal="fav.png" dx="1" dy="6">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -241,34 +242,7 @@
 				</states>
 			</button>
 		</layer>
-		
-		<!--目录收藏夹-->
-		<panel id="folder_fav" x="685" y="81" width="155" height="215" bkclr="#FDFDFD" visible="false">
-			<border width="1" color="#808080" />
-			<effects show="effect.roll(folder_fav.id, 50, true, 2|8)" hide="effect.roll(folder_fav.id, 50, false, 1|4)" />
-			<label x="1" y="2" width="28" height="211" bkclr="#F2F2F2" position="relative" />
-			<custom x="2" y="2" width="151" height="211" margin="1" position="relative">
-				<items height="20">
-					<item text="收藏当前文件夹" src="favorite.png" />
-					<item text="C:\Windows" />
-					<item text="C:\Windows" />
-					<item text="C:\Windows" />
-					<item text="C:\Windows" />
-					<item text="C:\Windows" />
-					<item text="C:\Windows" />
-					<item text="C:\Windows" />
-				</items>
-				<layer x="0" y="0" width="151" height="20" action="item.action">
-					<states link="states.menu_item" />
-					<label bkimg="item.src" x="0" y="0" width="151" height="20">
-						<attribs text="item.text" offset="32" align="singleline,vcenter" />
-						<bkimg dx="6" dy="2" />
-					</label>
-					<img src="item.src" position="relative" x="110" y="8" width="7" height="7" />
-				</layer>
-			</custom>
-		</panel>
-		
+			
 		<!--文件夹树控件-->
 		<layer id="treeview" x="3" y="85" width="240" height="500" float="height">
 			<border width="1" color="#ACA899" />
@@ -344,7 +318,7 @@
 					<!--<item id=".tab1" text="" icon="" tab="item.tab" />-->
 				</items>
 				<button id="item.id" width="adapt,15" height="20" text="item.text" align="center,vcenter" offset="24">
-					<tabs tab="item.tab" group="folders" />
+					<tabs tab="item.tab" group="folders" action="click_tab(eval(xplorer.tabs.this))" />
 					<states dx="6" dy="1">
 						<normal icon="item.icon" link="javascript:tabbtn.id" />
 						<hover icon="item.icon" link="javascript:tabbtn_hover.id" />
@@ -374,17 +348,20 @@
 		<layer id="statusbar" x="1" y="589" width="878" height="70" float="width,bottom">
 			<border width="1" color="#ACA899" />
 			
-			<img src="statusbar.png" position="relative" x="0" y="0" width="878" height="70" float="width">
+			<!--img src="statusbar.png" position="relative" x="0" y="0" width="878" height="70" float="width">
 				<bkimg x="0" y="0" width="20" height="70">
 					<y x="7" y="0" width="5" height="70" />
 				</bkimg>
-			</img>
+			</img-->
 			
 			<img src="Explorer.png" position="relative" x="13" y="3" width="64" height="64" adapt="half">
 				<bkimg dx="center" dy="center" />
 			</img>
 			
-			<label id=".filename" text="给我一个温暖空间.avi" position="relative" x="90" y="5" width="150" height="18" align="vcenter" />
+			<label id=".filename" adapt="true" text="给我一个温暖空间.avi" position="relative" x="90" y="5" width="150" height="18" align="vcenter">
+				<bkimg src="main_hover.png" x="7" y="y" width="10" height="height" />
+			</label>
+			
 			<label id=".filetype" text="配置设置" position="relative" x="92" y="23" width="100" height="18" color="#5A6779" align="vcenter" />
 
 			<custom id=".info" type="tiled" position="relative" x="240" y="5" width="500" height="60" margin="2,15" col="2" float="width">
@@ -403,6 +380,8 @@
 	</panel> <!-- end explorer -->
 	
 	<include>menu.xml</include>
+	
+	<include>fav.xml</include>
 	
 	<include>about.xml</include>
 </directui>
