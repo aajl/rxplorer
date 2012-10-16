@@ -7,14 +7,6 @@ var curr_tab = null;
 $(function(){
 	print("load succeeded\n");
 	
-	button.prototype.__defineGetter__('text', function(){
-		return this.attrib('text');
-	});
-
-	button.prototype.__defineSetter__('text', function(txt){
-		return window.call(this.id, 'text', txt);
-	});
-
 	var obj = sys.explorer.drives();
 	
 	// 计算drivebar实际所需宽度
