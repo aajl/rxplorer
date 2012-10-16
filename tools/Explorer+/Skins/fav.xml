@@ -1,0 +1,26 @@
+﻿<!--目录收藏夹-->
+<panel id="folder_fav" type="modeless" x="0" y="0" width="155" height="215" visible="false">
+	<border width="1" color="#ACA899" />
+	<!--effects show="effect.roll(folder_fav.id, 50, true, 2|8)" hide="effect.roll(folder_fav.id, 50, false, 1|4)" />
+	<label x="1" y="2" width="28" height="211" bkclr="#F2F2F2" position="relative" /-->
+	<custom x="2" y="2" width="151" height="211" margin="1" position="relative">
+		<items height="20">
+			<item text="收藏当前文件夹" src="favorite.png" />
+			<item text="C:\Windows" />
+			<item text="C:\Windows" />
+			<item text="C:\Windows" />
+			<item text="C:\Windows" />
+			<item text="C:\Windows" />
+			<item text="C:\Windows" />
+			<item text="C:\Windows" />
+		</items>
+		<layer x="0" y="0" width="151" height="20" action="item.action">
+			<states link="states.menu_item" />
+			<label bkimg="item.src" x="0" y="0" width="151" height="20">
+				<attribs text="item.text" offset="32" align="singleline,vcenter" />
+				<bkimg dx="6" dy="2" />
+			</label>
+			<img src="item.src" position="relative" x="110" y="8" width="7" height="7" />
+		</layer>
+	</custom>
+</panel>

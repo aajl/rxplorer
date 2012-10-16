@@ -2,10 +2,19 @@ var folder_index = 0;
 var xplorer_left_pos = 0;
 var session = {};
 var session_open = {};
+var curr_tab = null;
 
 $(function(){
 	print("load succeeded\n");
 	
+	button.prototype.__defineGetter__('text', function(){
+		return this.attrib('text');
+	});
+
+	button.prototype.__defineSetter__('text', function(txt){
+		return window.call(this.id, 'text', txt);
+	});
+
 	var obj = sys.explorer.drives();
 	
 	// 计算drivebar实际所需宽度
@@ -33,19 +42,31 @@ $(function(){
 	
 	sys.explorer.handler({
 		open:function(path, display_name, view_id) {
+			addr.path = path;
+			curr_tab.text = display_name;
+			curr_tab.check(true);
+			print("tab: " + curr_tab + " type: " + typeof(curr_tab) + "\n");
 			print("open: " + path + " " + display_name + " " + view_id + "\n");
 		},
 		active:function(path, display_name, view_id) {
+			addr.path = path;
+			curr_tab.text = display_name;
+			print("tab: " + curr_tab.id + " type: " + typeof(curr_tab) + "\n");
 			print("active: " + path + " " + display_name + " " + view_id + "\n");
 		},
 		selected:function(files) {
-			print("selected files: " + files.length + "\n");
+			if(files.length == 0)
+				statusbar.filename.text = curr_tab.text;
+			else if(files.length == 1)
+				statusbar.filename.text = files[0];
+			else
+				statusbar.filename.text = "选择了 " + files.length + " 个文件";
 		},
 		filter:function(types) {
-			print("filter types\n");
-			for(var i = 0; i < types.length; ++i) {
-				print(types[i] + "\n");
-			}
+			//print("filter types\n");
+			//for(var i = 0; i < types.length; ++i) {
+			//	print(types[i] + "\n");
+			//}
 		},
 	});
 	
@@ -142,20 +163,28 @@ function new_tab_view(path) {
 	// 增加一个视图
 	var view_id = "view" + folder_index;
 	xplorer.views.insert("<item id='." + view_id + "' />");
-	
 	view_id = "xplorer.views." + view_id;
     var view = eval(view_id);
-	var hid = sys.explorer.new(view.handler(), path, view.rect(), view_id);
 	
 	// 增加一个tab按钮
-	 var tab_id = "tab" + folder_index;
-	 xplorer.tabs.insert("<item id='." + tab_id + "' tab='" + view.id + "' text='Windows Download' icon='" + path + "' />");
+	var tab_id = "tab" + folder_index;
+	xplorer.tabs.insert("<item id='." + tab_id + "' tab='" + view.id + "' text='Windows Download' icon='" + path + "' />");
+	if(curr_tab != null)
+		curr_tab.check(false);
 	
+	curr_tab = eval("xplorer.tabs." + tab_id);
 	if(folder_index == 1)
 		xplorer.tabs.tab1.check(true);
+	
+	var hid = sys.explorer.new(view.handler(), path, view.rect(), view_id);
 }
 
 function open_folder(path) {
 	addr.path = path;
 	sys.explorer.open(0, path);
+}
+
+function click_tab(tab) {
+	curr_tab = tab;
+	print("text " + tab.text + " " + tab.id + "\n");
 }
