@@ -1,24 +1,23 @@
-﻿<!--目录收藏夹-->
-<panel id="folder_fav" type="modeless" x="0" y="0" width="155" height="215" visible="false" alpha="90">
+﻿<panel id="folder_fav" type="modeless" x="0" y="0" width="155" height="215" visible="false" alpha="95">
 	<border width="1" color="#ACA899" />
 	<!--effects show="effect.roll(folder_fav.id, 50, true, 2|8)" hide="effect.roll(folder_fav.id, 50, false, 1|4)" />
 	<label x="1" y="2" width="28" height="211" bkclr="#F2F2F2" position="relative" /-->
-	<custom x="2" y="2" width="151" height="211" margin="1" position="relative">
+	<custom x="2" y="2" width="151" height="211" margin="" position="relative">
 		<items height="23">
-			<item text="收藏当前文件夹" src="favorite.png" />
-			<item text="C:\Windows" />
-			<item text="C:\Windows" />
+			<item text="Window" icon="icons.fav" />
+			<item text="C:\Windows" icon="C:\Windows" />
+			<item text="C:\Windows" icon="C:\windows\system32\notepad.exe" />
 			<item text="C:\Windows" />
 			<item text="C:\Windows" />
 			<item text="C:\Windows" />
 			<item text="C:\Windows" />
 			<item text="C:\Windows" />
 		</items>
-		<layer x="0" y="0" width="151" height="23" text="item.text" align="vcenter" offset="32" action="item.action">
-			<states>
-				<normal border="0" bkclr="#ffffff" />
-				<hover border="0" bkclr="#d2d2d2" />
-				<down border="0" bkclr="#d2d2d2" />
+		<layer x="0" y="0" width="151" height="23" adapt="false" text="item.text" align="vcenter" offset="23" action="item.action">
+			<states normal="menu.png" hover="null" down="null" width="23" height="23" ix="3" iy="3" >
+				<normal icon="item.icon" border="0" bkclr="#ffffff" />
+				<hover border="1" bkclr="#d2d2d2" />
+				<down border="1" bkclr="#d2d2d2" />
 			</states>
 		</layer>
 	</custom>

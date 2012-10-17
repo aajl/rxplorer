@@ -10,6 +10,7 @@
 	<icons remote="%SystemRoot%\\system32\\SHELL32.dll|9" />
 	<icons folder="%SystemRoot%\\system32\\SHELL32.dll|4" />
 	<icons file="%SystemRoot%\\system32\\SHELL32.dll|134" />
+	<icons fav="%SystemRoot%\\system32\\SHELL32.dll|43" />
 </icons>
 
 <!--字体集-->
