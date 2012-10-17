@@ -13,11 +13,11 @@
 			<item text="C:\Windows" />
 			<item text="C:\Windows" />
 		</items>
-		<layer x="0" y="0" width="151" height="23" adapt="false" text="item.text" align="vcenter" offset="23" action="item.action">
+		<layer x="0" y="0" width="151" height="23" adapt="false" text="item.text" align="vcenter" offset="30" action="item.action">
 			<states normal="menu.png" hover="null" down="null" width="23" height="23" ix="3" iy="3" >
 				<normal icon="item.icon" border="0" bkclr="#ffffff" />
-				<hover border="1" bkclr="#d2d2d2" />
-				<down border="1" bkclr="#d2d2d2" />
+				<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+				<down border="1" color="#316AC5" bkclr="#C1D2EE" />
 			</states>
 		</layer>
 	</custom>

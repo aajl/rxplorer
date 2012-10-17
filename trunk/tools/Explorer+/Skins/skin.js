@@ -55,7 +55,7 @@ $(function(){
 				statusbar.filename.text = "选择了 " + files.length + " 个文件";
 		},
 		filter:function(types) {
-			//print("filter types\n");
+			print("filter types: " + types.length + "\n");
 			//for(var i = 0; i < types.length; ++i) {
 			//	print(types[i] + "\n");
 			//}
@@ -64,6 +64,10 @@ $(function(){
 	
 	load_session();
 });
+
+function onclose() {
+	print("close\n");
+}
 
 function move_menu(menu_btn, menu_pane) {
     if (menu_btn.popuped)
@@ -150,7 +154,8 @@ function new_tab_view(path) {
 	++folder_index;
 
 	if(typeof(path) == "undefined")
-		path = "C:\\";
+		path = "C:\\Windows\\System32";
+		//path = "C:\\Windows\\";
 	
 	// 增加一个视图
 	var view_id = "view" + folder_index;
