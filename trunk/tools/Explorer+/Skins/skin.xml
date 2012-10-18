@@ -108,8 +108,8 @@
 			<items width="29" height="29">
 				<item img="computer.png" action="new_tab_view()" />
 				<item img="folder.png" action="show_treeview()" />
-				<item img="search.png" />
-				<item img="thumb.png" />
+				<item img="search.png" action="filefilter.clear();"/>
+				<item img="thumb.png" action="print(curr_tab.id + ' ' + addr.path)" />
 			</items>
 			<button width="29" height="29" action="item.action">
 				<states normal="item.img" width="width" height="width">
@@ -121,7 +121,7 @@
 		</custom>
 		
 		<!--收藏工具栏-->
-		<custom id="fav_toolbar" x="134" y="24" width="743" height="29" col="50" type="tiled" margin="0,1,0,7" float="width">
+		<custom id="favtools" x="134" y="24" width="743" height="29" col="50" type="tiled" margin="0,1,0,7" float="width">
 			<attribs bkclr="#E5E5E5" bkimg="dragable.png" oninit="load_favorite_tools()" />
 			<bkimg dx="2" dy="3" />
 			<events dbclk="print('db clk\n')" rbtn="print('rbutton\n')" />
@@ -214,7 +214,7 @@
 			</addr>
 			
 			<!--收藏夹按钮-->
-			<button position="relative" x="-36" y="2" width="12" height="21" adapt="false" popup="folder_fav" float="right">
+			<button position="relative" x="-36" y="2" width="12" height="21" adapt="false" popup="favfolders_pane" float="right">
 				<popup position="auto" />
 				<states normal="fav.png" dx="1" dy="6">
 					<normal border="0" bkclr="#FFFFFF" />
@@ -271,7 +271,7 @@
 					</states>
 				</button>
 				
-				<custom id="" type="tiled" position="relative" x="1" y="22" width="238" height="205" bkclr="#ffffff" col="1" float="">
+				<custom id="filefilter" type="tiled" position="relative" x="1" y="22" width="238" height="205" bkclr="#ffffff" col="1" float="">
 					<items width="0" height="20">
 						<item text="显示文件夹" icon="icons.folder" />
 						<item text="显示所有文件" icon="icons.file" />
@@ -383,7 +383,7 @@
 	
 	<include>menu.xml</include>
 	
-	<include>fav.xml</include>
+	<include>favfolders.xml</include>
 	
 	<include>about.xml</include>
 </directui>

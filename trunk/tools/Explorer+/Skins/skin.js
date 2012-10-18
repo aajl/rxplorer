@@ -56,6 +56,7 @@ $(function(){
 		},
 		filter:function(types) {
 			print("filter types: " + types.length + "\n");
+			filefilter.clear();
 			//for(var i = 0; i < types.length; ++i) {
 			//	print(types[i] + "\n");
 			//}
@@ -104,10 +105,13 @@ function load_favorite_tools() {
 		path = path.replace(/%App/gi, app_path);
 
 		var id = sys.hash(path);
-		fav_toolbar.insert("<item id='btn" + id + "' path='" + path + "' icon='" + path + "|0|large' />", -1, 0);
+		favtools.insert("<item id='btn" + id + "' path='" + path + "' icon='" + path + "|0|large' />", -1, 0);
 	}
 
     file = null;
+}
+
+function load_favorite_folders() {
 }
 
 function load_session() {
@@ -147,7 +151,6 @@ function show_treeview() {
 
 function new_tab() {
 	++folder_index;
-
 }
 
 function new_tab_view(path) {
@@ -184,4 +187,7 @@ function open_folder(path) {
 function click_tab(tab) {
 	curr_tab = tab;
 	print("text " + tab.text + " " + tab.id + "\n");
+}
+
+function favorite_folder() {
 }
