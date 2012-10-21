@@ -1,12 +1,13 @@
 var folder_index = 0;
 var xplorer_left_pos = 0;
-var session = {};
+var session = [];
 var session_open = {};
 var curr_tab = null;
+var favorite_folders = [];
 
 $(function(){
 	print("load succeeded\n");
-	
+		
 	var obj = sys.explorer.drives();
 	
 	// 计算drivebar实际所需宽度
@@ -21,14 +22,13 @@ $(function(){
 		var drv = obj.drives[i];		
 		var percent = parseInt((drv.total - drv.free) / drv.total * 10);
 		
-		var id = "id='drive" + i + "' "; 
-		var text = "text='" + drv.drive + "' ";
-		var path = "path='" + drv.drive +":\\' ";
-		var pos = "pos='" + percent + "' ";
-		//var icon = "icon='icons." + drv.type + "' ";
-		var icon = "icon='" + drv.drive + ":\\' ";
-		var down = "down='" + (percent >= 9 ? "progress_hover_red.png" : "progress_hover.png");
-		var item = "<item " + id + text + path + pos + icon + down + "' />";
+		var item = {};
+		item.id = "drive" + i;
+		item.text = drv.drive;
+		item.path = drv.drive + ":\\";
+		item.pos = percent;
+		item.icon = drv.drive + ":\\";
+		item.down = (percent >= 9 ? "progress_hover_red.png" : "progress_hover.png");
 		drivebar.insert(item);
 	}
 	
@@ -95,7 +95,10 @@ function load_favorite_tools() {
     if (!file.open(app_path + "\\bookmark.json", "r"))
 		return;
 
-	var data = file.read();
+	var data = file.read();		
+	if(data.length == 0)
+		return;
+
 	var bookmark = eval("(" + data + ")");
 	var sys_path = sys.get_path(sys.sys_path);
 	for (var i = 0; i < bookmark.length; ++i) {
@@ -105,13 +108,36 @@ function load_favorite_tools() {
 		path = path.replace(/%App/gi, app_path);
 
 		var id = sys.hash(path);
-		favtools.insert("<item id='btn" + id + "' path='" + path + "' icon='" + path + "|0|large' />", -1, 0);
+		favtools.insert({"id":"btn" + id, "path":path, "icon":path + "|0|large"});
 	}
 
     file = null;
 }
 
 function load_favorite_folders() {
+    var file = new jfile;
+    var app_path = sys.get_path(sys.app_path);
+    if (!file.open(app_path + "\\folders.json", "r"))
+		return;
+
+	var data = file.read();
+	if(data.length == 0)
+		return;
+		
+	favorite_folders = eval("(" + data + ")");
+	var sys_path = sys.get_path(sys.sys_path);
+	for (var i = 0; i < favorite_folders.length; ++i) {
+		var path = favorite_folders[i].path;
+		var name = favorite_folders[i].name;
+		
+		path = path.replace(/%Sys/gi, sys_path);
+		path = path.replace(/%App/gi, app_path);
+
+		var id = sys.hash(path);
+		favfolders.insert({"id":"folder" + id, "name":name, "path":path, "icon":path, "action":"open_folder(this.path)"});
+	}
+
+    file = null;
 }
 
 function load_session() {
@@ -162,13 +188,15 @@ function new_tab_view(path) {
 	
 	// 增加一个视图
 	var view_id = "view" + folder_index;
-	xplorer.views.insert("<item id='." + view_id + "' />");
+	//xplorer.views.insert("<item id='." + view_id + "' />");
+	xplorer.views.insert({"id":"." + view_id});
 	view_id = "xplorer.views." + view_id;
     var view = eval(view_id);
 	
 	// 增加一个tab按钮
 	var tab_id = "tab" + folder_index;
-	xplorer.tabs.insert("<item id='." + tab_id + "' tab='" + view.id + "' text='Windows Download' icon='" + path + "' />");
+	//xplorer.tabs.insert("<item id='." + tab_id + "' tab='" + view.id + "' text='Windows Download' icon='" + path + "' />");
+	xplorer.tabs.insert({"id":"." + tab_id, "tab":view.id, "text":"Windows Download", "icon":path});
 	if(curr_tab != null)
 		curr_tab.check(false);
 	
@@ -189,5 +217,39 @@ function click_tab(tab) {
 	print("text " + tab.text + " " + tab.id + "\n");
 }
 
-function favorite_folder() {
+function favorite_folder(path) {
+	for(var i = 0; i < favorite_folders.length; ++i) {
+		if(path == favorite_folders[i].path)
+			return;
+	}
+	
+	var jpth = new jpath();
+	jpth.open(path);
+	var name = jpth.filename();
+	if(name.length == 0)
+		name = jpth.root_path();
+	if(name.length == 0)
+		return;
+		
+	var item = {};
+	item.name = name;
+	item.path = path;
+	favorite_folders.push(item);
+
+	item = {};
+	item.name = name;
+	item.path = path;
+	var id = sys.hash(path);
+	item.id = "folder" + id;
+	item.icon = path;
+	item.action = "open_folder(this.path)";
+	favfolders.insert(item);
+	
+	var file = new jfile;
+    var app_path = sys.get_path(sys.app_path);
+    if (!file.open(app_path + "\\folders.json", "w"))
+		return;
+
+	file.write(favorite_folders.toJSON());
+	file.close();
 }
