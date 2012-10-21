@@ -127,7 +127,7 @@
 			<events dbclk="print('db clk\n')" rbtn="print('rbutton\n')" />
 			<items width="29" height="29">
 			</items>
-			<button id="item.id" width="29" height="29" path="item.path" action="sys.shell_execute(this.attrib('path'))">
+			<button id="item.id" width="29" height="29" path="item.path" action="sys.shell_execute(this.path)">
 				<states width="24" height="24">
 					<normal icon="item.icon" ix="3" iy="3" size="24" border="0" bkclr="#E5E5E5" />
 					<hover ix="2" iy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -143,7 +143,7 @@
 			<items width="29" height="29">
 				<!--item text="C" pos="4" icon="drive.ico" down="progress_hover.png" /-->
 			</items>
-			<layer id="item.id" width="29" height="29" path="item.path" action="open_folder(this.attrib('path'))">
+			<layer id="item.id" width="29" height="29" path="item.path" action="open_folder(this.path)">
 				<states width="16" height="16" ix="6" iy="2">
 					<normal icon="item.icon" bkclr="#E5E5E5" />
 					<hover ix="5" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -165,8 +165,8 @@
 			<custom x="201" y="54" width="67" height="29" col="4" type="tiled" margin="0,1,0,7" bkclr="#E5E5E5">
 				<bkimg src="dragable.png" dx="2" dy="3" />
 				<items width="29" height="29">
-					<item img="undo.png" action="addr.path='D:\\Download\\TeamPlayer'" />
-					<item img="redo.png" action="addr.path='D:\\Download'" />
+					<item img="undo.png" action="addr.path='D:\Download\TeamPlayer'" />
+					<item img="redo.png" action="addr.path='D:\Download'" />
 				</items>
 				<button width="29" height="29" action="item.action">
 					<states normal="item.img" width="width" height="width">
@@ -178,7 +178,7 @@
 			</custom>
 
 			<!--图标按钮-->
-			<button position="relative" x="3" y="2" width="21" height="21" action="addr.path='D:\\Skins'">
+			<button position="relative" x="3" y="2" width="21" height="21" action="addr.path='D:\Skins'">
 				<states normal="cmptr.png" width="width" height="width">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -186,7 +186,7 @@
 			</button>
 
 			<!--多功能箭头-->
-			<button position="relative" x="26" y="2" width="9" height="21" adapt="false" action="addr.path='D:\\Download\\TeamPlayer'">
+			<button position="relative" x="26" y="2" width="9" height="21" adapt="false" action="addr.path='D:\Download\TeamPlayer'">
 				<states normal="triangle.png" dx="3" dy="9">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -194,7 +194,7 @@
 			</button>
 
 			<!--地址栏按钮-->
-			<addr id="addr" path="D:\\Download\\Music" position="relative" x="36" y="1" width="292" height="23" bkclr="#FFFFFF" float="width">
+			<addr id="addr" path="D:\Download\Music" position="relative" x="36" y="1" width="292" height="23" bkclr="#FFFFFF" float="width">
 				<states width="0" height="0">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -247,7 +247,7 @@
 		<layer id="treeview" x="3" y="85" width="240" height="500" float="height">
 			<border width="1" color="#ACA899" />
 			
-			<layer x="0" y="0" width="240" height="250" float="height">
+			<layer id=".tree" x="0" y="0" width="240" height="250" float="height">
 				<label text="文件夹" position="relative" x="" y="0" width="240" height="22" bkclr="#E5E5E5" align="vcenter" offset="3">
 					<border width="1" color="#ACA899" />
 				</label>
@@ -261,7 +261,7 @@
 				</panel>
 			</layer>
 			
-			<layer x="0" y="272" width="240" height="228" float="bottom">
+			<layer id=".filter" x="0" y="272" width="240" height="228" float="bottom">
 				<label text="文件过滤器" position="relative" x="0" y="0" width="240" height="22" bkclr="#E5E5E5" align="vcenter" offset="3">
 					<border width="1" color="#ACA899" />
 				</label>

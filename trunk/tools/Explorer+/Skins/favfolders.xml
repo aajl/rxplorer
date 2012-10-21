@@ -2,11 +2,11 @@
 	<border width="1" color="#ACA899" />
 	<!--effects show="effect.roll(folder_fav.id, 50, true, 2|8)" hide="effect.roll(folder_fav.id, 50, false, 1|4)" />
 	<label x="1" y="2" width="28" height="211" bkclr="#F2F2F2" position="relative" /-->
-	<custom id="favfolders" x="2" y="2" width="151" height="211" margin="" position="relative">
+	<custom id="favfolders" x="2" y="2" width="151" height="211"  type="tiled" margin="" position="relative" oninit="load_favorite_folders()">
 		<items height="23">
-			<item text="收藏当前文件夹" icon="icons.fav" action="favorite_folder()" />
+			<item name="收藏当前文件夹" path="" icon="icons.fav" action="favorite_folder(addr.path)" />
 		</items>
-		<layer x="0" y="0" width="151" height="23" adapt="false" text="item.text" align="vcenter" offset="30" action="item.action">
+		<layer id="item.id" x="0" y="0" width="151" height="23" adapt="false" path="item.path" text="item.name" align="vcenter" offset="30" action="item.action">
 			<states normal="menu.png" hover="null" down="null" width="23" height="23" ix="3" iy="3" >
 				<normal icon="item.icon" border="0" bkclr="#ffffff" />
 				<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
