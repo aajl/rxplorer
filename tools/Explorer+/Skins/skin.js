@@ -7,30 +7,6 @@ var favorite_folders = [];
 
 $(function(){
 	print("load succeeded\n");
-		
-	var obj = sys.explorer.drives();
-	
-	// 计算drivebar实际所需宽度
-	var width = 7 + obj.drives.length * 29 + obj.drives.length + 5;
-	
-	// 移动工具栏
-	var offset = drivebar.width - width;
-	drivebar.move(drivebar.x, drivebar.y, drivebar.width - offset, drivebar.height);
-	addrbar.move(addrbar.x - offset, addrbar.y, addrbar.width + offset, addrbar.height);
-	
-	for(var i = 0; i < obj.drives.length; ++i) {
-		var drv = obj.drives[i];		
-		var percent = parseInt((drv.total - drv.free) / drv.total * 10);
-		
-		var item = {};
-		item.id = "drive" + i;
-		item.text = drv.drive;
-		item.path = drv.drive + ":\\";
-		item.pos = percent;
-		item.icon = drv.drive + ":\\";
-		item.down = (percent >= 9 ? "progress_hover_red.png" : "progress_hover.png");
-		drivebar.insert(item);
-	}
 	
 	sys.explorer.handler({
 		open:function(path, display_name, view_id) {
@@ -62,12 +38,60 @@ $(function(){
 			//}
 		},
 	});
+
+	var obj = sys.explorer.drives();
+	
+	// 计算drivebar实际所需宽度
+	var width = 7 + obj.drives.length * 29 + obj.drives.length + 5;
+	
+	// 移动工具栏
+	var offset = drivebar.width - width;
+	drivebar.move(drivebar.x, drivebar.y, drivebar.width - offset, drivebar.height);
+	addrbar.move(addrbar.x - offset, addrbar.y, addrbar.width + offset, addrbar.height);
+	
+	for(var i = 0; i < obj.drives.length; ++i) {
+		var drv = obj.drives[i];		
+		var percent = parseInt((drv.total - drv.free) / drv.total * 10);
+		
+		var item = {};
+		item.id = "drive" + i;
+		item.text = drv.drive;
+		item.path = drv.drive + ":\\";
+		item.pos = percent;
+		item.icon = drv.drive + ":\\";
+		item.down = (percent >= 9 ? "progress_hover_red.png" : "progress_hover.png");
+		drivebar.insert(item);
+	}
 	
 	load_session();
 });
 
-function onclose() {
-	print("close\n");
+function on_close() {
+	var children = xplorer.tabs.children;
+	print("close " + children + " tabs \n");
+	
+	session = [];
+	for(var i = 0; i < folder_index; ++i) {
+		var tab = eval("xplorer.tabs.tab" + (i + 1));
+		if(typeof(tab) == "undefined")
+			continue;
+		
+		session.push({"name":tab.text, "path":tab.vpath});
+		print("name: " + tab.text + " path: " + tab.vpath + "\n");
+	}
+	
+	save2file(session, "session.json");
+}
+
+function save2file(data, path) {
+	var file = new jfile;
+    var app_path = sys.get_path(sys.app_path);
+    if (!file.open(app_path + "\\" + path, "w"))
+		return;
+
+	file.write(data.toJSON());
+	file.close();
+	file = null;
 }
 
 function move_menu(menu_btn, menu_pane) {
@@ -153,7 +177,10 @@ function load_session() {
 	}
 	
 	if(session.length > 0) {
-		new_tab_view(session[0].path);
+		new_tab_view(session[0].path, session[0].name);
+		for(var i = 1; i < session.length; ++i) {
+			new_tab(session[i].path, session[i].name);
+		}
 	} else {
 		new_tab_view();
 	}
@@ -175,11 +202,21 @@ function show_treeview() {
 	}
 }
 
-function new_tab() {
+function new_tab(path, name) {
 	++folder_index;
+	
+	// 增加一个tab按钮
+	var tab_id = "tab" + folder_index;
+	var view_id = "explorer.xplorer.views.view" + folder_index;
+	xplorer.tabs.insert({"id":"." + tab_id, "tab":view_id, "text":name, "icon":path});
+	
+	var tab = eval("xplorer.tabs." + tab_id);
+	tab.vpath = path;
+	tab.index = folder_index;
+	tab.uninit = true;
 }
 
-function new_tab_view(path) {
+function new_tab_view(path, name) {
 	++folder_index;
 
 	if(typeof(path) == "undefined")
@@ -188,19 +225,18 @@ function new_tab_view(path) {
 	
 	// 增加一个视图
 	var view_id = "view" + folder_index;
-	//xplorer.views.insert("<item id='." + view_id + "' />");
 	xplorer.views.insert({"id":"." + view_id});
 	view_id = "xplorer.views." + view_id;
     var view = eval(view_id);
 	
 	// 增加一个tab按钮
 	var tab_id = "tab" + folder_index;
-	//xplorer.tabs.insert("<item id='." + tab_id + "' tab='" + view.id + "' text='Windows Download' icon='" + path + "' />");
-	xplorer.tabs.insert({"id":"." + tab_id, "tab":view.id, "text":"Windows Download", "icon":path});
+	xplorer.tabs.insert({"id":"." + tab_id, "tab":view.id, "text":name, "icon":path});
 	if(curr_tab != null)
 		curr_tab.check(false);
 	
 	curr_tab = eval("xplorer.tabs." + tab_id);
+	curr_tab.vpath = path;
 	if(folder_index == 1)
 		xplorer.tabs.tab1.check(true);
 	
@@ -215,6 +251,17 @@ function open_folder(path) {
 function click_tab(tab) {
 	curr_tab = tab;
 	print("text " + tab.text + " " + tab.id + "\n");
+	if(tab.uninit)
+	{
+		tab.uninit = false;
+		
+		// 增加一个视图
+		var view_id = "view" + tab.index;
+		xplorer.views.insert({"id":"." + view_id});
+		view_id = "xplorer.views." + view_id;
+		var view = eval(view_id);
+		var hid = sys.explorer.new(view.handler(), tab.vpath, view.rect(), view_id);
+	}
 }
 
 function favorite_folder(path) {
@@ -245,11 +292,5 @@ function favorite_folder(path) {
 	item.action = "open_folder(this.path)";
 	favfolders.insert(item);
 	
-	var file = new jfile;
-    var app_path = sys.get_path(sys.app_path);
-    if (!file.open(app_path + "\\folders.json", "w"))
-		return;
-
-	file.write(favorite_folders.toJSON());
-	file.close();
+	save2file(favorite_folders, "folders.json");
 }

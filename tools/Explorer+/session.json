@@ -1,4 +1,13 @@
-[
-	{ "name": "Win7 (C:)", "path": "C:\\", "view": "xplorer.views.view1" },
-	{ "name": "Data (D:)", "path": "D:\\", "view": "xplorer.views.view2" },
-]
+[{
+"name" : NaN,
+"path" : "C:\\"
+}, {
+"name" : NaN,
+"path" : "D:\\"
+}, {
+"name" : NaN,
+"path" : "E:\\"
+}, {
+"name" : NaN,
+"path" : "F:\\"
+}]
