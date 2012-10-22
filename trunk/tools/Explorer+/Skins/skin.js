@@ -4,6 +4,7 @@ var session = [];
 var session_open = {};
 var curr_tab = null;
 var favorite_folders = [];
+var clicked_tab = false;
 
 $(function(){
 	print("load succeeded\n");
@@ -13,13 +14,23 @@ $(function(){
 			addr.path = path;
 			curr_tab.text = display_name;
 			curr_tab.check(true);
-			print("tab: " + curr_tab + " type: " + typeof(curr_tab) + "\n");
+			curr_tab.vpath = path;
+			
+			//print("tab: " + curr_tab + " type: " + typeof(curr_tab) + "\n");
 			print("open: " + path + " " + display_name + " " + view_id + "\n");
 		},
 		active:function(path, display_name, view_id) {
 			addr.path = path;
 			curr_tab.text = display_name;
-			print("tab: " + curr_tab.id + " type: " + typeof(curr_tab) + "\n");
+			curr_tab.vpath = path;
+			
+			if(clicked_tab) {
+				clicked_tab = false;
+				filefilter.clear();
+				sys.explorer.get_filter();
+			}
+			
+			//print("tab: " + curr_tab.id + " type: " + typeof(curr_tab) + "\n");
 			print("active: " + path + " " + display_name + " " + view_id + "\n");
 		},
 		selected:function(files) {
@@ -32,10 +43,19 @@ $(function(){
 		},
 		filter:function(types) {
 			print("filter types: " + types.length + "\n");
-			filefilter.clear();
-			//for(var i = 0; i < types.length; ++i) {
-			//	print(types[i] + "\n");
-			//}
+			if(types.length == 0) {
+				filefilter.clear();
+			} else {
+				for(var i = 0; i < types.length; ++i) {
+					if(types[i] == "folder")
+						filefilter.insert({"text":"显示文件夹", "icon":"icons.folder"});
+					else if(types[i] == "hidden")
+						filefilter.insert({"text":"显示文隐藏文件", "icon":"icons.file"});
+					else
+						filefilter.insert({"text":types[i], "icon":types[i]});
+				}
+				filefilter.insert({"text":"显示所有文件", "icon":"icons.file"}, 0);
+			}
 		},
 	});
 
@@ -261,6 +281,8 @@ function click_tab(tab) {
 		view_id = "xplorer.views." + view_id;
 		var view = eval(view_id);
 		var hid = sys.explorer.new(view.handler(), tab.vpath, view.rect(), view_id);
+	} else {
+		clicked_tab = true;
 	}
 }
 
