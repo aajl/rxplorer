@@ -34,12 +34,15 @@ $(function(){
 			print("active: " + path + " " + display_name + " " + view_id + "\n");
 		},
 		selected:function(files) {
-			if(files.length == 0)
+		if(files.length == 0) {
 				statusbar.filename.text = curr_tab.text;
-			else if(files.length == 1)
-				statusbar.filename.text = files[0];
-			else
+			} else if(files.length == 1) {
+				var pth = new jpath(files[0]);
+				var text = pth.filename();
+				statusbar.filename.text = text.length == 0 ? files[0] : text;
+			} else {
 				statusbar.filename.text = "选择了 " + files.length + " 个文件";
+			}
 		},
 		filter:function(types) {
 			print("filter types: " + types.length + "\n");
