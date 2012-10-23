@@ -7,6 +7,7 @@
 	<panel id="explorer" title="Explorer+" type="app" bkclr="#E5E5E5">
 		<size x="0" y="0" width="880" height="660" resize="true" min-width="880" min-height="660" />
 		<events maximize="max.check(true)" restore="max.check(0)" close="on_close()" />
+		<border width="1" color="#404040" />
 		<hittest>
 			<rect x="475" y="0" width="295" height="23" float="width" />
 		</hittest>
@@ -15,45 +16,11 @@
 			<events dbclk="explorer.max()" />
 		</label>
 
-		<label id="title" text="Explorer+" x="0" y="0" width="105" height="23" color="#ffffff" font="fonts.bold_10">
+		<label id="title" text="Explorer+" x="9" y="0" width="96" height="23" color="#ffffff" font="fonts.bold_10">
 			<attribs bkimg="imgs.main_hover" offset="9" align="center,vcenter" />
 			<bkimg x="x" y="y" width="width" height="height" />
 		</label>
 
-		<!--界面的外边框-->
-		<layer id="border">
-			<!--顶部边框-->
-			<img src="imgs.main_hover" x="105" y="0" width="768" height="23" adapt="true" float="width">
-				<bkimg x="x" y="y" width="5" height="height" />
-			</img>
-
-			<img src="imgs.main_hover" x="873" y="0" width="7" height="23" adapt="true" float="right">
-				<bkimg x="x" y="y" width="width" height="height" />
-			</img>
-
-			<!--底部边框-->
-			<img src="imgs.main_hover" x="0" y="637" width="7" height="23" adapt="true" float="left,bottom">
-				<bkimg x="x" y="y" width="width" height="height" />
-			</img>
-
-			<img src="imgs.main_hover" x="7" y="637" width="866" height="23" adapt="true" float="width,bottom">
-				<bkimg x="x" y="y" width="5" height="height" />
-			</img>
-
-			<img src="imgs.main_hover" x="873" y="637" width="7" height="23" adapt="true" float="right,bottom">
-				<bkimg x="x" y="y" width="width" height="height" />
-			</img>
-
-			<!--两侧边框-->
-			<img src="imgs.main_hover" x="0" y="23" width="1" height="614" adapt="true" float="left,height">
-				<bkimg x="x" y="y" width="width" height="height" />
-			</img>
-
-			<img src="imgs.main_hover" x="879" y="23" width="1" height="614" adapt="true" float="right,height">
-				<bkimg x="x" y="y" width="width" height="height" />
-			</img>
-		</layer>
-		
 		<!--系统按钮-->
 		<layer id="sys_btn" x="770" y="2" width="103" height="18" float="right" margin="0,0">
 			<button id="min" action="window.min();" width="28">

@@ -50,14 +50,15 @@ $(function(){
 				filefilter.clear();
 			} else {
 				for(var i = 0; i < types.length; ++i) {
-					if(types[i] == "folder")
+					if(types[i] == "#1folder")
 						filefilter.insert({"text":"显示文件夹", "icon":"icons.folder"});
-					else if(types[i] == "hidden")
-						filefilter.insert({"text":"显示文隐藏文件", "icon":"icons.file"});
+					else if(types[i] == "#2hidden")
+						filefilter.insert({"text":"显示隐藏文件", "icon":"icons.file"});
+					else if(types[i] == "#3file")
+						filefilter.insert({"text":"显示所有文件", "icon":"icons.file"});
 					else
 						filefilter.insert({"text":types[i], "icon":types[i]});
 				}
-				filefilter.insert({"text":"显示所有文件", "icon":"icons.file"}, 0);
 			}
 		},
 	});
