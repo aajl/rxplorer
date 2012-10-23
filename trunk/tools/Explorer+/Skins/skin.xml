@@ -252,9 +252,8 @@
 					<border width="1" color="#ACA899" />
 				</label>
 				
-				<button position="relative" x="225" y="5" width="12" height="12" adapt="false">
-					<states normal="close.png" dx="2" dy="2">
-					</states>
+				<button position="relative" x="-16" y="4" width="14" height="14" adapt="false">
+					<states link="states.close" />
 				</button>
 				
 				<panel id="" position="relative" x="1" y="22" width="238" height="250" bkclr="#ffffff" float="height">
@@ -266,9 +265,8 @@
 					<border width="1" color="#ACA899" />
 				</label>
 				
-				<button position="relative" x="225" y="5" width="12" height="12" adapt="false">
-					<states normal="close.png" dx="2" dy="2">
-					</states>
+				<button position="relative" x="-16" y="4" width="14" height="14" adapt="false">
+					<states link="states.close" />
 				</button>
 				
 				<custom id="filefilter" type="tiled" position="relative" x="1" y="22" width="238" height="205" bkclr="#ffffff" col="1" float="">
@@ -308,9 +306,8 @@
 				<border width="1" color="#ACA899" />
 			</label>
 			
-			<button position="relative" x="615" y="5" width="12" height="12" adapt="false" float="right">
-				<states normal="close.png" dx="2" dy="2">
-				</states>
+			<button position="relative" x="-16" y="4" width="14" height="14" adapt="false" float="right">
+				<states link="states.close" />
 			</button>
 			
 			<custom id=".tabs" type="tiled" position="relative" x="2" y="2" width="612" height="20" col="100" float="width">
