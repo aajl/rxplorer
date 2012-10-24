@@ -244,8 +244,7 @@ function new_tab_view(path, name) {
 	++folder_index;
 
 	if(typeof(path) == "undefined")
-		path = "C:\\Windows\\System32";
-		//path = "C:\\Windows\\";
+		path = "Computer";
 	
 	// 增加一个视图
 	var view_id = "view" + folder_index;
@@ -288,6 +287,11 @@ function click_tab(tab) {
 	} else {
 		clicked_tab = true;
 	}
+}
+
+function close_tab(tab) {
+	xplorer.tabs.remove(tab.id);
+	xplorer.views.remove(tab.tab);
 }
 
 function favorite_folder(path) {

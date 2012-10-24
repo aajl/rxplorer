@@ -277,12 +277,14 @@
 				<states link="states.close" />
 			</button>
 			
-			<custom id=".tabs" type="tiled" position="relative" x="2" y="2" width="612" height="20" col="100" float="width">
+			<custom id=".tabs" type="tiled" position="relative" x="2" y="2" width="610" height="20" col="100" bkclr="#E5E5E5" float="width">
+				<events dbclk="new_tab_view()" />
 				<items width="adapt" height="20">
 					<!--<item id=".tab1" text="" icon="" tab="item.tab" />-->
 				</items>
 				<button id="item.id" width="adapt,15" height="20" text="item.text" align="center,vcenter" offset="24">
-					<tabs tab="item.tab" group="folders" action="click_tab(eval(xplorer.tabs.this))" />
+					<tabs tab="item.tab" group="folders" action="click_tab(this)" />
+					<events dbclk="close_tab(this)" />
 					<states ix="6" iy="1">
 						<normal icon="item.icon" link="javascript:tabbtn.id" />
 						<hover icon="item.icon" link="javascript:tabbtn_hover.id" />
