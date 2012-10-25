@@ -11,6 +11,7 @@
 	<icons folder="%SystemRoot%\\system32\\SHELL32.dll|4" />
 	<icons file="%SystemRoot%\\system32\\SHELL32.dll|134" />
 	<icons fav="%SystemRoot%\\system32\\SHELL32.dll|43" />
+	<icons up="%SystemRoot%\\system32\\SHELL32.dll|45|24" />
 </icons>
 
 <!--字体集-->
