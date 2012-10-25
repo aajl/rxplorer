@@ -156,7 +156,7 @@
 			</button>
 
 			<!--向上按钮-->
-			<button x="275" y="58" width="24" height="22" action="">
+			<button x="275" y="58" width="24" height="22" action="up()">
 				<states normal="up.png" width="24" height="22">
 					<normal x="0" bkclr="#E5E5E5" />
 					<hover x="24" />
