@@ -301,6 +301,10 @@ function close_tab(tab) {
 	//xplorer.views.remove(tab.tab);
 }
 
+function up() {
+	sys.explorer.up();
+}
+
 function favorite_folder(path) {
 	for(var i = 0; i < favorite_folders.length; ++i) {
 		if(path == favorite_folders[i].path)
