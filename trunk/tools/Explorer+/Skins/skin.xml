@@ -125,7 +125,7 @@
 		</custom>
 		
 		<!--地址栏-->
-		<layer id="addrbar" x="268" y="56" width="365" height="25" bkclr="#FFFFFF" float="width">
+		<layer id="addrbar" x="298" y="56" width="335" height="25" bkclr="#FFFFFF" float="width">
 			<border width="1" color="#316AC5" />
 
 			<!--Undo/Redo-->
@@ -143,6 +143,15 @@
 					</states>
 				</button>
 			</custom>
+
+			<!--向上按钮-->
+			<button x="268" y="54" width="29" height="29" action="">
+				<states>
+					<normal icon="icons.up" ix="3" iy="3" size="24" border="0" bkclr="#E5E5E5" />
+					<hover ix="2" iy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<down ix="3" iy="3" border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+			</button>
 
 			<!--图标按钮-->
 			<button position="relative" x="3" y="2" width="21" height="21" action="addr.path='D:\Skins'">
