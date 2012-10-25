@@ -299,16 +299,11 @@
 			</custom>
 
 			<custom id=".views" type="tiled" position="relative" x="1" y="22" width="628" height="477" bkclr="#ffffff" col="1" float="width,height">
-				<items width="adapt" height="0">
+				<items>
 					<!--<item id=".view1" />-->
 				</items>
 				<panel id="item.id" x="0" y="0" width="width" height="height" bkclr="#ffffff" float="width,height">
 				</panel>
-				<script type="javascript">
-				<![CDATA[
-					//xplorer.views.insert("<item id='view1' />");
-				]]>
-				</script>
 			</custom>
 		</layer>
 

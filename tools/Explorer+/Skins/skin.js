@@ -49,6 +49,7 @@ $(function(){
 			if(types.length == 0) {
 				filefilter.clear();
 			} else {
+				filefilter.set_redraw(false);
 				for(var i = 0; i < types.length; ++i) {
 					if(types[i] == "#1folder")
 						filefilter.insert({"text":"ÏÔÊ¾ÎÄ¼þ¼Ð", "icon":"icons.folder"});
@@ -59,6 +60,8 @@ $(function(){
 					else
 						filefilter.insert({"text":types[i], "icon":types[i]});
 				}
+				filefilter.set_redraw(true);
+				filefilter.redraw();
 			}
 		},
 	});
@@ -73,6 +76,7 @@ $(function(){
 	drivebar.move(drivebar.x, drivebar.y, drivebar.width - offset, drivebar.height);
 	addrbar.move(addrbar.x - offset, addrbar.y, addrbar.width + offset, addrbar.height);
 	
+	drivebar.set_redraw(false);
 	for(var i = 0; i < obj.drives.length; ++i) {
 		var drv = obj.drives[i];		
 		var percent = parseInt((drv.total - drv.free) / drv.total * 10);
@@ -86,7 +90,9 @@ $(function(){
 		item.down = (percent >= 9 ? "progress_hover_red.png" : "progress_hover.png");
 		drivebar.insert(item);
 	}
-	
+	drivebar.set_redraw(true);
+	drivebar.redraw();
+
 	load_session();
 });
 
@@ -273,7 +279,6 @@ function open_folder(path) {
 
 function click_tab(tab) {
 	curr_tab = tab;
-	print("text " + tab.text + " " + tab.id + "\n");
 	if(tab.uninit)
 	{
 		tab.uninit = false;
@@ -290,8 +295,10 @@ function click_tab(tab) {
 }
 
 function close_tab(tab) {
-	xplorer.tabs.remove(tab.id);
-	xplorer.views.remove(tab.tab);
+	print(tab.id + "\n");
+	var ret = xplorer.tabs.remove(tab.id);
+	print(ret + "\n");
+	//xplorer.views.remove(tab.tab);
 }
 
 function favorite_folder(path) {
