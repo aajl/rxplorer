@@ -125,7 +125,7 @@
 		</custom>
 		
 		<!--地址栏-->
-		<layer id="addrbar" x="298" y="56" width="335" height="25" bkclr="#FFFFFF" float="width">
+		<layer id="addrbar" x="308" y="56" width="325" height="25" bkclr="#FFFFFF" float="width">
 			<border width="1" color="#316AC5" />
 
 			<!--Undo/Redo-->
@@ -137,19 +137,29 @@
 				</items>
 				<button width="29" height="29" action="item.action">
 					<states normal="item.img" width="width" height="width">
-						<normal dx="3" dy="3" border="0" bkclr="#E5E5E5" />
-						<hover dx="2" dy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
-						<down dx="3" dy="3" border="1" color="#316AC5" bkclr="#C1D2EE" />
+						<normal dx="3" dy="2" border="0" bkclr="#E5E5E5" />
+						<hover dx="2" dy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
+						<down dx="3" dy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
 					</states>
 				</button>
 			</custom>
 
+			<!--历史记录按钮-->
+			<button x="265" y="59" width="16" height="21" action="">
+				<states normal="recent.png" width="16" height="21">
+					<normal x="32" bkclr="#E5E5E5" />
+					<hover x="16" />
+					<down x="32" />
+					<disable x="48" />
+				</states>
+			</button>
+
 			<!--向上按钮-->
-			<button x="268" y="54" width="29" height="29" action="">
-				<states>
-					<normal icon="icons.up" ix="3" iy="3" size="24" border="0" bkclr="#E5E5E5" />
-					<hover ix="2" iy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
-					<down ix="3" iy="3" border="1" color="#316AC5" bkclr="#C1D2EE" />
+			<button x="283" y="58" width="24" height="22" action="">
+				<states normal="up.png" width="24" height="22">
+					<normal x="0" bkclr="#E5E5E5" />
+					<hover x="24" />
+					<down x="48" />
 				</states>
 			</button>
 
@@ -170,7 +180,7 @@
 			</button>
 
 			<!--地址栏按钮-->
-			<addr id="addr" path="D:\Download\Music" position="relative" x="36" y="1" width="292" height="23" bkclr="#FFFFFF" float="width">
+			<addr id="addr" path="D:\Download\Music" position="relative" x="36" y="1" width="252" height="23" bkclr="#FFFFFF" float="width">
 				<states width="0" height="0">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
