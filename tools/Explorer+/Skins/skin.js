@@ -177,7 +177,7 @@ function load_favorite_folders() {
 	var data = file.read();
 	if(data.length == 0)
 		return;
-		
+
 	favorite_folders = eval("(" + data + ")");
 	var sys_path = sys.get_path(sys.sys_path);
 	for (var i = 0; i < favorite_folders.length; ++i) {
@@ -303,6 +303,10 @@ function close_tab(tab) {
 
 function up() {
 	sys.explorer.up();
+}
+
+function pop_tab_menu(tab) {
+	tabmenu_pan.show();
 }
 
 function favorite_folder(path) {
