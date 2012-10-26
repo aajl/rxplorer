@@ -304,7 +304,7 @@
 				</items>
 				<button id="item.id" width="adapt,15" height="20" text="item.text" align="center,vcenter" offset="24">
 					<tabs tab="item.tab" group="folders" action="click_tab(this)" />
-					<events dbclk="close_tab(this)" />
+					<events dbclk="close_tab(this)" rbtn="pop_tab_menu(this)" />
 					<states ix="6" iy="1">
 						<normal icon="item.icon" link="javascript:tabbtn.id" />
 						<hover icon="item.icon" link="javascript:tabbtn_hover.id" />
@@ -364,7 +364,9 @@
 	
 	<include>menu.xml</include>
 	
-	<include>favfolders.xml</include>
+	<include>favmenu.xml</include>
+	
+	<include>tabmenu.xml</include>
 	
 	<include>about.xml</include>
 </directui>
