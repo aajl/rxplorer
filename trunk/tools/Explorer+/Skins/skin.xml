@@ -6,7 +6,7 @@
 	
 	<panel id="explorer" title="Explorer+" type="app" bkclr="#E5E5E5" drag="true">
 		<size x="0" y="0" width="880" height="660" resize="true" min-width="880" min-height="660" />
-		<events maximize="max.check(true)" restore="max.check(0)" close="on_close()" />
+		<events maximize="max.check(true)" restore="max.check(false)" close="on_close()" drop="on_dropfiles" />
 		<border width="1" color="#404040" />
 		<hittest>
 			<rect x="475" y="0" width="295" height="23" float="width" />

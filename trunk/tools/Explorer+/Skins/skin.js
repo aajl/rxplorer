@@ -350,3 +350,8 @@ function pop_tool_menu(tool) {
 	poped_menu_tool = tool;
 	window.popmenu(toolmenu_pane.id);
 }
+
+function on_dropfiles(files) {
+	print("drop files: " + files.length + "\n");
+	var rc = favtools.rect();
+}
