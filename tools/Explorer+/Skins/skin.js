@@ -6,6 +6,7 @@ var curr_tab = null;
 var poped_menu_tab = null;
 var clicked_tab = false;
 var favorite_folders = [];
+var poped_menu_tool = null;
 
 $(function(){
 	print("load succeeded\n");
@@ -343,4 +344,9 @@ function favorite_folder(path) {
 	favfolders.insert(item);
 	
 	save2file(favorite_folders, "folders.json");
+}
+
+function pop_tool_menu(tool) {
+	poped_menu_tool = tool;
+	window.popmenu(toolmenu_pane.id);
 }
