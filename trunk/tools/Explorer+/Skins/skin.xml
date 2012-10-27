@@ -4,7 +4,7 @@
 
 	<include>res.xml</include>
 	
-	<panel id="explorer" title="Explorer+" type="app" bkclr="#E5E5E5">
+	<panel id="explorer" title="Explorer+" type="app" bkclr="#E5E5E5" drag="true">
 		<size x="0" y="0" width="880" height="660" resize="true" min-width="880" min-height="660" />
 		<events maximize="max.check(true)" restore="max.check(0)" close="on_close()" />
 		<border width="1" color="#404040" />
@@ -95,6 +95,7 @@
 			<items width="29" height="29">
 			</items>
 			<button id="item.id" width="29" height="29" path="item.path" action="sys.shell_execute(this.path)">
+				<events rbtn="pop_tool_menu(this)" />
 				<states width="24" height="24">
 					<normal icon="item.icon" ix="3" iy="3" size="24" border="0" bkclr="#E5E5E5" />
 					<hover ix="2" iy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -368,6 +369,8 @@
 	<include>favmenu.xml</include>
 	
 	<include>tabmenu.xml</include>
+	
+	<include>toolmenu.xml</include>
 	
 	<include>about.xml</include>
 </directui>
