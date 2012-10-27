@@ -3,8 +3,9 @@ var xplorer_left_pos = 0;
 var session = [];
 var session_open = {};
 var curr_tab = null;
-var favorite_folders = [];
+var poped_menu_tab = null;
 var clicked_tab = false;
+var favorite_folders = [];
 
 $(function(){
 	print("load succeeded\n");
@@ -306,7 +307,12 @@ function up() {
 }
 
 function pop_tab_menu(tab) {
-	tabmenu_pan.show();
+	poped_menu_tab = tab;
+	window.popmenu(tabmenu_pane.id);
+}
+
+function duplicate_tab() {
+	new_tab_view(poped_menu_tab.vpath);
 }
 
 function favorite_folder(path) {
