@@ -298,6 +298,7 @@
 			</button>
 			
 			<custom id=".tabs" type="tiled" position="relative" x="2" y="2" width="610" height="20" col="100" bkclr="#E5E5E5" float="width">
+				<border width="1" color="#ACA899" bottom="1" />
 				<events dbclk="new_tab_view()" />
 				<items width="adapt" height="20">
 					<!--<item id=".tab1" text="" icon="" tab="item.tab" />-->
@@ -333,12 +334,12 @@
 			
 			<img src="statusbar.png" position="relative" x="0" y="0" width="878" height="70" float="width">
 				<bkimg x="0" y="0" width="20" height="70">
-					<y x="7" y="0" width="5" height="70" />
+					<x x="7" y="0" width="5" height="70" />
 				</bkimg>
 			</img>
 			
-			<img src="Explorer.png" position="relative" x="13" y="3" width="64" height="64" adapt="half">
-				<bkimg dx="center" dy="center" />
+			<img position="relative" x="13" y="3" width="64" height="64" adapt="half">
+				<bkimg src="Explorer.png" dx="center" dy="center" />
 			</img>
 			
 			<label id=".filename" adapt="true" text="给我一个温暖空间.avi" position="relative" x="90" y="5" width="150" height="18" align="vcenter">

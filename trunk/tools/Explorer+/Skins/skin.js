@@ -296,9 +296,7 @@ function click_tab(tab) {
 }
 
 function close_tab(tab) {
-	print(tab.id + "\n");
 	var ret = xplorer.tabs.remove(tab.id);
-	print(ret + "\n");
 	//xplorer.views.remove(tab.tab);
 }
 
@@ -326,9 +324,10 @@ function favorite_folder(path) {
 	var name = jpth.filename();
 	if(name.length == 0)
 		name = jpth.root_path();
+	
 	if(name.length == 0)
 		return;
-		
+
 	var item = {};
 	item.name = name;
 	item.path = path;
