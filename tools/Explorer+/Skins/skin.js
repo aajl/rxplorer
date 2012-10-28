@@ -1,15 +1,21 @@
 var folder_index = 0;
 var xplorer_left_pos = 0;
 var session = [];
+var bookmark = [];
 var session_open = {};
-var curr_tab = null;
-var poped_menu_tab = null;
-var clicked_tab = false;
 var favorite_folders = [];
+var curr_tab = null;
+var clicked_tab = false;
+var poped_menu_tab = null;
 var poped_menu_tool = null;
 
 $(function(){
 	print("load succeeded\n");
+	
+	var jj = {};
+	jj["data"] = {"a": "b", "d": "ss"};
+	jj["dddd"] = {"a": "b", "d": "ss"};
+	print(jj.json() + "\n");
 	
 	sys.explorer.handler({
 		open:function(path, display_name, view_id) {
@@ -155,7 +161,7 @@ function load_favorite_tools() {
 	if(data.length == 0)
 		return;
 
-	var bookmark = eval("(" + data + ")");
+	bookmark = eval("(" + data + ")");
 	var sys_path = sys.get_path(sys.sys_path);
 	for (var i = 0; i < bookmark.length; ++i) {
 		var path = bookmark[i].path;
@@ -240,7 +246,9 @@ function new_tab(path, name) {
 	// 增加一个tab按钮
 	var tab_id = "tab" + folder_index;
 	var view_id = "explorer.xplorer.views.view" + folder_index;
-	xplorer.tabs.insert({"id":"." + tab_id, "tab":view_id, "text":name, "icon":path});
+	var view_obj = "xplorer.views.view" + folder_index;
+
+	xplorer.tabs.insert({"id":"." + tab_id, "tab":view_id, "view": view_obj, "text":name, "icon":path});
 	
 	var tab = eval("xplorer.tabs." + tab_id);
 	tab.vpath = path;
@@ -262,7 +270,7 @@ function new_tab_view(path, name) {
 	
 	// 增加一个tab按钮
 	var tab_id = "tab" + folder_index;
-	xplorer.tabs.insert({"id":"." + tab_id, "tab":view.id, "text":name, "icon":path});
+	xplorer.tabs.insert({"id":"." + tab_id, "tab":view.id, "view": view_id, "text":name, "icon":path});
 	if(curr_tab != null)
 		curr_tab.check(false);
 	
@@ -297,15 +305,17 @@ function click_tab(tab) {
 }
 
 function close_tab(tab) {
-	var ret = xplorer.tabs.remove(tab.id);
-	//xplorer.views.remove(tab.tab);
+	sys.explorer.remove(tab.view);
+	xplorer.tabs.remove(tab.id);
+	xplorer.views.remove(tab.tab);
 }
 
 function up() {
 	sys.explorer.up();
 }
 
-function pop_tab_menu(tab) {
+function pop_tab_menu(tab, id) {
+	print(tab + " " + id + " " + tab.tab + " " + tab.view + "\n");
 	poped_menu_tab = tab;
 	window.popmenu(tabmenu_pane.id);
 }
@@ -314,7 +324,7 @@ function duplicate_tab() {
 	new_tab_view(poped_menu_tab.vpath);
 }
 
-function favorite_folder(path) {
+function add_favorite_folder(path) {
 	for(var i = 0; i < favorite_folders.length; ++i) {
 		if(path == favorite_folders[i].path)
 			return;
@@ -351,7 +361,46 @@ function pop_tool_menu(tool) {
 	window.popmenu(toolmenu_pane.id);
 }
 
+function remove_favorite_tool(tool) {
+	for(var i = 0; i < bookmark.length; ++i) {
+		if(bookmark[i].path == tool.path) {
+			bookmark.splice(i, 1);
+			save2file(bookmark, "bookmark.json");
+			break;
+		}
+   }
+
+   favtools.remove(tool.id);
+}
+
+function add_favorite_tools(files) {
+	if(files.length == 0)
+		return;
+		
+	for(var i = 0; i < files.length; ++i) {
+		var path = files[i];
+		var jpth = new jpath();
+		jpth.open(path);
+		var name = jpth.filename();
+		var id = sys.hash(path);
+		favtools.insert({"id":"btn" + id, "path":path, "icon":path + "|0|24"});
+		
+		var item = {};
+		item.name = name;
+		item.path = path;
+		bookmark.push(item);
+	}
+	
+	save2file(bookmark, "bookmark.json");
+}
+
 function on_dropfiles(files) {
-	print("drop files: " + files.length + "\n");
-	var rc = favtools.rect();
+	if(files.length == 0)
+		return;
+		
+	var rc = favtools.screen_rect();
+	var pt = sys.cursor_pos();
+	if(rc.pt_in_rect(pt.x, pt.y)) {
+		add_favorite_tools(files);
+	}
 }
