@@ -6,7 +6,7 @@
 		<pos position="relative" x="2" y="2" width="151" height="211" />
 		<bkimg src="menu.png" width="23" height="23" />
 		<items height="adapt">
-			<item name="收藏当前文件夹" path="" icon="icons.fav" action="favorite_folder(addr.path)" />
+			<item name="收藏当前文件夹" path="" icon="icons.fav" action="add_favorite_folder(addr.path)" />
 			<item separator="1" />
 		</items>
 		<if condition="item.separator">

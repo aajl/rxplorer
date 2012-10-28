@@ -5,7 +5,7 @@
 		<bkimg src="menu.png" width="23" height="23" />
 		<items height="adapt">
 			<item name="打开(O)" icon="" action="sys.shell_execute(poped_menu_tool.path)" />
-			<item name="删除(D)" icon="" action="" />
+			<item name="删除(D)" icon="" action="remove_favorite_tool(poped_menu_tool)" />
 			<item name="属性(P)" icon="" action="" />
 		</items>
 		<if condition="item.separator">

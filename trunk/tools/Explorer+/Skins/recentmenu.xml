@@ -1,0 +1,23 @@
+﻿<panel id="recent_pane" type="modeless" x="0" y="0" width="155" height="179" visible="false" alpha="">
+	<border width="1" color="#ACA899" />
+	<custom id="recentmenu"  yadapt="true" type="tiled" margin="1" oninit="">
+		<pos position="relative" x="2" y="2" width="151" height="176" />
+		<bkimg src="menu.png" width="23" height="23" />
+		<items height="adapt">
+			<item name="Data C:" icon="" action="" />
+			<item name="Data D:" icon="" action="" />
+			<item name="Data E:" icon="" action="" />
+			<item name="Data F:" icon="" action="" />
+			<item name="Data G:" icon="" action="" />
+			<item name="Data H:" icon="" action="" />
+			<item name="Data I:" icon="" action="" />
+		</items>
+		<layer id="item.id" x="0" y="0" width="151" height="23" adapt="false" text="item.name" align="vcenter" offset="30" action="item.action">
+			<states normal="menu.png" hover="null" down="null" width="23" height="23" ix="3" iy="3" >
+				<normal icon="item.icon" border="0" bkclr="#ffffff" />
+				<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+				<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+			</states>
+		</layer>
+	</custom>
+</panel>
