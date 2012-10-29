@@ -4,7 +4,7 @@
 
 	<include>res.xml</include>
 	
-	<panel id="explorer" title="Explorer+" type="app" bkclr="#E5E5E5" drag="true">
+	<panel id="explorer" title="Explorer++" type="app" bkclr="#E5E5E5" drag="true">
 		<size x="0" y="0" width="880" height="660" resize="true" min-width="880" min-height="660" />
 		<events maximize="max.check(true)" restore="max.check(false)" close="on_close()" drop="on_dropfiles" />
 		<border width="1" color="#404040" />
@@ -16,7 +16,7 @@
 			<events dbclk="explorer.max()" />
 		</label>
 
-		<label id="title" text="Explorer+" x="9" y="0" width="96" height="23" color="#ffffff" font="fonts.bold_10">
+		<label id="title" text="Explorer++" x="9" y="0" width="96" height="23" color="#ffffff" font="fonts.bold_10">
 			<attribs bkimg="imgs.main_hover" offset="9" align="center,vcenter" />
 			<bkimg x="x" y="y" width="width" height="height" />
 		</label>
