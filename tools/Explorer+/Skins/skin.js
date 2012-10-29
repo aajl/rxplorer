@@ -22,7 +22,7 @@ $(function(){
 			addr.path = path;
 			curr_tab.text = display_name;
 			curr_tab.check(true);
-			curr_tab.vpath = path;
+			curr_tab.path = path;
 			
 			//print("tab: " + curr_tab + " type: " + typeof(curr_tab) + "\n");
 			print("open: " + path + " " + display_name + " " + view_id + "\n");
@@ -30,7 +30,7 @@ $(function(){
 		active:function(path, display_name, view_id) {
 			addr.path = path;
 			curr_tab.text = display_name;
-			curr_tab.vpath = path;
+			curr_tab.path = path;
 			
 			if(clicked_tab) {
 				clicked_tab = false;
@@ -42,7 +42,7 @@ $(function(){
 			print("active: " + path + " " + display_name + " " + view_id + "\n");
 		},
 		selected:function(files) {
-		if(files.length == 0) {
+			if(files.length == 0) {
 				statusbar.filename.text = curr_tab.text;
 			} else if(files.length == 1) {
 				var pth = new jpath(files[0]);
@@ -109,13 +109,10 @@ function on_close() {
 	print("close " + children + " tabs \n");
 	
 	session = [];
-	for(var i = 0; i < folder_index; ++i) {
-		var tab = eval("xplorer.tabs.tab" + (i + 1));
-		if(typeof(tab) == "undefined")
-			continue;
-		
-		session.push({"name":tab.text, "path":tab.vpath});
-		print("name: " + tab.text + " path: " + tab.vpath + "\n");
+	for(var i = 0; i < children; ++i) {
+		var tab = xplorer.tabs.child(i);
+		session.push({"name":tab.text, "path":tab.path});
+		print("name: " + tab.text + " path: " + tab.path + "\n");
 	}
 	
 	save2file(session, "session.json");
@@ -251,7 +248,7 @@ function new_tab(path, name) {
 	xplorer.tabs.insert({"id":"." + tab_id, "tab":view_id, "view": view_obj, "text":name, "icon":path});
 	
 	var tab = eval("xplorer.tabs." + tab_id);
-	tab.vpath = path;
+	tab.path = path;
 	tab.index = folder_index;
 	tab.uninit = true;
 }
@@ -275,7 +272,7 @@ function new_tab_view(path, name) {
 		curr_tab.check(false);
 	
 	curr_tab = eval("xplorer.tabs." + tab_id);
-	curr_tab.vpath = path;
+	curr_tab.path = path;
 	if(folder_index == 1)
 		xplorer.tabs.tab1.check(true);
 	
@@ -298,7 +295,7 @@ function click_tab(tab) {
 		xplorer.views.insert({"id":"." + view_id});
 		view_id = "xplorer.views." + view_id;
 		var view = eval(view_id);
-		var hid = sys.explorer.new(view.handler(), tab.vpath, view.rect(), view_id);
+		var hid = sys.explorer.new(view.handler(), tab.path, view.rect(), view_id);
 	} else {
 		clicked_tab = true;
 	}
@@ -321,7 +318,7 @@ function pop_tab_menu(tab, id) {
 }
 
 function duplicate_tab() {
-	new_tab_view(poped_menu_tab.vpath);
+	new_tab_view(poped_menu_tab.path);
 }
 
 function add_favorite_folder(path) {
