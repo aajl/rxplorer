@@ -19,18 +19,24 @@ $(function(){
 	
 	sys.explorer.handler({
 		open:function(path, display_name, view_id) {
-			addr.path = path;
 			curr_tab.text = display_name;
 			curr_tab.check(true);
 			curr_tab.path = path;
+			if(path.substr(0, 2) == "::" || path == "desktop")
+				addr.path = display_name;
+			else
+				addr.path = path;
 			
 			//print("tab: " + curr_tab + " type: " + typeof(curr_tab) + "\n");
 			print("open: " + path + " " + display_name + " " + view_id + "\n");
 		},
 		active:function(path, display_name, view_id) {
-			addr.path = path;
 			curr_tab.text = display_name;
 			curr_tab.path = path;
+			if(path.substr(0, 2) == "::" || path == "desktop")
+				addr.path = display_name;
+			else
+				addr.path = path;
 			
 			if(clicked_tab) {
 				clicked_tab = false;
