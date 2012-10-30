@@ -107,6 +107,8 @@ $(function(){
 	drivebar.set_redraw(true);
 	drivebar.redraw();
 
+	sys.explorer.treeview_new("treeview.tree.view", treeview.tree.view.rect());
+	
 	load_session();
 });
 
