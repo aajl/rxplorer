@@ -4,6 +4,7 @@
 
 <!--图标集-->
 <icons id="icons" notepad="C:\windows\system32\notepad.exe">
+	<icons computer="%SystemRoot%\\system32\\SHELL32.dll|15|16" />
 	<icons fixed="%SystemRoot%\\system32\\SHELL32.dll|8" />
 	<icons cdrom="%SystemRoot%\\system32\\SHELL32.dll|11" />
 	<icons removable="%SystemRoot%\\system32\\SHELL32.dll|7" />

@@ -168,9 +168,10 @@
 
 			<!--图标按钮-->
 			<button position="relative" x="3" y="2" width="21" height="21" action="addr.path='D:\Skins'">
-				<states normal="cmptr.png" width="width" height="width">
-					<normal border="0" bkclr="#FFFFFF" />
-					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+				<states width="16" height="16">
+					<normal icon="icons.computer" border="0" bkclr="#FFFFFF" />
+					<hover ix="1" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
 				</states>
 			</button>
 

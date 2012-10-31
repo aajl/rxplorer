@@ -22,6 +22,7 @@ $(function(){
 			curr_tab.text = display_name;
 			curr_tab.check(true);
 			curr_tab.path = path;
+			curr_tab.set_icon(path);
 			if(path.substr(0, 2) == "::" || path == "desktop")
 				addr.path = display_name;
 			else
@@ -92,7 +93,7 @@ $(function(){
 	
 	drivebar.set_redraw(false);
 	for(var i = 0; i < obj.drives.length; ++i) {
-		var drv = obj.drives[i];		
+		var drv = obj.drives[i];
 		var percent = parseInt((drv.total - drv.free) / drv.total * 10);
 		
 		var item = {};
