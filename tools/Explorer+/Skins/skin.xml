@@ -245,7 +245,20 @@
 				<button position="relative" x="-16" y="4" width="14" height="14" adapt="false">
 					<states link="states.close" />
 				</button>
-				
+			
+				<button position="relative" x="-35" y="2" width="18" height="18" adapt="false" checkable="true">
+					<states width="16" height="16" ix="2" iy="2">
+						<normal icon="icons.sync" bkclr="#E5E5E5" />
+						<hover ix="1" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
+						<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+					</states>
+					<states width="16" height="16" ix="2" iy="2">
+						<normal icon="icons.synced" size="16" bkclr="#E5E5E5" />
+						<hover ix="1" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
+						<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+					</states>
+				</button>
+			
 				<panel id=".view" position="relative" x="1" y="22" width="238" height="250" bkclr="#ffffff" float="height">
 				</panel>
 			</layer>
@@ -309,12 +322,12 @@
 				<button id="item.id" width="adapt,15" height="20" view="item.view" path="vpath" text="item.text" align="center,vcenter" offset="24">
 					<tabs tab="item.tab" group="folders" action="click_tab(this)" />
 					<events dbclk="close_tab(this)" rbtn="pop_tab_menu(this, 'this')" />
-					<states ix="6" iy="1">
+					<states ix="6" iy="2">
 						<normal icon="item.icon" link="javascript:tabbtn.id" />
 						<hover icon="item.icon" link="javascript:tabbtn_hover.id" />
 						<down icon="item.icon" link="javascript:tabbtn_down.id" />
 					</states>
-					<states ix="6" iy="1">
+					<states ix="6" iy="2">
 						<normal icon="item.icon" link="javascript:tabbtn_down.id" />
 						<hover link="javascript:tabbtn_down.id" />
 						<down link="javascript:tabbtn_down.id" />
