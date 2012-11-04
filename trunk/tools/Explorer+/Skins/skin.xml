@@ -246,7 +246,7 @@
 					<states link="states.close" />
 				</button>
 			
-				<button position="relative" x="-35" y="2" width="18" height="18" adapt="false" checkable="true">
+				<button id="sync" position="relative" x="-35" y="2" width="18" height="18" action="sync_treeview()" adapt="false" checkable="true">
 					<states width="16" height="16" ix="2" iy="2">
 						<normal icon="icons.sync" bkclr="#E5E5E5" />
 						<hover ix="1" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -345,21 +345,22 @@
 		</layer>
 
 		<!--状态栏-->
-		<layer id="statusbar" x="1" y="589" width="878" height="70" float="width,bottom">
+		<layer id="statusbar" x="3" y="587" width="874" height="70" float="width,bottom">
 			<border width="1" color="#ACA899" />
 			
-			<img src="statusbar.png" position="relative" x="0" y="0" width="878" height="70" float="width">
+			<!--img src="statusbar.png" position="relative" x="0" y="0" width="878" height="70" float="width">
 				<bkimg x="0" y="0" width="20" height="70">
 					<x x="7" y="0" width="5" height="70" />
 				</bkimg>
-			</img>
+			</img-->
 			
 			<img position="relative" x="13" y="3" width="64" height="64" adapt="half">
 				<bkimg src="Explorer.png" dx="center" dy="center" />
 			</img>
 			
-			<label id=".filename" adapt="true" text="给我一个温暖空间.avi" position="relative" x="90" y="5" width="150" height="18" align="vcenter">
-				<bkimg src="statusbar.png" x="7" y="5" width="10" height="height" />
+			<label id=".filename" position="relative" adapt="true" text="给我一个温暖空间.avi" bkclr="#E5E5E5" align="vcenter">
+				<pos x="90" y="5" width="150" height="18" />
+				<!--bkimg src="statusbar.png" x="7" y="5" width="10" height="height" /-->
 			</label>
 			
 			<label id=".filetype" text="配置设置" position="relative" x="92" y="23" width="100" height="18" color="#5A6779" align="vcenter" />

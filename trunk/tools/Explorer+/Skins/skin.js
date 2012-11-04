@@ -8,15 +8,11 @@ var curr_tab = null;
 var clicked_tab = false;
 var poped_menu_tab = null;
 var poped_menu_tool = null;
+var setting = {};
 
 $(function(){
 	print("load succeeded\n");
-	
-	var jj = {};
-	jj["data"] = {"a": "b", "d": "ss"};
-	jj["dddd"] = {"a": "b", "d": "ss"};
-	print(jj.json() + "\n");
-	
+		
 	sys.explorer.handler({
 		open:function(path, display_name, view_id) {
 			curr_tab.text = display_name;
@@ -34,6 +30,9 @@ $(function(){
 		active:function(path, display_name, view_id) {
 			curr_tab.text = display_name;
 			curr_tab.path = path;
+			if(setting.treeview.sync)
+				sys.explorer.treeview_sync(curr_tab.path);
+				
 			if(path.substr(0, 2) == "::" || path == "desktop")
 				addr.path = display_name;
 			else
@@ -111,6 +110,8 @@ $(function(){
 	sys.explorer.treeview_new("treeview.tree.view", treeview.tree.view.rect());
 	
 	load_session();
+		
+	load_setting();
 });
 
 function on_close() {
@@ -125,6 +126,8 @@ function on_close() {
 	}
 	
 	save2file(session, "session.json");
+	
+	save2file(setting, "setting.json");
 }
 
 function save2file(data, path) {
@@ -215,7 +218,13 @@ function load_session() {
 		return;
 
 	var data = file.read();
+	if(data == null || data.length == 0)
+		return;
+	
 	session = eval("(" + data + ")");
+	file.close();
+	file = null;
+	
 	for(var i = 0; i < session.length; ++i) {
 		session_open[session[i].view] = 0;
 	}
@@ -228,8 +237,21 @@ function load_session() {
 	} else {
 		new_tab_view();
 	}
+}
+
+function load_setting() {
+	var file = new jfile;
+    var app_path = sys.get_path(sys.app_path);
+    if (!file.open(app_path + "\\setting.json", "r"))
+		return;
 		
+	var data = file.read();
+	setting = eval("(" + data + ")");
+	file.close();
 	file = null;
+	
+	if(setting.treeview.sync)
+		sync.check(true);
 }
 
 function show_treeview() {
@@ -408,5 +430,12 @@ function on_dropfiles(files) {
 	var pt = sys.cursor_pos();
 	if(rc.pt_in_rect(pt.x, pt.y)) {
 		add_favorite_tools(files);
+	}
+}
+
+function sync_treeview() {
+	setting.treeview.sync = !setting.treeview.sync;
+	if(setting.treeview.sync) {
+		sys.explorer.treeview_sync(curr_tab.path);
 	}
 }
