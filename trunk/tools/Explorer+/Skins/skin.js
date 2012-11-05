@@ -244,14 +244,25 @@ function load_setting() {
     var app_path = sys.get_path(sys.app_path);
     if (!file.open(app_path + "\\setting.json", "r"))
 		return;
-		
+
 	var data = file.read();
-	setting = eval("(" + data + ")");
-	file.close();
-	file = null;
+	if(data != null && data.length > 0) {
+		setting = eval("(" + data + ")");
+		file.close();
+		file = null;
+	}
+	
+	if(typeof(setting.treeview) == "undefined") {
+		setting.treeview = {};
+		setting.treeview.sync = false;
+		setting.treeview.show = true;
+	}
 	
 	if(setting.treeview.sync)
 		sync.check(true);
+	
+	if(!setting.treeview.show)
+		show_treeview();
 }
 
 function show_treeview() {
@@ -259,12 +270,14 @@ function show_treeview() {
 		treeview.hide();
 		xplorer.move(treeview.x, xplorer.y, xplorer.width + xplorer.x - treeview.x, xplorer.height);
 		xplorer.redraw(true);
+		setting.treeview.show = false;
 	} else {
 		xplorer.move(247, xplorer.y, 630, xplorer.height);
 		treeview.show();
 		//treeview.redraw(true);
 		xplorer.redraw(true);
 		explorer.redraw(true);
+		setting.treeview.show = true;
 	}
 }
 
@@ -438,4 +451,9 @@ function sync_treeview() {
 	if(setting.treeview.sync) {
 		sys.explorer.treeview_sync(curr_tab.path);
 	}
+}
+
+function locate_tool(path) {
+	var pth = new jpath(path);
+	sys.shell_execute(pth.remove_filename());
 }

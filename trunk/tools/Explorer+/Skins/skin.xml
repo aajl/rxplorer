@@ -344,6 +344,49 @@
 			</custom>
 		</layer>
 
+		<!--文件视图2-->
+		<layer id="xplorer2" x="562" y="85" width="315" height="500" float="height" visible="false">
+			<border width="1" color="#ACA899" />
+			
+			<label position="relative" x="0" y="0" width="315" height="22" bkclr="#E5E5E5" float="width">
+				<border width="1" color="#ACA899" />
+			</label>
+			
+			<button position="relative" x="-16" y="4" width="14" height="14" adapt="false" float="width">
+				<states link="states.close" />
+			</button>
+			
+			<custom id=".tabs" type="tiled" position="relative" x="2" y="2" width="295" height="20" col="100" bkclr="#E5E5E5" float="width">
+				<border width="1" color="#ACA899" bottom="1" />
+				<events dbclk="new_tab_view()" />
+				<items width="adapt" height="20">
+					<!--<item id=".tab1" text="" icon="" tab="item.tab" />-->
+				</items>
+				<button id="item.id" width="adapt,15" height="20" view="item.view" path="vpath" text="item.text" align="center,vcenter" offset="24">
+					<tabs tab="item.tab" group="folders" action="click_tab(this)" />
+					<events dbclk="close_tab(this)" rbtn="pop_tab_menu(this, 'this')" />
+					<states ix="6" iy="2">
+						<normal icon="item.icon" link="javascript:tabbtn.id" />
+						<hover icon="item.icon" link="javascript:tabbtn_hover.id" />
+						<down icon="item.icon" link="javascript:tabbtn_down.id" />
+					</states>
+					<states ix="6" iy="2">
+						<normal icon="item.icon" link="javascript:tabbtn_down.id" />
+						<hover link="javascript:tabbtn_down.id" />
+						<down link="javascript:tabbtn_down.id" />
+					</states>
+				</button>
+			</custom>
+
+			<custom id=".views" type="tiled" position="relative" x="1" y="22" width="313" height="477" bkclr="#ffffff" col="1" float="width,height">
+				<items>
+					<!--<item id=".view1" />-->
+				</items>
+				<panel id="item.id" x="0" y="0" width="width" height="height" bkclr="#ffffff" float="width,height">
+				</panel>
+			</custom>
+		</layer>
+
 		<!--状态栏-->
 		<layer id="statusbar" x="3" y="587" width="874" height="70" float="width,bottom">
 			<border width="1" color="#ACA899" />
