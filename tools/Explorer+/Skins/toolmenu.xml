@@ -1,15 +1,16 @@
-﻿<panel id="toolmenu_pane" type="modeless" x="0" y="0" width="115" height="75" visible="false" alpha="">
+﻿<panel id="toolmenu_pane" type="modeless" x="0" y="0" width="135" height="99" visible="false" alpha="">
 	<border width="1" color="#ACA899" />
 	<custom id="toolmenu"  yadapt="true" type="tiled" margin="1" oninit="">
-		<pos position="relative" x="2" y="2" width="111" height="72" />
+		<pos position="relative" x="2" y="2" width="131" height="96" />
 		<bkimg src="menu.png" width="23" height="23" />
 		<items height="adapt">
 			<item name="打开(O)" icon="" action="sys.shell_execute(poped_menu_tool.path)" />
+			<item name="打开文件位置(I)" icon="" action="locate_tool(poped_menu_tool.path)" />
 			<item name="删除(D)" icon="" action="remove_favorite_tool(poped_menu_tool)" />
 			<item name="属性(P)" icon="" action="" />
 		</items>
 		<if condition="item.separator">
-			<layer x="0" y="0" width="111" height="3" margin="0,3">
+			<layer x="0" y="0" width="131" height="3" margin="0,3">
 				<img x="0" y="0" width="23" height="3" adapt="true">
 					<bkimg src="menu.png" width="23" height="3" />
 				</img>
@@ -18,7 +19,7 @@
 				</label>
 			</layer>
 		<else />
-			<layer id="item.id" x="0" y="0" width="111" height="23" adapt="false" text="item.name" align="vcenter" offset="30" action="item.action">
+			<layer id="item.id" x="0" y="0" width="131" height="23" adapt="false" text="item.name" align="vcenter" offset="30" action="item.action">
 				<states normal="menu.png" hover="null" down="null" width="23" height="23" ix="3" iy="3" >
 					<normal icon="item.icon" border="0" bkclr="#ffffff" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
