@@ -346,7 +346,7 @@
 			</layer>
 			
 			<!--文件视图2-->
-			<layer id="xplorer2" x="317" y="0" width="315" height="500" float="xratio,wratio,height">
+			<layer id="xplorer2" x="leftof-xplorer,2" y="0" width="315" height="500" float="wratio,height">
 				<border width="1" color="#ACA899" />
 				
 				<label position="relative" x="0" y="0" width="315" height="22" bkclr="#E5E5E5" float="width">
