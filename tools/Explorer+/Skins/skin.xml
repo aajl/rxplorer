@@ -310,18 +310,18 @@
 					<border width="1" color="#ACA899" />
 				</label>
 				
-				<button position="relative" x="-16" y="4" width="14" height="14" adapt="false" float="right">
+				<button position="relative" x="-16" y="4" width="14" height="14" adapt="false" float="right" action="print(tabcls2.rect().json())" >
 					<states link="states.close" />
 				</button>
 				
 				<custom id=".tabs" type="tiled" position="relative" x="2" y="2" width="295" height="20" col="100" bkclr="#E5E5E5" float="width">
 					<border width="1" color="#ACA899" bottom="1" />
-					<events dbclk="new_tab_view()" />
+					<events dbclk="new_tab_view('xplorer')" />
 					<items width="adapt" height="20">
 						<!--<item id=".tab1" text="" icon="" tab="item.tab" />-->
 					</items>
 					<button id="item.id" width="adapt,15" height="20" view="item.view" path="vpath" text="item.text" align="center,vcenter" offset="24">
-						<tabs tab="item.tab" group="folders" action="click_tab(this)" />
+						<tabs tab="item.tab" group="folders" action="click_tab('xplorer', this)" />
 						<events dbclk="close_tab(this)" rbtn="pop_tab_menu(this, 'this')" />
 						<states ix="6" iy="2">
 							<normal icon="item.icon" link="javascript:tabbtn.id" />
@@ -353,18 +353,18 @@
 					<border width="1" color="#ACA899" />
 				</label>
 				
-				<button position="relative" x="-16" y="4" width="14" height="14" adapt="false" float="width">
+				<button id="tabcls2" position="relative" x="-16" y="4" width="14" height="14" adapt="false" float="right">
 					<states link="states.close" />
 				</button>
 				
 				<custom id=".tabs" type="tiled" position="relative" x="2" y="2" width="295" height="20" col="100" bkclr="#E5E5E5" float="width">
 					<border width="1" color="#ACA899" bottom="1" />
-					<events dbclk="new_tab_view()" />
+					<events dbclk="new_tab_view('xplorer2')" />
 					<items width="adapt" height="20">
 						<!--<item id=".tab1" text="" icon="" tab="item.tab" />-->
 					</items>
 					<button id="item.id" width="adapt,15" height="20" view="item.view" path="vpath" text="item.text" align="center,vcenter" offset="24">
-						<tabs tab="item.tab" group="folders" action="click_tab(this)" />
+						<tabs tab="item.tab" group="folders" action="click_tab('xplorer2', this)" />
 						<events dbclk="close_tab(this)" rbtn="pop_tab_menu(this, 'this')" />
 						<states ix="6" iy="2">
 							<normal icon="item.icon" link="javascript:tabbtn.id" />

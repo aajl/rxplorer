@@ -1,8 +1,6 @@
 var folder_index = 0;
 var xplorer_left_pos = 0;
-var session = [];
 var bookmark = [];
-var session_open = {};
 var favorite_folders = [];
 var curr_tab = null;
 var clicked_tab = false;
@@ -109,24 +107,16 @@ $(function(){
 
 	sys.explorer.treeview_new("treeview.tree.view", treeview.tree.view.rect());
 	
-	load_session();
-		
+	load_session("xplorer", "session.json");
+	//load_session("xplorer2", "session2.json");
+	
 	load_setting();
 });
 
 function on_close() {
-	var children = xplorer.tabs.children;
-	print("close " + children + " tabs \n");
-	
-	session = [];
-	for(var i = 0; i < children; ++i) {
-		var tab = xplorer.tabs.child(i);
-		session.push({"name":tab.text, "path":tab.path});
-		print("name: " + tab.text + " path: " + tab.path + "\n");
-	}
-	
-	save2file(session, "session.json");
-	
+	save_session(xplorer, "session.json");
+	save_session(xplorer2, "session2.json");
+
 	save2file(setting, "setting.json");
 }
 
@@ -211,31 +201,38 @@ function load_favorite_folders() {
     file = null;
 }
 
-function load_session() {
+function save_session(xplor, filename) {
+	var sess = [];
+	var children = xplor.tabs.children;
+	for(var i = 0; i < children; ++i) {
+		var tab = xplor.tabs.child(i);
+		sess.push({"name":tab.text, "path":tab.path});
+	}
+	
+	save2file(sess, filename);
+}
+
+function load_session(xplor_id, filename, sess_open) {
 	var file = new jfile;
     var app_path = sys.get_path(sys.app_path);
-    if (!file.open(app_path + "\\session.json", "r"))
+    if (!file.open(app_path + "\\" + filename, "r"))
 		return;
 
 	var data = file.read();
 	if(data == null || data.length == 0)
 		return;
 	
-	session = eval("(" + data + ")");
+	var sess = eval("(" + data + ")");
 	file.close();
 	file = null;
 	
-	for(var i = 0; i < session.length; ++i) {
-		session_open[session[i].view] = 0;
-	}
-	
-	if(session.length > 0) {
-		new_tab_view(session[0].path, session[0].name);
-		for(var i = 1; i < session.length; ++i) {
-			new_tab(session[i].path, session[i].name);
+	if(sess.length > 0) {
+		new_tab_view(xplor_id, sess[0].path, sess[0].name);
+		for(var i = 1; i < sess.length; ++i) {
+			new_tab(xplor_id, sess[i].path, sess[i].name);
 		}
 	} else {
-		new_tab_view();
+		new_tab_view(xplor_id);
 	}
 }
 
@@ -281,44 +278,47 @@ function show_treeview() {
 	}
 }
 
-function new_tab(path, name) {
+function new_tab(xplor_id, path, name) {
 	++folder_index;
 	
 	// 增加一个tab按钮
 	var tab_id = "tab" + folder_index;
-	var view_id = "explorer.xplorer.views.view" + folder_index;
-	var view_obj = "xplorer.views.view" + folder_index;
+	var view_id = "explorer." + xplor_id + ".views.view" + folder_index;
+	var view_obj = xplor_id + ".views.view" + folder_index;
 
-	xplorer.tabs.insert({"id":"." + tab_id, "tab":view_id, "view": view_obj, "text":name, "icon":path});
+	var xplor = eval(xplor_id);
+	xplor.tabs.insert({"id":"." + tab_id, "tab":view_id, "view": view_obj, "text":name, "icon":path});
 	
-	var tab = eval("xplorer.tabs." + tab_id);
+	var tab = eval(xplor_id + ".tabs." + tab_id);
 	tab.path = path;
 	tab.index = folder_index;
 	tab.uninit = true;
 }
 
-function new_tab_view(path, name) {
+function new_tab_view(xplor_id, path, name) {
 	++folder_index;
 
 	if(typeof(path) == "undefined")
 		path = "Computer";
 	
+	var xplor = eval(xplor_id);
+	
 	// 增加一个视图
 	var view_id = "view" + folder_index;
-	xplorer.views.insert({"id":"." + view_id});
-	view_id = "xplorer.views." + view_id;
+	xplor.views.insert({"id":"." + view_id});
+	view_id = xplor_id + ".views." + view_id;
     var view = eval(view_id);
 	
 	// 增加一个tab按钮
 	var tab_id = "tab" + folder_index;
-	xplorer.tabs.insert({"id":"." + tab_id, "tab":view.id, "view": view_id, "text":name, "icon":path});
+	xplor.tabs.insert({"id":"." + tab_id, "tab":view.id, "view": view_id, "text":name, "icon":path});
 	if(curr_tab != null)
 		curr_tab.check(false);
 	
-	curr_tab = eval("xplorer.tabs." + tab_id);
+	curr_tab = eval(xplor_id + ".tabs." + tab_id);
 	curr_tab.path = path;
 	if(folder_index == 1)
-		xplorer.tabs.tab1.check(true);
+		xplor.tabs.tab1.check(true);
 	
 	var hid = sys.explorer.new(view.handler(), path, view.rect(), view_id);
 }
@@ -328,16 +328,19 @@ function open_folder(path) {
 	sys.explorer.open(0, path);
 }
 
-function click_tab(tab) {
+function click_tab(xplor_id, tab) {
 	curr_tab = tab;
+	print(tab.id + "\n");
 	if(tab.uninit)
 	{
 		tab.uninit = false;
 		
+		var xplor = eval(xplor_id);
+		
 		// 增加一个视图
 		var view_id = "view" + tab.index;
-		xplorer.views.insert({"id":"." + view_id});
-		view_id = "xplorer.views." + view_id;
+		xplor.views.insert({"id":"." + view_id});
+		view_id = xplor_id + ".views." + view_id;
 		var view = eval(view_id);
 		var hid = sys.explorer.new(view.handler(), tab.path, view.rect(), view_id);
 	} else {
@@ -362,7 +365,7 @@ function pop_tab_menu(tab, id) {
 }
 
 function duplicate_tab() {
-	new_tab_view(poped_menu_tab.path);
+	new_tab_view("xplorer", poped_menu_tab.path);
 }
 
 function add_favorite_folder(path) {
@@ -409,7 +412,7 @@ function remove_favorite_tool(tool) {
 			save2file(bookmark, "bookmark.json");
 			break;
 		}
-   }
+   } 
 
    favtools.remove(tool.id);
 }
