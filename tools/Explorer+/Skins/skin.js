@@ -8,6 +8,7 @@ var poped_menu_tab = null;
 var poped_menu_tool = null;
 var poped_menu_xplor_id = null;
 var setting = {};
+var selected_files = [];
 
 $(function(){
 	print("load succeeded\n");
@@ -47,6 +48,7 @@ $(function(){
 			print("active: " + path + " " + display_name + " " + view_id + "\n");
 		},
 		selected:function(files) {
+			selected_files = files;
 			if(files.length == 0) {
 				statusbar.filename.text = curr_tab.text;
 			} else if(files.length == 1) {
@@ -173,7 +175,8 @@ function load_favorite_tools() {
 		path = path.replace(/%App/gi, app_path);
 
 		var id = sys.hash(path);
-		favtools.insert({"id":"btn" + id, "path":path, "icon":path + "|0|24"});
+		var param = (typeof(bookmark[i].param) == "undefined") ? "" : bookmark[i].param;
+		favtools.insert({"id":"btn" + id, "path":path, "icon":path + "|0|24", "param": param});
 	}
 
     file = null;
@@ -462,4 +465,20 @@ function sync_treeview() {
 function locate_tool(path) {
 	var pth = new jpath(path);
 	sys.shell_execute(pth.remove_filename());
+}
+
+function open_tool(path, param) {
+	if(param.length > 0) {
+		if(selected_files.length > 0) {
+			param = param.replace(/%FullPath/gi, selected_files[0]);
+		
+			var jpth = new jpath(selected_files[0]);
+			param = param.replace(/%Path/gi, jpth.remove_filename());
+		} else {
+			param = param.replace(/%Path/gi, addr.path);
+		}
+	}
+	
+	print(param + "\n");
+	sys.shell_execute(path, param);
 }
