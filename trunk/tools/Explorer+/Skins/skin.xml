@@ -94,7 +94,7 @@
 			<events dbclk="print('db clk\n')" rbtn="print('rbutton\n')" />
 			<items width="29" height="29">
 			</items>
-			<button id="item.id" width="29" height="29" path="item.path" action="sys.shell_execute(this.path)">
+			<button id="item.id" width="29" height="29" path="item.path" param="item.param" action="open_tool(this.path, this.param)">
 				<events rbtn="pop_tool_menu(this)" />
 				<states width="24" height="24">
 					<normal icon="item.icon" ix="3" iy="3" size="24" border="0" bkclr="#E5E5E5" />
