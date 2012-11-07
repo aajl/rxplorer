@@ -9,6 +9,8 @@ var poped_menu_tool = null;
 var poped_menu_xplor_id = null;
 var setting = {};
 var selected_files = [];
+var session_open = false;
+var session2_open = false;
 
 $(function(){
 	print("load succeeded\n");
@@ -28,24 +30,30 @@ $(function(){
 			print("open: " + path + " " + display_name + " " + view_id + "\n");
 		},
 		active:function(path, display_name, view_id) {
-			curr_tab.text = display_name;
-			curr_tab.path = path;
 			if(setting.treeview.sync)
-				sys.explorer.treeview_sync(curr_tab.path);
-				
+				sys.explorer.treeview_sync(path);
+			
 			if(path.substr(0, 2) == "::" || path == "desktop")
 				addr.path = display_name;
 			else
 				addr.path = path;
 			
 			if(clicked_tab) {
+				curr_tab.text = display_name;
+				curr_tab.path = path;
 				clicked_tab = false;
 				filefilter.clear();
 				sys.explorer.get_filter();
 			}
 			
 			//print("tab: " + curr_tab.id + " type: " + typeof(curr_tab) + "\n");
-			print("active: " + path + " " + display_name + " " + view_id + "\n");
+			print("active: " + path + ", name: " + display_name + ", curr view: " + view_id + ", curr tab view: " + curr_tab.view + "\n");
+			
+			session_open = true;
+			if(!session2_open) {
+				session2_open = true;
+				load_session("xplorer2", "session2.json");
+			}
 		},
 		selected:function(files) {
 			selected_files = files;
@@ -113,7 +121,6 @@ $(function(){
 	load_setting();
 	
 	load_session("xplorer", "session.json");
-	load_session("xplorer2", "session2.json");
 	
 	if(!setting.treeview.show)
 		show_treeview();
@@ -213,7 +220,7 @@ function save_session(xplor, filename) {
 	var children = xplor.tabs.children;
 	for(var i = 0; i < children; ++i) {
 		var tab = xplor.tabs.child(i);
-		sess.push({"name":tab.text, "path":tab.path});
+		sess.push({"name": tab.text, "path": tab.path});
 	}
 	
 	save2file(sess, filename);
@@ -288,7 +295,7 @@ function new_tab(xplor_id, path, name) {
 	
 	// 增加一个tab按钮
 	var tab_id = "tab" + folder_index;
-	var view_id = "explorer." + xplor_id + ".views.view" + folder_index;
+	var view_id = "explorer.xplr." + xplor_id + ".views.view" + folder_index;
 	var view_obj = xplor_id + ".views.view" + folder_index;
 
 	var xplor = eval(xplor_id);
