@@ -37,17 +37,21 @@ $(function(){
 				addr.path = display_name;
 			else
 				addr.path = path;
-			
+						
 			if(clicked_tab) {
 				curr_tab.text = display_name;
 				curr_tab.path = path;
 				clicked_tab = false;
 				filefilter.clear();
 				sys.explorer.get_filter();
+			} else {
+				var view = eval(view_id);
+				curr_tab = eval(view.tabobj);
 			}
 			
+			//print("active: curr_tab_obj: " + view.tabobj + "curr_view_obj:" + view_id + "\n");
 			//print("tab: " + curr_tab.id + " type: " + typeof(curr_tab) + "\n");
-			print("active: " + path + ", name: " + display_name + ", curr view: " + view_id + ", curr tab view: " + curr_tab.view + "\n");
+			print("active: " +  " name: " + display_name + ", curr_view: " + view_id + ", curr_tab_view: " + curr_tab.view + "\n");
 			
 			session_open = true;
 			if(!session2_open) {
@@ -295,14 +299,16 @@ function new_tab(xplor_id, path, name) {
 	
 	// 增加一个tab按钮
 	var tab_id = "tab" + folder_index;
+	var tab_obj = xplor_id + ".tabs." + tab_id;
 	var view_id = "explorer.xplr." + xplor_id + ".views.view" + folder_index;
 	var view_obj = xplor_id + ".views.view" + folder_index;
 
 	var xplor = eval(xplor_id);
 	xplor.tabs.insert({"id":"." + tab_id, "tab":view_id, "view": view_obj, "text":name, "icon":path});
 	
-	var tab = eval(xplor_id + ".tabs." + tab_id);
+	var tab = eval(tab_obj);
 	tab.path = path;
+	tab.obj = tab_obj;
 	tab.index = folder_index;
 	tab.uninit = true;
 }
@@ -315,24 +321,28 @@ function new_tab_view(xplor_id, path, name) {
 	
 	var xplor = eval(xplor_id);
 	
-	// 增加一个视图
 	var view_id = "view" + folder_index;
-	xplor.views.insert({"id":"." + view_id});
-	view_id = xplor_id + ".views." + view_id;
-    var view = eval(view_id);
+	var view_obj = xplor_id + ".views." + view_id;
 	
-	// 增加一个tab按钮
 	var tab_id = "tab" + folder_index;
-	xplor.tabs.insert({"id":"." + tab_id, "tab":view.id, "view": view_id, "text":name, "icon":path});
+	var tab_obj = xplor_id + ".tabs." + tab_id;
+	
+	// 增加一个视图
+	xplor.views.insert({"id":"." + view_id, "tabobj": tab_obj});
+    var view = eval(view_obj);
+	view.tabobj = tab_obj;
+
+	// 增加一个tab按钮
+	xplor.tabs.insert({"id":"." + tab_id, "tab":view.id, "view": view_obj, "text":name, "icon":path});
 	if(curr_tab != null)
 		curr_tab.check(false);
 	
-	curr_tab = eval(xplor_id + ".tabs." + tab_id);
+	curr_tab = eval(tab_obj);
 	curr_tab.path = path;
 	if(folder_index == 1)
 		xplor.tabs.tab1.check(true);
 	
-	var hid = sys.explorer.new(view.handler(), path, view.rect(), view_id);
+	var hid = sys.explorer.new(view.handler(), path, view.rect(), view_obj);
 }
 
 function open_folder(path) {
@@ -343,18 +353,18 @@ function open_folder(path) {
 function click_tab(xplor_id, tab) {
 	curr_tab = tab;
 	print(tab.id + "\n");
-	if(tab.uninit)
-	{
+	if(tab.uninit) {
 		tab.uninit = false;
 		
 		var xplor = eval(xplor_id);
 		
 		// 增加一个视图
 		var view_id = "view" + tab.index;
+		var view_obj = xplor_id + ".views." + view_id;
 		xplor.views.insert({"id":"." + view_id});
-		view_id = xplor_id + ".views." + view_id;
-		var view = eval(view_id);
-		var hid = sys.explorer.new(view.handler(), tab.path, view.rect(), view_id);
+		var view = eval(view_obj);
+		view.tabobj = tab.obj;
+		var hid = sys.explorer.new(view.handler(), tab.path, view.rect(), view_obj);
 	} else {
 		clicked_tab = true;
 	}
@@ -486,6 +496,6 @@ function open_tool(path, param) {
 		}
 	}
 	
-	print(param + "\n");
+	print(path + " " + param + "\n");
 	sys.shell_execute(path, param);
 }
