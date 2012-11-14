@@ -499,3 +499,15 @@ function open_tool(path, param) {
 	print(path + " " + param + "\n");
 	sys.shell_execute(path, param);
 }
+
+function copy_file(override) {
+	sys.explorer.copyfile("D:\\Programs\\DirectUI\\Bin\\Skins\\Contact\\WanDouJia.png", "D:\\新建文件夹\\", false);
+}
+
+function move_file(override) {
+	print("move file\n");
+}
+
+function on_accel(accel) {
+	print(accel + "\n");
+}

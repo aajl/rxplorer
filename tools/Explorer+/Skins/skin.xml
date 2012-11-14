@@ -4,6 +4,13 @@
 
 	<include>res.xml</include>
 	
+	<accels handler="on_accel">
+		<accel vkey="" key="F6" action="copy_file(true)" />
+		<accel vkey="" key="F7" action="copy_file(false)" />
+		<accel vkey="" key="F8" action="move_file(true)" />
+		<accel vkey="" key="F9" action="move_file(false)" />
+	</accels>
+	
 	<panel id="explorer" title="Explorer++" type="app" bkclr="#E5E5E5" drag="true">
 		<size x="0" y="0" width="880" height="660" resize="true" min-width="880" min-height="660" />
 		<events maximize="max.check(true)" restore="max.check(false)" close="on_close()" drop="on_dropfiles" />
