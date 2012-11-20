@@ -3,6 +3,8 @@ var xplorer_left_pos = 0;
 var bookmark = [];
 var favorite_folders = [];
 var curr_tab = null;
+var pane1_curr_tab = null
+var pane2_curr_tab = null;
 var clicked_tab = false;
 var poped_menu_tab = null;
 var poped_menu_tool = null;
@@ -14,7 +16,7 @@ var session2_open = false;
 
 $(function(){
 	print("load succeeded\n");
-		
+
 	sys.explorer.handler({
 		open:function(path, display_name, view_id) {
 			curr_tab.text = display_name;
@@ -49,9 +51,13 @@ $(function(){
 				curr_tab = eval(view.tabobj);
 			}
 			
-			//print("active: curr_tab_obj: " + view.tabobj + "curr_view_obj:" + view_id + "\n");
-			//print("tab: " + curr_tab.id + " type: " + typeof(curr_tab) + "\n");
-			print("active: " +  " name: " + display_name + ", curr_view: " + view_id + ", curr_tab_view: " + curr_tab.view + "\n");
+			print("active: " +  " name: " + display_name + ", curr_view: " + view_id + ", curr pane: " + view_id.split(".", 1) + "\n");
+			if(view_id.split(".", 1) == "xplorer") {
+				pane1_curr_tab = curr_tab;
+			}
+			else if(view_id.split(".", 1) == "xplorer2") {
+				pane2_curr_tab = curr_tab;
+			}
 			
 			session_open = true;
 			if(!session2_open) {
@@ -501,11 +507,35 @@ function open_tool(path, param) {
 }
 
 function copy_file(override) {
-	sys.explorer.copyfile("D:\\Programs\\DirectUI\\Bin\\Skins\\Contact\\WanDouJia.png", "D:\\新建文件夹\\", false);
+	if(selected_files.length == 0 || pane1_curr_tab == null || pane2_curr_tab == null)
+		return;
+	
+	if(!pane1_curr_tab.visible() || !pane2_curr_tab.visible())
+		return;
+	
+	if(pane1_curr_tab == curr_tab) {
+		print("select files: " + selected_files[0] + " other: " + pane2_curr_tab.path + "\n");
+		sys.explorer.copyfile(selected_files, pane2_curr_tab.path);
+	} else if(pane2_curr_tab == curr_tab) {
+		print("select files: " + selected_files[0] + " other: " + pane1_curr_tab.path + "\n");
+		sys.explorer.copyfile(selected_files, pane1_curr_tab.path);
+	}
 }
 
 function move_file(override) {
-	print("move file\n");
+	if(selected_files.length == 0 || pane1_curr_tab == null || pane2_curr_tab == null)
+		return;
+	
+	if(!pane1_curr_tab.visible() || !pane2_curr_tab.visible())
+		return;
+	
+	if(pane1_curr_tab == curr_tab) {
+		print("select files: " + selected_files[0] + " other: " + pane2_curr_tab.path + "\n");
+		sys.explorer.movefile(selected_files, pane2_curr_tab.path);
+	} else if(pane2_curr_tab == curr_tab) {
+		print("select files: " + selected_files[0] + " other: " + pane1_curr_tab.path + "\n");
+		sys.explorer.movefile(selected_files, pane1_curr_tab.path);
+	}
 }
 
 function on_accel(accel) {
