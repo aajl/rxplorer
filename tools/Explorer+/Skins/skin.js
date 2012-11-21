@@ -13,6 +13,7 @@ var setting = {};
 var selected_files = [];
 var session_open = false;
 var session2_open = false;
+var maximize = false;
 
 $(function(){
 	print("load succeeded\n");
@@ -134,6 +135,9 @@ $(function(){
 	
 	if(!setting.treeview.show)
 		show_treeview();
+	
+	if(setting.explorer.max)
+		explorer.max();
 });
 
 function on_close() {
@@ -278,6 +282,11 @@ function load_setting() {
 		setting.treeview = {};
 		setting.treeview.sync = false;
 		setting.treeview.show = true;
+	}
+	
+	if(typeof(setting.explorer) == "undefined") {
+		setting.explorer = {};
+		setting.explorer.max = false;
 	}
 	
 	if(setting.treeview.sync)
