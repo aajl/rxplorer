@@ -50,7 +50,7 @@
 			<down border="1" color="#316AC5" bkclr="#C1D2EE" />
 		</states>
 
-		<label bkimg="item.img" x="0" y="0" width="122" height="23">
+		<label bkimg="item.img" width="122" height="23">
 			<attribs text="item.text" offset="30" align="singleline,vcenter" />
 			<image x="item.x" y="item.y" width="19" height="19" dx="2" dy="2" />
 		</label>
