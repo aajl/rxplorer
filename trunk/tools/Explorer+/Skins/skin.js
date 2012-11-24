@@ -16,6 +16,30 @@ var session_open = false;
 var session2_open = false;
 var maximize = false;
 
+// 1. 左边的不能新标签
+// 2. 文件过滤器不能用,并且无滚动条.
+// 3. 驱动器栏要用异步的方式
+// 4. 关闭标签后没有自动选择一个标签
+// 5. 隐藏文件夹后坐标错误
+// 6. 第二面板不能隐藏
+// 7. 地址栏不能使用
+// 8. 状态栏信息显示不全
+// 9. 菜单栏不能用
+// 10. 搜索栏不能用
+// 11. 文件夹内双击空白处不能返回上一级
+// 12. 状态栏高度应该可调整,可变为简洁模式和详细模式.
+// 13. 常用工具栏多数工具不可用,并且太少.
+// 14. 改变大小后,第二面板的关闭按钮不见了.
+// 15. 点击标签右边的关闭不能关闭标签.
+// 16. 标签过多时,无滚动条或其它方式显示所有标签.
+// 17. 弹出窗口的高度不能根据项数自动计算.
+// 18. 弹出菜单在点击文件夹时不自动隐藏.
+// 19. 无tooltip
+// 20. 改变窗口宽度时,文件夹窗口大小发生异常,且默认状态下宽度也偏宽.
+// 21. 无各类设置窗口.
+// 22. 无多语言
+// 23. 无undo/redo
+
 $(function(){
 	print("load succeeded\n");
 
@@ -99,6 +123,8 @@ $(function(){
 				filefilter.redraw();
 			}
 		},
+		drives:function(drives) {
+		}
 	});
 
 	var obj = sys.explorer.drives();
@@ -257,7 +283,6 @@ function load_session(xplor_id, filename, sess_open) {
 			new_tab(xplor_id, sess[i].path, sess[i].name);
 		}
 	} else {
-		print("load session " + xplor_id + "\n");
 		new_tab_view(xplor_id);
 	}
 }
@@ -318,6 +343,8 @@ function new_tab(xplor_id, path, name) {
 function new_tab_view(xplor_id, path, name) {
 	++folder_index;
 
+	print("new tab view: " + xplor_id + " " + path + "\n");
+	
 	if(typeof(path) == "undefined")
 		path = "Computer";
 	
@@ -502,7 +529,7 @@ function open_tool(path, param) {
 	sys.shell_execute(path, param);
 }
 
-function copy_file(override) {
+function copy_file() {
 	if(selected_files.length == 0 || pane1_curr_tab == null || pane2_curr_tab == null)
 		return;
 	
@@ -518,7 +545,7 @@ function copy_file(override) {
 	}
 }
 
-function move_file(override) {
+function move_file() {
 	if(selected_files.length == 0 || pane1_curr_tab == null || pane2_curr_tab == null)
 		return;
 	
@@ -532,6 +559,9 @@ function move_file(override) {
 		print("select files: " + selected_files[0] + " other: " + pane1_curr_tab.path + "\n");
 		sys.explorer.movefile(selected_files, pane1_curr_tab.path);
 	}
+}
+
+function new_folder() {
 }
 
 function on_accel(accel) {
@@ -556,5 +586,35 @@ function edit_file() {
 			continue;
 		
 		sys.shell_execute(edtr, selected_files[i]);
+	}
+}
+
+function open_curr_folder() {
+	if(curr_tab == null)
+		return;
+	
+	sys.shell_execute(curr_tab.path);
+}
+
+function filter_files() {
+	var children = filefilter.children;
+	if(children == 0)
+		return;
+	
+	for(var i = 0; i < children; ++i) {
+		print("index: " + i + " " + filefilter.child(i).checked + "\n");
+	}
+}
+
+function show_statusbar(show) {
+	print(show + "\n");
+	if(show) {
+		detailbar.hide();
+		statusbar.show();
+		statusbar.redraw();
+	} else {
+		statusbar.hide();
+		detailbar.show();
+		detailbar.redraw();
 	}
 }
