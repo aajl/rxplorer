@@ -6,10 +6,10 @@
 	
 	<accels id="accel" handler="on_accel">
 		<accel vkey="" key="F4" action="edit_file()" />
-		<accel vkey="" key="F6" action="copy_file(true)" />
-		<accel vkey="" key="F7" action="copy_file(false)" />
-		<accel vkey="" key="F8" action="move_file(true)" />
-		<accel vkey="" key="F9" action="move_file(false)" />
+		<accel vkey="" key="F6" action="copy_file()" />
+		<accel vkey="" key="F7" action="move_file()" />
+		<accel vkey="" key="F8" action="new_folder()" />
+		<accel vkey="Ctrl" key="E" action="open_curr_folder()" />
 	</accels>
 	
 	<panel id="explorer" title="Explorer++" type="app" bkclr="#E5E5E5" drag="true">
@@ -288,7 +288,7 @@
 						<item text="BMP 文件(*.bmp)" icon=".bmp" />
 						<item text="压缩文件(*.rar)" icon=".rar" />
 					</items>
-					<layer width="238" height="20" text="item.text" offset="38" align="vcenter" checkable="true" adapt="false">
+					<layer width="238" height="20" text="item.text" offset="38" align="vcenter" checkable="true" adapt="false" action="filter_files()">
 						<states normal="checkbox.png" ix="19" iy="2" dx="3" dy="3" width="13" height="13">
 							<normal icon="item.icon" x="0" bkclr="#ffffff" />
 							<hover x="13" />
@@ -398,7 +398,7 @@
 		</layer>
 		
 		<!--状态栏-->
-		<layer id="statusbar" x="3" y="587" width="874" height="70" float="width,bottom">
+		<layer id="detailbar" x="3" y="587" width="874" height="70" float="width,bottom" bkclr="#E5E5E5">
 			<border width="1" color="#ACA899" />
 			
 			<!--img src="statusbar.png" position="relative" x="0" y="0" width="878" height="70" float="width">
@@ -429,8 +429,31 @@
 				</items>
 				<label text="item.text" width="155" height="18" color="#5A6779" align="vcenter" />
 			</custom>
+			
+			<button text="↓" position="relative" x="-12" y="2" width="10" height="16" float="right" action="show_statusbar(true)">
+				<states width="16" height="16" ix="2" iy="2">
+					<normal bkclr="#E5E5E5" />
+					<hover ix="1" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+			</button>
 		</layer>
 
+		<layer id="statusbar" x="3" y="637" width="874" height="20" float="width,bottom" bkclr="#E5E5E5" visible="false">
+			<border width="1" color="#ACA899" />
+			
+			<label id=".filename" position="relative" adapt="true" text="给我一个温暖空间.avi" bkclr="#E5E5E5" align="vcenter">
+				<pos x="2" y="1" width="150" height="18" />
+			</label>
+
+			<button text="↑" position="relative" x="-12" y="2" width="10" height="16" float="right" action="show_statusbar(false)">
+				<states width="16" height="16" ix="2" iy="2">
+					<normal bkclr="#E5E5E5" />
+					<hover ix="1" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+			</button>
+		</layer>
 	</panel> <!-- end explorer -->
 	
 	<include>menu.xml</include>
