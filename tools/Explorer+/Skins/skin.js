@@ -1,6 +1,9 @@
 var folder_index = 0;
 var xplorer_left_pos = 0;
+var setting = {};
+var editer = [];
 var bookmark = [];
+var selected_files = [];
 var favorite_folders = [];
 var curr_tab = null;
 var pane1_curr_tab = null
@@ -9,8 +12,6 @@ var clicked_tab = false;
 var poped_menu_tab = null;
 var poped_menu_tool = null;
 var poped_menu_xplor_id = null;
-var setting = {};
-var selected_files = [];
 var session_open = false;
 var session2_open = false;
 var maximize = false;
@@ -138,6 +139,14 @@ $(function(){
 	
 	if(setting.explorer.max)
 		explorer.max();
+	
+	var app_path = sys.get_path(sys.app_path);
+	var sys_path = sys.get_path(sys.sys_path);
+	editer = json_from_file("editer.json", []);
+	for(var i = 0; i < editer.length; ++i) {
+		editer[i].editer = editer[i].editer.replace(/%Sys/gi, sys_path);
+		editer[i].editer = editer[i].editer.replace(/%App/gi, app_path);
+	}
 });
 
 function on_close() {
@@ -145,6 +154,20 @@ function on_close() {
 	save_session(xplorer2, "session2.json");
 
 	save2file(setting, "setting.json");
+}
+
+function json_from_file(path, def) {
+	var file = new jfile;
+    var app_path = sys.get_path(sys.app_path);
+    if (!file.open(app_path + "\\" + path, "r"))
+		return def;
+
+	var data = file.read();
+	file.close();
+	if(data.length == 0)
+		return def;
+
+	return eval("(" + data + ")");
 }
 
 function save2file(data, path) {
@@ -178,16 +201,9 @@ function move_main_menu() {
 }
 
 function load_favorite_tools() {
-    var file = new jfile;
+	bookmark = json_from_file("bookmark.json", []);
+	
     var app_path = sys.get_path(sys.app_path);
-    if (!file.open(app_path + "\\bookmark.json", "r"))
-		return;
-
-	var data = file.read();		
-	if(data.length == 0)
-		return;
-
-	bookmark = eval("(" + data + ")");
 	var sys_path = sys.get_path(sys.sys_path);
 	for (var i = 0; i < bookmark.length; ++i) {
 		var path = bookmark[i].path;
@@ -198,22 +214,17 @@ function load_favorite_tools() {
 		var id = sys.hash(path);
 		var param = (typeof(bookmark[i].param) == "undefined") ? "" : bookmark[i].param;
 		favtools.insert({"id":"btn" + id, "path":path, "icon":path + "|0|24", "param": param});
+		
+		if(typeof(bookmark[i].key) != "undefined" && bookmark[i].key.length > 0) {
+			
+		}
 	}
-
-    file = null;
 }
 
 function load_favorite_folders() {
-    var file = new jfile;
+	favorite_folders = json_from_file("folders.json", []);
+	
     var app_path = sys.get_path(sys.app_path);
-    if (!file.open(app_path + "\\folders.json", "r"))
-		return;
-
-	var data = file.read();
-	if(data.length == 0)
-		return;
-
-	favorite_folders = eval("(" + data + ")");
 	var sys_path = sys.get_path(sys.sys_path);
 	for (var i = 0; i < favorite_folders.length; ++i) {
 		var path = favorite_folders[i].path;
@@ -225,8 +236,6 @@ function load_favorite_folders() {
 		var id = sys.hash(path);
 		favfolders.insert({"id":"folder" + id, "name":name, "path":path, "icon":path, "action":"open_folder(this.path)"});
 	}
-
-    file = null;
 }
 
 function save_session(xplor, filename) {
@@ -241,19 +250,7 @@ function save_session(xplor, filename) {
 }
 
 function load_session(xplor_id, filename, sess_open) {
-	var file = new jfile;
-    var app_path = sys.get_path(sys.app_path);
-    if (!file.open(app_path + "\\" + filename, "r"))
-		return;
-
-	var data = file.read();
-	if(data == null || data.length == 0)
-		return;
-	
-	var sess = eval("(" + data + ")");
-	file.close();
-	file = null;
-	
+	var sess = json_from_file(filename, []);	
 	if(sess.length > 0) {
 		new_tab_view(xplor_id, sess[0].path, sess[0].name);
 		for(var i = 1; i < sess.length; ++i) {
@@ -266,17 +263,7 @@ function load_session(xplor_id, filename, sess_open) {
 }
 
 function load_setting() {
-	var file = new jfile;
-    var app_path = sys.get_path(sys.app_path);
-    if (!file.open(app_path + "\\setting.json", "r"))
-		return;
-
-	var data = file.read();
-	if(data != null && data.length > 0) {
-		setting = eval("(" + data + ")");
-		file.close();
-		file = null;
-	}
+	setting = json_from_file("setting.json", {});
 	
 	if(typeof(setting.treeview) == "undefined") {
 		setting.treeview = {};
@@ -549,4 +536,25 @@ function move_file(override) {
 
 function on_accel(accel) {
 	print(accel + "\n");
+}
+
+function find_editer(ext) {
+	print("ext " + ext + "\n");
+	for(var i = 0; i < editer.length; ++i) {
+		if(editer[i].ext.toLowerCase() == ext)
+			return editer[i].editer;
+	}
+	
+	return editer.length == 0 ? null : editer[0].editer;
+}
+
+function edit_file() {
+	for(var i = 0; i < selected_files.length; ++i) {
+		var path = new jpath(selected_files[i]);
+		var edtr = find_editer(path.ext().toLowerCase());
+		if(edtr == null)
+			continue;
+		
+		sys.shell_execute(edtr, selected_files[i]);
+	}
 }

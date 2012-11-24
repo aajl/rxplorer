@@ -4,7 +4,8 @@
 
 	<include>res.xml</include>
 	
-	<accels handler="on_accel">
+	<accels id="accel" handler="on_accel">
+		<accel vkey="" key="F4" action="edit_file()" />
 		<accel vkey="" key="F6" action="copy_file(true)" />
 		<accel vkey="" key="F7" action="copy_file(false)" />
 		<accel vkey="" key="F8" action="move_file(true)" />
