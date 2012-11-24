@@ -1,0 +1,6 @@
+[
+	{"ext": "txt", "editer": "F:\\hackangel_soft\\Notepad++\\notepad++.exe"},
+	{"ext": "bmp", "editer": "%Sys\\mspaint.exe"},
+	{"ext": "jpg", "editer": "%Sys\\mspaint.exe"},
+	{"ext": "png", "editer": "%Sys\\mspaint.exe"},
+]
