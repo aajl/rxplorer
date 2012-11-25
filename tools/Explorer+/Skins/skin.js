@@ -16,7 +16,7 @@ var session_open = false;
 var session2_open = false;
 var maximize = false;
 
-// 1. 左边的不能新标签
+// 1. 左边的不能新标签 √
 // 2. 文件过滤器不能用,并且无滚动条.
 // 3. 驱动器栏要用异步的方式
 // 4. 关闭标签后没有自动选择一个标签
@@ -111,13 +111,13 @@ $(function(){
 				filefilter.set_redraw(false);
 				for(var i = 0; i < types.length; ++i) {
 					if(types[i] == "#1folder")
-						filefilter.insert({"text":"显示文件夹", "icon":"icons.folder"});
+						filefilter.insert({"text":"显示文件夹", "icon":"icons.folder", "id": ".filterfolder"});
 					else if(types[i] == "#2hidden")
-						filefilter.insert({"text":"显示隐藏文件", "icon":"icons.file"});
+						filefilter.insert({"text":"显示隐藏文件", "icon":"icons.file", "id": ".filterhidden"});
 					else if(types[i] == "#3file")
-						filefilter.insert({"text":"显示所有文件", "icon":"icons.file"});
+						filefilter.insert({"text":"显示所有文件", "icon":"icons.file", "id": ".filterfile"});
 					else
-						filefilter.insert({"text":types[i], "icon":types[i]});
+						filefilter.insert({"text":types[i], "icon":types[i], "id": ".filter" + sys.hash(types[i])});
 				}
 				filefilter.set_redraw(true);
 				filefilter.redraw();
@@ -602,7 +602,8 @@ function filter_files() {
 		return;
 	
 	for(var i = 0; i < children; ++i) {
-		print("index: " + i + " " + filefilter.child(i).checked + "\n");
+		var flt = filefilter.child(i);
+		print("index: " + i + " " + flt.checked + "\n");
 	}
 }
 
