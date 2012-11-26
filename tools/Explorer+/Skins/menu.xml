@@ -1,16 +1,23 @@
-﻿<menu id="main_menu" x="504" y="24" width="126" height="145" visible="false" alpha="95" bkclr="#ffffff" margin="0,0,0,0,-1">
+﻿<menu id="main_menu" x="504" y="24" width="146" height="145" visible="false" alpha="95" bkclr="#ffffff" margin="0,0,0,0,-1">
 	<border width="1" color="#aca899" />
 	
 	<items height="23">
 		<item id="menu_file" text="文件">
-			<item text="新建视图" />
-			<item text="新建子视图" />
+			<item text="新建标签(&T)  Ctrl+T" action="new_tab_view(get_curr_xplorer())" />
+			<item text="新建文件夹" action="new_folder()" />
 			<separator />
-			<item text="打开会话" />
-			<item text="保存会话" />
+			<item text="打开会话(&O)  Ctrl+O" />
+			<item text="保存会话(&S)  Ctrl+S" />
 			<item text="会话另存为" />
 			<separator />
-			<item text="退出" />
+			<item text="退出(&E)" action="explorer.close()" />
+		</item>
+		<item id="menu_edit" text="编辑">
+			<item text="编辑(&E)                F4" action="edit_file()" />
+			<item text="刷新(&R)                F5" action="" />
+			<item text="复制(&C)                F6" action="copy_file()" />
+			<item text="移动(&M)                F7" action="move_file()" />
+			<separator />
 		</item>
 		<item id="menu_bookmark" text="书签">
 			<item text="添加书签" />
@@ -36,13 +43,13 @@
 			<separator />
 		</item>
 		<item id="menu_help" text="帮助">
-			<item text="帮助" />
-			<item text="检查更新" />
-			<item text="关于Explorer" />
+			<item text="帮助(&H)" />
+			<item text="检查更新(&C)" />
+			<item text="关于Explorer(&A)" />
 		</item>
 	</items>
 	
-	<layer x="0" y="0" width="122" height="23" adapt="false" action="item.action">
+	<layer x="0" y="0" width="142" height="23" adapt="false" action="item.action">
 		<events mouse_in="item.mouse_in" mouse_out="item.mouse_out" />
 		<states normal="menu.png" hover="null" down="null" width="23" height="23" ix="3" iy="3" >
 			<normal icon="item.icon" border="0" bkclr="#ffffff" />
@@ -50,7 +57,7 @@
 			<down border="1" color="#316AC5" bkclr="#C1D2EE" />
 		</states>
 
-		<label bkimg="item.img" width="122" height="23">
+		<label bkimg="item.img" width="142" height="23">
 			<attribs text="item.text" offset="30" align="singleline,vcenter" />
 			<image x="item.x" y="item.y" width="19" height="19" dx="2" dy="2" />
 		</label>

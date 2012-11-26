@@ -10,6 +10,8 @@
 	<icons removable="%SystemRoot%\\system32\\SHELL32.dll|7" />
 	<icons remote="%SystemRoot%\\system32\\SHELL32.dll|9" />
 	<icons folder="%SystemRoot%\\system32\\SHELL32.dll|4" />
+	<icons newfolder="%SystemRoot%\\system32\\SHELL32.dll|205|24" />
+	<icons foldertree="%SystemRoot%\\system32\\SHELL32.dll|297|24" />
 	<icons file="%SystemRoot%\\system32\\SHELL32.dll|134" />
 	<icons fav="%SystemRoot%\\system32\\SHELL32.dll|43" />
 	<icons up="%SystemRoot%\\system32\\SHELL32.dll|45|24" />

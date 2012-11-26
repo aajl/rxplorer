@@ -1,0 +1,15 @@
+﻿<custom type="tiled" position="relative" x="-320" y="-18" width="300" height="16" row="1" col="10" margin="0,5" float="right">
+	<items width="adapt" height="16">
+		<item text="F4 编辑" action="edit_file()" />
+		<item text="F6 复制" action="copy_file()" />
+		<item text="F7 移动" action="move_file()" />
+		<item text="F8 新建" action="new_folder()" />
+	</items>
+	<button text="item.text" width="adapt,15" height="16" action="item.action">
+		<states>
+			<normal bkclr="#E5E5E5" />
+			<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+			<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+		</states>
+	</button>
+</custom>
