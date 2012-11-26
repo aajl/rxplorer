@@ -10,6 +10,7 @@
 		<accel vkey="" key="F7" action="move_file()" />
 		<accel vkey="" key="F8" action="new_folder()" />
 		<accel vkey="Ctrl" key="E" action="open_curr_folder()" />
+		<accel vkey="Ctrl" key="T" action="new_tab_view(get_curr_xplorer())" />
 	</accels>
 	
 	<panel id="explorer" title="Explorer++" type="app" bkclr="#E5E5E5" drag="true">
@@ -17,10 +18,10 @@
 		<events maximize="print('max');setting.explorer.max=true;max.check(true)" restore="setting.explorer.max=false;max.check(false)" close="on_close()" drop="on_dropfiles" />
 		<border width="1" color="#404040" />
 		<hittest>
-			<rect x="475" y="0" width="295" height="23" float="width" />
+			<rect x="495" y="0" width="275" height="23" float="width" />
 		</hittest>
 
-		<label x="475" y="0" width="295" height="23" float="width" clickable="true">
+		<label x="495" y="0" width="275" height="23" float="width" clickable="true">
 			<events dbclk="explorer.max()" />
 		</label>
 
@@ -58,9 +59,10 @@
 		</layer> <!--系统按钮-->
 		
 		<!--主菜单按钮-->
-		<custom id="main_menu_btns" type="tiled" x="110" y="2" width="365" height="20" col="6" margin="0,2" bkclr="#E5E5E5">
+		<custom id="main_menu_btns" type="tiled" x="110" y="2" width="385" height="20" col="7" margin="0,2" bkclr="#E5E5E5">
 			<items width="53" height="20">
 				<item id="menu_file_btn" text="文件(F)" action="move_main_menu()" popup="main_menu.menu_file" />
+				<item id="menu_edit_btn" text="编辑(E)" action="move_main_menu()" popup="main_menu.menu_edit" />
 				<item id="menu_bookmark_btn" text="书签(B)" action="move_main_menu()" popup="main_menu.menu_bookmark" />
 				<item id="menu_plugin_btn" text="插件(P)" action="move_main_menu()" popup="main_menu.menu_plugin" />
 				<item id="menu_tools_btn" text="工具(T)" action="move_main_menu()" popup="main_menu.menu_tools" />
@@ -78,25 +80,44 @@
 		</custom>
 
 		<!--常用工具栏-->
-		<custom id="toolbar" x="1" y="24" width="131" height="29" col="4" type="tiled" margin="0,1,0,7" bkclr="#E5E5E5" bkimg="dragable.png">
+		<custom id="toolbar" x="1" y="24" width="142" height="29" col="4" type="tiled" margin="0,1,0,7" bkclr="#E5E5E5" bkimg="dragable.png">
 			<bkimg dx="2" dy="3" />
 			<items width="29" height="29">
-				<item img="computer.png" action="new_tab_view()" />
+				<item icon="icons.folder" action="new_tab_view(get_curr_xplorer())" />
 				<item img="folder.png" action="show_treeview()" />
-				<item img="search.png" action="filefilter.clear();"/>
-				<item img="thumb.png" action="print(curr_tab.id + ' ' + addr.path)" />
+				<item icon="icons.newfolder" action="" />
+				<item img="thumb.png" action="" cond="1" />
 			</items>
-			<button width="29" height="29" action="item.action">
-				<states normal="item.img" width="width" height="width">
-					<normal dx="3" dy="3" border="0" bkclr="#E5E5E5" />
-					<hover dx="2" dy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
-					<down dx="3" dy="3" border="1" color="#316AC5" bkclr="#C1D2EE" />
-				</states>
-			</button>
+			<if condition="item.cond">
+				<layer width="40" height="29">
+					<button width="29" height="29" action="item.action" adapt="false">
+						<states normal="item.img" width="24" height="24">
+							<normal icon="item.icon" dx="3" dy="3" ix="3" iy="3" size="24" border="0" bkclr="#E5E5E5" />
+							<hover dx="2" dy="2" ix="2" iy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
+							<down dx="3" dy="3" ix="3" iy="3" border="1" color="#316AC5" bkclr="#C1D2EE" />
+						</states>
+					</button>
+					<button width="11" height="29" action="" adapt="false">
+						<states normal="dropdown.png" width="7" height="24">
+							<normal dx="2" dy="13" border="0" bkclr="#E5E5E5" />
+							<hover dx="2" dy="12" border="1" color="#316AC5" bkclr="#C1D2EE" />
+							<down dx="2" dy="13" border="1" color="#316AC5" bkclr="#C1D2EE" />
+						</states>
+					</button>
+				</layer>
+			<else />
+				<button width="29" height="29" action="item.action" adapt="false">
+					<states normal="item.img" width="24" height="24">
+						<normal icon="item.icon" dx="3" dy="3" ix="3" iy="3" size="24" border="0" bkclr="#E5E5E5" />
+						<hover dx="2" dy="2" ix="2" iy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
+						<down dx="3" dy="3" ix="3" iy="3" border="1" color="#316AC5" bkclr="#C1D2EE" />
+					</states>
+				</button>
+			</if>
 		</custom>
 		
 		<!--收藏工具栏-->
-		<custom id="favtools" x="134" y="24" width="743" height="29" col="50" type="tiled" margin="0,1,0,7" float="width">
+		<custom id="favtools" x="143" y="24" width="734" height="29" col="50" type="tiled" margin="0,1,0,7" float="width">
 			<attribs bkclr="#E5E5E5" bkimg="dragable.png" oninit="load_favorite_tools()" />
 			<bkimg dx="2" dy="3" />
 			<events dbclk="print('db clk\n')" rbtn="print('rbutton\n')" />
@@ -430,13 +451,15 @@
 				<label text="item.text" width="155" height="18" color="#5A6779" align="vcenter" />
 			</custom>
 			
-			<button text="↓" position="relative" x="-12" y="2" width="10" height="16" float="right" action="show_statusbar(true)">
+			<button text="↓" position="relative" x="-12" y="-18" width="10" height="16" float="right" action="show_statusbar(true)">
 				<states width="16" height="16" ix="2" iy="2">
 					<normal bkclr="#E5E5E5" />
 					<hover ix="1" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
 					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
 				</states>
 			</button>
+			
+			<include>footertip.xml</include>
 		</layer>
 
 		<layer id="statusbar" x="3" y="637" width="874" height="20" float="width,bottom" bkclr="#E5E5E5" visible="false">
@@ -446,13 +469,15 @@
 				<pos x="2" y="1" width="150" height="18" />
 			</label>
 
-			<button text="↑" position="relative" x="-12" y="2" width="10" height="16" float="right" action="show_statusbar(false)">
+			<button text="↑" position="relative" x="-12" y="-18" width="10" height="16" float="right" action="show_statusbar(false)">
 				<states width="16" height="16" ix="2" iy="2">
 					<normal bkclr="#E5E5E5" />
 					<hover ix="1" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
 					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
 				</states>
 			</button>
+			
+			<include>footertip.xml</include>
 		</layer>
 	</panel> <!-- end explorer -->
 	

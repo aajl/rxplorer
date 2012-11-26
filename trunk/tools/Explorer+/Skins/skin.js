@@ -93,14 +93,15 @@ $(function(){
 		},
 		selected:function(files) {
 			selected_files = files;
+			var sbar = setting.statusbar.show ? statusbar : detailbar;
 			if(files.length == 0) {
-				statusbar.filename.text = curr_tab.text;
+				sbar.filename.text = curr_tab.text;
 			} else if(files.length == 1) {
 				var pth = new jpath(files[0]);
 				var text = pth.filename();
-				statusbar.filename.text = text.length == 0 ? files[0] : text;
+				sbar.filename.text = text.length == 0 ? files[0] : text;
 			} else {
-				statusbar.filename.text = "选择了 " + files.length + " 个文件";
+				sbar.filename.text = "选择了 " + files.length + " 个文件";
 			}
 		},
 		filter:function(types) {
@@ -160,6 +161,8 @@ $(function(){
 	
 	load_session("xplorer", "session.json");
 	
+	show_statusbar(setting.statusbar.show, true);
+
 	if(!setting.treeview.show)
 		show_treeview();
 	
@@ -219,6 +222,7 @@ function move_menu(menu_btn, menu_pane) {
 
 function move_main_menu() {
     move_menu(menu_file_btn, menu_file);
+    move_menu(menu_edit_btn, menu_edit);
     move_menu(menu_bookmark_btn, menu_bookmark);
     move_menu(menu_plugin_btn, menu_plugin);
     move_menu(menu_tools_btn, menu_tools);
@@ -299,6 +303,11 @@ function load_setting() {
 	if(typeof(setting.explorer) == "undefined") {
 		setting.explorer = {};
 		setting.explorer.max = false;
+	}
+	
+	if(typeof(setting.statusbar) == "undefined") {
+		setting.statusbar = {};
+		setting.statusbar.show = false;
 	}
 	
 	if(setting.treeview.sync)
@@ -607,15 +616,43 @@ function filter_files() {
 	}
 }
 
-function show_statusbar(show) {
-	print(show + "\n");
+function show_statusbar(show, init) {
+	setting.statusbar.show = show;
 	if(show) {
 		detailbar.hide();
 		statusbar.show();
 		statusbar.redraw();
+		
+		var rc = treeview.rect();
+		treeview.move(rc.x, rc.y, 240, rc.height + 50);
+		treeview.redraw(true);
+		
+		rc = xplr.rect();
+		xplr.move(rc.x, rc.y, 630, rc.height + 50);
+		xplr.redraw(true);
 	} else {
 		statusbar.hide();
 		detailbar.show();
 		detailbar.redraw();
+		
+		if(!init) {
+			var rc = treeview.rect();
+			treeview.move(rc.x, rc.y, 240, rc.height - 50);
+			treeview.redraw(true);
+			
+			rc = xplr.rect();
+			xplr.move(rc.x, rc.y, 630, rc.height - 50);
+			xplr.redraw(true);
+		}
 	}
+}
+
+function get_curr_xplorer() {
+	if(typeof(curr_tab) == "undefined" || curr_tab == null)
+		return "xplorer";
+	
+	if(pane2_curr_tab == curr_tab)
+		return "xplorer2";
+	
+	return "xplorer";
 }
