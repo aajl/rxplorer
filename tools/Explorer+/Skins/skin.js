@@ -161,10 +161,11 @@ $(function(){
 	
 	load_session("xplorer", "session.json");
 	
-	show_statusbar(setting.statusbar.show, true);
+	if(setting.statusbar.show)
+		show_statusbar(true);
 
 	if(!setting.treeview.show)
-		show_treeview();
+		show_treeview(false);
 	
 	if(setting.explorer.max)
 		explorer.max();
@@ -314,20 +315,23 @@ function load_setting() {
 		sync.check(true);
 }
 
-function show_treeview() {
-	if(treeview.visible()) {
-		treeview.hide();
-		xplorer.move(treeview.x, xplorer.y, xplorer.width + xplorer.x - treeview.x, xplorer.height);
-		xplorer.redraw(true);
-		setting.treeview.show = false;
-	} else {
-		xplorer.move(247, xplorer.y, 630, xplorer.height);
+function show_treeview(show) {
+	var rc = xplr.rect();
+	var width = treeview.width + 2;
+	if(show) {
+		xplr.move(245, rc.y, rc.width - width, rc.height);
 		treeview.show();
-		//treeview.redraw(true);
-		xplorer.redraw(true);
-		explorer.redraw(true);
+		treeview.redraw(true);
+		xplr.redraw(true);
 		setting.treeview.show = true;
+	} else {
+		treeview.hide();
+		xplr.move(3, rc.y, rc.width + width, rc.height);
+		xplr.redraw(true);
+		setting.treeview.show = false;
 	}
+
+	explorer.redraw(true);
 }
 
 function new_tab(xplor_id, path, name) {
@@ -618,32 +622,31 @@ function filter_files() {
 
 function show_statusbar(show, init) {
 	setting.statusbar.show = show;
+	var height = detailbar.height - statusbar.height;
 	if(show) {
 		detailbar.hide();
 		statusbar.show();
 		statusbar.redraw();
 		
 		var rc = treeview.rect();
-		treeview.move(rc.x, rc.y, 240, rc.height + 50);
+		treeview.move(rc.x, rc.y, rc.width, rc.height + height);
 		treeview.redraw(true);
 		
 		rc = xplr.rect();
-		xplr.move(rc.x, rc.y, 630, rc.height + 50);
+		xplr.move(rc.x, rc.y, rc.width, rc.height + height);
 		xplr.redraw(true);
 	} else {
 		statusbar.hide();
 		detailbar.show();
 		detailbar.redraw();
 		
-		if(!init) {
-			var rc = treeview.rect();
-			treeview.move(rc.x, rc.y, 240, rc.height - 50);
-			treeview.redraw(true);
-			
-			rc = xplr.rect();
-			xplr.move(rc.x, rc.y, 630, rc.height - 50);
-			xplr.redraw(true);
-		}
+		var rc = treeview.rect();
+		treeview.move(rc.x, rc.y, rc.width, rc.height - height);
+		treeview.redraw(true);
+		
+		rc = xplr.rect();
+		xplr.move(rc.x, rc.y, rc.width, rc.height - height);
+		xplr.redraw(true);
 	}
 }
 

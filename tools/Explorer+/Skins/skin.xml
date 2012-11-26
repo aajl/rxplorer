@@ -84,7 +84,7 @@
 			<bkimg dx="2" dy="3" />
 			<items width="29" height="29">
 				<item icon="icons.folder" action="new_tab_view(get_curr_xplorer())" />
-				<item img="folder.png" action="show_treeview()" />
+				<item img="folder.png" action="show_treeview(!treeview.visible())" />
 				<item icon="icons.newfolder" action="" />
 				<item img="thumb.png" action="" cond="1" />
 			</items>
