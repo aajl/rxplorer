@@ -90,6 +90,9 @@ $(function(){
 				session2_open = true;
 				load_session("xplorer2", "session2.json");
 			}
+			
+			filefilter.clear();
+			sys.explorer.get_filter();
 		},
 		selected:function(files) {
 			selected_files = files;
