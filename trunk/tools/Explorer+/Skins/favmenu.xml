@@ -11,10 +11,10 @@
 		</items>
 		<if condition="item.separator">
 			<layer x="0" y="0" width="151" height="3" margin="0,3">
-				<img x="0" y="0" width="23" height="3" adapt="true">
+				<img width="23" height="3" adapt="true">
 					<bkimg src="menu.png" width="23" height="3" />
 				</img>
-				<label width="122" height="3">
+				<label width="125" height="3">
 					<border width="1" color="#BEC3CB" center="1" />
 				</label>
 			</layer>
