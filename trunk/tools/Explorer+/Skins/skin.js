@@ -17,17 +17,17 @@ var session2_open = false;
 var maximize = false;
 
 // 1. 左边的不能新标签 √
+// 11. 文件夹内双击空白处不能返回上一级 √
+// 12. 状态栏高度应该可调整,可变为简洁模式和详细模式. √
+// 4. 关闭标签后没有自动选择一个标签 √
 // 2. 文件过滤器不能用,并且无滚动条.
 // 3. 驱动器栏要用异步的方式
-// 4. 关闭标签后没有自动选择一个标签
 // 5. 隐藏文件夹后坐标错误
 // 6. 第二面板不能隐藏
 // 7. 地址栏不能使用
 // 8. 状态栏信息显示不全
 // 9. 菜单栏不能用
 // 10. 搜索栏不能用
-// 11. 文件夹内双击空白处不能返回上一级 √
-// 12. 状态栏高度应该可调整,可变为简洁模式和详细模式. √
 // 13. 常用工具栏多数工具不可用,并且太少.
 // 14. 改变大小后,第二面板的关闭按钮不见了.
 // 15. 点击标签右边的关闭不能关闭标签.
@@ -378,14 +378,10 @@ function new_tab_view(xplor_id, path, name) {
 	view.tabobj = tab_obj;
 
 	// 增加一个tab按钮
-	xplor.tabs.insert({"id":"." + tab_id, "tab":view.id, "view": view_obj, "text":name, "icon":path});
-	if(curr_tab != null)
-		curr_tab.check(false);
-	
+	xplor.tabs.insert({"id":"." + tab_id, "tab":view.id, "view": view_obj, "text":name, "icon":path});	
 	curr_tab = eval(tab_obj);
 	curr_tab.path = path;
-	if(folder_index == 1)
-		xplor.tabs.tab1.check(true);
+	curr_tab.click();
 	
 	var hid = sys.explorer.new(view.handler(), path, view.rect(), view_obj);
 }
@@ -416,9 +412,18 @@ function click_tab(xplor_id, tab) {
 }
 
 function close_tab(xplor, tab) {
+	var index = xplor.tabs.get_index(tab.id);
 	sys.explorer.remove(tab.view);
 	xplor.tabs.remove(tab.id);
 	xplor.views.remove(tab.tab);
+	if(xplor.tabs.children == 0)
+		return;
+	
+	if(--index <= 0)
+		index = 0;
+		
+	var btn = xplor.tabs.child(index);
+	btn.click();
 }
 
 function up() {
