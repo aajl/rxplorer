@@ -71,7 +71,6 @@ $(function(){
 				curr_tab.path = path;
 				clicked_tab = false;
 				filefilter.clear();
-				sys.explorer.get_filter();
 			} else {
 				var view = eval(view_id);
 				curr_tab = eval(view.tabobj);
@@ -85,14 +84,13 @@ $(function(){
 				pane2_curr_tab = curr_tab;
 			}
 			
+			sys.explorer.get_file_types();
+			
 			session_open = true;
 			if(!session2_open) {
 				session2_open = true;
 				load_session("xplorer2", "session2.json");
 			}
-			
-			filefilter.clear();
-			sys.explorer.get_filter();
 		},
 		selected:function(files) {
 			selected_files = files;
@@ -107,21 +105,24 @@ $(function(){
 				sbar.filename.text = "选择了 " + files.length + " 个文件";
 			}
 		},
-		filter:function(types) {
-			print("filter types: " + types.length + "\n");
-			if(types.length == 0) {
-				filefilter.clear();
-			} else {
+		filetypes:function(types) {
+			filefilter.clear();
+			if(types.length > 0) {
+				var filters = sys.explorer.get_filters();
+				if(typeof(filters) == "undefined")
+					filters = {};
+					
 				filefilter.set_redraw(false);
 				for(var i = 0; i < types.length; ++i) {
+					var check = filters[types[i]];
 					if(types[i] == "#1folder")
-						filefilter.insert({"text":"显示文件夹", "icon":"icons.folder", "id": ".filterfolder"});
+						filefilter.insert({"text":"显示文件夹", "icon":"icons.folder", "ext": types[i], "id": ".filterfolder", "check":typeof(check) == "undefined" ? true : check});
 					else if(types[i] == "#2hidden")
-						filefilter.insert({"text":"显示隐藏文件", "icon":"icons.file", "id": ".filterhidden"});
+						filefilter.insert({"text":"显示隐藏文件", "icon":"icons.file", "ext": types[i], "id": ".filterhidden", "check":typeof(check) == "undefined" ? true : check});
 					else if(types[i] == "#3file")
-						filefilter.insert({"text":"显示所有文件", "icon":"icons.file", "id": ".filterfile"});
+						filefilter.insert({"text":"显示所有文件", "icon":"icons.file", "ext": types[i], "id": ".filterfile", "check":typeof(check) == "undefined" ? true : check});
 					else
-						filefilter.insert({"text":types[i], "icon":types[i], "id": ".filter" + sys.hash(types[i])});
+						filefilter.insert({"text":types[i], "icon":types[i], "ext": types[i], "id": ".filter" + sys.hash(types[i]), "check":check});
 				}
 				filefilter.set_redraw(true);
 				filefilter.redraw();
@@ -625,10 +626,13 @@ function filter_files() {
 	if(children == 0)
 		return;
 	
+	var filters = {};
 	for(var i = 0; i < children; ++i) {
 		var flt = filefilter.child(i);
-		print("index: " + i + " " + flt.checked + "\n");
+		filters[flt.ext] = flt.checked;
 	}
+	
+	sys.explorer.set_filters(filters);
 }
 
 function show_statusbar(show, init) {
