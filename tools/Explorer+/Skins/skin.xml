@@ -309,7 +309,7 @@
 						<item text="BMP 文件(*.bmp)" icon=".bmp" />
 						<item text="压缩文件(*.rar)" icon=".rar" />
 					</items>
-					<layer id="item.id" width="238" height="20" text="item.text" offset="38" align="vcenter" checkable="true" adapt="false" action="filter_files()">
+					<layer id="item.id" width="238" height="20" text="item.text" ext="item.ext" offset="38" align="vcenter" checkable="true" check="item.check" adapt="false" action="filter_files()">
 						<states normal="checkbox.png" ix="19" iy="2" dx="3" dy="3" width="13" height="13">
 							<normal icon="item.icon" x="0" bkclr="#ffffff" />
 							<hover x="13" />
