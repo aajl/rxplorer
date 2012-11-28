@@ -1,7 +1,7 @@
-﻿<panel id="tabmenu_pane" type="modeless" x="0" y="0" width="155" height="179" visible="false" alpha="">
+﻿<panel id="tabmenu_pane" type="modeless" x="0" y="0" width="155" height="227" visible="false" alpha="">
 	<border width="1" color="#ACA899" />
 	<custom id="tabmenu"  yadapt="true" type="tiled" margin="1" oninit="">
-		<pos position="relative" x="2" y="2" width="151" height="176" />
+		<pos position="relative" x="2" y="2" width="151" height="224" />
 		<bkimg src="menu.png" width="23" height="23" />
 		<items height="adapt">
 			<item name="新建标签" icon="" action="new_tab_view(poped_menu_xplor_id)" />
@@ -12,6 +12,8 @@
 			<item name="关闭左边的标签" icon="" action="" />
 			<item name="关闭右边的标签" icon="" action="" />
 			<item separator="1" />
+			<item name="固定标签" icon="" action="" />
+			<item name="恢复关闭的标签" icon="" action="" />
 			<item name="重命名" icon="" action="" />
 		</items>
 		<if condition="item.separator">
