@@ -1,7 +1,7 @@
-﻿<panel id="common_folders_pane" type="modeless" x="0" y="0" width="155" height="215" visible="false" alpha="95">
+﻿<panel id="common_folders_pane" type="modeless" x="0" y="0" width="155" height="365" visible="false" alpha="95">
 	<border width="1" color="#ACA899" />
 	<custom id="common_folders" yadapt="true" type="tiled" margin="1" oninit="load_common_folders()">
-		<pos position="relative" x="2" y="2" width="151" height="211" />
+		<pos position="relative" x="2" y="2" width="151" height="361" />
 		<bkimg src="menu.png" width="23" height="23" />
 		<items height="adapt">
 			<!--item separator="1" /-->
@@ -36,8 +36,21 @@
 		}
 		
 		function load_common_folders() {
-			add_common_folder(sys.get_path(sys.sys_path), "System32");
-			add_common_folder(sys.get_path(sys.tmp_path), "Windows Temp");
+			add_common_folder(sys.path.windows);
+			add_common_folder(sys.path.system, "System32");
+			add_common_folder(sys.path.program_files);
+			add_common_folder(sys.path.program_files_common);
+			add_common_folder(sys.path.temp, "Windows Temp");
+			add_common_folder(sys.path.programs);
+			add_common_folder(sys.path.all_users_programs);
+			add_common_folder(sys.path.my_documents);
+			add_common_folder(sys.path.my_music);
+			add_common_folder(sys.path.my_videos);
+			add_common_folder(sys.path.my_pictures);
+			add_common_folder(sys.path.all_users_documents);
+			add_common_folder(sys.path.all_users_music);
+			add_common_folder(sys.path.all_users_pictures);
+			add_common_folder(sys.path.all_users_video);
 		}
 		]]>
 		</script>

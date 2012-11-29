@@ -108,10 +108,7 @@ $(function(){
 		filetypes:function(types) {
 			filefilter.clear();
 			if(types.length > 0) {
-				var filters = sys.explorer.get_filters();
-				if(typeof(filters) == "undefined")
-					filters = {};
-					
+				var filters = sys.explorer.get_filters();				
 				filefilter.set_redraw(false);
 				for(var i = 0; i < types.length; ++i) {
 					var check = filters[types[i]];
@@ -177,12 +174,10 @@ $(function(){
 	if(setting.explorer.max)
 		explorer.max();
 	
-	var app_path = sys.get_path(sys.app_path);
-	var sys_path = sys.get_path(sys.sys_path);
 	editer = json_from_file("editer.json", []);
 	for(var i = 0; i < editer.length; ++i) {
-		editer[i].editer = editer[i].editer.replace(/%Sys/gi, sys_path);
-		editer[i].editer = editer[i].editer.replace(/%App/gi, app_path);
+		editer[i].editer = editer[i].editer.replace(/%Sys/gi, sys.path.system);
+		editer[i].editer = editer[i].editer.replace(/%App/gi, app.path.app);
 	}
 });
 
@@ -195,8 +190,7 @@ function on_close() {
 
 function json_from_file(path, def) {
 	var file = new jfile;
-    var app_path = sys.get_path(sys.app_path);
-    if (!file.open(app_path + "\\" + path, "r"))
+    if (!file.open(sys.path.app + "\\" + path, "r"))
 		return def;
 
 	var data = file.read();
@@ -209,8 +203,7 @@ function json_from_file(path, def) {
 
 function save2file(data, path) {
 	var file = new jfile;
-    var app_path = sys.get_path(sys.app_path);
-    if (!file.open(app_path + "\\" + path, "w"))
+    if (!file.open(sys.path.app + "\\" + path, "w"))
 		return;
 
 	file.write(data.toJSON());
@@ -241,13 +234,11 @@ function move_main_menu() {
 function load_favorite_tools() {
 	bookmark = json_from_file("bookmark.json", []);
 	
-    var app_path = sys.get_path(sys.app_path);
-	var sys_path = sys.get_path(sys.sys_path);
 	for (var i = 0; i < bookmark.length; ++i) {
 		var path = bookmark[i].path;
 
-		path = path.replace(/%Sys/gi, sys_path);
-		path = path.replace(/%App/gi, app_path);
+		path = path.replace(/%Sys/gi, sys.path.system);
+		path = path.replace(/%App/gi, sys.path.app);
 
 		var id = sys.hash(path);
 		var param = (typeof(bookmark[i].param) == "undefined") ? "" : bookmark[i].param;
@@ -262,14 +253,12 @@ function load_favorite_tools() {
 function load_favorite_folders() {
 	favorite_folders = json_from_file("folders.json", []);
 	
-    var app_path = sys.get_path(sys.app_path);
-	var sys_path = sys.get_path(sys.sys_path);
 	for (var i = 0; i < favorite_folders.length; ++i) {
 		var path = favorite_folders[i].path;
 		var name = favorite_folders[i].name;
 		
-		path = path.replace(/%Sys/gi, sys_path);
-		path = path.replace(/%App/gi, app_path);
+		path = path.replace(/%Sys/gi, sys.path.system);
+		path = path.replace(/%App/gi, sys.path.app);
 
 		var id = sys.hash(path);
 		favfolders.insert({"id":"folder" + id, "name":name, "path":path, "icon":path, "action":"open_folder(this.path)"});
@@ -633,6 +622,11 @@ function filter_files() {
 	}
 	
 	sys.explorer.set_filters(filters);
+}
+
+function clear_filters() {
+	sys.explorer.set_filters();
+	sys.explorer.get_file_types();
 }
 
 function show_statusbar(show, init) {
