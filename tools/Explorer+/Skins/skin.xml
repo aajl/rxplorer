@@ -196,7 +196,8 @@
 			</button>
 
 			<!--图标按钮-->
-			<button position="relative" x="3" y="2" width="21" height="21" action="addr.path='D:\Skins'">
+			<button position="relative" x="3" y="2" width="21" height="21" popup="common_folders_pane">
+				<popup position="auto" />
 				<states width="16" height="16">
 					<normal icon="icons.computer" border="0" bkclr="#FFFFFF" />
 					<hover ix="1" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -205,7 +206,8 @@
 			</button>
 
 			<!--多功能箭头-->
-			<button position="relative" x="26" y="2" width="9" height="21" adapt="false" action="addr.path='D:\Download\TeamPlayer'">
+			<button position="relative" x="26" y="2" width="9" height="21" adapt="false" popup="common_folders_pane">
+				<popup position="auto" />
 				<states normal="triangle.png" dx="3" dy="9">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -490,6 +492,8 @@
 	<include>toolmenu.xml</include>
 	
 	<include>recentmenu.xml</include>
+	
+	<include>common_folders.xml</include>
 	
 	<include>about.xml</include>
 </directui>

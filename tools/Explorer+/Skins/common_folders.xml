@@ -1,0 +1,45 @@
+﻿<panel id="common_folders_pane" type="modeless" x="0" y="0" width="155" height="215" visible="false" alpha="95">
+	<border width="1" color="#ACA899" />
+	<custom id="common_folders" yadapt="true" type="tiled" margin="1" oninit="load_common_folders()">
+		<pos position="relative" x="2" y="2" width="151" height="211" />
+		<bkimg src="menu.png" width="23" height="23" />
+		<items height="adapt">
+			<!--item separator="1" /-->
+		</items>
+		<if condition="item.separator">
+			<layer x="0" y="0" width="151" height="3" margin="0,3">
+				<img width="23" height="3" adapt="true">
+					<bkimg src="menu.png" width="23" height="3" />
+				</img>
+				<label width="125" height="3">
+					<border width="1" color="#BEC3CB" center="1" />
+				</label>
+			</layer>
+		<else />
+			<layer id="item.id" x="0" y="0" width="151" height="23" adapt="false" path="item.path" text="item.name" align="vcenter" offset="30" action="item.action">
+				<states normal="menu.png" hover="null" down="null" width="23" height="23" ix="3" iy="3" >
+					<normal icon="item.icon" border="0" bkclr="#ffffff" />
+					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+				</states>
+			</layer>
+		</if>
+		<script>
+		<![CDATA[
+		function add_common_folder(path, name) {
+			var id = sys.hash(path);
+			if(typeof(name) == "undefined") {
+				var jpth = new jpath(path);
+				name = jpth.filename();
+			}
+			common_folders.insert({"id":"cmmfolder" + id, "name":name, "path":path, "icon":path, "action":"open_folder(this.path)"});
+		}
+		
+		function load_common_folders() {
+			add_common_folder(sys.get_path(sys.sys_path), "System32");
+			add_common_folder(sys.get_path(sys.tmp_path), "Windows Temp");
+		}
+		]]>
+		</script>
+	</custom>
+</panel>
