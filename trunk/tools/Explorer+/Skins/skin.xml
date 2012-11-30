@@ -239,15 +239,17 @@
 				<popup position="auto" />
 				<states normal="fav.png" dx="1" dy="6">
 					<normal border="0" bkclr="#FFFFFF" />
-					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<hover border="1" dy="5" color="#316AC5" bkclr="#C1D2EE" />
+					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
 				</states>
 			</button>
 
-			<!--下拉列表按钮-->
-			<button position="relative" x="-23" y="2" width="21" height="21" adapt="false" float="right">
-				<states normal="dropdown.png" dx="7" dy="9">
-					<normal border="0" bkclr="#FFFFFF" />
-					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+			<!--复制当前路径按钮-->
+			<button position="relative" x="-23" y="2" width="21" height="21" adapt="false" float="right" action="copy_curr_path()">
+				<states width="16" height="16">
+					<normal icon="icons.copy" border="0" bkclr="#FFFFFF" />
+					<hover border="1" ix="1" iy="1" color="#316AC5" bkclr="#C1D2EE" />
+					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
 				</states>
 			</button>
 		</layer>
@@ -295,7 +297,7 @@
 			</layer>
 			
 			<layer id=".filter" x="0" y="272" width="240" height="228" float="bottom">
-				<label text="文件过滤器" position="relative" x="0" y="0" width="240" height="22" bkclr="#E5E5E5" align="vcenter" offset="3">
+				<label text="过滤器" position="relative" x="0" y="0" width="240" height="22" bkclr="#E5E5E5" align="vcenter" offset="3">
 					<border width="1" color="#ACA899" />
 				</label>
 				
@@ -310,6 +312,10 @@
 						<down border="1" color="#316AC5" bkclr="#C1D2EE" />
 					</states>
 				</button>
+				
+				<edit id="fastfilter" position="relative" x="-168" y="3" width="130" height="16" bkclr="#ffffff" hint="quick filter">
+					<border width="1" color="#316AC5" />
+				</edit>
 
 				<custom id="filefilter" type="tiled" position="relative" x="1" y="22" width="238" height="205" bkclr="#ffffff" col="1" float="">
 					<items width="0" height="20">

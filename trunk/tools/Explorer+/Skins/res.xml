@@ -18,6 +18,7 @@
 	<icons sync="sync.ico" />
 	<icons synced="synced.ico" />
 	<icons clear="clear.ico" />
+	<icons copy="copy.ico" />
 </icons>
 
 <!--字体集-->
