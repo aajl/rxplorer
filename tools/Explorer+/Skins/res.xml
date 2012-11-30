@@ -19,6 +19,7 @@
 	<icons synced="synced.ico" />
 	<icons clear="clear.ico" />
 	<icons copy="copy.ico" />
+	<icons dual="dual.ico" />
 </icons>
 
 <!--字体集-->
