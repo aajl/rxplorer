@@ -16,7 +16,8 @@
 	<icons fav="%SystemRoot%\\system32\\SHELL32.dll|43" />
 	<icons up="%SystemRoot%\\system32\\SHELL32.dll|45|24" />
 	<icons sync="%SystemRoot%\\system32\\SHELL32.dll|238|16" />
-	<icons synced="sync.ico" />
+	<icons synced="synced.ico" />
+	<icons clear="clear.ico" />
 </icons>
 
 <!--字体集-->
