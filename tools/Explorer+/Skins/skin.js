@@ -22,11 +22,11 @@ var maximize = false;
 // 4. 关闭标签后没有自动选择一个标签 √
 // 5. 隐藏文件夹后坐标错误 √
 // 2. 过滤器不能用 √
-// 26. img控件不支持图标
-// 27. edit控件的内嵌edit坐标不对
+// 27. edit控件的内嵌edit坐标不对 √
+// 26. img控件不支持图标 √
+// 22. 无多语言 √
 // 7. 地址栏不能使用
 // 17. 弹出窗口的高度不能根据项数自动计算.
-// 22. 无多语言
 // 24 过滤器无滚动条
 // 25 过滤器的快速过滤不能用
 // 3. 驱动器栏要用异步的方式
@@ -119,9 +119,9 @@ $(function(){
 					if(types[i] == "#1folder")
 						filefilter.insert({"text":"显示文件夹", "icon":"icons.folder", "ext": types[i], "id": ".filterfolder", "check":typeof(check) == "undefined" ? true : check});
 					else if(types[i] == "#2hidden")
-						filefilter.insert({"text":"显示隐藏文件", "icon":"icons.file", "ext": types[i], "id": ".filterhidden", "check":typeof(check) == "undefined" ? true : check});
+						filefilter.insert({"text":"显示隐藏文件", "icon":"icons.hiddenfile", "ext": types[i], "id": ".filterhidden", "check":typeof(check) == "undefined" ? true : check});
 					else if(types[i] == "#3file")
-						filefilter.insert({"text":"显示所有文件", "icon":"icons.file", "ext": types[i], "id": ".filterfile", "check":typeof(check) == "undefined" ? true : check});
+						filefilter.insert({"text":"显示所有文件", "icon":"icons.allfile", "ext": types[i], "id": ".filterfile", "check":typeof(check) == "undefined" ? true : check});
 					else
 						filefilter.insert({"text":types[i], "icon":types[i], "ext": types[i], "id": ".filter" + sys.hash(types[i]), "check":check});
 				}
@@ -674,4 +674,7 @@ function get_curr_xplorer() {
 }
 
 function copy_curr_path() {
+	sys.clipboard(addr.path);
+	var path = sys.clipboard();
+	print(path + "\n");
 }

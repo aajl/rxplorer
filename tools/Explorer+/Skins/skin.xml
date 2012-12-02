@@ -4,6 +4,8 @@
 
 	<include>res.xml</include>
 	
+	<include>lang.xml</include>
+	
 	<accels id="accel" handler="on_accel">
 		<accel vkey="" key="F4" action="edit_file()" />
 		<accel vkey="" key="F6" action="copy_file()" />
@@ -13,7 +15,7 @@
 		<accel vkey="Ctrl" key="T" action="new_tab_view(get_curr_xplorer())" />
 	</accels>
 	
-	<panel id="explorer" title="Explorer++" type="app" bkclr="#E5E5E5" drag="true">
+	<panel id="explorer" title="lang.title" type="app" bkclr="#E5E5E5" drag="true">
 		<size x="0" y="0" width="880" height="660" resize="true" min-width="880" min-height="660" />
 		<events maximize="print('max');setting.explorer.max=true;max.check(true)" restore="setting.explorer.max=false;max.check(false)" close="on_close()" drop="on_dropfiles" />
 		<border width="1" color="#404040" />
@@ -25,7 +27,7 @@
 			<events dbclk="explorer.max()" />
 		</label>
 
-		<label id="title" text="Explorer++" x="9" y="0" width="96" height="23" color="#ffffff" font="fonts.bold_10">
+		<label id="title" text="lang.title" x="9" y="0" width="96" height="23" color="#ffffff" font="fonts.bold_10">
 			<attribs bkimg="imgs.main_hover" offset="9" align="center,vcenter" />
 			<bkimg x="x" y="y" width="width" height="height" />
 		</label>
@@ -61,7 +63,7 @@
 		<!--主菜单按钮-->
 		<custom id="main_menu_btns" type="tiled" x="110" y="2" width="385" height="20" col="7" margin="0,2" bkclr="#E5E5E5">
 			<items width="53" height="20">
-				<item id="menu_file_btn" text="文件(F)" action="move_main_menu()" popup="main_menu.menu_file" />
+				<item id="menu_file_btn" text="lang.file" action="move_main_menu()" popup="main_menu.menu_file" />
 				<item id="menu_edit_btn" text="编辑(E)" action="move_main_menu()" popup="main_menu.menu_edit" />
 				<item id="menu_bookmark_btn" text="书签(B)" action="move_main_menu()" popup="main_menu.menu_bookmark" />
 				<item id="menu_plugin_btn" text="插件(P)" action="move_main_menu()" popup="main_menu.menu_plugin" />
@@ -216,7 +218,8 @@
 			</button>
 
 			<!--地址栏按钮-->
-			<addr id="addr" path="D:\Download\Music" position="relative" x="36" y="1" width="260" height="23" bkclr="#FFFFFF" float="width">
+			<addr id="addr" path="" position="relative" x="36" y="1" width="260" height="23" bkclr="#FFFFFF" float="width">
+				<events click_path="open_folder" />
 				<states width="0" height="0">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -259,7 +262,7 @@
 		<layer x="637" y="56" width="240" height="25" bkclr="#ffffff" float="right">
 			<border width="1" color="#316AC5" />
 			
-			<edit id="search" position="relative" x="1" y="1" width="216" height="23" bkclr="#ffffff" hint="搜索" />
+			<edit id="search" position="relative" x="1" y="5" width="216" height="15" bkclr="#ffffff" hint="搜索" />
 			
 			<button position="relative" x="-24" y="1" width="23" height="23" adapt="false">
 				<states normal="search_icon.png" dx="3" dy="3">
@@ -315,7 +318,7 @@
 					</states>
 				</button>
 				
-				<edit id="fastfilter" position="relative" x="-168" y="3" width="130" height="16" bkclr="#ffffff" hint="quick filter">
+				<edit id="fastfilter" position="relative" x="-168" y="3" width="130" height="17" bkclr="#ffffff" hint="快速过滤">
 					<border width="1" color="#316AC5" />
 				</edit>
 
