@@ -181,7 +181,7 @@ $(function(){
 	editer = json_from_file("editer.json", []);
 	for(var i = 0; i < editer.length; ++i) {
 		editer[i].editer = editer[i].editer.replace(/%Sys/gi, sys.path.system);
-		editer[i].editer = editer[i].editer.replace(/%App/gi, app.path.app);
+		editer[i].editer = editer[i].editer.replace(/%App/gi, sys.path.app);
 	}
 });
 
@@ -267,6 +267,13 @@ function load_favorite_folders() {
 		var id = sys.hash(path);
 		favfolders.insert({"id":"folder" + id, "name":name, "path":path, "icon":path, "action":"open_folder(this.path)"});
 	}
+	
+	var rc = favfolders_pane.screen_rect();
+	var height = 28 + favorite_folders.length * 23 + favorite_folders.length - 1 + 4;
+	favfolders_pane.move(rc.x, rc.y, rc.width, height);
+	favfolders_pane.redraw(true);
+
+	print("height " + rc.height + "  " + height + "\n");
 }
 
 function save_session(xplor, filename) {
