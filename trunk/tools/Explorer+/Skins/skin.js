@@ -268,12 +268,11 @@ function load_favorite_folders() {
 		favfolders.insert({"id":"folder" + id, "name":name, "path":path, "icon":path, "action":"open_folder(this.path)"});
 	}
 	
-	var rc = favfolders_pane.screen_rect();
-	var height = 28 + favorite_folders.length * 23 + favorite_folders.length - 1 + 4;
-	favfolders_pane.move(rc.x, rc.y, rc.width, height);
-	favfolders_pane.redraw(true);
-
-	print("height " + rc.height + "  " + height + "\n");
+	if(favorite_folders.length > 0) {
+		var rc = favfolders_pane.rect();
+		var height = 23 + 1 + 3 + favorite_folders.length * 23 + favorite_folders.length - 1 + 4;
+		favfolders_pane.move(rc.x, rc.y, rc.width, height);
+	}
 }
 
 function save_session(xplor, filename) {
