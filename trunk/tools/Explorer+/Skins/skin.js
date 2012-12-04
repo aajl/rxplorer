@@ -239,17 +239,24 @@ function load_favorite_tools() {
 	bookmark = json_from_file("bookmark.json", []);
 	
 	for (var i = 0; i < bookmark.length; ++i) {
-		var path = bookmark[i].path;
+		var bkmrk = bookmark[i];
+		var path = bkmrk.path;
 
 		path = path.replace(/%Sys/gi, sys.path.system);
 		path = path.replace(/%App/gi, sys.path.app);
 
-		var id = sys.hash(bookmark[i].name + path + param);
-		var param = (typeof(bookmark[i].param) == "undefined") ? "" : bookmark[i].param;
+		var id = sys.hash(bkmrk.name + path + param);
+		var param = (typeof(bkmrk.param) == "undefined") ? "" : bkmrk.param;
 		favtools.insert({"id":"btn" + id, "path":path, "icon":path + "|0|24", "param": param});
-		
-		if(typeof(bookmark[i].key) != "undefined" && bookmark[i].key.length > 0) {
 			
+		print("key: " + bkmrk.key + "\n");
+
+		if(typeof(bkmrk.key) != "undefined" && bkmrk.key.length > 0) {
+			path = bkmrk.path.replace(/\\/gi, "\\\\");
+			path = path.replace(/"/gi, "\\\"");
+			param = bkmrk.param.replace(/\\/gi, "\\\\");
+			param = param.replace(/"/gi, "\\\"");
+			accel.add(bkmrk.vkey, bkmrk.key, "open_tool(\"" + path + "\", \"" + param + "\")");
 		}
 	}
 }
