@@ -244,7 +244,7 @@ function load_favorite_tools() {
 		path = path.replace(/%Sys/gi, sys.path.system);
 		path = path.replace(/%App/gi, sys.path.app);
 
-		var id = sys.hash(path);
+		var id = sys.hash(bookmark[i].name + path + param);
 		var param = (typeof(bookmark[i].param) == "undefined") ? "" : bookmark[i].param;
 		favtools.insert({"id":"btn" + id, "path":path, "icon":path + "|0|24", "param": param});
 		
