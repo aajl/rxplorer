@@ -105,6 +105,8 @@ $(function(){
 				var pth = new jpath(files[0]);
 				var text = pth.filename();
 				sbar.filename.text = text.length == 0 ? files[0] : text;
+				var attr = sys.explorer.get_file_attr(files[0]);
+				print(attr.json() + "\n");
 			} else {
 				sbar.filename.text = "选择了 " + files.length + " 个文件";
 			}
