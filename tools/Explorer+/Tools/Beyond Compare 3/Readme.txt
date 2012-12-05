@@ -19,6 +19,8 @@ This program runs under:
 - Windows XP, Windows XP x64
 - Windows Server 2003, Windows Server 2003 x64
 - Windows Vista, Windows Vista x64
+- Windows 7, Windows 7 x64
+- Windows Server 2008, Windows Server 2008 x64
 
 A Linux version is also available on our website.
 
