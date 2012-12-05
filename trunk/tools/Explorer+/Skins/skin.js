@@ -235,6 +235,14 @@ function move_main_menu() {
     move_menu(menu_help_btn, menu_help);
 }
 
+function resize_favorite_folder_panel() {
+	if(favorite_folders.length > 0) {
+		var rc = favfolders_pane.rect();
+		var height = 23 + 1 + 3 + favorite_folders.length * 23 + favorite_folders.length - 1 + 4;
+		favfolders_pane.move(rc.x, rc.y, rc.width, height);
+	}
+}
+
 function load_favorite_tools() {
 	bookmark = json_from_file("bookmark.json", []);
 	
@@ -275,11 +283,7 @@ function load_favorite_folders() {
 		favfolders.insert({"id":"folder" + id, "name":name, "path":path, "icon":path, "action":"open_folder(this.path)"});
 	}
 	
-	if(favorite_folders.length > 0) {
-		var rc = favfolders_pane.rect();
-		var height = 23 + 1 + 3 + favorite_folders.length * 23 + favorite_folders.length - 1 + 4;
-		favfolders_pane.move(rc.x, rc.y, rc.width, height);
-	}
+	resize_favorite_folder_panel();
 }
 
 function save_session(xplor, filename) {
@@ -481,6 +485,8 @@ function add_favorite_folder(path) {
 	favfolders.insert(item);
 	
 	save2file(favorite_folders, "folders.json");
+	
+	resize_favorite_folder_panel();
 }
 
 function pop_tool_menu(tool) {
