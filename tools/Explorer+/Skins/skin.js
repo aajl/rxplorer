@@ -547,10 +547,16 @@ function locate_tool(path) {
 function open_tool(path, param) {
 	if(param.length > 0) {
 		if(selected_files.length > 0) {
-			param = param.replace(/%FullPath/gi, selected_files[0]);
-		
-			var jpth = new jpath(selected_files[0]);
-			param = param.replace(/%Path/gi, jpth.remove_filename());
+			var file = param;
+			param = "";
+			for(var i = 0; i < selected_files.length; ++i) {
+				var fl = file;
+				var jpth = new jpath(selected_files[i]);
+				fl = fl.replace(/%FullPath/gi, selected_files[i]);
+				fl = fl.replace(/%Path/gi, jpth.remove_filename());
+				
+				param = param + fl + " ";
+			}
 		} else {
 			param = param.replace(/%Path/gi, addr.path);
 		}
