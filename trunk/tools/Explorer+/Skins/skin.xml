@@ -238,15 +238,14 @@
 					<normal border="0" bkclr="#C0C0C0" />
 					<hover border="1" color="#316AC5" bkclr="#C0C0C0" />
 				</states>
-				<panel type="modeless" x="0" y="0" width="155" height="27" visible="false" alpha="95" max-height="800">
+				<panel type="modeless" x="0" y="0" width="155" height="27" visible="false" alpha="95" min-width="150" max-height="800">
 					<border width="1" color="#ACA899" />
-					<custom yadapt="true" type="tiled" margin="1" x="2" y="2" width="151" height="23" float="width,height">
+					<custom yadapt="true" type="tiled" margin="1" col="1" x="2" y="2" width="151" height="23" float="width,height">
 						<bkimg src="menu.png" width="23" height="23" />
 						<items height="adapt">
-							<item name="Sub Folder1" path="" icon="icons.fav" action="" />
-							<item name="Sub Folder2" path="" icon="icons.fav" action="" />
+							<!--item name="Sub Folder1" path="" icon="icons.fav" action="" /-->
 						</items>
-						<layer id="item.id" x="0" y="0" width="151" height="23" adapt="false" text="item.name" align="vcenter" offset="30" action="item.action">
+						<layer id="item.id" width="width" height="23" float="wratio" adapt="false" text="item.name" align="vcenter" offset="30" action="item.action">
 							<states normal="menu.png" hover="null" down="null" width="23" height="23" ix="3" iy="3" >
 								<normal icon="item.icon" border="0" bkclr="#ffffff" />
 								<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
