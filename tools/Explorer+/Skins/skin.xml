@@ -238,7 +238,7 @@
 					<normal border="0" bkclr="#C0C0C0" />
 					<hover border="1" color="#316AC5" bkclr="#C0C0C0" />
 				</states>
-				<panel type="modeless" x="0" y="0" width="155" height="27" visible="false" alpha="95" min-width="150" max-height="800">
+				<panel type="modeless" x="0" y="0" width="155" height="27" visible="false" alpha="95" min-width="155" max-height="800">
 					<border width="1" color="#ACA899" />
 					<custom yadapt="true" type="tiled" margin="1" col="1" x="2" y="2" width="151" height="23" float="width,height">
 						<bkimg src="menu.png" width="23" height="23" />
