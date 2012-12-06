@@ -238,7 +238,7 @@
 					<normal border="0" bkclr="#C0C0C0" />
 					<hover border="1" color="#316AC5" bkclr="#C0C0C0" />
 				</states>
-				<panel type="modeless" x="0" y="0" width="155" height="27" visible="false" alpha="95">
+				<panel type="modeless" x="0" y="0" width="155" height="27" visible="false" alpha="95" max-height="800">
 					<border width="1" color="#ACA899" />
 					<custom yadapt="true" type="tiled" margin="1" x="2" y="2" width="151" height="23" float="width,height">
 						<bkimg src="menu.png" width="23" height="23" />
@@ -247,7 +247,7 @@
 							<item name="Sub Folder2" path="" icon="icons.fav" action="" />
 						</items>
 						<layer id="item.id" x="0" y="0" width="151" height="23" adapt="false" text="item.name" align="vcenter" offset="30" action="item.action">
-							<states normal="menu.png" width="23" height="23" ix="3" iy="3" >
+							<states normal="menu.png" hover="null" down="null" width="23" height="23" ix="3" iy="3" >
 								<normal icon="item.icon" border="0" bkclr="#ffffff" />
 								<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
 								<down border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -472,7 +472,7 @@
 				<bkimg src="Explorer.png" dx="center" dy="center" />
 			</img>
 			
-			<label id=".filename" position="relative" adapt="true" text="给我一个温暖空间.avi" bkclr="#E5E5E5" align="vcenter">
+			<label id=".filename" position="relative" adapt="true" text="" bkclr="#E5E5E5" align="vcenter">
 				<pos x="90" y="5" width="150" height="18" />
 				<!--bkimg src="statusbar.png" x="7" y="5" width="10" height="height" /-->
 			</label>
@@ -505,8 +505,8 @@
 		<layer id="statusbar" x="3" y="637" width="874" height="20" float="width,bottom" bkclr="#E5E5E5" visible="false">
 			<border width="1" color="#ACA899" />
 			
-			<label id=".filename" position="relative" adapt="true" text="给我一个温暖空间.avi" bkclr="#E5E5E5" align="vcenter">
-				<pos x="2" y="1" width="150" height="18" />
+			<label id=".filename" position="relative" adapt="true" text="" bkclr="#E5E5E5" align="vcenter" float="wratio">
+				<pos x="2" y="1" width="400" height="18" />
 			</label>
 
 			<button text="↑" position="relative" x="-12" y="-18" width="10" height="16" float="right" action="show_statusbar(false)">

@@ -25,6 +25,7 @@ var maximize = false;
 // 27. edit控件的内嵌edit坐标不对 √
 // 26. img控件不支持图标 √
 // 22. 无多语言 √
+// 18. 弹出菜单在点击文件夹时不自动隐藏. √
 // 7. 地址栏不能使用
 // 17. 弹出窗口的高度不能根据项数自动计算.
 // 24 过滤器无滚动条
@@ -38,7 +39,6 @@ var maximize = false;
 // 14. 改变大小后,第二面板的关闭按钮不见了.
 // 15. 点击标签右边的关闭不能关闭标签.
 // 16. 标签过多时,无滚动条或其它方式显示所有标签.
-// 18. 弹出菜单在点击文件夹时不自动隐藏.
 // 19. 无tooltip
 // 20. 改变窗口宽度时,文件夹窗口大小发生异常,且默认状态下宽度也偏宽.
 // 21. 无各类设置窗口.
@@ -103,10 +103,23 @@ $(function(){
 				sbar.filename.text = curr_tab.text;
 			} else if(files.length == 1) {
 				var pth = new jpath(files[0]);
-				var text = pth.filename();
-				sbar.filename.text = text.length == 0 ? files[0] : text;
-				var attr = sys.explorer.get_file_attr(files[0]);
-				print(attr.json() + "\n");
+				var fileinfo = pth.filename();
+				fileinfo += "    (" + pth.filetype() + ")";
+				if(pth.filesize() > 0) {
+					fileinfo += "    " + lang.get("size") + ": ";
+					var filesize = pth.filesize();
+					if(filesize < 1024)
+						fileinfo += filesize + " " + lang.get("byte");
+					else if(filesize < 1024 * 1024)
+						fileinfo += (filesize / 1024).toFixed(2) + " KB";
+					else if(filesize < 1024 * 1024 * 1024)
+						fileinfo += (filesize / 1024 / 1024).toFixed(2) + " MB";
+					else
+						fileinfo += (filesize / 1024 / 1024 / 1024).toFixed(2) + " GB";
+				}
+				fileinfo += "    " + lang.get("create_time") + ": " + pth.modify_time();
+				fileinfo += "    " + lang.get("modify_time") + ": " + pth.create_time();
+				sbar.filename.text = fileinfo;
 			} else {
 				sbar.filename.text = "选择了 " + files.length + " 个文件";
 			}
