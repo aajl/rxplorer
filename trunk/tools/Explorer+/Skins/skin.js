@@ -30,19 +30,19 @@ var maximize = false;
 // 17. 弹出窗口的高度不能根据项数自动计算. √
 // 8. 状态栏信息显示不全 √
 // 24 过滤器无滚动条
+// 14. 改变大小后,第二面板的关闭按钮不见了.
+// 20. 改变窗口宽度时,文件夹窗口大小发生异常,且默认状态下宽度也偏宽.
+// 13. 常用工具栏多数工具不可用,并且太少.
 // 25 过滤器的快速过滤不能用
 // 3. 驱动器栏要用异步的方式
 // 6. 第二面板不能隐藏
 // 9. 菜单栏不能用
-// 10. 搜索栏不能用
-// 13. 常用工具栏多数工具不可用,并且太少.
-// 14. 改变大小后,第二面板的关闭按钮不见了.
 // 15. 点击标签右边的关闭不能关闭标签.
 // 16. 标签过多时,无滚动条或其它方式显示所有标签.
 // 19. 无tooltip
-// 20. 改变窗口宽度时,文件夹窗口大小发生异常,且默认状态下宽度也偏宽.
-// 21. 无各类设置窗口.
 // 23. 无undo/redo
+// 21. 无各类设置窗口.
+// 10. 搜索栏不能用
 
 $(function(){
 	print("load succeeded\n");
@@ -269,7 +269,6 @@ function move_main_menu() {
     move_menu(menu_bookmark_btn, menu_bookmark);
     move_menu(menu_plugin_btn, menu_plugin);
     move_menu(menu_tools_btn, menu_tools);
-    move_menu(menu_windows_btn, menu_windows);
     move_menu(menu_help_btn, menu_help);
 }
 
@@ -740,6 +739,9 @@ function get_curr_xplorer() {
 
 function copy_curr_path() {
 	sys.clipboard(addr.path);
-	var path = sys.clipboard();
-	print(path + "\n");
+}
+
+function copy_file_path() {
+	if(selected_files.length > 0)
+		sys.clipboard(selected_files[0]);
 }

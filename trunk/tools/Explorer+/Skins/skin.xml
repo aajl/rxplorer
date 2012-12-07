@@ -11,6 +11,7 @@
 		<accel vkey="" key="F6" action="copy_file()" />
 		<accel vkey="" key="F7" action="move_file()" />
 		<accel vkey="" key="F8" action="new_folder()" />
+		<accel vkey="" key="F9" action="copy_file_path()" />
 		<accel vkey="Ctrl" key="E" action="open_curr_folder()" />
 		<accel vkey="Ctrl" key="T" action="new_tab_view(get_curr_xplorer())" />
 	</accels>
@@ -68,7 +69,6 @@
 				<item id="menu_bookmark_btn" text="书签(B)" action="move_main_menu()" popup="main_menu.menu_bookmark" />
 				<item id="menu_plugin_btn" text="插件(P)" action="move_main_menu()" popup="main_menu.menu_plugin" />
 				<item id="menu_tools_btn" text="工具(T)" action="move_main_menu()" popup="main_menu.menu_tools" />
-				<item id="menu_windows_btn" text="窗口(W)" action="move_main_menu()" popup="main_menu.menu_windows" />
 				<item id="menu_help_btn" text="帮助(H)" action="move_main_menu()" popup="main_menu.menu_help" />
 			</items>
 			<button x="0" y="0" width="53" height="20" align="center,vcenter,singleline">
