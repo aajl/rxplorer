@@ -26,13 +26,13 @@ var maximize = false;
 // 26. img控件不支持图标 √
 // 22. 无多语言 √
 // 18. 弹出菜单在点击文件夹时不自动隐藏. √
-// 7. 地址栏不能使用
-// 17. 弹出窗口的高度不能根据项数自动计算.
+// 7. 地址栏不能使用 √
+// 17. 弹出窗口的高度不能根据项数自动计算. √
+// 8. 状态栏信息显示不全 √
 // 24 过滤器无滚动条
 // 25 过滤器的快速过滤不能用
 // 3. 驱动器栏要用异步的方式
 // 6. 第二面板不能隐藏
-// 8. 状态栏信息显示不全
 // 9. 菜单栏不能用
 // 10. 搜索栏不能用
 // 13. 常用工具栏多数工具不可用,并且太少.
@@ -98,30 +98,53 @@ $(function(){
 		},
 		selected:function(files) {
 			selected_files = files;
-			var sbar = setting.statusbar.show ? statusbar : detailbar;
 			if(files.length == 0) {
-				sbar.filename.text = curr_tab.text;
+				if(setting.statusbar.show) {
+					statusbar.filename.text = curr_tab.text;
+				} else {
+					detailbar.info.clear();
+					detailbar.info.insert({"text": curr_tab.text});
+				}
 			} else if(files.length == 1) {
 				var pth = new jpath(files[0]);
-				var fileinfo = pth.filename();
-				fileinfo += "    (" + pth.filetype() + ")";
+				
+				var filesize = "";
 				if(pth.filesize() > 0) {
-					fileinfo += "    " + lang.get("size") + ": ";
-					var filesize = pth.filesize();
-					if(filesize < 1024)
-						fileinfo += filesize + " " + lang.get("byte");
-					else if(filesize < 1024 * 1024)
-						fileinfo += (filesize / 1024).toFixed(2) + " KB";
-					else if(filesize < 1024 * 1024 * 1024)
-						fileinfo += (filesize / 1024 / 1024).toFixed(2) + " MB";
+					filesize += lang.get("size") + ": ";
+					var fsize = pth.filesize();
+					if(fsize < 1024)
+						filesize += fsize + " " + lang.get("byte");
+					else if(fsize < 1024 * 1024)
+						filesize += (fsize / 1024).toFixed(2) + " KB";
+					else if(fsize < 1024 * 1024 * 1024)
+						filesize += (fsize / 1024 / 1024).toFixed(2) + " MB";
 					else
-						fileinfo += (filesize / 1024 / 1024 / 1024).toFixed(2) + " GB";
+						filesize += (fsize / 1024 / 1024 / 1024).toFixed(2) + " GB";
 				}
-				fileinfo += "    " + lang.get("create_time") + ": " + pth.modify_time();
-				fileinfo += "    " + lang.get("modify_time") + ": " + pth.create_time();
-				sbar.filename.text = fileinfo;
+				
+				if(setting.statusbar.show) { // 显示简单状态栏里的信息
+					var fileinfo = pth.display_name();
+					fileinfo += "    (" + pth.filetype() + ")";
+					fileinfo += "    " + filesize;
+					fileinfo += "    " + lang.get("create_time") + ": " + pth.modify_time();
+					fileinfo += "    " + lang.get("modify_time") + ": " + pth.create_time();
+					statusbar.filename.text = fileinfo;
+				} else { // 显示详细状态栏里的信息
+					detailbar.info.clear();
+					detailbar.info.insert({"text": pth.display_name()});
+					detailbar.info.insert({"text": filesize});
+					detailbar.info.insert({"text": pth.filetype(), "color": "#5A6779"});
+					detailbar.info.insert({"text": " "});
+					detailbar.info.insert({"text": lang.get("create_time") + ": " + pth.modify_time()});
+					detailbar.info.insert({"text": lang.get("modify_time") + ": " + pth.create_time()});
+				}
 			} else {
-				sbar.filename.text = "选择了 " + files.length + " 个文件";
+				if(setting.statusbar.show) {
+					statusbar.filename.text = "选择了 " + files.length + " 个文件";
+				} else {
+					detailbar.info.clear();
+					detailbar.info.insert({"text": "选择了 " + files.length + " 个文件"});
+				}
 			}
 		},
 		filetypes:function(types) {
@@ -583,7 +606,9 @@ function open_tool(path, param) {
 		}
 	}
 	
+	param = param.replace(/'/gi, "\"");
 	print(path + " " + param + "\n");
+	
 	sys.shell_execute(path, param);
 }
 
