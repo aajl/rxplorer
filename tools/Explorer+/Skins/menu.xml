@@ -2,7 +2,7 @@
 	<border width="1" color="#aca899" />
 	<bkimg src="menu.png" width="23" height="23" />
 
-	<items height="23">
+	<items height="adapt">
 		<item id="menu_file" text="文件">
 			<item text="新建标签(&T)        Ctrl+T" icon="icons.folder" action="new_tab_view(get_curr_xplorer())" />
 			<item text="新建文件夹(&N)   Ctrl+N" icon="icons.newfolder" action="new_folder()" />
