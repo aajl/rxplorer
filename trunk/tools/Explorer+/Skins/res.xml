@@ -93,6 +93,11 @@
 		<hover x="14" />
 		<down x="28" />
 	</states>
+	<states id="delete" normal="delete.png" width="14" height="14">
+		<normal x="0" />
+		<hover x="14" />
+		<down x="28" />
+	</states>
 	<states id="top_tab">
 		<normal link="javascript:top_tab_normal.id" />
 		<hover link="javascript:top_tab_down.id" />

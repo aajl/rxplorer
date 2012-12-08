@@ -44,7 +44,7 @@
 		<item id="menu_help" text="帮助">
 			<item text="帮助(&H)" />
 			<item text="检查更新(&C)" />
-			<item text="关于Explorer(&A)" />
+			<item text="关于Explorer(&A)" action="about.show()" />
 		</item>
 	</items>
 	
