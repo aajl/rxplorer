@@ -761,3 +761,6 @@ function copy_file_path() {
 	if(selected_files.length > 0)
 		sys.clipboard(selected_files[0]);
 }
+
+function show_tooltip(info) {
+}
