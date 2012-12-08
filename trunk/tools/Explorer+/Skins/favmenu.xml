@@ -27,7 +27,7 @@
 					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
 				</states>
 				
-				<button id=".close" visible="false" path="item.path" action="remove_favorite_folder(this.path, this.id)">
+				<button id=".close" visible="false" attrib="visible_along" path="item.path" action="remove_favorite_folder(this.path, this.id)">
 					<pos position="relative" adapt="false" x="-16" y="4" width="14" height="14" />
 					<states link="states.delete" />
 				</button>
