@@ -531,12 +531,13 @@ function remove_favorite_folder(path, folder_id) {
 		if(path == favorite_folders[i].path) {
 			favorite_folders.splice(i, 1);
 			save2file(favorite_folders, "folders.json");
-			resize_favorite_folder_panel();
+			//resize_favorite_folder_panel();
 			
 			var ids = folder_id.split(".");
 			ids.splice(ids.length - 1, 1);
 			folder_id = ids.join(".");
-			//favfolders.remove(folder_id);
+			favfolders.remove(folder_id);
+			favfolders_pane.redraw();
 			break;
 		}
 	}
