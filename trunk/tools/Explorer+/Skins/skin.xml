@@ -120,7 +120,7 @@
 		</custom>
 		
 		<!--收藏工具栏-->
-		<custom id="favtools" x="173" y="24" width="704" height="29" col="50" type="tiled" margin="0,1,0,7" float="width">
+		<custom id="favtools" x="173" y="24" width="704" height="29" row="1" col="100" type="tiled" margin="0,1,0,7" float="width">
 			<attribs bkclr="#E5E5E5" bkimg="dragable.png" oninit="load_favorite_tools()" />
 			<bkimg dx="2" dy="3" />
 			<events dbclk="print('db clk\n')" rbtn="print('rbutton\n')" />

@@ -2,7 +2,7 @@
 	<border width="1" color="#ACA899" />
 	<!--effects show="effect.roll(folder_fav.id, 50, true, 2|8)" hide="effect.roll(folder_fav.id, 50, false, 1|4)" />
 	<label x="1" y="2" width="28" height="211" bkclr="#F2F2F2" position="relative" /-->
-	<custom id="favfolders" yadapt="true" type="tiled" margin="1" oninit="load_favorite_folders()">
+	<custom id="favfolders" yadapt="true" type="tiled" row="100" col="1" margin="1" oninit="load_favorite_folders()">
 		<pos position="relative" x="2" y="2" width="156" height="23" float="width,height" />
 		<bkimg src="menu.png" width="23" height="23" />
 		<items height="adapt">
