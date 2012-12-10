@@ -292,7 +292,7 @@ function load_favorite_tools() {
 
 		var id = sys.hash(bkmrk.name + path + param);
 		var param = (typeof(bkmrk.param) == "undefined") ? "" : bkmrk.param;
-		favtools.insert({"id":"btn" + id, "path":path, "icon":path + "|0|24", "param": param});
+		favtools.insert({"id":"btn" + id, "path":path, "icon":path + "|0|24", "param": param, "tooltip": bkmrk.name});
 			
 		print("key: " + bkmrk.key + "\n");
 
@@ -762,5 +762,9 @@ function copy_file_path() {
 		sys.clipboard(selected_files[0]);
 }
 
-function show_tooltip(info) {
+function show_tooltip(ctrl, info) {
+	var rc = ctrl.screen_rect();
+	tooltip.move(rc.x, rc.y + rc.height + 1, tooltip.width, tooltip.height);
+	tooltip.tip.text = info;
+	tooltip.show();
 }

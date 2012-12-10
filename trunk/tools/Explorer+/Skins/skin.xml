@@ -126,8 +126,8 @@
 			<events dbclk="print('db clk\n')" rbtn="print('rbutton\n')" />
 			<items width="29" height="29">
 			</items>
-			<button id="item.id" width="29" height="29" path="item.path" param="item.param" action="open_tool(this.path, this.param)">
-				<events rbtn="pop_tool_menu(this)" mouse_in="print('in');tooltip.show()" mouse_out="print('out');tooltip.hide()" />
+			<button id="item.id" width="29" height="29" tooltip="item.tooltip" path="item.path" param="item.param" action="open_tool(this.path, this.param)">
+				<events rbtn="pop_tool_menu(this)" tooltip="show_tooltip(this, this.tooltip)" mouse_out="tooltip.hide()" />
 				<states width="24" height="24">
 					<normal icon="item.icon" ix="3" iy="3" size="24" border="0" bkclr="#E5E5E5" />
 					<hover ix="2" iy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -290,11 +290,12 @@
 		</layer>
 			
 		<!--文件夹树控件-->
-		<layer id="treeview" x="3" y="85" width="240" height="500" float="height">
+		<layer id="treeview" x="3" y="85" width="240" height="500" bkclr="#E5E5E5" float="height">
 			<border width="1" color="#ACA899" />
 			
-			<layer id=".tree" x="0" y="0" width="240" height="250" float="height">
-				<label text="文件夹" position="relative" x="" y="0" width="240" height="22" bkclr="#E5E5E5" align="vcenter" offset="3">
+			<layer id=".tree" x="0" y="0" width="238" height="250" bkclr="#E5E5E5" float="height">
+				<border width="1" color="#ACA899" />
+				<label text="文件夹" position="relative" x="" y="0" width="240" height="22" align="vcenter" offset="3">
 					<border width="1" color="#ACA899" />
 				</label>
 				
@@ -313,14 +314,15 @@
 						<hover ix="1" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
 						<down border="1" color="#316AC5" bkclr="#C1D2EE" />
 					</states>
-				</button>
+				</button>				
 			
-				<panel id=".view" position="relative" x="1" y="22" width="238" height="250" bkclr="#ffffff" float="height">
+				<panel id=".view" position="relative" x="1" y="22" width="238" height="250" bkclr="#ffffff" float="width,height">
 				</panel>
 			</layer>
 			
-			<layer id=".filter" x="0" y="272" width="240" height="228" float="bottom">
-				<label text="过滤器" position="relative" x="0" y="0" width="240" height="22" bkclr="#E5E5E5" align="vcenter" offset="3">
+			<layer id=".filter" x="0" y="272" width="240" height="228" bkclr="#E5E5E5" float="bottom">
+				<border width="1" color="#ACA899" />
+				<label text="过滤器" position="relative" x="0" y="0" width="240" height="22" align="vcenter" offset="3">
 					<border width="1" color="#ACA899" />
 				</label>
 				
@@ -370,11 +372,11 @@
 		</layer>
 
 		<!--文件视图-->
-		<layer id="xplr" x="245" y="85" width="630" height="500" float="width,height">
+		<layer id="xplr" x="245" y="85" width="630" height="500" bkclr="#E5E5E5" float="width,height">
 			<layer id="xplorer" x="0" y="0" width="315" height="500" float="wratio,height">
 				<border width="1" color="#ACA899" />
 				
-				<label position="relative" x="0" y="0" width="315" height="22" bkclr="#E5E5E5" float="width">
+				<label position="relative" x="0" y="0" width="315" height="22" float="width">
 					<border width="1" color="#ACA899" />
 				</label>
 				
@@ -469,7 +471,7 @@
 				<items width="170" height="18">
 					<!--<item text="" />-->
 				</items>
-				<label text="item.text" width="170" height="18" color="item.color" align="vcenter" />
+				<label text="item.text" width="170" height="18" color="item.color" bkclr="#E5E5E5" align="vcenter" />
 			</custom>
 			
 			<button text="↓" position="relative" x="-12" y="-18" width="10" height="16" float="right" action="show_statusbar(true)">
