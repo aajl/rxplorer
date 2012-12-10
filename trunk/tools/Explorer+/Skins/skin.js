@@ -29,8 +29,9 @@ var maximize = false;
 // 7. 地址栏不能使用 √
 // 17. 弹出窗口的高度不能根据项数自动计算. √
 // 8. 状态栏信息显示不全 √
+// 14. 改变大小后,第二面板的关闭按钮不见了. √
+// 19. 无tooltip √
 // 24 过滤器无滚动条
-// 14. 改变大小后,第二面板的关闭按钮不见了.
 // 20. 改变窗口宽度时,文件夹窗口大小发生异常,且默认状态下宽度也偏宽.
 // 13. 常用工具栏多数工具不可用,并且太少.
 // 25 过滤器的快速过滤不能用
@@ -39,7 +40,6 @@ var maximize = false;
 // 9. 菜单栏不能用
 // 15. 点击标签右边的关闭不能关闭标签.
 // 16. 标签过多时,无滚动条或其它方式显示所有标签.
-// 19. 无tooltip
 // 23. 无undo/redo
 // 21. 无各类设置窗口.
 // 10. 搜索栏不能用
@@ -764,10 +764,10 @@ function copy_file_path() {
 
 function show_tooltip(ctrl, info) {
 	var rc = ctrl.screen_rect();
-	tooltip.tip.text = info;
 	var size = tooltip.tip.get_text_size(info);
-	print(size.json());
-	tooltip.move(rc.x, rc.y + rc.height + 1, tooltip.width, tooltip.height);
-	//tooltip.move(tooltip.x, tooltip.y, tooltip.x + size.width + 4, tooltip.height);
+	var width = size.width + 8;
+	tooltip.move(rc.x, rc.y + rc.height + 1, size.width + 6, tooltip.height);
+	
+	tooltip.tip.text = info;
 	tooltip.show();
 }
