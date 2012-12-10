@@ -764,7 +764,10 @@ function copy_file_path() {
 
 function show_tooltip(ctrl, info) {
 	var rc = ctrl.screen_rect();
-	tooltip.move(rc.x, rc.y + rc.height + 1, tooltip.width, tooltip.height);
 	tooltip.tip.text = info;
+	var size = tooltip.tip.get_text_size(info);
+	print(size.json());
+	tooltip.move(rc.x, rc.y + rc.height + 1, tooltip.width, tooltip.height);
+	//tooltip.move(tooltip.x, tooltip.y, tooltip.x + size.width + 4, tooltip.height);
 	tooltip.show();
 }
