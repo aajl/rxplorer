@@ -11,6 +11,7 @@ var pane2_curr_tab = null;
 var clicked_tab = false;
 var poped_menu_tab = null;
 var poped_menu_tool = null;
+var poped_menu_bkmrk = null;
 var poped_menu_xplor_id = null;
 var session_open = false;
 var session2_open = false;
@@ -31,6 +32,7 @@ var maximize = false;
 // 8. 状态栏信息显示不全 √
 // 14. 改变大小后,第二面板的关闭按钮不见了. √
 // 19. 无tooltip √
+// 15. 点击标签右边的关闭不能关闭标签. √
 // 24 过滤器无滚动条
 // 20. 改变窗口宽度时,文件夹窗口大小发生异常,且默认状态下宽度也偏宽.
 // 13. 常用工具栏多数工具不可用,并且太少.
@@ -38,11 +40,11 @@ var maximize = false;
 // 3. 驱动器栏要用异步的方式
 // 6. 第二面板不能隐藏
 // 9. 菜单栏不能用
-// 15. 点击标签右边的关闭不能关闭标签.
 // 16. 标签过多时,无滚动条或其它方式显示所有标签.
 // 23. 无undo/redo
 // 21. 无各类设置窗口.
 // 10. 搜索栏不能用
+// 28. 无鼠标手势
 
 $(function(){
 	print("load succeeded\n");
@@ -290,17 +292,21 @@ function load_favorite_tools() {
 		path = path.replace(/%Sys/gi, sys.path.system);
 		path = path.replace(/%App/gi, sys.path.app);
 
+		var accl = "";
+		if(typeof(bkmrk.key) != "undefined" && bkmrk.key.length > 0) {
+			if(typeof(bkmrk.vkey) != "undefined" && bkmrk.vkey.length > 0)
+				accl = bkmrk.vkey + "+" + bkmrk.key;
+			else
+				accl = bkmrk.key;
+		}
+		
 		var id = sys.hash(bkmrk.name + path + param);
 		var param = (typeof(bkmrk.param) == "undefined") ? "" : bkmrk.param;
-		favtools.insert({"id":"btn" + id, "path":path, "icon":path + "|0|24", "param": param, "tooltip": bkmrk.name});
+		favtools.insert({"id":"btn" + id, "path":path, "icon":path + "|0|24", "param": param, "tooltip": bkmrk.name, "accel": accl});
 			
-		print("key: " + bkmrk.key + "\n");
-
 		if(typeof(bkmrk.key) != "undefined" && bkmrk.key.length > 0) {
-			path = bkmrk.path.replace(/\\/gi, "\\\\");
-			path = path.replace(/"/gi, "\\\"");
-			param = bkmrk.param.replace(/\\/gi, "\\\\");
-			param = param.replace(/"/gi, "\\\"");
+			path = bkmrk.path.replace(/\\/gi, "\\\\").replace(/"/gi, "\\\"");
+			param = bkmrk.param.replace(/\\/gi, "\\\\").replace(/"/gi, "\\\"");
 			accel.add(bkmrk.vkey, bkmrk.key, "open_tool(\"" + path + "\", \"" + param + "\")");
 		}
 	}
@@ -463,13 +469,16 @@ function click_tab(xplor_id, tab) {
 }
 
 function close_tab(xplor, tab) {
+	if(xplor.tabs.children == 0)
+		return;
+	
 	var index = xplor.tabs.get_index(tab.id);
 	sys.explorer.remove(tab.view);
 	xplor.tabs.remove(tab.id);
 	xplor.views.remove(tab.tab);
 	if(xplor.tabs.children == 0)
 		return;
-	
+
 	if(--index <= 0)
 		index = 0;
 		
@@ -617,14 +626,62 @@ function open_tool(path, param) {
 				param = param + fl + " ";
 			}
 		} else {
-			param = param.replace(/%Path/gi, addr.path);
+			param = param.replace(/%Path/gi, addr.path).replace(/%FullPath/gi, "");
 		}
 	}
 	
 	param = param.replace(/'/gi, "\"");
+	if(param == "\"\"")
+		param = "";	
+	
 	print(path + " " + param + "\n");
 	
 	sys.shell_execute(path, param);
+}
+
+function tool_setting(tool) {
+	toolsetting.tooltip.text = tool.tooltip;
+	toolsetting.accel.text = tool.accel;
+	toolsetting.cmd.text = tool.path;
+	toolsetting.param.text = tool.param;
+	
+	poped_menu_bkmrk = null;
+	for (var i = 0; i < bookmark.length; ++i) {
+		var bkmrk = bookmark[i];
+
+		var path = bkmrk.path;
+		path = path.replace(/%Sys/gi, sys.path.system);
+		path = path.replace(/%App/gi, sys.path.app);
+
+		if(path == tool.path) {
+			if(typeof(bkmrk.param) == "undefined")
+				poped_menu_bkmrk = bkmrk;
+			else if(bkmrk.param == tool.param)
+				poped_menu_bkmrk = bkmrk;
+			else
+				continue;
+			
+			break;
+		}
+	}
+	
+	toolsetting.show();
+}
+
+function set_tool_info() {
+	if(poped_menu_bkmrk == null || poped_menu_tool == null)
+		return;
+	
+	poped_menu_tool.tooltip = toolsetting.tooltip.text;
+	poped_menu_tool.accel = toolsetting.accel.text;
+	poped_menu_tool.path = toolsetting.cmd.text;
+	poped_menu_tool.param = toolsetting.param.text;
+	
+	poped_menu_bkmrk.name = toolsetting.tooltip.text;
+	poped_menu_bkmrk.path = toolsetting.cmd.text;
+	poped_menu_bkmrk.param = toolsetting.param.text;
+	
+	save2file(bookmark, "bookmark.json");
 }
 
 function copy_file() {
@@ -762,12 +819,16 @@ function copy_file_path() {
 		sys.clipboard(selected_files[0]);
 }
 
-function show_tooltip(ctrl, info) {
+function show_tooltip(ctrl, info, accl) {
+	var text = info;
+	if(typeof(accl) != "undefined" && accl.length > 0)
+		text += "    " + accl;
+	
 	var rc = ctrl.screen_rect();
-	var size = tooltip.tip.get_text_size(info);
+	var size = tooltip.tip.get_text_size(text);
 	var width = size.width + 8;
 	tooltip.move(rc.x, rc.y + rc.height + 1, size.width + 6, tooltip.height);
 	
-	tooltip.tip.text = info;
+	tooltip.tip.text = text;
 	tooltip.show();
 }
