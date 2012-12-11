@@ -7,7 +7,7 @@
 			<item name="打开(&O)" icon="" action="sys.shell_execute(poped_menu_tool.path)" />
 			<item name="打开文件位置(&I)" icon="" action="locate_tool(poped_menu_tool.path)" />
 			<item name="删除(&D)" icon="" action="remove_favorite_tool(poped_menu_tool)" />
-			<item name="属性(&P)" icon="" action="" />
+			<item name="设置(&S)" icon="" action="tool_setting(poped_menu_tool)" />
 		</items>
 		<if condition="item.separator">
 			<layer x="0" y="0" width="131" height="3" margin="0,3">

@@ -16,7 +16,7 @@
 		<accel vkey="Ctrl" key="T" action="new_tab_view(get_curr_xplorer())" />
 	</accels>
 	
-	<panel id="explorer" title="lang.title" type="app" bkclr="#E5E5E5" drag="true">
+	<panel id="explorer" title="lang.title" type="app" bkclr="#E5E5E5" drag="true" tooltip="true">
 		<size x="0" y="0" width="880" height="660" resize="true" min-width="880" min-height="660" />
 		<events maximize="print('max');setting.explorer.max=true;max.check(true)" restore="setting.explorer.max=false;max.check(false)" close="on_close()" drop="on_dropfiles" />
 		<border width="1" color="#404040" />
@@ -28,7 +28,7 @@
 			<events dbclk="explorer.max()" />
 		</label>
 
-		<label id="title" text="lang.title" x="9" y="0" width="96" height="23" color="#ffffff" font="fonts.bold_10">
+		<label id="title" text="lang.title" x="9" y="0" width="96" height="20" color="#ffffff" font="fonts.bold_10">
 			<attribs bkimg="imgs.main_hover" offset="9" align="center,vcenter" />
 			<bkimg x="x" y="y" width="width" height="height" />
 		</label>
@@ -126,8 +126,8 @@
 			<events dbclk="print('db clk\n')" rbtn="print('rbutton\n')" />
 			<items width="29" height="29">
 			</items>
-			<button id="item.id" width="29" height="29" tooltip="item.tooltip" path="item.path" param="item.param" action="open_tool(this.path, this.param)">
-				<events rbtn="pop_tool_menu(this)" tooltip="show_tooltip(this, this.tooltip)" mouse_out="tooltip.hide()" />
+			<button id="item.id" width="29" height="29" tooltip="item.tooltip" accel="item.accel" path="item.path" param="item.param" action="open_tool(this.path, this.param)">
+				<events rbtn="pop_tool_menu(this)" tooltip="show_tooltip(this, this.tooltip, this.accel)" mouse_out="tooltip.hide()" />
 				<states width="24" height="24">
 					<normal icon="item.icon" ix="3" iy="3" size="24" border="0" bkclr="#E5E5E5" />
 					<hover ix="2" iy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -379,7 +379,7 @@
 					<border width="1" color="#ACA899" />
 				</label>
 				
-				<button position="relative" x="-16" y="4" width="14" height="14" adapt="false" float="right" action="print(tabcls2.rect().json())" >
+				<button position="relative" x="-16" y="4" width="14" height="14" adapt="false" float="right" action="close_tab(xplorer, pane1_curr_tab)" >
 					<states link="states.close" />
 				</button>
 				
@@ -422,7 +422,7 @@
 					<border width="1" color="#ACA899" />
 				</label>
 				
-				<button id="tabcls2" position="relative" x="-16" y="4" width="14" height="14" adapt="false" float="right">
+				<button position="relative" x="-16" y="4" width="14" height="14" adapt="false" float="right" action="close_tab(xplorer2, pane2_curr_tab)">
 					<states link="states.close" />
 				</button>
 				
@@ -516,6 +516,8 @@
 	<include>common_folders.xml</include>
 	
 	<include>tooltip.xml</include>
+	
+	<include>toolsetting.xml</include>
 	
 	<include>about.xml</include>
 </directui>
