@@ -113,15 +113,7 @@ $(function(){
 				var filesize = "";
 				if(pth.filesize() > 0) {
 					filesize += lang.get("size") + ": ";
-					var fsize = pth.filesize();
-					if(fsize < 1024)
-						filesize += fsize + " " + lang.get("byte");
-					else if(fsize < 1024 * 1024)
-						filesize += (fsize / 1024).toFixed(2) + " KB";
-					else if(fsize < 1024 * 1024 * 1024)
-						filesize += (fsize / 1024 / 1024).toFixed(2) + " MB";
-					else
-						filesize += (fsize / 1024 / 1024 / 1024).toFixed(2) + " GB";
+					filesize += format_disk_size(pth.filesize());
 				}
 				
 				if(setting.statusbar.show) { // 显示简单状态栏里的信息
@@ -186,6 +178,8 @@ $(function(){
 	drivebar.move(drivebar.x, drivebar.y, drivebar.width - offset, drivebar.height);
 	addrbar.move(addrbar.x - offset, addrbar.y, addrbar.width + offset, addrbar.height);
 	
+	print(obj.json());
+	
 	drivebar.set_redraw(false);
 	for(var i = 0; i < obj.drives.length; ++i) {
 		var drv = obj.drives[i];
@@ -193,11 +187,15 @@ $(function(){
 		
 		var item = {};
 		item.id = "drive" + i;
+		item.drive = drv.drive;
 		item.text = drv.drive;
 		item.path = drv.drive + ":\\";
 		item.pos = percent;
 		item.icon = drv.drive + ":\\";
 		item.down = (percent >= 9 ? "progress_hover_red.png" : "progress_hover.png");
+		item.label = drv.label;
+		item.free = drv.free;
+		item.total = drv.total;
 		drivebar.insert(item);
 	}
 	drivebar.set_redraw(true);
@@ -224,6 +222,20 @@ $(function(){
 		editer[i].editer = editer[i].editer.replace(/%App/gi, sys.path.app);
 	}
 });
+
+function format_disk_size(size) {
+	var filesize = "";
+	if(size < 1024)
+		filesize += size + " " + lang.get("byte");
+	else if(size < 1024 * 1024)
+		filesize += (size / 1024).toFixed(2) + " KB";
+	else if(size < 1024 * 1024 * 1024)
+		filesize += (size / 1024 / 1024).toFixed(2) + " MB";
+	else
+		filesize += (size / 1024 / 1024 / 1024).toFixed(2) + " GB";
+	
+	return filesize;
+}
 
 function on_close() {
 	save_session(xplorer, "session.json");
@@ -831,4 +843,29 @@ function show_tooltip(ctrl, info, accl) {
 	
 	tooltip.tip.text = text;
 	tooltip.show();
+}
+
+function show_drive_tooltip(drive) {
+	var text = "";
+	if(drive.label.length > 0)
+		text = drive.label + " (" + drive.drive + ":)";
+	else
+		text = drive.drive + ":";
+	
+	var rc = drive.screen_rect();
+	var size = drivetip.tip.get_text_size(text);
+	var width = size.width + 8;
+	drivetip.move(rc.x, rc.y + rc.height + 1, drivetip.width, drivetip.height);
+
+	var free = Number(drive.free) * 1024 * 1024;
+	var total = Number(drive.total) * 1024 * 1024;
+	drivetip.tip.text = text;
+	drivetip.spaceinfo.text = format_disk_size(free) + " 可用, 共" + format_disk_size(total);
+	drivetip.icon.set_icon(drive.path + "|0|24");
+	if(total == 0)
+		drivetip.space.pos = 0;
+	else
+		drivetip.space.pos = (total - free) / total * 100;
+	
+	drivetip.show();
 }

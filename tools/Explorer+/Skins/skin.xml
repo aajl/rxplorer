@@ -146,7 +146,8 @@
 			<items width="29" height="29">
 				<!--item text="C" pos="4" icon="drive.ico" down="progress_hover.png" /-->
 			</items>
-			<layer id="item.id" width="29" height="29" path="item.path" action="open_folder(this.path)">
+			<layer id="item.id" width="29" height="29" drive="item.drive" path="item.path" label="item.label" free="item.free" total="item.total" action="open_folder(this.path)">
+				<events tooltip="show_drive_tooltip(this)" mouse_out="drivetip.hide()" />
 				<states width="16" height="16" ix="6" iy="2">
 					<normal icon="item.icon" bkclr="#E5E5E5" />
 					<hover ix="5" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -531,6 +532,8 @@
 	<include>common_folders.xml</include>
 	
 	<include>tooltip.xml</include>
+	
+	<include>drivetip.xml</include>
 	
 	<include>toolsetting.xml</include>
 	
