@@ -862,10 +862,17 @@ function show_drive_tooltip(drive) {
 	drivetip.tip.text = text;
 	drivetip.spaceinfo.text = format_disk_size(free) + " ¿ÉÓÃ, ¹²" + format_disk_size(total);
 	drivetip.icon.set_icon(drive.path + "|0|24");
+	
+	var percent = (total - free) / total * 100;
+	if(percent > 90)
+		drivetip.space.state = 1;
+	else
+		drivetip.space.state = 0;
+	
 	if(total == 0)
 		drivetip.space.pos = 0;
 	else
-		drivetip.space.pos = (total - free) / total * 100;
+		drivetip.space.pos = percent;
 	
 	drivetip.show();
 }
