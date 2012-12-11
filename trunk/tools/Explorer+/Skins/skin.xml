@@ -85,22 +85,24 @@
 		<custom id="toolbar" x="1" y="24" width="172" height="29" col="10" type="tiled" margin="0,1,0,7" bkclr="#E5E5E5" bkimg="dragable.png">
 			<bkimg dx="2" dy="3" />
 			<items width="29" height="29">
-				<item icon="icons.folder" action="new_tab_view(get_curr_xplorer())" />
-				<item icon="icons.newfolder" action="" />
-				<item img="folder.png" action="show_treeview(!treeview.visible())" />
-				<item icon="icons.dual" action="" />
-				<item img="thumb.png" action="" cond="1" />
+				<item id=".newtab" tooltip="show_tooltip(this, lang.get('newtab'))" icon="icons.folder" action="new_tab_view(get_curr_xplorer())" />
+				<item id=".newfolder" tooltip="show_tooltip(this, lang.get('newfolder'))" icon="icons.newfolder" action="" />
+				<item id=".treeview" tooltip="show_tooltip(this, lang.get('treeview'))" img="folder.png" action="show_treeview(!treeview.visible())" />
+				<item id=".dual" tooltip="show_tooltip(this, lang.get('dual'))" icon="icons.dual" action="" />
+				<item id=".thumb" tooltip="show_tooltip(this, lang.get('thumb'))" img="thumb.png" action="" cond="1" />
 			</items>
 			<if condition="item.cond">
-				<layer width="40" height="29">
-					<button width="29" height="29" action="item.action" adapt="false">
+				<layer id=".combin" width="40" height="29">
+					<button id="item.id" width="29" height="29" action="item.action" adapt="false">
+						<events tooltip="item.tooltip" mouse_out="tooltip.hide()" />
 						<states normal="item.img" width="24" height="24">
 							<normal icon="item.icon" dx="3" dy="3" ix="3" iy="3" size="24" border="0" bkclr="#E5E5E5" />
 							<hover dx="2" dy="2" ix="2" iy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
 							<down dx="3" dy="3" ix="3" iy="3" border="1" color="#316AC5" bkclr="#C1D2EE" />
 						</states>
 					</button>
-					<button width="11" height="29" action="" adapt="false">
+					<button id=".more" width="11" height="29" action="" adapt="false">
+						<events tooltip="show_tooltip(this, lang.get('more'))" mouse_out="tooltip.hide()" />
 						<states normal="dropdown.png" width="7" height="24">
 							<normal dx="2" dy="13" border="0" bkclr="#E5E5E5" />
 							<hover dx="2" dy="12" border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -109,7 +111,8 @@
 					</button>
 				</layer>
 			<else />
-				<button width="29" height="29" action="item.action" adapt="false">
+				<button id="item.id" width="29" height="29" action="item.action" adapt="false">
+					<events tooltip="item.tooltip" mouse_out="tooltip.hide()" />
 					<states normal="item.img" width="24" height="24">
 						<normal icon="item.icon" dx="3" dy="3" ix="3" iy="3" size="24" border="0" bkclr="#E5E5E5" />
 						<hover dx="2" dy="2" ix="2" iy="2" border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -162,13 +165,14 @@
 			<border width="1" color="#316AC5" />
 
 			<!--Undo/Redo-->
-			<custom x="201" y="56" width="59" height="26" col="4" type="tiled" margin="0,1,0,7" bkclr="#E5E5E5">
+			<custom id=".do" x="201" y="56" width="59" height="26" col="4" type="tiled" margin="0,1,0,7" bkclr="#E5E5E5">
 				<bkimg src="dragable.png" dx="2" dy="3" />
 				<items width="26" height="26">
-					<item img="undo.png" action="addr.path='D:\Download\TeamPlayer'" />
-					<item img="redo.png" action="addr.path='D:\Download'" />
+					<item id=".undo" tooltip="show_tooltip(this, lang.get('undo'))" img="undo.png" action="addr.path='D:\Download\TeamPlayer'" />
+					<item id=".redo" tooltip="show_tooltip(this, lang.get('redo'))" img="redo.png" action="addr.path='D:\Download'" />
 				</items>
-				<button width="26" height="26" action="item.action">
+				<button id="item.id" width="26" height="26" action="item.action">
+					<events tooltip="item.tooltip" mouse_out="tooltip.hide()" />
 					<states normal="item.img" width="width" height="width">
 						<normal x="0" />
 						<hover x="26" />
@@ -179,8 +183,9 @@
 			</custom>
 
 			<!--历史记录按钮-->
-			<button x="257" y="58" width="17" height="23" action="" popup="recent_pane">
+			<button id=".history" x="257" y="58" width="17" height="23" action="" popup="recent_pane">
 				<popup position="auto" />
+				<events tooltip="show_tooltip(this, lang.get('history'))" mouse_out="tooltip.hide()" />
 				<states normal="recent.png" width="17" height="23">
 					<normal x="0" />
 					<hover x="17" />
@@ -190,7 +195,8 @@
 			</button>
 
 			<!--向上按钮-->
-			<button x="275" y="58" width="24" height="22" action="up()">
+			<button id=".up" x="275" y="58" width="24" height="22" action="up()">
+				<events tooltip="show_tooltip(this, lang.get('up'))" mouse_out="tooltip.hide()" />
 				<states normal="up.png" width="24" height="22">
 					<normal x="0" bkclr="#E5E5E5" />
 					<hover x="24" />
@@ -257,8 +263,9 @@
 			</addr>
 			
 			<!--收藏夹按钮-->
-			<button position="relative" x="-36" y="2" width="12" height="21" adapt="false" popup="favfolders_pane" float="right">
+			<button id=".favorite" position="relative" x="-36" y="2" width="12" height="21" adapt="false" popup="favfolders_pane" float="right">
 				<popup position="auto" />
+				<events tooltip="show_tooltip(this, lang.get('favorite'))" mouse_out="tooltip.hide()" />
 				<states normal="fav.png" dx="1" dy="6">
 					<normal border="0" bkclr="#FFFFFF" />
 					<hover border="1" dy="5" color="#316AC5" bkclr="#C1D2EE" />
@@ -267,7 +274,8 @@
 			</button>
 
 			<!--复制当前路径按钮-->
-			<button position="relative" x="-23" y="2" width="21" height="21" adapt="false" float="right" action="copy_curr_path()">
+			<button id=".copy" position="relative" x="-23" y="2" width="21" height="21" adapt="false" float="right" action="copy_curr_path()">
+				<events tooltip="show_tooltip(this, lang.get('copy_curr_path'), 'F9')" mouse_out="tooltip.hide()" />
 				<states width="16" height="16">
 					<normal icon="icons.copy" border="0" bkclr="#FFFFFF" />
 					<hover border="1" ix="1" iy="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -277,12 +285,13 @@
 		</layer>
 		
 		<!--搜索栏-->
-		<layer x="637" y="56" width="240" height="25" bkclr="#ffffff" float="right">
+		<layer id="searchbar" x="637" y="56" width="240" height="25" bkclr="#ffffff" float="right">
 			<border width="1" color="#316AC5" />
 			
 			<edit id="search" position="relative" x="1" y="5" width="216" height="15" bkclr="#ffffff" hint="搜索" />
 			
-			<button position="relative" x="-24" y="1" width="23" height="23" adapt="false">
+			<button id=".srchbtn" position="relative" x="-24" y="1" width="23" height="23" adapt="false">
+				<events tooltip="show_tooltip(this, lang.get('search'))" mouse_out="tooltip.hide()" />
 				<states normal="search_icon.png" dx="3" dy="3">
 					<hover dx="2" dy="2" />
 				</states>
@@ -298,11 +307,13 @@
 					<border width="1" color="#ACA899" />
 				</label>
 				
-				<button position="relative" x="-16" y="4" width="14" height="14" adapt="false">
+				<button id=".close" position="relative" x="-16" y="4" width="14" height="14" adapt="false">
+					<events tooltip="show_tooltip(this, lang.get('close'))" mouse_out="tooltip.hide()" />
 					<states link="states.close" />
 				</button>
 			
 				<button id="sync" position="relative" x="-35" y="2" width="18" height="18" action="sync_treeview()" adapt="false" checkable="true">
+					<events tooltip="show_tooltip(this, lang.get('sync'))" mouse_out="tooltip.hide()" />
 					<states width="16" height="16" ix="2" iy="2">
 						<normal icon="icons.sync" bkclr="#E5E5E5" />
 						<hover ix="1" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -325,11 +336,13 @@
 					<border width="1" color="#ACA899" />
 				</label>
 				
-				<button position="relative" x="-16" y="4" width="14" height="14" adapt="false">
+				<button id=".close" position="relative" x="-16" y="4" width="14" height="14" adapt="false">
+					<events tooltip="show_tooltip(this, lang.get('close'))" mouse_out="tooltip.hide()" />
 					<states link="states.close" />
 				</button>
 				
 				<button id="clear" position="relative" x="-35" y="2" width="18" height="18" action="clear_filters()" adapt="false">
+					<events tooltip="show_tooltip(this, lang.get('clear'))" mouse_out="tooltip.hide()" />
 					<states width="16" height="16" ix="2" iy="2">
 						<normal icon="icons.clear" bkclr="#E5E5E5" />
 						<hover ix="1" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -379,7 +392,8 @@
 					<border width="1" color="#ACA899" />
 				</label>
 				
-				<button position="relative" x="-16" y="4" width="14" height="14" adapt="false" float="right" action="close_tab(xplorer, pane1_curr_tab)" >
+				<button id=".close" position="relative" x="-16" y="4" width="14" height="14" adapt="false" float="right" action="close_tab(xplorer, pane1_curr_tab)" >
+					<events tooltip="show_tooltip(this, lang.get('close'))" mouse_out="tooltip.hide()" />
 					<states link="states.close" />
 				</button>
 				
@@ -422,7 +436,8 @@
 					<border width="1" color="#ACA899" />
 				</label>
 				
-				<button position="relative" x="-16" y="4" width="14" height="14" adapt="false" float="right" action="close_tab(xplorer2, pane2_curr_tab)">
+				<button id=".close" position="relative" x="-16" y="4" width="14" height="14" adapt="false" float="right" action="close_tab(xplorer2, pane2_curr_tab)">
+					<events tooltip="show_tooltip(this, lang.get('close'))" mouse_out="tooltip.hide()" />
 					<states link="states.close" />
 				</button>
 				
