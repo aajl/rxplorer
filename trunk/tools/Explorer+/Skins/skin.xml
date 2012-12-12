@@ -12,6 +12,7 @@
 		<accel vkey="" key="F7" action="move_file()" />
 		<accel vkey="" key="F8" action="new_folder()" />
 		<accel vkey="" key="F9" action="copy_file_path()" />
+		<accel vkey="" key="F10" action="copy_curr_path()" />
 		<accel vkey="Ctrl" key="E" action="open_curr_folder()" />
 		<accel vkey="Ctrl" key="T" action="new_tab_view(get_curr_xplorer())" />
 	</accels>
@@ -162,15 +163,13 @@
 		</custom>
 		
 		<!--地址栏-->
-		<layer id="addrbar" x="300" y="56" width="333" height="25" bkclr="#FFFFFF" float="width">
-			<border width="1" color="#316AC5" />
-
+		<layer id="addrbar" x="201" y="56" width="433" height="26" float="width">
 			<!--Undo/Redo-->
-			<custom id=".do" x="201" y="56" width="59" height="26" col="4" type="tiled" margin="0,1,0,7" bkclr="#E5E5E5">
+			<custom id=".do" position="relative" x="0" y="0" width="59" height="26" col="4" type="tiled" margin="0,1,0,7" bkclr="#E5E5E5">
 				<bkimg src="dragable.png" dx="2" dy="3" />
 				<items width="26" height="26">
-					<item id=".undo" tooltip="show_tooltip(this, lang.get('undo'))" img="undo.png" action="addr.path='D:\Download\TeamPlayer'" />
-					<item id=".redo" tooltip="show_tooltip(this, lang.get('redo'))" img="redo.png" action="addr.path='D:\Download'" />
+					<item id=".undo" tooltip="show_tooltip(this, lang.get('undo'))" img="undo.png" action="" />
+					<item id=".redo" tooltip="show_tooltip(this, lang.get('redo'))" img="redo.png" action="" />
 				</items>
 				<button id="item.id" width="26" height="26" action="item.action">
 					<events tooltip="item.tooltip" mouse_out="tooltip.hide()" />
@@ -184,7 +183,7 @@
 			</custom>
 
 			<!--历史记录按钮-->
-			<button id=".history" x="257" y="58" width="17" height="23" action="" popup="recent_pane">
+			<button id=".history" position="relative" x="56" y="2" width="17" height="23" action="" popup="recent_pane">
 				<popup position="auto" />
 				<events tooltip="show_tooltip(this, lang.get('history'))" mouse_out="tooltip.hide()" />
 				<states normal="recent.png" width="17" height="23">
@@ -196,7 +195,7 @@
 			</button>
 
 			<!--向上按钮-->
-			<button id=".up" x="275" y="58" width="24" height="22" action="up()">
+			<button id=".up" position="relative" x="74" y="2" width="24" height="22" action="up()">
 				<events tooltip="show_tooltip(this, lang.get('up'))" mouse_out="tooltip.hide()" />
 				<states normal="up.png" width="24" height="22">
 					<normal x="0" bkclr="#E5E5E5" />
@@ -205,84 +204,89 @@
 				</states>
 			</button>
 
-			<!--图标按钮-->
-			<button id=".sysfolder" position="relative" x="3" y="2" width="21" height="21" popup="common_folders_pane">
-				<popup position="auto" />
-				<states width="16" height="16">
-					<normal icon="icons.computer" border="0" bkclr="#FFFFFF" />
-					<hover ix="1" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
-					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
-				</states>
-			</button>
-
-			<!--多功能箭头-->
-			<button id=".sysfolder2" position="relative" x="26" y="2" width="9" height="21" adapt="false" popup="common_folders_pane">
-				<popup position="auto" />
-				<states normal="triangle.png" dx="3" dy="9">
-					<normal border="0" bkclr="#FFFFFF" />
-					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
-				</states>
-			</button>
-
 			<!--地址栏-->
-			<addr id="addr" path="" position="relative" x="36" y="1" width="260" height="23" bkclr="#FFFFFF" float="width">
-				<events click_path="open_folder" />
-				<states width="0" height="0">
-					<normal border="0" bkclr="#FFFFFF" />
-					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
-					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
-				</states>
-				<states normal="triangle.png" dx="3" dy="9">
-					<normal border="0" bkclr="#FFFFFF" />
-					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
-					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
-				</states>
-				<states width="0" height="0">
-					<normal border="0" bkclr="#C0C0C0" />
-					<hover border="1" color="#316AC5" bkclr="#C0C0C0" />
-				</states>
-				<states normal="triangle.png" dx="3" dy="9">
-					<normal border="0" bkclr="#C0C0C0" />
-					<hover border="1" color="#316AC5" bkclr="#C0C0C0" />
-				</states>
-				<panel type="modeless" x="0" y="0" width="155" height="27" visible="false" alpha="95" max-height="712">
-					<border width="1" color="#ACA899" />
-					<custom yadapt="true" type="tiled" margin="1" col="1" x="2" y="2" width="151" height="23" float="width,height">
-						<bkimg src="menu.png" width="23" height="23" />
-						<items height="adapt">
-							<!--item name="Sub Folder1" path="" icon="icons.fav" action="" /-->
-						</items>
-						<layer id="item.id" width="width" height="23" float="wratio" adapt="false" text="item.name" align="vcenter" offset="30" action="item.action">
-							<states normal="menu.png" hover="null" down="null" width="23" height="23" ix="3" iy="3" >
-								<normal icon="item.icon" border="0" bkclr="#ffffff" />
-								<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
-								<down border="1" color="#316AC5" bkclr="#C1D2EE" />
-							</states>
-						</layer>
-					</custom>
-				</panel>
-			</addr>
-			
-			<!--收藏夹按钮-->
-			<button id=".favorite" position="relative" x="-36" y="2" width="12" height="21" adapt="false" popup="favfolders_pane" float="right">
-				<popup position="auto" />
-				<events tooltip="show_tooltip(this, lang.get('favorite'))" mouse_out="tooltip.hide()" />
-				<states normal="fav.png" dx="1" dy="6">
-					<normal border="0" bkclr="#FFFFFF" />
-					<hover border="1" dy="5" color="#316AC5" bkclr="#C1D2EE" />
-					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
-				</states>
-			</button>
+			<layer id=".addrbar" x="100" y="0" width="333" height="25" bkclr="#FFFFFF" float="width">
+				<border width="1" color="#316AC5" />
+				
+				<!--图标按钮-->
+				<button id=".sysfolder" position="relative" x="3" y="2" width="21" height="21" popup="common_folders_pane">
+					<popup position="auto" />
+					<states width="16" height="16">
+						<normal icon="icons.computer" border="0" bkclr="#FFFFFF" />
+						<hover ix="1" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
+						<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+					</states>
+				</button>
 
-			<!--复制当前路径按钮-->
-			<button id=".copy" position="relative" x="-23" y="2" width="21" height="21" adapt="false" float="right" action="copy_curr_path()">
-				<events tooltip="show_tooltip(this, lang.get('copy_curr_path'), 'F9')" mouse_out="tooltip.hide()" />
-				<states width="16" height="16">
-					<normal icon="icons.copy" border="0" bkclr="#FFFFFF" />
-					<hover border="1" ix="1" iy="1" color="#316AC5" bkclr="#C1D2EE" />
-					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
-				</states>
-			</button>
+				<!--多功能箭头-->
+				<button id=".sysfolder2" position="relative" x="26" y="2" width="9" height="21" adapt="false" popup="common_folders_pane">
+					<popup position="auto" />
+					<states normal="triangle.png" dx="3" dy="9">
+						<normal border="0" bkclr="#FFFFFF" />
+						<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+					</states>
+				</button>
+
+				<!--地址栏-->
+				<addr id="addr" path="" position="relative" x="36" y="1" width="260" height="23" bkclr="#FFFFFF" float="width">
+					<events click_path="open_folder" />
+					<states width="0" height="0">
+						<normal border="0" bkclr="#FFFFFF" />
+						<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+						<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+					</states>
+					<states normal="triangle.png" dx="3" dy="9">
+						<normal border="0" bkclr="#FFFFFF" />
+						<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+						<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+					</states>
+					<states width="0" height="0">
+						<normal border="0" bkclr="#C0C0C0" />
+						<hover border="1" color="#316AC5" bkclr="#C0C0C0" />
+					</states>
+					<states normal="triangle.png" dx="3" dy="9">
+						<normal border="0" bkclr="#C0C0C0" />
+						<hover border="1" color="#316AC5" bkclr="#C0C0C0" />
+					</states>
+					<panel type="modeless" x="0" y="0" width="155" height="27" visible="false" alpha="95" max-height="712">
+						<border width="1" color="#ACA899" />
+						<custom yadapt="true" type="tiled" margin="1" col="1" x="2" y="2" width="151" height="23" float="width,height">
+							<bkimg src="menu.png" width="23" height="23" />
+							<items height="adapt">
+								<!--item name="Sub Folder1" path="" icon="icons.fav" action="" /-->
+							</items>
+							<layer id="item.id" width="width" height="23" float="wratio" adapt="false" text="item.name" align="vcenter" offset="30" action="item.action">
+								<states normal="menu.png" hover="null" down="null" width="23" height="23" ix="3" iy="3" >
+									<normal icon="item.icon" border="0" bkclr="#ffffff" />
+									<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+									<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+								</states>
+							</layer>
+						</custom>
+					</panel>
+				</addr>
+				
+				<!--收藏夹按钮-->
+				<button id=".favorite" position="relative" x="-36" y="2" width="12" height="21" adapt="false" popup="favfolders_pane" float="right">
+					<popup position="auto" />
+					<events tooltip="show_tooltip(this, lang.get('favorite'))" mouse_out="tooltip.hide()" />
+					<states normal="fav.png" dx="1" dy="6">
+						<normal border="0" bkclr="#FFFFFF" />
+						<hover border="1" dy="5" color="#316AC5" bkclr="#C1D2EE" />
+						<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+					</states>
+				</button>
+
+				<!--复制当前路径按钮-->
+				<button id=".copy" position="relative" x="-23" y="2" width="21" height="21" adapt="false" float="right" action="copy_curr_path()">
+					<events tooltip="show_tooltip(this, lang.get('copy_curr_path'), 'F10')" mouse_out="tooltip.hide()" />
+					<states width="16" height="16">
+						<normal icon="icons.copy" border="0" bkclr="#FFFFFF" />
+						<hover border="1" ix="1" iy="1" color="#316AC5" bkclr="#C1D2EE" />
+						<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+					</states>
+				</button>
+			</layer>
 		</layer>
 		
 		<!--搜索栏-->
