@@ -33,7 +33,6 @@ var maximize = false;
 // 14. 改变大小后,第二面板的关闭按钮不见了. √
 // 19. 无tooltip √
 // 15. 点击标签右边的关闭不能关闭标签. √
-// 24 过滤器无滚动条
 // 20. 改变窗口宽度时,文件夹窗口大小发生异常,且默认状态下宽度也偏宽.
 // 13. 常用工具栏多数工具不可用,并且太少.
 // 25 过滤器的快速过滤不能用
@@ -41,10 +40,11 @@ var maximize = false;
 // 6. 第二面板不能隐藏
 // 9. 菜单栏不能用
 // 16. 标签过多时,无滚动条或其它方式显示所有标签.
-// 23. 无undo/redo
 // 21. 无各类设置窗口.
+// 23. 无undo/redo
 // 10. 搜索栏不能用
 // 28. 无鼠标手势
+// 24 过滤器无滚动条
 
 $(function(){
 	print("load succeeded\n");
@@ -861,7 +861,7 @@ function show_drive_tooltip(drive) {
 	var total = Number(drive.total) * 1024 * 1024;
 	drivetip.tip.text = text;
 	drivetip.spaceinfo.text = format_disk_size(free) + " 可用, 共" + format_disk_size(total);
-	drivetip.icon.set_icon(drive.path + "|0|24");
+	drivetip.icon.set_icon(drive.path + "|0|48");
 	
 	var percent = (total - free) / total * 100;
 	if(percent > 90)
