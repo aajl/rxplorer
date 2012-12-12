@@ -398,7 +398,18 @@
 					<states link="states.close" />
 				</button>
 				
-				<custom id=".tabs" type="tiled" position="relative" x="2" y="2" width="295" height="20" row="1" col="100" bkclr="#E5E5E5" float="width">
+				<button id=".showlist" adapt="false" float="right" popup="folderlist_pane" action="show_folder_list(xplorer)">
+					<pos position="relative" x="-32" y="3" width="16" height="16" />
+					<popup position="auto" />
+					<events tooltip="show_tooltip(this, lang.get('showlist'))" mouse_out="tooltip.hide()" />
+					<states normal="dropdown.png" dx="5" dy="6">
+						<normal border="0" bkclr="#E5E5E5" />
+						<hover border="1" dx="4" dy="5" color="#316AC5" bkclr="#C1D2EE" />
+						<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+					</states>
+				</button>
+
+				<custom id=".tabs" type="tiled" position="relative" x="2" y="2" width="279" height="20" row="1" col="100" bkclr="#E5E5E5" float="width">
 					<border width="1" color="#ACA899" bottom="1" />
 					<events dbclk="new_tab_view('xplorer')" />
 					<items width="adapt" height="20">
@@ -442,7 +453,18 @@
 					<states link="states.close" />
 				</button>
 				
-				<custom id=".tabs" type="tiled" position="relative" x="2" y="2" width="295" height="20" row="1" col="100" bkclr="#E5E5E5" float="width">
+				<button id=".showlist" adapt="false" float="right" popup="folderlist_pane" action="show_folder_list(xplorer2)" >
+					<pos position="relative" x="-32" y="3" width="16" height="16" />
+					<popup position="auto" />
+					<events tooltip="show_tooltip(this, lang.get('showlist'))" mouse_out="tooltip.hide()" />
+					<states normal="dropdown.png" dx="5" dy="6">
+						<normal border="0" bkclr="#E5E5E5" />
+						<hover border="1" dx="4" dy="5" color="#316AC5" bkclr="#C1D2EE" />
+						<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+					</states>
+				</button>
+
+				<custom id=".tabs" type="tiled" position="relative" x="2" y="2" width="279" height="20" row="1" col="100" bkclr="#E5E5E5" float="width">
 					<border width="1" color="#ACA899" bottom="1" />
 					<events dbclk="new_tab_view('xplorer2')" />
 					<items width="adapt" height="20">
@@ -531,6 +553,8 @@
 	
 	<include>common_folders.xml</include>
 	
+	<include>folderlist.xml</include>
+
 	<include>tooltip.xml</include>
 	
 	<include>drivetip.xml</include>
