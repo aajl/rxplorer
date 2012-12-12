@@ -876,3 +876,19 @@ function show_drive_tooltip(drive) {
 	
 	drivetip.show();
 }
+
+function show_folder_list(xplor) {
+	var children = xplor.tabs.children;
+	if(children == 0) {
+		return;
+	}
+	
+	folderlist.clear();
+	for(var i = 0; i < children; ++i) {
+		var tab = xplor.tabs.child(i);
+		folderlist.insert({"name": tab.text, "icon": tab.path});
+	}
+	
+	var height = children * 23 + children - 1 + 4;
+	folderlist_pane.move(folderlist_pane.x, folderlist_pane.y, folderlist_pane.width, height);
+}
