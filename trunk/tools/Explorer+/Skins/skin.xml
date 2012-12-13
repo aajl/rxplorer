@@ -74,6 +74,7 @@
 			</items>
 			<button x="0" y="0" width="53" height="20" align="center,vcenter,singleline">
 				<attribs id="item.id" text="item.text" action="item.action" popup="item.popup" group="main_menu" />
+				<popup offset="-1" />	
 				<states>
 					<normal border="0" bkclr="#E5E5E5" />
 					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -184,7 +185,6 @@
 
 			<!--历史记录按钮-->
 			<button id=".history" position="relative" x="56" y="2" width="17" height="23" action="" popup="recent_pane">
-				<popup position="auto" />
 				<events tooltip="show_tooltip(this, lang.get('history'))" mouse_out="tooltip.hide()" />
 				<states normal="recent.png" width="17" height="23">
 					<normal x="0" />
@@ -210,7 +210,6 @@
 				
 				<!--图标按钮-->
 				<button id=".sysfolder" position="relative" x="3" y="2" width="21" height="21" popup="common_folders_pane">
-					<popup position="auto" />
 					<states width="16" height="16">
 						<normal icon="icons.computer" border="0" bkclr="#FFFFFF" />
 						<hover ix="1" iy="1" border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -220,7 +219,6 @@
 
 				<!--多功能箭头-->
 				<button id=".sysfolder2" position="relative" x="26" y="2" width="9" height="21" adapt="false" popup="common_folders_pane">
-					<popup position="auto" />
 					<states normal="triangle.png" dx="3" dy="9">
 						<normal border="0" bkclr="#FFFFFF" />
 						<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
@@ -268,7 +266,6 @@
 				
 				<!--收藏夹按钮-->
 				<button id=".favorite" position="relative" x="-36" y="2" width="12" height="21" adapt="false" popup="favfolders_pane" float="right">
-					<popup position="auto" />
 					<events tooltip="show_tooltip(this, lang.get('favorite'))" mouse_out="tooltip.hide()" />
 					<states normal="fav.png" dx="1" dy="6">
 						<normal border="0" bkclr="#FFFFFF" />
@@ -402,9 +399,9 @@
 					<states link="states.close" />
 				</button>
 				
-				<button id=".showlist" adapt="false" float="right" popup="folderlist_pane" action="show_folder_list(xplorer)">
+				<button id=".showlist" adapt="false" float="right" popup="folderlist_pane" action="show_folder_list(xplorer, 'xplorer')">
 					<pos position="relative" x="-32" y="3" width="16" height="16" />
-					<popup position="auto" />
+					<popup align="bottom_right" />
 					<events tooltip="show_tooltip(this, lang.get('showlist'))" mouse_out="tooltip.hide()" />
 					<states normal="dropdown.png" dx="5" dy="6">
 						<normal border="0" bkclr="#E5E5E5" />
@@ -457,9 +454,9 @@
 					<states link="states.close" />
 				</button>
 				
-				<button id=".showlist" adapt="false" float="right" popup="folderlist_pane" action="show_folder_list(xplorer2)" >
+				<button id=".showlist" adapt="false" float="right" popup="folderlist_pane" action="show_folder_list(xplorer2, 'xplorer2')" >
 					<pos position="relative" x="-32" y="3" width="16" height="16" />
-					<popup position="auto" />
+					<popup align="bottom_right" />
 					<events tooltip="show_tooltip(this, lang.get('showlist'))" mouse_out="tooltip.hide()" />
 					<states normal="dropdown.png" dx="5" dy="6">
 						<normal border="0" bkclr="#E5E5E5" />

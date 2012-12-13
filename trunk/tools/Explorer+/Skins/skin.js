@@ -278,12 +278,12 @@ function move_menu(menu_btn, menu_pane) {
 }
 
 function move_main_menu() {
-    move_menu(menu_file_btn, menu_file);
+ /*   move_menu(menu_file_btn, menu_file);
     move_menu(menu_edit_btn, menu_edit);
     move_menu(menu_bookmark_btn, menu_bookmark);
     move_menu(menu_plugin_btn, menu_plugin);
     move_menu(menu_tools_btn, menu_tools);
-    move_menu(menu_help_btn, menu_help);
+    move_menu(menu_help_btn, menu_help);*/
 }
 
 function resize_favorite_folder_panel() {
@@ -854,7 +854,6 @@ function show_drive_tooltip(drive) {
 	
 	var rc = drive.screen_rect();
 	var size = drivetip.tip.get_text_size(text);
-	var width = size.width + 8;
 	drivetip.move(rc.x, rc.y + rc.height + 1, drivetip.width, drivetip.height);
 
 	var free = Number(drive.free) * 1024 * 1024;
@@ -877,7 +876,7 @@ function show_drive_tooltip(drive) {
 	drivetip.show();
 }
 
-function show_folder_list(xplor) {
+function show_folder_list(xplor, xplor_id) {
 	var children = xplor.tabs.children;
 	if(children == 0) {
 		return;
@@ -886,7 +885,7 @@ function show_folder_list(xplor) {
 	folderlist.clear();
 	for(var i = 0; i < children; ++i) {
 		var tab = xplor.tabs.child(i);
-		folderlist.insert({"name": tab.text, "icon": tab.path});
+		folderlist.insert({"name": tab.text, "icon": tab.path, "action": xplor_id + ".tabs.active('" + tab.id+ "')"});
 	}
 	
 	var height = children * 23 + children - 1 + 4;
