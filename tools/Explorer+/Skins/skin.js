@@ -34,13 +34,14 @@ var maximize = false;
 // 19. 无tooltip √
 // 15. 点击标签右边的关闭不能关闭标签. √
 // 16. 标签过多时,无滚动条或其它方式显示所有标签. √
+// 21. 无各类设置窗口.
+// 9. 菜单栏不能用
+// 6. 第二面板不能隐藏
 // 20. 改变窗口宽度时,文件夹窗口大小发生异常,且默认状态下宽度也偏宽.
+//
 // 13. 常用工具栏多数工具不可用,并且太少.
 // 25 过滤器的快速过滤不能用
 // 3. 驱动器栏要用异步的方式
-// 6. 第二面板不能隐藏
-// 9. 菜单栏不能用
-// 21. 无各类设置窗口.
 // 23. 无undo/redo
 // 10. 搜索栏不能用
 // 28. 无鼠标手势
@@ -265,25 +266,6 @@ function save2file(data, path) {
 	file.write(data.toJSON());
 	file.close();
 	file = null;
-}
-
-function move_menu(menu_btn, menu_pane) {
-    if (menu_btn.popuped)
-        return;
-
-    var rc_menu_btn = menu_btn.screen_rect();
-    var rc_main_menu = menu_pane.rect();
-    var top = rc_menu_btn.top + rc_menu_btn.height - 1;
-    menu_pane.move(rc_menu_btn.left, top, rc_main_menu.width, rc_main_menu.height);
-}
-
-function move_main_menu() {
- /*   move_menu(menu_file_btn, menu_file);
-    move_menu(menu_edit_btn, menu_edit);
-    move_menu(menu_bookmark_btn, menu_bookmark);
-    move_menu(menu_plugin_btn, menu_plugin);
-    move_menu(menu_tools_btn, menu_tools);
-    move_menu(menu_help_btn, menu_help);*/
 }
 
 function resize_favorite_folder_panel() {

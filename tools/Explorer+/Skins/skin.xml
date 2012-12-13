@@ -65,12 +65,12 @@
 		<!--主菜单按钮-->
 		<custom id="main_menu_btns" type="tiled" x="110" y="2" width="385" height="20" col="7" margin="0,2" bkclr="#E5E5E5">
 			<items width="53" height="20">
-				<item id="menu_file_btn" text="lang.file" action="move_main_menu()" popup="main_menu.menu_file" />
-				<item id="menu_edit_btn" text="编辑(E)" action="move_main_menu()" popup="main_menu.menu_edit" />
-				<item id="menu_bookmark_btn" text="书签(B)" action="move_main_menu()" popup="main_menu.menu_bookmark" />
-				<item id="menu_plugin_btn" text="插件(P)" action="move_main_menu()" popup="main_menu.menu_plugin" />
-				<item id="menu_tools_btn" text="工具(T)" action="move_main_menu()" popup="main_menu.menu_tools" />
-				<item id="menu_help_btn" text="帮助(H)" action="move_main_menu()" popup="main_menu.menu_help" />
+				<item id="menu_file_btn" text="lang.file" popup="main_menu.menu_file" />
+				<item id="menu_edit_btn" text="编辑(E)" popup="main_menu.menu_edit" />
+				<item id="menu_bookmark_btn" text="书签(B)" popup="main_menu.menu_bookmark" />
+				<item id="menu_plugin_btn" text="插件(P)" popup="main_menu.menu_plugin" />
+				<item id="menu_tools_btn" text="工具(T)" popup="main_menu.menu_tools" />
+				<item id="menu_help_btn" text="帮助(H)" popup="main_menu.menu_help" />
 			</items>
 			<button x="0" y="0" width="53" height="20" align="center,vcenter,singleline">
 				<attribs id="item.id" text="item.text" action="item.action" popup="item.popup" group="main_menu" />
