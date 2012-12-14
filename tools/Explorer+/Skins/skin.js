@@ -166,7 +166,9 @@ $(function(){
 		},
 		dbclk:function() {
 			up();
-		}
+		},
+		gesture:function(gesture) {
+		},
 	});
 
 	var obj = sys.explorer.drives();
@@ -178,8 +180,6 @@ $(function(){
 	var offset = drivebar.width - width;
 	drivebar.move(drivebar.x, drivebar.y, drivebar.width - offset, drivebar.height);
 	addrbar.move(addrbar.x - offset, addrbar.y, addrbar.width + offset, addrbar.height);
-	
-	print(obj.json());
 	
 	drivebar.set_redraw(false);
 	for(var i = 0; i < obj.drives.length; ++i) {

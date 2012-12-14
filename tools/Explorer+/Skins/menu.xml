@@ -27,7 +27,7 @@
 			<item separator="1" />
 		</item>
 		<item id="menu_tools" text="工具">
-			<item text="语言">
+			<item id="menu_language" text="语言">
 				<item text="中文" />
 				<item text="英语" />
 			</item>
