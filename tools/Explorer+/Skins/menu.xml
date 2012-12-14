@@ -27,8 +27,8 @@
 			<item separator="1" />
 		</item>
 		<item id="menu_tools" text="工具">
-			<item id="menu_language" text="语言">
-				<item text="中文" />
+			<item id="menu_language" text="语言" sub="triangle.png">
+				<item text="中文 (简体)" />
 				<item text="英语" />
 			</item>
 			<item text="选项" />
@@ -69,7 +69,7 @@
 				<icon x="3" y="3" size="16" />
 				<image x="item.x" y="item.y" width="19" height="19" dx="2" dy="2" />
 			</label>
-			<img src="item.src" position="relative" x="110" y="8" width="7" height="7" />
+			<img src="item.sub" position="relative" x="-8" y="7" width="3" height="9" />
 		</layer>
 	</if>
 </menu>
