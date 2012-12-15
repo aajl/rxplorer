@@ -34,6 +34,7 @@ var maximize = false;
 // 19. 无tooltip √
 // 15. 点击标签右边的关闭不能关闭标签. √
 // 16. 标签过多时,无滚动条或其它方式显示所有标签. √
+// 28. 无鼠标手势 √
 // 21. 无各类设置窗口.
 // 9. 菜单栏不能用
 // 6. 第二面板不能隐藏
@@ -44,7 +45,6 @@ var maximize = false;
 // 3. 驱动器栏要用异步的方式
 // 23. 无undo/redo
 // 10. 搜索栏不能用
-// 28. 无鼠标手势
 // 24 过滤器无滚动条
 
 $(function(){
@@ -167,7 +167,34 @@ $(function(){
 		dbclk:function() {
 			up();
 		},
-		gesture:function(gesture) {
+		gesture:function(gesture, view_id) {
+			var view = eval(view_id);
+			var xplr_id = view_id.split(".", 1);
+			var xplr = eval(String(xplr_id));
+			if(gesture == "DR") 	 	// 下右 --> 关闭
+				close_tab(xplr, curr_tab);
+			else if(gesture == "LU") 	// 左上 --> 恢复关闭的标签
+				;
+			else if(gesture == "DU")	// 下上 --> 复制当前路径到剪贴板
+				copy_curr_path();
+			else if(gesture == "RD")	// 右下 --> 新建标签
+				new_tab_view(get_curr_xplorer());
+			else if(gesture == "U") 	// 上 --> 向上
+				up();
+			else if(gesture == "L") 	// 左 --> 后退
+				;
+			else if(gesture == "R") 	// 右 --> 前进
+				;
+			else if(gesture == "RDR")	// 右下右 --> 下一个标签
+				;
+			else if(gesture == "LUL")	// 左上左 --> 上一个标签
+				;
+			else if(gesture == "LDR")	// 左下右 --> 用windows的管理器打开
+				open_curr_folder();
+			else if(gesture == "UDU")	// 上下下(N) --> 新建文件夹
+				new_folder();
+				
+			print("手势: " + gesture + "\n");
 		},
 	});
 
@@ -711,6 +738,7 @@ function move_file() {
 }
 
 function new_folder() {
+	sys.explorer.newfolder("");
 }
 
 function on_accel(accel) {
