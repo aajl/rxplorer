@@ -353,7 +353,7 @@
 				</button>
 				
 				<edit id="fastfilter" position="relative" x="-168" y="3" width="130" height="17" bkclr="#ffffff" hint="快速过滤">
-					<events change="print(this.text);" />
+					<events change="sys.explorer.set_search_filter(fastfilter.text)" />
 					<border width="1" color="#316AC5" />
 				</edit>
 
