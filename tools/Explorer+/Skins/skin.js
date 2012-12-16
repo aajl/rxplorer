@@ -163,6 +163,7 @@ $(function(){
 			}
 		},
 		drives:function(drives) {
+			print(drives + "\n");
 		},
 		dbclk:function() {
 			up();
@@ -198,10 +199,10 @@ $(function(){
 		},
 	});
 
-	var obj = sys.explorer.drives();
+	var drives = sys.explorer.drives();
 	
 	// 计算drivebar实际所需宽度
-	var width = 7 + obj.drives.length * 29 + obj.drives.length + 5;
+	var width = 7 + drives.length * 29 + drives.length + 5;
 	
 	// 移动工具栏
 	var offset = drivebar.width - width;
@@ -209,8 +210,8 @@ $(function(){
 	addrbar.move(addrbar.x - offset, addrbar.y, addrbar.width + offset, addrbar.height);
 	
 	drivebar.set_redraw(false);
-	for(var i = 0; i < obj.drives.length; ++i) {
-		var drv = obj.drives[i];
+	for(var i = 0; i < drives.length; ++i) {
+		var drv = drives[i];
 		var percent = parseInt((drv.total - drv.free) / drv.total * 10);
 		
 		var item = {};
