@@ -165,7 +165,8 @@ $(function(){
 			fastfilter.text = sys.explorer.get_search_filter();
 		},
 		drives:function(drives) {
-			print(drives + "\n");
+			drivebar.clear();
+			insert_drives(drives, true);
 		},
 		dbclk:function() {
 			up();
@@ -210,27 +211,7 @@ $(function(){
 	var offset = drivebar.width - width;
 	drivebar.move(drivebar.x, drivebar.y, drivebar.width - offset, drivebar.height);
 	addrbar.move(addrbar.x - offset, addrbar.y, addrbar.width + offset, addrbar.height);
-	
-	drivebar.set_redraw(false);
-	for(var i = 0; i < drives.length; ++i) {
-		var drv = drives[i];
-		var percent = parseInt((drv.total - drv.free) / drv.total * 10);
-		
-		var item = {};
-		item.id = "drive" + i;
-		item.drive = drv.drive;
-		item.text = drv.drive;
-		item.path = drv.drive + ":\\";
-		item.pos = percent;
-		item.icon = drv.drive + ":\\";
-		item.down = (percent >= 9 ? "progress_hover_red.png" : "progress_hover.png");
-		item.label = drv.label;
-		item.free = drv.free;
-		item.total = drv.total;
-		drivebar.insert(item);
-	}
-	drivebar.set_redraw(true);
-	drivebar.redraw();
+	insert_drives(drives, true);
 
 	sys.explorer.treeview_new("treeview.tree.view", treeview.tree.view.rect());
 	
@@ -253,6 +234,39 @@ $(function(){
 		editer[i].editer = editer[i].editer.replace(/%App/gi, sys.path.app);
 	}
 });
+
+function get_drive_icon(type) {
+	if(type == "fixed")
+		return "icons.fixed";
+		
+	if(type == "cdrom")
+		return "icons.cdrom";
+		
+	return "icons.removable";
+}
+
+function insert_drives(drives, preload) {
+	drivebar.set_redraw(false);
+	for(var i = 0; i < drives.length; ++i) {
+		var drv = drives[i];
+		var percent = drv.total == 0 ? 0 : parseInt((drv.total - drv.free) / drv.total * 10);
+		
+		var item = {};
+		item.id = "drive" + i;
+		item.drive = drv.drive;
+		item.text = drv.drive;
+		item.path = drv.drive + ":\\";
+		item.pos = percent;
+		item.icon = (preload && drv.total == 0) ? get_drive_icon(drv.type) : (drv.drive + ":\\");
+		item.down = (percent >= 9 ? "progress_hover_red.png" : "progress_hover.png");
+		item.label = drv.label;
+		item.free = drv.free;
+		item.total = drv.total;
+		drivebar.insert(item);
+	}
+	drivebar.set_redraw(true);
+	drivebar.redraw();
+}
 
 function format_disk_size(size) {
 	var filesize = "";
