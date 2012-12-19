@@ -46,6 +46,7 @@ var maximize = false;
 // 23. 无undo/redo
 // 10. 搜索栏不能用
 // 24 过滤器无滚动条
+// 29. 视图的查看方试没有
 
 $(function(){
 	print("load succeeded\n");
@@ -225,6 +226,9 @@ $(function(){
 	if(!setting.treeview.show)
 		show_treeview(false);
 	
+	if(!setting.explorer.dual)
+		show_second_panel(false);
+	
 	if(setting.explorer.max)
 		explorer.max();
 	
@@ -402,6 +406,7 @@ function load_setting() {
 	if(typeof(setting.explorer) == "undefined") {
 		setting.explorer = {};
 		setting.explorer.max = false;
+		setting.explorer.dual = true;
 	}
 	
 	if(typeof(setting.statusbar) == "undefined") {
@@ -919,4 +924,20 @@ function show_folder_list(xplor, xplor_id) {
 	
 	var height = children * 23 + children - 1 + 4;
 	folderlist_pane.move(folderlist_pane.x, folderlist_pane.y, folderlist_pane.width, height);
+}
+
+function show_second_panel(show) {
+	if(show) {
+		xplorer2.show();
+		var rc = xplorer2.rect();
+		xplorer.move(xplorer.x, xplorer.y, xplorer.width - xplorer2.width - 2, xplorer.height);
+		xplr.redraw();
+		setting.explorer.dual = true;
+	} else {
+		xplorer2.hide();
+		var rc = xplorer2.rect();
+		xplorer.move(xplorer.x, xplorer.y, xplorer.width + xplorer2.width + 2, xplorer.height);
+		xplorer.redraw();
+		setting.explorer.dual = false;
+	}
 }
