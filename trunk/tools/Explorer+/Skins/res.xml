@@ -11,7 +11,6 @@
 	<icons remote="%SystemRoot%\\system32\\SHELL32.dll|9" />
 	<icons folder="%SystemRoot%\\system32\\SHELL32.dll|4" />
 	<icons newfolder="%SystemRoot%\\system32\\SHELL32.dll|205|24" />
-	<icons foldertree="%SystemRoot%\\system32\\SHELL32.dll|297|24" />
 	<icons hiddenfile="%SystemRoot%\\system32\\SHELL32.dll|134" />
 	<icons allfile="%SystemRoot%\\system32\\SHELL32.dll|134" />
 	<icons fav="%SystemRoot%\\system32\\SHELL32.dll|43" />
@@ -20,7 +19,10 @@
 	<icons synced="synced.ico" />
 	<icons clear="clear.ico" />
 	<icons copy="copy.ico" />
-	<icons dual="dual.ico|0|24" />
+	<icons dual="dual.ico" />
+	<icons dual24="dual.ico|0|24" />
+	<icons foldertree="folder.ico" />
+	<icons foldertree24="folder.ico|0|24" />
 	<icons copyfile="copyfile.ico|0|16" />
 	<icons movefile="movefile.ico|0|16" />
 </icons>

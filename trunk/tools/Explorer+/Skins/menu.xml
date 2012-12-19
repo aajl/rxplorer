@@ -27,7 +27,7 @@
 			<item separator="1" />
 		</item-->
 		<item id="menu_view" text="视图">
-			<item text="文件夹树" icon="folder.png" action="show_treeview(!treeview.visible())" />
+			<item text="文件夹树" icon="icons.foldertree" action="show_treeview(!treeview.visible())" />
 			<item text="双面板" icon="icons.dual" action="show_dual_pane(!xplorer2.visible())" />
 			<item text="详细状态栏" icon="" action="show_statusbar(!setting.statusbar.show)" />
 		</item>
