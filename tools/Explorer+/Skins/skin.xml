@@ -25,7 +25,7 @@
 			<rect x="495" y="0" width="275" height="23" float="width" />
 		</hittest>
 
-		<label x="330" y="0" width="440" height="23" float="width" clickable="true">
+		<label x="385" y="0" width="385" height="23" float="width" clickable="true">
 			<events dbclk="explorer.max()" />
 		</label>
 
@@ -63,10 +63,11 @@
 		</layer> <!--系统按钮-->
 		
 		<!--主菜单按钮-->
-		<custom id="main_menu_btns" type="tiled" x="110" y="2" width="220" height="20" col="7" margin="0,2" bkclr="#E5E5E5">
+		<custom id="main_menu_btns" type="tiled" x="110" y="2" width="275" height="20" col="7" margin="0,2" bkclr="#E5E5E5">
 			<items width="53" height="20">
 				<item id="menu_file_btn" text="lang.file" popup="main_menu.menu_file" />
 				<item id="menu_edit_btn" text="编辑(E)" popup="main_menu.menu_edit" />
+				<item id="menu_view_btn" text="视图(V)" popup="main_menu.menu_view" />
 				<item id="menu_tools_btn" text="工具(T)" popup="main_menu.menu_tools" />
 				<item id="menu_help_btn" text="帮助(H)" popup="main_menu.menu_help" />
 			</items>
