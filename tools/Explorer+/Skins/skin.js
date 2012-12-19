@@ -85,7 +85,7 @@ $(function(){
 				curr_tab = eval(view.tabobj);
 			}
 			
-			print("active: " +  " name: " + display_name + ", curr_view: " + view_id + ", curr pane: " + view_id.split(".", 1) + "\n");
+			print("path: " +  path + "\n");
 			if(view_id.split(".", 1) == "xplorer") {
 				pane1_curr_tab = curr_tab;
 			}

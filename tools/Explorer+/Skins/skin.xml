@@ -88,8 +88,8 @@
 			<items width="29" height="29">
 				<item id=".newtab" tooltip="show_tooltip(this, lang.get('newtab'))" icon="icons.folder" action="new_tab_view(get_curr_xplorer())" />
 				<item id=".newfolder" tooltip="show_tooltip(this, lang.get('newfolder'))" icon="icons.newfolder" action="new_folder()" />
-				<item id=".treeview" tooltip="show_tooltip(this, lang.get('treeview'))" img="folder.png" action="show_treeview(!treeview.visible())" />
-				<item id=".dual" tooltip="show_tooltip(this, lang.get('dual'))" icon="icons.dual" action="show_dual_pane(!xplorer2.visible())" />
+				<item id=".treeview" tooltip="show_tooltip(this, lang.get('treeview'))" icon="icons.foldertree24" action="show_treeview(!treeview.visible())" />
+				<item id=".dual" tooltip="show_tooltip(this, lang.get('dual'))" icon="icons.dual24" action="show_dual_pane(!xplorer2.visible())" />
 				<item id=".thumb" tooltip="show_tooltip(this, lang.get('thumb'))" img="thumb.png" action="" cond="1" />
 			</items>
 			<if condition="item.cond">
@@ -308,7 +308,9 @@
 					<border width="1" color="#ACA899" />
 				</label>
 				
-				<img src="folder.png" position="relative" x="3" y="3" width="16" height="16" adapt="true" />
+				<img icon="icons.foldertree" position="relative" x="3" y="3" width="16" height="16" adapt="true">
+					<icon x="0" y="0" size="16" />
+				</img>
 				
 				<button id=".close" position="relative" x="-16" y="4" width="14" height="14" adapt="false" action="show_treeview(!treeview.visible())">
 					<events tooltip="show_tooltip(this, lang.get('close'))" mouse_out="tooltip.hide()" />
