@@ -17,27 +17,24 @@
 			<item text="复制(&C)                  F6" icon="icons.copyfile" action="copy_file()" />
 			<item text="移动(&M)                  F7" icon="icons.movefile" action="move_file()" />
 		</item>
-		<item id="menu_bookmark" text="书签">
+		<!--item id="menu_bookmark" text="书签">
 			<item text="添加到书签" icon="icons.fav" action="add_favorite_folder(addr.path)" />
 			<item text="整理书签" />
 			<item separator="1" />
-		</item>
-		<item id="menu_plugin" text="插件">
+		</item-->
+		<!--item id="menu_plugin" text="插件">
 			<item text="插件管理" />
 			<item separator="1" />
-		</item>
+		</item-->
 		<item id="menu_tools" text="工具">
+			<item text="选项" />
 			<item id="menu_language" text="语言" sub="triangle.png">
 				<item text="中文 (简体)" />
 				<item text="英语" />
 			</item>
-			<item text="选项" />
 			<item separator="1" />
-			<item text="书签管理" />
-			<item text="插件管理" />
 			<item text="快捷键管理" />
-			<item text="垃圾文件清理" />
-			<item text="文件(夹)重命名" />
+			<item text="鼠标手势管理" />
 		</item>
 		<item id="menu_help" text="帮助">
 			<item text="帮助(&H)" />
