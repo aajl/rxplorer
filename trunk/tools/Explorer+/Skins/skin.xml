@@ -88,9 +88,9 @@
 			<bkimg dx="2" dy="3" />
 			<items width="29" height="29">
 				<item id=".newtab" tooltip="show_tooltip(this, lang.get('newtab'))" icon="icons.folder" action="new_tab_view(get_curr_xplorer())" />
-				<item id=".newfolder" tooltip="show_tooltip(this, lang.get('newfolder'))" icon="icons.newfolder" action="" />
+				<item id=".newfolder" tooltip="show_tooltip(this, lang.get('newfolder'))" icon="icons.newfolder" action="new_folder()" />
 				<item id=".treeview" tooltip="show_tooltip(this, lang.get('treeview'))" img="folder.png" action="show_treeview(!treeview.visible())" />
-				<item id=".dual" tooltip="show_tooltip(this, lang.get('dual'))" icon="icons.dual" action="" />
+				<item id=".dual" tooltip="show_tooltip(this, lang.get('dual'))" icon="icons.dual" action="show_second_panel(!xplorer2.visible())" />
 				<item id=".thumb" tooltip="show_tooltip(this, lang.get('thumb'))" img="thumb.png" action="" cond="1" />
 			</items>
 			<if condition="item.cond">
