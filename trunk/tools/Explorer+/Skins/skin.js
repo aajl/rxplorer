@@ -228,7 +228,7 @@ $(function(){
 		show_treeview(false);
 	
 	if(!setting.explorer.dual)
-		show_second_panel(false);
+		show_dual_pane(false);
 	
 	if(setting.explorer.max)
 		explorer.max();
@@ -927,7 +927,7 @@ function show_folder_list(xplor, xplor_id) {
 	folderlist_pane.move(folderlist_pane.x, folderlist_pane.y, folderlist_pane.width, height);
 }
 
-function show_second_panel(show) {
+function show_dual_pane(show) {
 	if(show) {
 		xplorer2.show();
 		var rc = xplorer2.rect();
