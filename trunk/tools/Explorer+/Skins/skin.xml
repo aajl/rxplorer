@@ -309,7 +309,7 @@
 					<border width="1" color="#ACA899" />
 				</label>
 				
-				<button id=".close" position="relative" x="-16" y="4" width="14" height="14" adapt="false">
+				<button id=".close" position="relative" x="-16" y="4" width="14" height="14" adapt="false" action="show_treeview(!treeview.visible())">
 					<events tooltip="show_tooltip(this, lang.get('close'))" mouse_out="tooltip.hide()" />
 					<states link="states.close" />
 				</button>
@@ -338,7 +338,7 @@
 					<border width="1" color="#ACA899" />
 				</label>
 				
-				<button id=".close" position="relative" x="-16" y="4" width="14" height="14" adapt="false">
+				<button id=".close" position="relative" x="-16" y="4" width="14" height="14" adapt="false" action="show_treeview(!treeview.visible())">
 					<events tooltip="show_tooltip(this, lang.get('close'))" mouse_out="tooltip.hide()" />
 					<states link="states.close" />
 				</button>
