@@ -188,12 +188,12 @@ $(function(){
 			else if(gesture == "U") 	// 上 --> 向上
 				up();
 			else if(gesture == "L") 	// 左 --> 后退
-				;
+				backward();
 			else if(gesture == "R") 	// 右 --> 前进
-				;
+				forward();
 			else if(gesture == "RDR")	// 右下右 --> 下一个标签
 				;
-			else if(gesture == "LUL")	// 左上左 --> 上一个标签
+			else if(gesture == "LDL")	// 左下左 --> 上一个标签
 				;
 			else if(gesture == "LDR")	// 左下右 --> 用windows的管理器打开
 				open_curr_folder();
@@ -941,4 +941,27 @@ function show_dual_pane(show) {
 		xplorer.redraw();
 		setting.explorer.dual = false;
 	}
+}
+
+function load_historys() {
+	historys.clear();
+	
+	var curr = sys.explorer.curr_history();
+	var hstrs = sys.explorer.historys();
+	for(var i = 0; i < hstrs.length; ++i) {
+		var hstr = hstrs[i];
+		var jpth = new jpath(hstr);
+		historys.insert({"name": jpth.display_name(), "icon": hstr , "check": curr == i});
+	}
+	
+	var height = hstrs.length * 23 + hstrs.length - 1 + 4;
+	historys_pane.move(historys_pane.x, historys_pane.y, historys_pane.width, height);
+}
+
+function forward() {
+	print("curr: " + sys.explorer.curr_history() + " count: " + sys.explorer.history_count() + " " + sys.explorer.historys().json());
+}
+
+function backward() {
+	print("curr: " + sys.explorer.curr_history() + " count: " + sys.explorer.history_count() + " " + sys.explorer.historys().json());
 }

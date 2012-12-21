@@ -168,8 +168,8 @@
 			<custom id=".do" position="relative" x="0" y="0" width="59" height="26" col="4" type="tiled" margin="0,1,0,7" bkclr="#E5E5E5">
 				<bkimg src="dragable.png" dx="2" dy="3" />
 				<items width="26" height="26">
-					<item id=".undo" tooltip="show_tooltip(this, lang.get('undo'))" img="undo.png" action="" />
-					<item id=".redo" tooltip="show_tooltip(this, lang.get('redo'))" img="redo.png" action="" />
+					<item id=".undo" tooltip="show_tooltip(this, lang.get('undo'))" img="undo.png" action="backward()" />
+					<item id=".redo" tooltip="show_tooltip(this, lang.get('redo'))" img="redo.png" action="forward()" />
 				</items>
 				<button id="item.id" width="26" height="26" action="item.action">
 					<events tooltip="item.tooltip" mouse_out="tooltip.hide()" />
@@ -183,7 +183,7 @@
 			</custom>
 
 			<!--历史记录按钮-->
-			<button id=".history" position="relative" x="56" y="2" width="17" height="23" action="" popup="recent_pane">
+			<button id=".history" position="relative" x="56" y="2" width="17" height="23" action="load_historys()" popup="historys_pane">
 				<events tooltip="show_tooltip(this, lang.get('history'))" mouse_out="tooltip.hide()" />
 				<states normal="recent.png" width="17" height="23">
 					<normal x="0" />
@@ -554,11 +554,11 @@
 	
 	<include>toolmenu.xml</include>
 	
-	<include>recentmenu.xml</include>
-	
 	<include>common_folders.xml</include>
 	
 	<include>folderlist.xml</include>
+	
+	<include>historys.xml</include>
 
 	<include>tooltip.xml</include>
 	

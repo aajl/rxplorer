@@ -1,0 +1,30 @@
+﻿<panel id="historys_pane" type="modeless" x="0" y="0" width="160" height="27" visible="false" alpha="95">
+	<border width="1" color="#ACA899" />
+	<custom id="historys" yadapt="true" type="tiled" row="100" col="1" margin="1" oninit="">
+		<pos position="relative" x="2" y="2" width="156" height="23" float="width,height" />
+		<bkimg src="menu.png" width="23" height="23" />
+		<items height="adapt">
+			<item name="历史记录" icon="icons.fav" action="" />
+			<item separator="1" />
+		</items>
+		<if condition="item.separator">
+			<layer x="0" y="0" width="156" height="3" margin="0,3">
+				<img width="23" height="3" adapt="true">
+					<bkimg src="menu.png" width="23" height="3" />
+				</img>
+				<label width="130" height="3">
+					<border width="1" color="#BEC3CB" center="1" />
+				</label>
+			</layer>
+		<else />
+			<layer id="item.id" x="0" y="0" width="156" height="23" adapt="false" text="item.name" align="vcenter" offset="30" checkable="true" check="item.check" action="item.action">
+				<states normal="menu.png" hover="null" down="null" check="null" width="23" height="23" ix="3" iy="3" >
+					<normal icon="item.icon" border="0" bkclr="#ffffff" />
+					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<checked border="1" color="#316AC5" bkclr="#ffffff" />
+				</states>
+			</layer>
+		</if>
+	</custom>
+</panel>
