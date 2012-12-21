@@ -38,13 +38,13 @@ var maximize = false;
 // 25 过滤器的快速过滤不能用 √
 // 3. 驱动器栏要用异步的方式 √
 // 13. 常用工具栏多数工具不可用,并且太少. √
+// 23. 无undo/redo √
 // 6. 第二面板不能隐藏 (基本实现,但跟文件夹隐藏显示一起用时位置会不对)
 // 21. 无各类设置窗口.
 // 9. 菜单栏不能用
 // 20. 改变窗口宽度时,文件夹窗口大小发生异常,且默认状态下宽度也偏宽.
 // 30. 显示过菜单之后,工具栏按钮的图标会发生变化.
 //
-// 23. 无undo/redo
 // 10. 搜索栏不能用
 // 24 过滤器无滚动条
 // 29. 视图的查看方试没有
@@ -948,7 +948,7 @@ function load_historys() {
 	
 	var curr = sys.explorer.curr_history();
 	var hstrs = sys.explorer.historys();
-	for(var i = 0; i < hstrs.length; ++i) {
+	for(var i = hstrs.length - 1; i >= 0; --i) {
 		var hstr = hstrs[i];
 		var jpth = new jpath(hstr);
 		historys.insert({"name": jpth.display_name(), "icon": hstr , "check": curr == i});
@@ -959,9 +959,9 @@ function load_historys() {
 }
 
 function forward() {
-	print("curr: " + sys.explorer.curr_history() + " count: " + sys.explorer.history_count() + " " + sys.explorer.historys().json());
+	sys.explorer.forward();
 }
 
 function backward() {
-	print("curr: " + sys.explorer.curr_history() + " count: " + sys.explorer.history_count() + " " + sys.explorer.historys().json());
+	sys.explorer.backward();
 }

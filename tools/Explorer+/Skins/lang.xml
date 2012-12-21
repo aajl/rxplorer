@@ -3,7 +3,7 @@
 	<about about="关于Explorer++" />
 	<universal ok="确定" cancel="取消" close="关闭" showlist="显示列表" />
 	<tooltip up="向上" favorite="收藏夹" copy_curr_path="复制当前路径到剪贴板" search="搜索" clear="清除过滤器" />
-	<tooltip undo="前进" redo="后退" history="历史记录" more="更多选项" sync="与文件视图同步" />
+	<tooltip undo="后退" redo="前进" history="历史记录" more="更多选项" sync="与文件视图同步" />
 	<tooltip newtab="新建标签" newfolder="新建文件夹" treeview="文件夹" dual="双面板" thumb="更新视图" />
 	<statusbar size="大小" byte="字节" create_time="创建时间" modify_time="修改时间" />
 	<setting tools_setting="工具设置" tooltip="按钮提示:" cmd="命令:" param="参数:" icon="图标:" beginpath="开始路径:" accel="快捷键:" />
