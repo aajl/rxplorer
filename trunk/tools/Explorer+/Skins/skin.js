@@ -94,7 +94,8 @@ $(function(){
 			}
 			
 			sys.explorer.get_file_types();
-			
+			addrbar.addrbar.sysfolder.set_icon(path);
+
 			session_open = true;
 			if(!session2_open) {
 				session2_open = true;
