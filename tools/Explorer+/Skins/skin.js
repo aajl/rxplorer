@@ -785,7 +785,7 @@ function edit_file() {
 		if(edtr == null)
 			continue;
 		
-		sys.shell_execute(edtr, selected_files[i]);
+		sys.shell_execute(edtr, "\"" + selected_files[i] + "\"");
 	}
 }
 
