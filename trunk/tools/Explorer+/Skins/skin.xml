@@ -566,5 +566,7 @@
 	
 	<include>toolsetting.xml</include>
 	
+	<include>options.xml</include>
+	
 	<include>about.xml</include>
 </directui>

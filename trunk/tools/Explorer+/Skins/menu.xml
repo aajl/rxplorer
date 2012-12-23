@@ -32,7 +32,7 @@
 			<item text="详细状态栏" icon="" action="show_statusbar(!setting.statusbar.show)" />
 		</item>
 		<item id="menu_tools" text="工具">
-			<item text="选项" />
+			<item text="选项" action="options.show()" />
 			<item id="menu_language" text="语言" sub="triangle.png">
 				<item text="中文 (简体)" />
 				<item text="英语" />
