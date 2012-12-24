@@ -15,6 +15,7 @@
 		<accel vkey="" key="F10" action="copy_curr_path()" />
 		<accel vkey="Ctrl" key="E" action="open_curr_folder()" />
 		<accel vkey="Ctrl" key="T" action="new_tab_view(get_curr_xplorer())" />
+		<accel vkey="Ctrl" key="S" action="on_close()" />
 	</accels>
 	
 	<panel id="explorer" title="lang.title" type="app" bkclr="#E5E5E5" drag="true" tooltip="true">
