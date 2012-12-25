@@ -20,7 +20,7 @@
 	
 	<panel id="explorer" title="lang.title" type="app" bkclr="#E5E5E5" drag="true" tooltip="true">
 		<size x="0" y="0" width="880" height="660" resize="true" min-width="880" min-height="660" />
-		<events maximize="print('max');setting.explorer.max=true;max.check(true)" restore="setting.explorer.max=false;max.check(false)"
+		<events maximize="print('max');setting.explorer.max=true;sys_btn.max.check(true)" restore="setting.explorer.max=false;sys_btn.max.check(false)"
 			close="on_close()" drop="on_dropfiles" killfocus="tooltip.hide();" />
 		<border width="1" color="#404040" />
 		<hittest>
@@ -38,14 +38,14 @@
 
 		<!--系统按钮-->
 		<layer id="sys_btn" x="770" y="2" width="103" height="18" float="right" margin="0,0">
-			<button id="min" action="window.min();" width="28">
+			<button id=".min" action="window.min();" width="28">
 				<states normal="imgs.main_hover" x="770" width="width" height="height">
 					<normal y="2" />
 					<hover y="23" />
 				</states>
 			</button>
 
-			<button id="max" action="explorer.max()" width="27" checkable="true">
+			<button id=".max" action="explorer.max()" width="27" checkable="true">
 				<states normal="imgs.main_hover" x="798" width="width" height="height">
 					<normal y="2" />
 					<hover y="23" />
@@ -56,7 +56,7 @@
 				</states>
 			</button>
 
-			<button id="close" action="window.close()" width="48">
+			<button id=".close" action="window.close()" width="48">
 				<states normal="imgs.main_hover" x="825" width="width" height="height">
 					<normal y="2" />
 					<hover y="23" />
