@@ -1,7 +1,7 @@
-﻿<panel id="common_folders_pane" type="modeless" x="0" y="0" width="155" height="365" visible="false" alpha="95">
+﻿<panel id="common_folders_pane" type="modeless" x="0" y="0" width="155" height="375" visible="false" alpha="95">
 	<border width="1" color="#ACA899" />
 	<custom id="common_folders" yadapt="true" type="tiled" margin="1" oninit="load_common_folders()">
-		<pos position="relative" x="2" y="2" width="151" height="361" />
+		<pos position="relative" x="2" y="2" width="151" height="371" />
 		<bkimg src="menu.png" width="23" height="23" />
 		<items height="adapt">
 			<!--item separator="1" /-->
@@ -30,7 +30,7 @@
 			var id = sys.hash(path);
 			if(typeof(name) == "undefined") {
 				var jpth = new jpath(path);
-				name = jpth.filename();
+				name = jpth.display_name();
 			}
 			common_folders.insert({"id":"cmmfolder" + id, "name":name, "path":path, "icon":path, "action":"open_folder(this.path)"});
 		}
@@ -40,17 +40,20 @@
 			add_common_folder(sys.path.my_music);
 			add_common_folder(sys.path.my_videos);
 			add_common_folder(sys.path.my_pictures);
+			common_folders.insert({"separator": 1});
 			add_common_folder(sys.path.windows);
 			add_common_folder(sys.path.system, "System32");
 			add_common_folder(sys.path.program_files);
 			add_common_folder(sys.path.program_files_common);
 			add_common_folder(sys.path.temp, "Windows Temp");
+			common_folders.insert({"separator": 1});
 			add_common_folder(sys.path.all_users_documents);
 			add_common_folder(sys.path.all_users_music);
 			add_common_folder(sys.path.all_users_pictures);
 			add_common_folder(sys.path.all_users_video);
-			add_common_folder(sys.path.programs);
-			add_common_folder(sys.path.all_users_programs);
+			common_folders.insert({"separator": 1});
+			add_common_folder(sys.path.all_users_app_data);
+			add_common_folder(sys.path.user_app_data);
 		}
 		]]>
 		</script>
