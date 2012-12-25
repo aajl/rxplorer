@@ -966,3 +966,13 @@ function forward() {
 function backward() {
 	sys.explorer.backward();
 }
+
+function draw_gesture(cnvs, size, gesture) {
+	var color = "#000000";
+	if(gesture == "U") {
+		cnvs.draw_line({"x":8, "y":13}, {"x":8, "y":2}, 2, color);
+		cnvs.draw_line({"x":4, "y":6}, {"x":11, "y":6}, 1, color);
+		cnvs.draw_line({"x":4, "y":7}, {"x":8, "y":3}, 2, color);
+		cnvs.draw_line({"x":11, "y":7}, {"x":7, "y":3}, 2, color);
+	}
+}
