@@ -6,7 +6,7 @@
 	<tooltip undo="后退" redo="前进" history="历史记录" more="更多选项" sync="与文件视图同步" />
 	<tooltip newtab="新建标签" newfolder="新建文件夹" treeview="文件夹" dual="双面板" thumb="更新视图" />
 	<statusbar size="大小" byte="字节" create_time="创建时间" modify_time="修改时间" />
-	<setting tools_setting="工具设置" tooltip="按钮提示:" cmd="命令:" param="参数:" icon="图标:" beginpath="开始路径:" accel="快捷键:" />
+	<setting tools_setting="工具设置" tooltip="按钮提示:" cmd="命令:" param="参数:" icon="图标:" beginpath="开始路径:" />
 	<options options="选项" setting="设置" accel="快捷键" modify_accel="更改快捷键:" modify_gesture="更改手势:" />
 	<options name="名称" action="动作" shape="形状" desc="描述" edit="编辑" copy="复制" move="移动" refresh="刷新" />
 	<options accel_manager="快捷键管理" gesture_manager="鼠标手势管理" copy_path="复制路径" copy_file_path="复制文件路径" />
