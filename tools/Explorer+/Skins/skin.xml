@@ -20,7 +20,8 @@
 	
 	<panel id="explorer" title="lang.title" type="app" bkclr="#E5E5E5" drag="true" tooltip="true">
 		<size x="0" y="0" width="880" height="660" resize="true" min-width="880" min-height="660" />
-		<events maximize="print('max');setting.explorer.max=true;max.check(true)" restore="setting.explorer.max=false;max.check(false)" close="on_close()" drop="on_dropfiles" />
+		<events maximize="print('max');setting.explorer.max=true;max.check(true)" restore="setting.explorer.max=false;max.check(false)"
+			close="on_close()" drop="on_dropfiles" killfocus="tooltip.hide();" />
 		<border width="1" color="#404040" />
 		<hittest>
 			<rect x="495" y="0" width="275" height="23" float="width" />
