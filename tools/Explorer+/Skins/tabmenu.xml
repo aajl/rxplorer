@@ -4,17 +4,17 @@
 		<pos position="relative" x="2" y="2" width="151" height="224" />
 		<bkimg src="menu.png" width="23" height="23" />
 		<items height="adapt">
-			<item name="新建标签" icon="" action="new_tab_view(poped_menu_xplor_id)" />
-			<item name="复制标签" icon="" action="duplicate_tab(poped_menu_xplor_id)" />
+			<item name="lang.new_tab" icon="" action="new_tab_view(poped_menu_xplor_id)" />
+			<item name="lang.copy_tab" icon="" action="duplicate_tab(poped_menu_xplor_id)" />
 			<item separator="1" />
-			<item name="关闭标签" icon="" action="close_tab(eval(poped_menu_xplor_id), poped_menu_tab)" />
-			<item name="关闭其它标签" icon="" action="" />
-			<item name="关闭左边的标签" icon="" action="" />
-			<item name="关闭右边的标签" icon="" action="" />
+			<item name="lang.close_tab" icon="" action="close_tab(eval(poped_menu_xplor_id), poped_menu_tab)" />
+			<item name="lang.close_other_tab" icon="" action="" />
+			<item name="lang.close_left_of_tab" icon="" action="" />
+			<item name="lang.close_right_of_tab" icon="" action="" />
 			<item separator="1" />
-			<item name="固定标签" icon="" action="" />
-			<item name="恢复关闭的标签" icon="" action="" />
-			<item name="重命名" icon="" action="" />
+			<item name="lang.fix_tab" icon="" action="" />
+			<item name="lang.restore_tab" icon="" action="" />
+			<item name="lang.rename" icon="" action="" />
 		</items>
 		<if condition="item.separator">
 			<layer x="0" y="0" width="151" height="3" margin="0,3">

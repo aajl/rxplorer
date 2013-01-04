@@ -48,6 +48,7 @@ var maximize = false;
 // 10. 搜索栏不能用
 // 24 过滤器无滚动条
 // 29. 视图的查看方试没有
+// 31. 无注册模块
 
 $(function(){
 	print("load succeeded\n");
