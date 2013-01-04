@@ -67,11 +67,11 @@
 		<!--主菜单按钮-->
 		<custom id="main_menu_btns" type="tiled" x="110" y="2" width="275" height="20" col="7" margin="0,2" bkclr="#E5E5E5">
 			<items width="53" height="20">
-				<item id="menu_file_btn" text="lang.file" popup="main_menu.menu_file" />
-				<item id="menu_edit_btn" text="编辑(E)" popup="main_menu.menu_edit" />
-				<item id="menu_view_btn" text="视图(V)" popup="main_menu.menu_view" />
-				<item id="menu_tools_btn" text="工具(T)" popup="main_menu.menu_tools" />
-				<item id="menu_help_btn" text="帮助(H)" popup="main_menu.menu_help" />
+				<item id="menu_file_btn" text="lang.menu_file" popup="main_menu.menu_file" />
+				<item id="menu_edit_btn" text="lang.menu_edit" popup="main_menu.menu_edit" />
+				<item id="menu_view_btn" text="lang.menu_view" popup="main_menu.menu_view" />
+				<item id="menu_tools_btn" text="lang.menu_tools" popup="main_menu.menu_tools" />
+				<item id="menu_help_btn" text="lang.menu_help" popup="main_menu.menu_help" />
 			</items>
 			<button x="0" y="0" width="53" height="20" align="center,vcenter,singleline">
 				<attribs id="item.id" text="item.text" action="item.action" popup="item.popup" group="main_menu" />
@@ -306,7 +306,7 @@
 			<border width="1" color="#ACA899" />
 			
 			<layer id=".tree" x="0" y="0" width="238" height="250" bkclr="#E5E5E5" float="height">
-				<label text="文件夹" position="relative" x="" y="0" width="240" height="22" align="vcenter" offset="21">
+				<label text="lang.treeview" position="relative" x="" y="0" width="240" height="22" align="vcenter" offset="21">
 					<border width="1" color="#ACA899" />
 				</label>
 				
@@ -339,7 +339,7 @@
 			
 			<layer id=".filter" x="0" y="272" width="240" height="228" bkclr="#E5E5E5" float="bottom">
 				<border width="1" color="#ACA899" />
-				<label text="过滤器" position="relative" x="0" y="0" width="240" height="22" align="vcenter" offset="3">
+				<label text="lang.filter" position="relative" x="0" y="0" width="240" height="22" align="vcenter" offset="3">
 					<border width="1" color="#ACA899" />
 				</label>
 				
@@ -364,11 +364,6 @@
 
 				<custom id="filefilter" type="tiled" position="relative" x="1" y="22" width="238" height="205" bkclr="#ffffff" col="1" float="">
 					<items width="0" height="20">
-						<item text="显示文件夹" icon="icons.folder" />
-						<item text="显示所有文件" icon="icons.file" />
-						<item text="应用程序(*.exe)" icon=".exe" />
-						<item text="BMP 文件(*.bmp)" icon=".bmp" />
-						<item text="压缩文件(*.rar)" icon=".rar" />
 					</items>
 					<layer id="item.id" width="238" height="20" text="item.text" ext="item.ext" offset="38" align="vcenter" checkable="true" check="item.check" adapt="false" action="filter_files()">
 						<states normal="checkbox.png" ix="19" iy="2" dx="3" dy="3" width="13" height="13">

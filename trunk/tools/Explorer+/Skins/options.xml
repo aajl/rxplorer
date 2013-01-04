@@ -81,7 +81,7 @@
 			
 			<custom id=".gesture" position="relative" x="1" y="23" width="499" height="371" type="tiled" bkclr="#ffffff" col="1" margin="1,0,1,1">
 				<items height="20">
-					<item lid=".row1" id=".cnvsDR" gesture="DR" text="" desc="lang.close_tab" />
+					<item lid=".row1" id=".cnvsDR" gesture="DR" text="" desc="lang.close_curr_tab" />
 					<item lid=".row2" id=".cnvsLU" gesture="LU" text="" desc="lang.restore_tab" />
 					<item lid=".row3" id=".cnvsDU" gesture="DU" text="" desc="lang.copy_curr_path" />
 					<item lid=".row4" id=".cnvsRD" gesture="RD" text="" desc="lang.new_tab_desc" />

@@ -1,9 +1,9 @@
 ﻿<custom type="tiled" position="relative" x="-320" y="-18" width="300" height="16" row="1" col="10" margin="0,5" float="right">
 	<items width="adapt" height="16">
-		<item text="F4 编辑" action="edit_file()" />
-		<item text="F6 复制" action="copy_file()" />
-		<item text="F7 移动" action="move_file()" />
-		<item text="F8 新建" action="new_folder()" />
+		<item text="lang.footer_edit" action="edit_file()" />
+		<item text="lang.footer_copy" action="copy_file()" />
+		<item text="lang.footer_move" action="move_file()" />
+		<item text="lang.footer_new" action="new_folder()" />
 	</items>
 	<button text="item.text" width="adapt,15" height="16" action="item.action">
 		<states>

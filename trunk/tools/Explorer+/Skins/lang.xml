@@ -1,20 +1,29 @@
 ﻿<strs id="lang" title="Explorer++">
-	<menu file="文件(&F)" />
+	<menu menu_file="文件(&F)" menu_edit="编辑(E)" menu_view="视图(V)" menu_tools="工具(T)" menu_help="帮助(H)" />
+	<menu menu_file="文件" menu_new_tab="新建标签(&T)        Ctrl+T" menu_new_folder="新建文件夹(&N)   Ctrl+N" menu_save_session="保存工作区(&S)   Ctrl+S" menu_exit="退出(&E)" />
+	<menu menu_edit_sub="编辑(&E)                  F4" menu_refresh="刷新(&R)                  F5" menu_copy="复制(&C)                  F6" menu_move="移动(&M)                  F7" />
+	<menu menu_options="选项" menu_language="语言" menu_accel_manager="快捷键管理" menu_gesture_manager="鼠标手势管理" />
+	<menu menu_help="帮助(&H)" menu_check_update="检查更新(&C)" menu_about="关于Explorer(&A)" />
 	<about about="关于Explorer++" />
-	<universal ok="确定" cancel="取消" close="关闭" showlist="显示列表" />
+	<universal ok="确定" cancel="取消" close="关闭" showlist="显示列表" filter="过滤器" />
 	<tooltip up="向上" favorite="收藏夹" copy_curr_path="复制当前路径到剪贴板" search="搜索" clear="清除过滤器" />
 	<tooltip undo="后退" redo="前进" history="历史记录" more="更多选项" sync="与文件视图同步" />
 	<tooltip newtab="新建标签" newfolder="新建文件夹" treeview="文件夹" dual="双面板" thumb="更新视图" />
-	<statusbar size="大小" byte="字节" create_time="创建时间" modify_time="修改时间" />
+	<statusbar size="大小" byte="字节" create_time="创建时间" modify_time="修改时间" detail_bar="详细状态栏" />
 	<setting tools_setting="工具设置" tooltip="按钮提示:" cmd="命令:" param="参数:" icon="图标:" beginpath="开始路径:" />
 	<options options="选项" setting="设置" accel="快捷键" modify_accel="更改快捷键:" modify_gesture="更改手势:" />
 	<options name="名称" action="动作" shape="形状" desc="描述" edit="编辑" copy="复制" move="移动" refresh="刷新" />
 	<options accel_manager="快捷键管理" gesture_manager="鼠标手势管理" copy_path="复制路径" copy_file_path="复制文件路径" />
-	<options close_tab="关闭当前标签页" restore_tab="恢复关闭的标签页" copy_curr_path="复制当前路径到剪贴板" />
-	<options new_tab_desc="在当前视图新建标签页" next_tab="下一个标签页" prev_tab="上一个标签页" />
+	<options close_curr_tab="关闭当前标签" restore_tab="恢复关闭的标签" copy_curr_path="复制当前路径到剪贴板" />
+	<options new_tab_desc="在当前视图新建标签" next_tab="下一个标签" prev_tab="上一个标签" />
 	<options open_folder_desc="在Windows浏览器中打开当前文件夹" new_folder_desc="在当前视图新建文件夹" />
 	<options new_tab="新建标签" new_folder="新建文件夹" open_folder="打开文件夹" save_session="保存工作区" />
 	<options save_session_desc="保存工作区及设置到文件" copy_file_path_desc="复制当前视图选中的文件路径到剪贴板" />
 	<options copy_desc="将当前视图选中的文件复制到另一侧" move_desc="将当前视图选中的文件移动到另一侧" />
 	<options refresh_desc="刷新当前视图" edit_desc="编辑当前选中的文件" />
+	<tabmenu copy_tab="复制标签" close_tab="关闭标签" close_other_tab="关闭其它标签" close_left_of_tab="关闭左边的标签" close_right_of_tab="关闭右边的标签" />
+	<tabmenu fix_tab="固定标签" rename="重命名" />
+	<toolmenu open="打开(&O)" locate_tool="打开文件位置(&I)" remove_favorite_tool="删除(&D)" tool_setting="设置(&S)" />
+	<footer footer_edit="F4 编辑" footer_copy="F6 复制" footer_move="F7 移动" footer_new="F8 新建" />
+	<favmenu add_favorite_folder="添加到书签" />
 </strs>

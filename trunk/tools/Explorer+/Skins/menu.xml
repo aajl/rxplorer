@@ -3,19 +3,19 @@
 	<bkimg src="menu.png" width="23" height="23" />
 
 	<items height="adapt">
-		<item id="menu_file" text="文件">
-			<item text="新建标签(&T)        Ctrl+T" icon="icons.folder" action="new_tab_view(get_curr_xplorer())" />
-			<item text="新建文件夹(&N)   Ctrl+N" icon="icons.newfolder" action="new_folder()" />
+		<item id="menu_file" text="lang.menu_file">
+			<item text="lang.menu_new_tab" icon="icons.folder" action="new_tab_view(get_curr_xplorer())" />
+			<item text="lang.menu_new_folder" icon="icons.newfolder" action="new_folder()" />
 			<item separator="1" />
-			<item text="保存工作区(&S)   Ctrl+S" action="on_close()" />
+			<item text="lang.menu_save_session" action="on_close()" />
 			<item separator="1" />
-			<item text="退出(&E)" action="explorer.close()" />
+			<item text="lang.menu_exit" action="explorer.close()" />
 		</item>
-		<item id="menu_edit" text="编辑">
-			<item text="编辑(&E)                  F4" action="edit_file()" />
-			<item text="刷新(&R)                  F5" action="" />
-			<item text="复制(&C)                  F6" icon="icons.copyfile" action="copy_file()" />
-			<item text="移动(&M)                  F7" icon="icons.movefile" action="move_file()" />
+		<item id="menu_edit" text="lang.edit">
+			<item text="lang.menu_edit_sub" action="edit_file()" />
+			<item text="lang.menu_refresh" action="" />
+			<item text="lang.menu_copy" icon="icons.copyfile" action="copy_file()" />
+			<item text="lang.menu_move" icon="icons.movefile" action="move_file()" />
 		</item>
 		<!--item id="menu_bookmark" text="书签">
 			<item text="添加到书签" icon="icons.fav" action="add_favorite_folder(addr.path)" />
@@ -26,25 +26,25 @@
 			<item text="插件管理" />
 			<item separator="1" />
 		</item-->
-		<item id="menu_view" text="视图">
-			<item text="文件夹树" icon="icons.foldertree" action="show_treeview(!treeview.visible())" />
-			<item text="双面板" icon="icons.dual" action="show_dual_pane(!xplorer2.visible())" />
-			<item text="详细状态栏" icon="" action="show_statusbar(!setting.statusbar.show)" />
+		<item id="menu_view" text="lang.menu_view">
+			<item text="lang.treeview" icon="icons.foldertree" action="show_treeview(!treeview.visible())" />
+			<item text="lang.dual" icon="icons.dual" action="show_dual_pane(!xplorer2.visible())" />
+			<item text="lang.detail_bar" icon="" action="show_statusbar(!setting.statusbar.show)" />
 		</item>
-		<item id="menu_tools" text="工具">
-			<item text="选项" action="options.show()" />
-			<item id="menu_language" text="语言" sub="triangle.png">
+		<item id="menu_tools" text="lang.menu_tools">
+			<item text="lang.menu_options" action="options.show()" />
+			<item id="menu_language" text="lang.menu_language" sub="triangle.png">
 				<item text="中文 (简体)" />
 				<item text="英语" />
 			</item>
 			<item separator="1" />
-			<item text="快捷键管理" />
-			<item text="鼠标手势管理" />
+			<item text="lang.menu_accel_manager" />
+			<item text="lang.menu_gesture_manager" />
 		</item>
 		<item id="menu_help" text="帮助">
-			<item text="帮助(&H)" />
-			<item text="检查更新(&C)" />
-			<item text="关于Explorer(&A)" action="about.show()" />
+			<item text="lang.menu_help" />
+			<item text="lang.menu_check_update" />
+			<item text="lang.menu_about" action="about.show()" />
 		</item>
 	</items>
 	
