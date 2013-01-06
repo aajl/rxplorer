@@ -931,15 +931,17 @@ function show_folder_list(xplor, xplor_id) {
 
 function show_dual_pane(show) {
 	if(show) {
-		xplorer2.show();
 		var rc = xplorer2.rect();
-		xplorer.move(xplorer.x, xplorer.y, xplorer.width - xplorer2.width - 2, xplorer.height);
+		var width = (xplorer.width - 2) / 2;
+		xplorer.move(xplorer.x, xplorer.y, width, xplorer.height);
+		xplorer2.move(xplorer.x + width + 2, xplorer.y, width, xplorer.height);
+		xplorer2.show();
 		xplr.redraw();
 		setting.explorer.dual = true;
 	} else {
 		xplorer2.hide();
 		var rc = xplorer2.rect();
-		xplorer.move(xplorer.x, xplorer.y, xplorer.width + xplorer2.width + 2, xplorer.height);
+		xplorer.move(xplorer.x, xplorer.y, xplorer.width * 2 + 2, xplorer.height);
 		xplorer.redraw();
 		setting.explorer.dual = false;
 	}
