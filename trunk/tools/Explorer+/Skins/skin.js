@@ -39,7 +39,7 @@ var maximize = false;
 // 3. 驱动器栏要用异步的方式 √
 // 13. 常用工具栏多数工具不可用,并且太少. √
 // 23. 无undo/redo √
-// 6. 第二面板不能隐藏 (基本实现,但跟文件夹隐藏显示一起用时位置会不对)
+// 6. 第二面板不能隐藏 (基本实现,但跟文件夹隐藏显示一起用时位置会不对) √
 // 21. 无各类设置窗口.
 // 9. 菜单栏不能用
 // 20. 改变窗口宽度时,文件夹窗口大小发生异常,且默认状态下宽度也偏宽.
@@ -426,6 +426,7 @@ function show_treeview(show) {
 	var width = treeview.width + 2;
 	if(show) {
 		xplr.move(245, rc.y, rc.width - width, rc.height);
+		xplrfrm.move(245, xplrfrm.y, xplrfrm.width - width, xplrfrm.height);
 		treeview.show();
 		treeview.redraw(true);
 		xplr.redraw(true);
@@ -433,6 +434,7 @@ function show_treeview(show) {
 	} else {
 		treeview.hide();
 		xplr.move(3, rc.y, rc.width + width, rc.height);
+		xplrfrm.move(3, xplrfrm.y, xplrfrm.width + width, xplrfrm.height);
 		xplr.redraw(true);
 		setting.treeview.show = false;
 	}
@@ -932,7 +934,7 @@ function show_folder_list(xplor, xplor_id) {
 function show_dual_pane(show) {
 	if(show) {
 		var rc = xplorer2.rect();
-		var width = (xplorer.width - 2) / 2;
+		var width = (xplrfrm.width - 2) / 2;
 		xplorer.move(xplorer.x, xplorer.y, width, xplorer.height);
 		xplorer2.move(xplorer.x + width + 2, xplorer.y, width, xplorer.height);
 		xplorer2.show();
@@ -941,7 +943,7 @@ function show_dual_pane(show) {
 	} else {
 		xplorer2.hide();
 		var rc = xplorer2.rect();
-		xplorer.move(xplorer.x, xplorer.y, xplorer.width * 2 + 2, xplorer.height);
+		xplorer.move(xplorer.x, xplorer.y, xplrfrm.width, xplorer.height);
 		xplorer.redraw();
 		setting.explorer.dual = false;
 	}

@@ -385,6 +385,8 @@
 				</custom>
 			</layer>
 		</layer>
+		
+		<layer id="xplrfrm" x="245" y="85" width="632" height="500" float="width,height" />
 
 		<!--文件视图-->
 		<layer id="xplr" x="245" y="85" width="630" height="500" bkclr="#E5E5E5" float="width,height">
@@ -497,7 +499,7 @@
 				</custom>
 			</layer>
 		</layer>
-		
+
 		<!--状态栏-->
 		<layer id="detailbar" x="3" y="587" width="874" height="70" float="width,bottom" bkclr="#E5E5E5">
 			<border width="1" color="#ACA899" />
