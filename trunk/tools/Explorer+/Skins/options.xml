@@ -39,13 +39,13 @@
 		</states>
 	</button>
 
-	<custom x="5" y="30" width="195" height="430" type="tiled" bkclr="#ffffff" col="1" margin="1,0,1,2">
+	<custom id="opts_btn" x="5" y="30" width="195" height="430" type="tiled" bkclr="#ffffff" col="1" margin="1,0,1,2">
 		<border width="1" color="#818488" />
 		<items height="adapt">
-			<item text="lang.accel_manager" tab="accel_options" check="true" />
-			<item text="lang.gesture_manager" tab="gesture_options" />
+			<item id=".accel" text="lang.accel_manager" tab="accel_options" check="true" />
+			<item id=".gesture" text="lang.gesture_manager" tab="gesture_options" />
 		</items>
-		<button text="item.text" align="left,vcenter" offset="2" width="191" height="22" check="item.check" tab="item.tab" group="options">
+		<button id="item.id" text="item.text" align="left,vcenter" offset="2" width="191" height="22" check="item.check" tab="item.tab" group="options">
 			<states>
 				<normal border="0" bkclr="#ffffff" />
 				<hover border="1" color="#316AC5" bkclr="#F5F9FF" />

@@ -38,8 +38,8 @@
 				<item text="英语" />
 			</item>
 			<item separator="1" />
-			<item text="lang.menu_accel_manager" />
-			<item text="lang.menu_gesture_manager" />
+			<item text="lang.menu_accel_manager" action="options.show()" />
+			<item text="lang.menu_gesture_manager" action="options.show()" />
 		</item>
 		<item id="menu_help" text="帮助">
 			<item text="lang.menu_help" />
