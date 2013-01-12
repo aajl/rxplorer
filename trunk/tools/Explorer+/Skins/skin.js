@@ -981,3 +981,8 @@ function draw_gesture(cnvs, size, gesture) {
 		cnvs.draw_line({"x":11, "y":7}, {"x":7, "y":3}, 2, color);
 	}
 }
+
+function resize_panel(pnl, item_count, item_height, margin) {
+	var height = 2 + item_height * item_count + margin * (item_count - 1) + 2;
+	pnl.move(pnl.x, pnl.y, pnl.width, height);
+}

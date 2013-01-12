@@ -1,0 +1,33 @@
+﻿<panel id="thumbs_pane" type="modeless" x="0" y="0" width="160" height="27" visible="false" alpha="95">
+	<border width="1" color="#ACA899" />
+	<custom id="thumbs" yadapt="true" type="tiled" row="100" col="1" margin="1" oninit="resize_panel(thumbs_pane, 5, 23, 1)">
+		<pos position="relative" x="2" y="2" width="156" height="23" float="width,height" />
+		<bkimg src="menu.png" width="23" height="23" />
+		<items height="adapt">
+			<item name="缩略图" icon="icons.fav" action="" />
+			<item name="平铺(&N)" icon="icons.fav" action="" />
+			<item name="图标(&T)" icon="icons.fav" action="" />
+			<item name="列表(&L)" icon="icons.fav" action="" />
+			<item name="详细信息(&D)" icon="icons.fav" action="" />
+		</items>
+		<if condition="item.separator">
+			<layer x="0" y="0" width="156" height="3" margin="0,3">
+				<img width="23" height="3" adapt="true">
+					<bkimg src="menu.png" width="23" height="3" />
+				</img>
+				<label width="130" height="3">
+					<border width="1" color="#BEC3CB" center="1" />
+				</label>
+			</layer>
+		<else />
+			<layer id="item.id" x="0" y="0" width="156" height="23" adapt="false" text="item.name" align="vcenter" offset="30" checkable="true" check="item.check" action="item.action">
+				<states normal="menu.png" hover="null" down="null" check="null" width="23" height="23" ix="3" iy="3" >
+					<normal icon="item.icon" border="0" bkclr="#ffffff" />
+					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+					<checked border="1" color="#316AC5" bkclr="#ffffff" />
+				</states>
+			</layer>
+		</if>
+	</custom>
+</panel>
