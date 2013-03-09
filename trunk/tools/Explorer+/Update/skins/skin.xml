@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<directui>
+	<panel id="update" title="Explorer++ Update" type="app" alpha="95" bkclr="#E5E5E5">
+		<size x="0" y="0" width="500" height="100" />
+		<border width="1" color="#404040" />
+		<hittest>
+			<rect x="0" y="0" width="500" height="24" />
+		</hittest>
+
+		<label id="title" text="Explorer++ Update" x="3" y="2" width="120" height="20" color="#000000" size="9">
+			<attribs adapt="true" align="left,vcenter" />
+		</label>
+		
+		<line x="1" y="24" width="498" height="1" color="#ACA899" />
+		<line x="1" y="25" width="498" height="1" color="#FFFFFF" />
+		
+		<label id="desc" text="正在更新 30%" x="5" y="30" width="120" height="20" color="#000000" size="9">
+			<attribs adapt="true" align="left,vcenter" bkclr="#E5E5E5" />
+		</label>
+		
+		<script type="javascript">
+			function set_progress(percent) {
+				desc.text = "正在更新: " + percent + "%";
+			}
+		</script>
+	</panel>
+</directui>
