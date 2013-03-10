@@ -43,7 +43,7 @@
 		</item>
 		<item id="menu_help" text="帮助">
 			<item text="lang.menu_help" />
-			<item text="lang.menu_check_update" />
+			<item text="lang.menu_check_update" action="check_for_update()" />
 			<item text="lang.menu_about" action="about.show()" />
 		</item>
 	</items>
