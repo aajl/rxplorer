@@ -16,6 +16,7 @@ var poped_menu_xplor_id = null;
 var session_open = false;
 var session2_open = false;
 var maximize = false;
+var new_version = "";
 
 // 1. 左边的不能新标签 √
 // 11. 文件夹内双击空白处不能返回上一级 √
@@ -51,8 +52,31 @@ var maximize = false;
 // 31. 无注册模块
 
 $(function(){
-	print("load succeeded\n");
+	print("version: " + ver.version + "\n");
 
+	sys.updater.handler({
+		on_check:function(version, details) {
+			if(version == "") {
+				print("当前版本已是最新版本\n");
+				about.update.text = "当前版本已是最新版本";
+			} else {
+				print("有新的版本: " + version + "\n");
+				new_version = version;
+				about.update.text = "有新的版本: " + version;
+				sys.updater.download();
+			}
+		},
+		on_download:function(path, readsize, filesize, index, count) {
+			var percent = parseInt(100 / count * (index - 1) + readsize / filesize * (100 / 3));
+			about.update.text = "有新的版本: " + new_version + ", 正在下载: " + percent + "%";
+			print(path + " -> readsize: " + readsize + ", filesize: " + filesize + " " + index + " " + count + "\n");
+			if(percent == 100)
+				about.update.text = "新版本" + new_version + "已下载完,重启完成更新.";
+		},
+		on_update:function() {
+		},
+	});
+	
 	sys.explorer.handler({
 		open:function(path, display_name, view_id) {
 			curr_tab.text = display_name;
@@ -985,4 +1009,13 @@ function draw_gesture(cnvs, size, gesture) {
 function resize_panel(pnl, item_count, item_height, margin) {
 	var height = 2 + item_height * item_count + margin * (item_count - 1) + 2;
 	pnl.move(pnl.x, pnl.y, pnl.width, height);
+}
+
+function check_for_update() {
+	new_version = "";
+	sys.updater.check(sys.path.app + '/Skins/Explorer/skin.xml');
+	about.show()
+}
+
+function on_check_for_update(version, detail) {
 }
