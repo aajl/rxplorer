@@ -125,11 +125,12 @@
 	</states>
 </states>
 
-<scroll type="vertical">
-	<states normal="imgs.images">
-		<normal x="11" y="36" />
-		<hover x="11" y="36" />
-		<down x="11" y="36" />
-		<disabled x="11" y="36" />
+<scroll x="0" y="0" width="16" height="104" type="vertical" arrows="17">
+	<slider x="0" y="21" width="16" height="62">
+	</slider>
+	<states normal="scroll.png" width="16" height="104">
+		<normal x="0" y="0" />
+		<hover x="16" y="0" />
+		<down x="32" y="0" />
 	</states>
 </scroll>
