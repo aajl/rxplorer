@@ -12,6 +12,17 @@
 	
 	<include>lang.xml</include>
 	
+	<scroll x="0" y="0" width="16" height="104" type="vertical" arrows="17">
+		<slider x="0" y="21" width="16" height="62">
+			<stretch x="0" y="25" width="16" height="4" />
+		</slider>
+		<states normal="scroll.png" width="16" height="104">
+			<normal x="0" y="0" />
+			<hover x="16" y="0" />
+			<down x="32" y="0" />
+		</states>
+	</scroll>
+
 	<accels id="accel" handler="on_accel">
 		<accel vkey="" key="F4" action="edit_file()" />
 		<accel vkey="" key="F6" action="copy_file()" />
@@ -368,10 +379,10 @@
 					<border width="1" color="#316AC5" />
 				</edit>
 
-				<custom id="filefilter" type="tiled" position="relative" x="1" y="22" width="238" height="205" bkclr="#ffffff" col="1" float="">
+				<custom id="filefilter" type="tiled" position="relative" x="1" y="22" width="238" height="205" bkclr="#ffffff" col="1" float="" vscroll="1">
 					<items width="0" height="20">
 					</items>
-					<layer id="item.id" width="238" height="20" text="item.text" ext="item.ext" offset="38" align="vcenter" checkable="true" check="item.check" adapt="false" action="filter_files()">
+					<layer id="item.id" width="220" height="20" text="item.text" ext="item.ext" offset="38" align="vcenter" checkable="true" check="item.check" adapt="false" action="filter_files()">
 						<states normal="checkbox.png" ix="19" iy="2" dx="3" dy="3" width="13" height="13">
 							<normal icon="item.icon" x="0" bkclr="#ffffff" />
 							<hover x="13" />
