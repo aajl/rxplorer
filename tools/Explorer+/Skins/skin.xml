@@ -379,7 +379,7 @@
 					<border width="1" color="#316AC5" />
 				</edit>
 
-				<custom id="filefilter" type="tiled" position="relative" x="1" y="22" width="238" height="205" bkclr="#ffffff" col="1" float="" vscroll="1">
+				<custom id="filefilter" type="tiled" position="relative" x="1" y="22" width="238" height="205" bkclr="#ffffff" col="1" float="" vscroll="true">
 					<items width="0" height="20">
 					</items>
 					<layer id="item.id" width="220" height="20" text="item.text" ext="item.ext" offset="38" align="vcenter" checkable="true" check="item.check" adapt="false" action="filter_files()">
