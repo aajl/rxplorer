@@ -8,7 +8,7 @@
 	<universal ok="确定" cancel="取消" close="关闭" showlist="显示列表" filter="过滤器" />
 	<tooltip up="向上" favorite="收藏夹" copy_curr_path="复制当前路径到剪贴板" search="搜索" clear="清除过滤器" />
 	<tooltip undo="后退" redo="前进" history="历史记录" more="更多选项" sync="与文件视图同步" />
-	<tooltip newtab="新建标签" newfolder="新建文件夹" treeview="文件夹" dual="双面板" thumb="更新视图" />
+	<tooltip newtab="新建标签" newfolder="新建文件夹" treeview="文件夹" dual="双面板" thumb="视图模式" />
 	<statusbar size="大小" byte="字节" create_time="创建时间" modify_time="修改时间" detail_bar="详细状态栏" />
 	<setting tools_setting="工具设置" tooltip="按钮提示:" cmd="命令:" param="参数:" icon="图标:" beginpath="开始路径:" />
 	<options options="选项" setting="设置" accel="快捷键" modify_accel="更改快捷键:" modify_gesture="更改手势:" />
@@ -26,4 +26,33 @@
 	<toolmenu open="打开(&O)" locate_tool="打开文件位置(&I)" remove_favorite_tool="删除(&D)" tool_setting="设置(&S)" />
 	<footer footer_edit="F4 编辑" footer_copy="F6 复制" footer_move="F7 移动" footer_new="F8 新建" />
 	<favmenu add_favorite_folder="添加到书签" />
+</strs>
+<strs id="english" title="Explorer++">
+	<menu menu_file="File(&F)" menu_edit="Edit(&E)" menu_view="View(&V)" menu_tools="Tools(&T)" menu_help="Help(&H)" />
+	<menu menu_file="File" menu_new_tab="New Tab(&T)        Ctrl+T" menu_new_folder="New Folder(&N)   Ctrl+N" menu_save_session="Save Session(&S)   Ctrl+S" menu_exit="Exit(&E)" />
+	<menu menu_edit_sub="Edit(&E)                  F4" menu_refresh="Refresh(&R)                  F5" menu_copy="Copy(&C)                  F6" menu_move="Move(&M)                  F7" />
+	<menu menu_options="Option" menu_language="Languages" menu_accel_manager="Accel Manager" menu_gesture_manager="Gesture Manager" />
+	<menu menu_help="Help(&H)" menu_check_update="Check for updates(&C)" menu_about="About Explorer(&A)" />
+	<about about="About Explorer++" />
+	<universal ok="OK" cancel="Cancel" close="Close" showlist="Folder Lists" filter="Filters" />
+	<tooltip up="Up" favorite="Favorite" copy_curr_path="Copy Current Path To Clipboard" search="Search" clear="Clear Filters" />
+	<tooltip undo="Backward" redo="Forward" history="Historys" more="Mor Options" sync="Sync With File View" />
+	<tooltip newtab="New Tab" newfolder="New Folder" treeview="Folder View" dual="Dual Panes" thumb="View Mode" />
+	<statusbar size="Size" byte="Bytes" create_time="Create Time" modify_time="Modify Time" detail_bar="Detail Status Bar" />
+	<setting tools_setting="Tool Setting" tooltip="Tooltip:" cmd="Command:" param="Params:" icon="Icon:" beginpath="Begin Path:" />
+	<options options="Options" setting="Setting" accel="Accel" modify_accel="Modify Accel:" modify_gesture="Modify Gesture:" />
+	<options name="Name" action="Action" shape="Shape" desc="Description" edit="Edit" copy="Copy" move="Move" refresh="Refresh" />
+	<options accel_manager="Accel Manager" gesture_manager="Gesture Manager" copy_path="Copy Path" copy_file_path="Copy File Path" />
+	<options close_curr_tab="Close Current Tab" restore_tab="Restore Closed Tab" copy_curr_path="Copy Current Path To Clipboard" />
+	<options new_tab_desc="New Tab In Current View" next_tab="Next Tab" prev_tab="Prev Tab" />
+	<options open_folder_desc="Open Folder With Windows Explorer" new_folder_desc="New Folder In Current View" />
+	<options new_tab="New Tab" new_folder="New Folder" open_folder="Open Folder" save_session="Save Session" />
+	<options save_session_desc="Save All" copy_file_path_desc="复制当前视图选中的文件路径到剪贴板" />
+	<options copy_desc="将当前视图选中的文件复制到另一侧" move_desc="将当前视图选中的文件移动到另一侧" />
+	<options refresh_desc="Refresh" edit_desc="编辑当前选中的文件" />
+	<tabmenu copy_tab="Copy Tab" close_tab="Close Tab" close_other_tab="Close Other Tabs" close_left_of_tab="关闭左边的标签" close_right_of_tab="关闭右边的标签" />
+	<tabmenu fix_tab="Fix Tab" rename="Rename" />
+	<toolmenu open="Open(&O)" locate_tool="Locate On Disk(&I)" remove_favorite_tool="Delete(&D)" tool_setting="Setting(&S)" />
+	<footer footer_edit="F4 Edit" footer_copy="F6 Copy" footer_move="F7 Move" footer_new="F8 New Folder" />
+	<favmenu add_favorite_folder="Add To Favorite" />
 </strs>
