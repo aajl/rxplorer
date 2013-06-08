@@ -48,11 +48,20 @@ var new_version = "";
 //
 // 10. 搜索栏不能用
 // 24 过滤器无滚动条 √
-// 29. 视图的查看方试没有
-// 31. 无注册模块
+// 29. 视图的查看方试没有 √
+// 31. 无注册模块 √
+// 32. 无更新模块 √
 
 $(function(){
 	print("version: " + ver.version + "\n");
+
+	Number.prototype.toJSON = function() {
+		return this;
+	}
+	
+	Boolean.prototype.toJSON = function() {
+		return this;
+	}
 
 	sys.updater.handler({
 		on_check:function(version, details) {
@@ -125,6 +134,9 @@ $(function(){
 			if(!session2_open) {
 				session2_open = true;
 				load_session("xplorer2", "session2.json");
+			} else {
+				if(!setting.explorer.dual)
+					show_dual_pane(false);
 			}
 		},
 		selected:function(files) {
@@ -252,9 +264,6 @@ $(function(){
 
 	if(!setting.treeview.show)
 		show_treeview(false);
-	
-	if(!setting.explorer.dual)
-		show_dual_pane(false);
 	
 	if(setting.explorer.max)
 		explorer.max();
@@ -1018,4 +1027,20 @@ function check_for_update() {
 }
 
 function on_check_for_update(version, detail) {
+}
+
+function set_view_mode() {
+	var modes = [5, 6, 1, 3, 4];
+	var mode = sys.explorer.view_mode();
+	print(mode);
+	
+	var index = modes.length - 1;
+	for(var i in modes) {
+		if(modes[i] == mode) {
+			index = Number(i);
+			break;
+		}
+	}
+	
+	sys.explorer.view_mode(modes[(index + 1) % modes.length]);
 }

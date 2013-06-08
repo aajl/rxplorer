@@ -4,11 +4,11 @@
 		<pos position="relative" x="2" y="2" width="156" height="23" float="width,height" />
 		<bkimg src="menu.png" width="23" height="23" />
 		<items height="adapt">
-			<item name="缩略图" icon="icons.fav" action="" />
-			<item name="平铺(&N)" icon="icons.fav" action="" />
-			<item name="图标(&T)" icon="icons.fav" action="" />
-			<item name="列表(&L)" icon="icons.fav" action="" />
-			<item name="详细信息(&D)" icon="icons.fav" action="" />
+			<item name="缩略图" icon="" action="sys.explorer.view_mode(5)" />
+			<item name="平铺(&N)" icon="" action="sys.explorer.view_mode(6)" />
+			<item name="图标(&T)" icon="" action="sys.explorer.view_mode(1)" />
+			<item name="列表(&L)" icon="" action="sys.explorer.view_mode(3)" />
+			<item name="详细信息(&D)" icon="" action="sys.explorer.view_mode(4)" />
 		</items>
 		<if condition="item.separator">
 			<layer x="0" y="0" width="156" height="3" margin="0,3">
