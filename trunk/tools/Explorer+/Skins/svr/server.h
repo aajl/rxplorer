@@ -71,6 +71,7 @@ public:
 				cln->set_session(sess);
 				sess->set_client(cln.get());
 				remove_session(cln);
+				cln->handle_write();
 
 				TRACE("relog, client count: %d\n", m_clients.size());
 				return;
