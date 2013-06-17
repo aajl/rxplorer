@@ -82,7 +82,7 @@ struct packet
 		if(data == NULL)
 			return;
 
-		this->data = realloc(this->data, len);
+		this->data = (char*)realloc(this->data, len);
 		memcpy(this->data, data, len);
 	}
 
@@ -100,7 +100,7 @@ struct packet
 		return m_buff;
 	}
 
-	static int header_len()
+	static size_t header_len()
 	{
 		return sizeof(packet) - sizeof(char*) - sizeof(gtl::str);
 	}
@@ -164,15 +164,15 @@ public:
 		else if(cmd == cmd_image || cmd == cmd_video)
 		{
 			boost::shared_ptr<file> fl(new file());
-			if(!fl->open(m_data, _T("rb")))
+			if(!fl->open(data, _T("rb")))
 				return;
 
 			fl->cmd = cmd;
 			m_send_files.push_back(fl);
 			if(m_send_files.size() == 1 && m_packets.empty())
 			{
-				int size = fl->size();
-				int offset = fl->tell();
+				int size = (int)fl->size();
+				int offset = (int)fl->tell();
 				if(size < 0 || offset < 0)
 				{
 					m_send_files.pop_back();
@@ -194,7 +194,7 @@ public:
 	{
 		packet pkt;
 		bool alloc_data = false;
-		const int header_len = packet::header_len();
+		const size_t header_len = packet::header_len();
 		if(!m_recv_queue.empty())
 		{
 			m_recv_queue.push(data, len);
@@ -204,11 +204,11 @@ public:
 				return;
 			}
 
-			if(m_recv_queue.length() < header_len)
+			if(m_recv_queue.length() < (int)header_len)
 				return;
 
 			m_recv_queue.get((char*)&pkt, header_len);
-			if(m_recv_queue.length() < header_len + pkt.len)
+			if(m_recv_queue.length() < (int)header_len + pkt.len)
 				return;
 
 			alloc_data = true;
@@ -283,7 +283,7 @@ public:
 		auto last = m_packets.end();
 		for(; first != last; ++first)
 		{
-			const packet& pkt = *first;
+			packet& pkt = *first;
 			if(pkt.buff(false).capacity() > 0)
 				continue;
 
@@ -296,9 +296,9 @@ public:
 
 		char data[4096] = {0};
 		cmd_e cmd = m_send_files.front()->cmd;
-		int size = m_send_files.front()->size();
-		int offset = m_send_files.front()->tell();
-		size_t len = fl->read(data, sizeof(data) / sizeof(data[0]));
+		int size = (int)m_send_files.front()->size();
+		int offset = (int)m_send_files.front()->tell();
+		size_t len = m_send_files.front()->read(data, sizeof(data) / sizeof(data[0]));
 		if(m_send_files.front()->eof())
 			m_send_files.pop_front();
 
