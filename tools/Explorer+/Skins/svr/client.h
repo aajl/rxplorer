@@ -357,7 +357,7 @@ public:
 	}
 
 protected:
-	uint8 get_id()
+	uint16 get_id()
 	{
 		if(++m_id == 0)
 			m_id = 1;
