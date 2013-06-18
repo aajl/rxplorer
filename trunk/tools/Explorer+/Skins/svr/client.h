@@ -119,6 +119,7 @@ class client : public boost::enable_shared_from_this<client<Server, Session>>
 public:
 	client(Server* svr, const gtl::tstr& ip, const gtl::tstr& name, boost::shared_ptr<Session> session)
 	{
+		m_id = 0;
 		m_ip = ip;
 		m_name = name;
 		m_session = session;
@@ -156,6 +157,7 @@ public:
 		{
 			gtl::str txt = data.utf8();
 			m_packets.push_back(packet(cmd_text));
+			m_packets.back().id = get_id();
 			m_packets.back().set_data(txt, txt.length());
 
 			if(m_packets.size() == 1)
@@ -183,6 +185,7 @@ public:
 				size_t len = fl->read(data, sizeof(data) / sizeof(data[0]));
 
 				m_packets.push_back(packet(cmd, size, offset));
+				m_packets.back().id = get_id();
 				m_packets.back().set_data(data, len);
 				m_session->send(m_packets.front().buff());
 			}
@@ -274,18 +277,25 @@ public:
 			delete[] pkt.data;
 	}
 
-	void handle_write()
+	void handle_write(int id = 0)
 	{
 		if(m_session == NULL)
 			return;
 
 		auto first = m_packets.begin();
 		auto last = m_packets.end();
-		for(; first != last; ++first)
+		while(first != last)
 		{
 			packet& pkt = *first;
 			if(pkt.buff(false).capacity() > 0)
+			{
+				if(id > 0 && pkt.id == id)
+					m_packets.erase(first++);
+				else
+					++first;
+
 				continue;
+			}
 
 			m_session->send(pkt.buff());
 			return;
@@ -303,6 +313,7 @@ public:
 			m_send_files.pop_front();
 
 		m_packets.push_back(packet(cmd, size, offset));
+		m_packets.back().id = get_id();
 		m_packets.back().set_data(data, len);
 		m_session->send(m_packets.front().buff());
 	}
@@ -329,6 +340,12 @@ public:
 	}
 
 protected:
+	uint8 get_id()
+	{
+		return m_id++;
+	}
+
+protected:
 	class file : public gtl::file
 	{
 	public:
@@ -341,6 +358,7 @@ protected:
 	};
 
 protected:
+	uint8 m_id;
 	gtl::tstr m_ip;
 	gtl::tstr m_name;
 	boost::shared_ptr<Session> m_session;
