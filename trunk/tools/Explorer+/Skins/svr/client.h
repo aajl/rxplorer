@@ -250,7 +250,8 @@ public:
 				m_recv_queue.push(data + header_len + pckt->len, len - header_len - pckt->len);
 			}
 
-			pkt = *pckt;
+			//pkt = *pckt;
+			memcpy(&pkt, pckt, packet::header_len());
 			pkt.data = (char*)(data + header_len);
 		}
 
