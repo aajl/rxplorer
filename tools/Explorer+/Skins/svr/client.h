@@ -181,7 +181,8 @@ public:
 				return;
 
 			fl->cmd = cmd;
-			Sha::get(fl.get(), fl->hash, sizeof(fl->hash) / sizeof(fl->hash[0]));
+			Sha::get(*fl.get(), fl->hash, sizeof(fl->hash) / sizeof(fl->hash[0]));
+			fl->seek(0, gtl::file::seek_begin);
 			m_send_files.push_back(fl);
 			if(m_send_files.size() == 1 && m_packets.empty())
 			{
