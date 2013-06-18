@@ -3,6 +3,7 @@
 #include <gtl/io/file.h>
 #include <gtl/string/str.h>
 #include <gtl/type/inner.h>
+#include <gtl/crypto/sha.hpp>
 #include <gtl/container/circle_queue.h>
 
 #include <boost/bind.hpp>
@@ -49,6 +50,7 @@ struct packet
 		offset = 0;
 		len = 0;
 		data = 0;
+		memset(hash, 0, sizeof(hash) / sizeof(hash[0]));
 	}
 
 	packet(uint8 cmd, uint32 size = 0, uint32 offset = 0, uint8 flag = 0)
@@ -61,20 +63,30 @@ struct packet
 		this->offset = offset;
 		this->len = 0;
 		this->data = NULL;
+		memset(hash, 0, sizeof(hash) / sizeof(hash[0]));
 	}
 
 	uint8 identify; // 0xFF
-	uint8 id;
+	uint16 id;
 	uint8 cmd;
 	uint8 flag;
 	uint32 size;
 	uint32 offset;
 	uint16 len;
+	char hash[40];
 	char* data;
 
 	void reset()
 	{
 		m_buff.clear();
+	}
+
+	void set_hash(const char* hash, uint16 len)
+	{
+		if(hash == NULL || len != sizeof(this->hash) / sizeof(this->hash[0]))
+			return;
+
+		memcpy(this->hash, hash, len);
 	}
 
 	void set_data(const char* data, uint16 len)
@@ -94,7 +106,6 @@ struct packet
 			m_buff.mcpy(0, (const char*)this, header_len());
 			if(data != NULL && len > 0)
 				m_buff.mcpy(header_len(), data, len);
-
 		}
 
 		return m_buff;
@@ -113,8 +124,8 @@ private:
 namespace detail
 {
 
-template<class Server, class Session>
-class client : public boost::enable_shared_from_this<client<Server, Session>>
+template<class Server, class Session, class Sha>
+class client : public boost::enable_shared_from_this<client<Server, Session, Sha>>
 {
 public:
 	client(Server* svr, const gtl::tstr& ip, const gtl::tstr& name, boost::shared_ptr<Session> session)
@@ -170,6 +181,7 @@ public:
 				return;
 
 			fl->cmd = cmd;
+			Sha::get(fl.get(), fl->hash, sizeof(fl->hash) / sizeof(fl->hash[0]));
 			m_send_files.push_back(fl);
 			if(m_send_files.size() == 1 && m_packets.empty())
 			{
@@ -187,6 +199,7 @@ public:
 				m_packets.push_back(packet(cmd, size, offset));
 				m_packets.back().id = get_id();
 				m_packets.back().set_data(data, len);
+				m_packets.back().set_hash(fl->hash, sizeof(fl->hash) / sizeof(fl->hash[0]));
 				m_session->send(m_packets.front().buff());
 			}
 		}
@@ -304,17 +317,20 @@ public:
 		if(m_send_files.empty())
 			return;
 
+		boost::shared_ptr<file> fl = m_send_files.front();
+		cmd_e cmd = fl->cmd;
+		int size = (int)fl->size();
+		int offset = (int)fl->tell();
+
 		char data[4096] = {0};
-		cmd_e cmd = m_send_files.front()->cmd;
-		int size = (int)m_send_files.front()->size();
-		int offset = (int)m_send_files.front()->tell();
-		size_t len = m_send_files.front()->read(data, sizeof(data) / sizeof(data[0]));
-		if(m_send_files.front()->eof())
+		size_t len = fl->read(data, sizeof(data) / sizeof(data[0]));
+		if(fl->eof())
 			m_send_files.pop_front();
 
 		m_packets.push_back(packet(cmd, size, offset));
 		m_packets.back().id = get_id();
 		m_packets.back().set_data(data, len);
+		m_packets.back().set_hash(fl->hash, sizeof(fl->hash) / sizeof(fl->hash[0]));
 		m_session->send(m_packets.front().buff());
 	}
 
@@ -342,7 +358,10 @@ public:
 protected:
 	uint8 get_id()
 	{
-		return m_id++;
+		if(++m_id == 0)
+			m_id = 1;
+
+		return m_id;
 	}
 
 protected:
@@ -355,10 +374,11 @@ protected:
 
 	public:
 		cmd_e cmd;
+		char hash[40];
 	};
 
 protected:
-	uint8 m_id;
+	uint16 m_id;
 	gtl::tstr m_ip;
 	gtl::tstr m_name;
 	boost::shared_ptr<Session> m_session;
@@ -378,7 +398,7 @@ class session;
 class server;
 class session;
 
-typedef detail::client<server, session> client;
+typedef detail::client<server, session, gtl::sha> client;
 
 } // end of namespace svr
 
