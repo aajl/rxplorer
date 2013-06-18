@@ -64,13 +64,13 @@ public:
 		}
 	}
 
-	void handle_write(const boost::system::error_code& error)
+	void handle_write(const boost::system::error_code& error, int id)
 	{
 		if (!error)
 		{
 			TRACE("send completed\n");
 			if(m_client != NULL)
-				m_client->handle_write();
+				m_client->handle_write(id);
 		}
 		else
 		{
@@ -81,16 +81,16 @@ public:
 	}
 
 public:
-	void send(const gtl::str& data)
+	void send(const gtl::str& data, int id = 0)
 	{
 		boost::asio::async_write(m_socket, boost::asio::buffer(data.c_str(), data.capacity()),
-			boost::bind(&session::handle_write, this, boost::asio::placeholders::error));
+			boost::bind(&session::handle_write, this, boost::asio::placeholders::error, id));
 	}
 
 private:
 	enum
 	{
-		max_length = 1024
+		max_length = 8192
 	};
 
 	client* m_client;
