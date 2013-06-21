@@ -56,13 +56,17 @@ public class MainActivity extends Activity {
         
         text.setText("aaaaaaaaaa\nddddddddddddd\naaaaaaaaaaaaaaaaaaaaaaaaa");
         String path = getSDPath() + "/image/DSC01855.jpg";
-        new AsyncLoadImg().execute(path);
+        loadImg(path);
         
         socketHandler = new SocketHandler();
         socketThread = new SocketThread();
         socketThread.start();
     }
 
+	public void loadImg(String path) {
+		new AsyncLoadImg().execute(path);
+	}
+	
     public String getSDPath() {
     	File sdPath = null;
     	boolean exist = Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
@@ -108,7 +112,14 @@ public class MainActivity extends Activity {
     // 接收到消息
     class SocketHandler extends Handler {
     	public void handleMessage(Message msg) {
-    	
+			Bundle bndl = msg.getData();
+			int cmnd = bndl.getInt("cmd");
+			if(cmnd == cmd.text) {
+				MainActivity.this.text.setText(bndl.getString("txt"));
+			} else if(cmnd == cmd.image) {
+				MainActivity.this.loadImg(bndl.getString("img"));
+			} else if(cmnd == cmd.video) {
+			}
     	}
     }
 	
@@ -277,8 +288,43 @@ public class MainActivity extends Activity {
 		static final int ack = 1;
 	};
 
+	class FileStrm extends RandomAccessFile
+	{
+		int fileSiz = 0;
+		String filePath = null;
+		
+		public FileStrm(File file, int size) throws FileNotFoundException
+		{
+			super(file, "rw");
+			fileSiz = size;
+			filePath = path;
+		}
+		
+		public int getFileSize()
+		{
+			return fileSize;
+		}
+		
+		public String getFilePath()
+		{
+			return filePath;
+		}
+	}
+	
 	class client {
 		circle_queue m_recv_queue = new circle_queue(16 * 1024);;
+		Map<String/*hash*/, FileStrm> imgs = new ConcurrentHashMap<String, FileStrm>();
+		String sdCardPath = null;
+		
+		public client()
+		{
+			sdCardPath = MainActivity.this.getSDPath() + "/slideshow/image";
+			File file = new File(sdCardPath);
+			if(!file.exists() && file.mkdirs())
+			{
+				Log.warn("create path failed: " + sdCardPath);
+			}
+		}
 		
 		public void handle_recv(byte data[], int len) {						
 			packet pkt = new packet();
@@ -328,9 +374,66 @@ public class MainActivity extends Activity {
 			switch(pkt.cmd)
 			{
 				case cmd.text:
+					String str = new String(pkt.data, "UTF-8");
+					Message msg = new Message();
+					Bundle bndl = new Bundle();
+					bndl.putString("txt", str);
+					bndl.putInt("cmd", cmd.text);
+					msg.setData(bndl);
+					MainActivity.this.socketHandler.sendMessage(msg);
 					break;
 					
 				case cmd.image:
+					try
+					{
+						FileStrm fs = null;
+						String hash = new String(pkt.hash);
+						if(pkt.offset == 0)
+						{						
+							fs = imgs.get(hash);
+							if(fs == null)
+							{
+								String path = sdCardPath + "/" + hash + ".jpg";
+								File file = new File(path);
+								if(!file.exists() && !file.createNewFile())
+								{
+									Log.warn("create file failed: " + path);
+									break;
+								}
+								
+								fs = new FilStrm(file, pkt.size);
+								imgs.put(hash, fs);
+							}						
+						}
+
+						if(fs != null)
+						{
+							fs.seek(pkt.offset);
+							fs.write(pkt.data);
+						}
+
+						if(pkt.offset + pkt.len >= pkt.size)
+						{						
+							Message msg = new Message();
+							Bundle bndl = new Bundle();
+							bndl.putString("img", fs.getFilePath());
+							bndl.putInt("cmd", cmd.image);
+							msg.setData(bndl);
+							
+							fs.close();
+							imgs.remove(hash);
+							
+							MainActivity.this.socketHandler.sendMessage(msg);
+						}
+					}
+					catch(Exception e)
+					{
+						Log.warn("write image data", e);
+						return 6;
+					}
+					
+					break;
+					
 				case cmd.video:
 					break;
 			}
