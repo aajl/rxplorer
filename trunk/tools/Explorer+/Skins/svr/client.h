@@ -94,6 +94,7 @@ struct packet
 		if(data == NULL)
 			return;
 
+		this->len = len;
 		this->data = (char*)realloc(this->data, len);
 		memcpy(this->data, data, len);
 	}
@@ -135,6 +136,7 @@ public:
 		m_name = name;
 		m_session = session;
 		m_svr = svr;
+		m_recv_queue.resize(64 * 1024);
 	}
 
 public:
@@ -151,6 +153,16 @@ public:
 	boost::shared_ptr<Session> sess()
 	{
 		return m_session;
+	}
+
+	void set_ip(const gtl::tstr& ip)
+	{
+		m_ip = ip;
+	}
+
+	void set_name(const gtl::tstr& name)
+	{
+		m_name = name;
 	}
 
 	void set_session(boost::shared_ptr<Session> sess)
@@ -250,7 +262,6 @@ public:
 				m_recv_queue.push(data + header_len + pckt->len, len - header_len - pckt->len);
 			}
 
-			//pkt = *pckt;
 			memcpy(&pkt, pckt, packet::header_len());
 			pkt.data = (char*)(data + header_len);
 		}

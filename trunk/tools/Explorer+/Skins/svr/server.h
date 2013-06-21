@@ -78,10 +78,11 @@ public:
 			}
 		}
 
-		boost::shared_ptr<client> new_clnt(new client(this, ip, name, sess));
-		sess->set_client(clnt.get());
+		//boost::shared_ptr<client> new_clnt(new client(this, ip, name, sess));
+		//sess->set_client(clnt.get());
 
-		m_clients.push_back(new_clnt);
+		clnt->set_name(name);
+		m_clients.push_back(clnt);
 		TRACE("client count: %d\n", m_clients.size());
 	}
 
