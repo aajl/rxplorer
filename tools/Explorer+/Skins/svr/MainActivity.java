@@ -4,9 +4,16 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.SocketChannel;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Set;
 
 import com.android.util.ImageUtil;
 
@@ -115,7 +122,7 @@ public class MainActivity extends Activity {
 		}
 		
 		public boolean full(int count) {
-			return length() + count >= size;
+			return length() + count >= m_size;
 		}
 		
 		public boolean empty() {
@@ -185,7 +192,7 @@ public class MainActivity extends Activity {
 		public byte[] pop(int size)
 		{
 			if(empty())
-				return NULL;
+				return null;
 
 			size = size > length() ? length() : size;
 
@@ -248,7 +255,7 @@ public class MainActivity extends Activity {
 		}
 		
 		protected void memcpy(Object dst, int dstOffset, Object src, int srcOffset, int len) {
-			System.arrayCopy(src, srcOffset, dst, dstOffset, len);
+			System.arraycopy(src, srcOffset, dst, dstOffset, len);
 		}
 		
 		protected int m_front = 0;
@@ -259,28 +266,26 @@ public class MainActivity extends Activity {
 	
 	class cmd
 	{
-		static const int report_name = 1,
-		static const int text = 2,
-		static const int image = 3,
-		static const int video = 4,
+		static final int report_name = 1;
+		static final int text = 2;
+		static final int image = 3;
+		static final int video = 4;
 	}
 
 	class flag
 	{
-		static const int ack = 1,
+		static final int ack = 1;
 	};
 
 	class client {
 		circle_queue m_recv_queue = new circle_queue(16 * 1024);;
 		
-		public void handleRcv(byte data[]) {
-			int len = data.length;
-			
-			packet pkt;
-			int header_len = packet.header_len();
+		public void handle_recv(byte data[], int len) {						
+			packet pkt = new packet();
+			int header_len = new packet().header_len();
 			if(!m_recv_queue.empty())
 			{
-				m_recv_queue.push(data);
+				m_recv_queue.push(data, 0, len);
 				if(m_recv_queue.get(m_recv_queue.front()) != (byte)0xFF)
 				{
 					handle_close();
@@ -292,7 +297,7 @@ public class MainActivity extends Activity {
 
 				byte pktbuf[] = new byte[header_len];
 				m_recv_queue.get(pktbuf);
-				pkt.set(pktbuf);
+				pkt.set(pktbuf, header_len);
 				if(m_recv_queue.length() < (int)header_len + pkt.len)
 					return;
 
@@ -301,7 +306,7 @@ public class MainActivity extends Activity {
 			}
 			else if(len < header_len)
 			{
-				m_recv_queue.push(data, len);
+				m_recv_queue.push(data, 0, len);
 				return;
 			}
 			else
@@ -309,7 +314,7 @@ public class MainActivity extends Activity {
 				pkt.set(data, header_len);
 				if(len < header_len + pkt.len)
 				{
-					m_recv_queue.push(data);
+					m_recv_queue.push(data, 0, len);
 					return;
 				}
 				else if(len > header_len + pkt.len)
@@ -330,32 +335,35 @@ public class MainActivity extends Activity {
 					break;
 			}
 		}
+		
+		void handle_close()
+		{
+			
+		}
 	}
 	
     class SocketThread extends Thread {
-    	SocketChannel socket;
-		Slector selector;
-    	DataInputStream istrm;
-    	DataOutputStream ostrm;
-    	byte buff[] = new byte[8192];
+    	SocketChannel socket = null;
+		Selector selector;    	
+    	//byte buff[] = new byte[8192];
 		client clnt = new client();
 		
     	public void run() {
     		try {
-				socket = new Socket("192.168.1.100", 8878);
-				socket.configureBlocking(false);
-				selector = Selector.open();
+    			java.lang.System.setProperty("java.net.preferIPv6Addresses", "false");
+    			socket = SocketChannel.open();
+    			selector = Selector.open();    			
+    			socket.connect(new InetSocketAddress("192.168.1.100", 8878));
+				socket.configureBlocking(false);				
 				socket.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
-				
-				ostrm = new DataOutputStream(socket.getOutputStream());
-				istrm = new DataInputStream(socket.getInputStream());
 				
 				packet pkt = new packet((byte)1, (byte)0, (byte)0, (byte)0, (char)4);
 				pkt.data = new String("lili").getBytes();
-				ostrm.write(pkt.buff());
+				ByteBuffer buffer = ByteBuffer.wrap(pkt.buff());  
+				socket.write(buffer);
 				
 				while(true) {
-					if(socket.isClosed() || !socket.isConnected()) {
+					if(!socket.isConnected()) {
 						continue;
 					}
 					
@@ -367,8 +375,12 @@ public class MainActivity extends Activity {
 						iterator.remove();
 						
 						if (key.isReadable()) {
-							int size = istrm.read(buff);
-							clnt.handleRecv(buff, 0, size);
+							ByteBuffer data = ByteBuffer.allocate(8192);
+							int size = (int)socket.read(data);
+							if(size == -1)
+								break;
+							
+							clnt.handle_recv(data.array(), size);
 						} else if (key.isWritable()) {
 							
 						}
@@ -388,7 +400,7 @@ public class MainActivity extends Activity {
     {
 		public byte identify = (byte)0xFF; // 0xFF
     	public char id = 0;
-    	public byte cmd =;
+    	public byte cmd = 0;
     	public byte flag = 0;
     	public int size = 0;
     	public int offset = 0;
@@ -397,7 +409,7 @@ public class MainActivity extends Activity {
     	public byte data[] = null;
 		private byte m_buff[] = null;
 		
-		public static int header_len()
+		public int header_len()
 		{
 			return 55;
 		}
@@ -430,7 +442,7 @@ public class MainActivity extends Activity {
 		
     	public byte[] buff(boolean fill, boolean refill)
     	{
-    		if(fill && (refill || m_buff == null)
+    		if(fill && (refill || m_buff == null))
     		{
 				int buff_len = header_len();
 				if(len != 0)
@@ -454,7 +466,7 @@ public class MainActivity extends Activity {
 				m_buff[14] = (byte)(len >> 8);    		
 				System.arraycopy(hash, 0, m_buff, 15, 40);
 				if(data != null)
-					System.arraycopy(data, 0, m_buff, buff_len, len);
+					System.arraycopy(data, 0, m_buff, 55, len);
     		}
 			
     		return m_buff;
@@ -463,7 +475,7 @@ public class MainActivity extends Activity {
 		public void set_data(byte data[], int offset, int len)
 		{
 			this.data = new byte[len];
-			System.arrayCopy(data, offset, this.data, 0, len);
+			System.arraycopy(data, offset, this.data, 0, len);
 		}
 		
 		public void set(byte data[], int size)
@@ -472,12 +484,12 @@ public class MainActivity extends Activity {
 				return;
 			
 			this.identify = data[0];
-			this.id = data[1] + (int)data[2] << 8;
+			this.id = (char)(data[1] + (int)data[2] << 8);
 			this.cmd = data[3];
 			this.flag = data[4];
-			this.size = data[5] + int(data[6]) << 8 + int(data[7]) << 16 + int(data[8]) << 24;
-			this.offset = data[9] + int(data[10]) << 8 + int(data[11]) << 16 + int(data[12]) << 24;
-			this.len = data[13] + (int)data[14] << 8;
+			this.size = data[5] + (int)data[6] << 8 + (int)data[7] << 16 + (int)data[8] << 24;
+			this.offset = data[9] + (int)data[10] << 8 + (int)data[11] << 16 + (int)data[12] << 24;
+			this.len = (char)(data[13] + (int)data[14] << 8);
 			System.arraycopy(data, 15, this.hash, 0, 40);
 		}
     };
