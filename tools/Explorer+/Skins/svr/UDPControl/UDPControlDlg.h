@@ -51,8 +51,8 @@ protected:
 public:
 	afx_msg void OnBnClickedChksavelog();
 	afx_msg void OnBnClickedBtnstart();
-	CString m_strRemoteIP;
-	int m_nRemotePort;
+	//CString m_strRemoteIP;
+	//int m_nRemotePort;
 	int m_nLocalPort;
 	BOOL m_bSaveLog;
 	CString m_strLog;
@@ -64,4 +64,8 @@ public:
 	gtl::callback<gtl::mpl::fun<void (const gtl::str& /*cmd*/, 	bool (CUDPControlDlg::*)(const gtl::str&), const gtl::tstr& /*log*/)>> m_callback;
 	bool m_start;
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnSetting();
+	afx_msg void OnRemotesetting();
+	afx_msg void OnRegister();
+	afx_msg void OnAbout();
 };

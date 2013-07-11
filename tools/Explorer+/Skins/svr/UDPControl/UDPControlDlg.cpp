@@ -6,10 +6,13 @@
 #include "UDPControl.h"
 #include "UDPControlDlg.h"
 #include "afxdialogex.h"
+#include "DialogStartupSetting.h"
+#include "DialogRemoteIPSetting.h"
 
 #include <gtl/string/str.h>
 #include <gtl/io/app_path.h>
 #include <gtl/io/ostrm.h>
+#include <gtl/io/keyboard.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -19,8 +22,8 @@
 // CUDPControlDlg dialog
 CUDPControlDlg::CUDPControlDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CUDPControlDlg::IDD, pParent)
-	, m_strRemoteIP(_T(""))
-	, m_nRemotePort(0)
+	//, m_strRemoteIP(_T(""))
+	//, m_nRemotePort(0)
 	, m_nLocalPort(0)
 	, m_bSaveLog(FALSE)
 	, m_strLog(_T(""))
@@ -40,8 +43,6 @@ CUDPControlDlg::~CUDPControlDlg()
 void CUDPControlDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	DDX_Text(pDX, IDC_TxtRemoteIP, m_strRemoteIP);
-	DDX_Text(pDX, IDC_TxtRemotePort, m_nRemotePort);
 	DDX_Text(pDX, IDC_TxtLocalPort, m_nLocalPort);
 	DDX_Check(pDX, IDC_ChkSaveLog, m_bSaveLog);
 	DDX_Text(pDX, IDC_TxtLog, m_strLog);
@@ -54,6 +55,10 @@ BEGIN_MESSAGE_MAP(CUDPControlDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_ChkSaveLog, &CUDPControlDlg::OnBnClickedChksavelog)
 	ON_BN_CLICKED(IDC_BtnStart, &CUDPControlDlg::OnBnClickedBtnstart)
 	ON_WM_TIMER()
+	ON_COMMAND(ID_Setting, &CUDPControlDlg::OnSetting)
+	ON_COMMAND(ID_RemoteSetting, &CUDPControlDlg::OnRemotesetting)
+	ON_COMMAND(ID_Register, &CUDPControlDlg::OnRegister)
+	ON_COMMAND(ID_About, &CUDPControlDlg::OnAbout)
 END_MESSAGE_MAP()
 
 
@@ -83,8 +88,8 @@ BOOL CUDPControlDlg::OnInitDialog()
 	gtl::str ip = inet_ntoa(addr);
 	m_strLocalIP = gtl::tstr(ip);
 	
-	m_strRemoteIP = m_xml[_T("config")][_T("remote")](_T("ip"));
-	m_nRemotePort = m_xml[_T("config")][_T("remote")](_T("port")).cast<int>();
+	//m_strRemoteIP = m_xml[_T("config")][_T("remote")](_T("ip"));
+	//m_nRemotePort = m_xml[_T("config")][_T("remote")](_T("port")).cast<int>();
 	m_nLocalPort = m_xml[_T("config")][_T("local")](_T("port")).cast<int>();
 	m_bSaveLog = m_xml[_T("config")](_T("save")).cast<bool>();
 
@@ -142,14 +147,99 @@ static struct CmdInfo
 {
 	"poweroff:",			&CUDPControlDlg::Poweroff,
 	"reboot:",				&CUDPControlDlg::Reboot,
+	"cancel poweroff",		&CUDPControlDlg::CancelPoweroff,
+	"cancel reboot",		&CUDPControlDlg::CancelReboot,
 	"cmd:",					&CUDPControlDlg::Cmd,
 	"ctrl+",				&CUDPControlDlg::Shortcut,
 	"shift+",				&CUDPControlDlg::Shortcut,
 	"alt+",					&CUDPControlDlg::Shortcut,
-	"ctrl+shift+",			&CUDPControlDlg::Shortcut,
-	"ctrl+alt+",			&CUDPControlDlg::Shortcut,
-	"ctrl+shift+alt+",		&CUDPControlDlg::Shortcut,
+	"win+",					&CUDPControlDlg::Shortcut,
 	"enter",				&CUDPControlDlg::Shortcut,
+	"Back Space",			&CUDPControlDlg::Shortcut,
+	"Tab",					&CUDPControlDlg::Shortcut,
+	"Pause",				&CUDPControlDlg::Shortcut,
+	"CapsLock",				&CUDPControlDlg::Shortcut,
+	"Esc",					&CUDPControlDlg::Shortcut,
+	"Space",				&CUDPControlDlg::Shortcut,
+	"Page Up",				&CUDPControlDlg::Shortcut, 
+	"Page Down",			&CUDPControlDlg::Shortcut,
+	"End",					&CUDPControlDlg::Shortcut,
+	"Home",					&CUDPControlDlg::Shortcut,
+	"Left",					&CUDPControlDlg::Shortcut,
+	"Up",					&CUDPControlDlg::Shortcut,
+	"Right",				&CUDPControlDlg::Shortcut,
+	"Down",					&CUDPControlDlg::Shortcut,
+	"Insert",				&CUDPControlDlg::Shortcut,
+	"Delete",				&CUDPControlDlg::Shortcut,
+	"0",					&CUDPControlDlg::Shortcut,
+	"1",					&CUDPControlDlg::Shortcut,
+	"2",					&CUDPControlDlg::Shortcut,
+	"3",					&CUDPControlDlg::Shortcut,
+	"4",					&CUDPControlDlg::Shortcut,
+	"5",					&CUDPControlDlg::Shortcut,
+	"6",					&CUDPControlDlg::Shortcut,
+	"7",					&CUDPControlDlg::Shortcut,
+	"8",					&CUDPControlDlg::Shortcut,
+	"9",					&CUDPControlDlg::Shortcut,
+	"A",					&CUDPControlDlg::Shortcut,
+	"B",					&CUDPControlDlg::Shortcut,
+	"C",					&CUDPControlDlg::Shortcut,
+	"D",					&CUDPControlDlg::Shortcut,
+	"E",					&CUDPControlDlg::Shortcut,
+	"F",					&CUDPControlDlg::Shortcut,
+	"G",					&CUDPControlDlg::Shortcut,
+	"H",					&CUDPControlDlg::Shortcut,
+	"I",					&CUDPControlDlg::Shortcut,
+	"J",					&CUDPControlDlg::Shortcut,
+	"K",					&CUDPControlDlg::Shortcut,
+	"L",					&CUDPControlDlg::Shortcut,
+	"M",					&CUDPControlDlg::Shortcut,
+	"N",					&CUDPControlDlg::Shortcut,
+	"O",					&CUDPControlDlg::Shortcut,
+	"P",					&CUDPControlDlg::Shortcut,
+	"Q",					&CUDPControlDlg::Shortcut,
+	"R",					&CUDPControlDlg::Shortcut,
+	"S",					&CUDPControlDlg::Shortcut,
+	"T",					&CUDPControlDlg::Shortcut,
+	"U",					&CUDPControlDlg::Shortcut,
+	"V",					&CUDPControlDlg::Shortcut,
+	"W",					&CUDPControlDlg::Shortcut,
+	"X",					&CUDPControlDlg::Shortcut,
+	"Y",					&CUDPControlDlg::Shortcut,
+	"Z",					&CUDPControlDlg::Shortcut,
+	"Num pad 0",			&CUDPControlDlg::Shortcut,
+	"Num pad 1", 			&CUDPControlDlg::Shortcut,
+	"Num pad 2", 			&CUDPControlDlg::Shortcut,
+	"Num pad 3", 			&CUDPControlDlg::Shortcut,
+	"Num pad 4", 			&CUDPControlDlg::Shortcut,
+	"Num pad 5", 			&CUDPControlDlg::Shortcut,
+	"Num pad 6", 			&CUDPControlDlg::Shortcut,
+	"Num pad 7", 			&CUDPControlDlg::Shortcut,
+	"Num pad 8", 			&CUDPControlDlg::Shortcut,
+	"Num pad 9",			&CUDPControlDlg::Shortcut,
+	"F1",					&CUDPControlDlg::Shortcut,
+	"F2",					&CUDPControlDlg::Shortcut,
+	"F3",					&CUDPControlDlg::Shortcut,
+	"F4",					&CUDPControlDlg::Shortcut,
+	"F5",					&CUDPControlDlg::Shortcut,
+	"F6",					&CUDPControlDlg::Shortcut,
+	"F7",					&CUDPControlDlg::Shortcut,
+	"F8",					&CUDPControlDlg::Shortcut,
+	"F9",					&CUDPControlDlg::Shortcut,
+	"F10",					&CUDPControlDlg::Shortcut,
+	"F11",					&CUDPControlDlg::Shortcut,
+	"F12",					&CUDPControlDlg::Shortcut,
+	"\\",					&CUDPControlDlg::Shortcut,
+	"-",					&CUDPControlDlg::Shortcut,
+	"=",					&CUDPControlDlg::Shortcut,
+	"[",					&CUDPControlDlg::Shortcut,
+	"]",					&CUDPControlDlg::Shortcut,
+	";",					&CUDPControlDlg::Shortcut,
+	"\'",					&CUDPControlDlg::Shortcut,
+	",",					&CUDPControlDlg::Shortcut,
+	".",					&CUDPControlDlg::Shortcut,
+	"/",					&CUDPControlDlg::Shortcut,
+	"`",					&CUDPControlDlg::Shortcut,
 };
 
 void CUDPControlDlg::Start()
@@ -157,7 +247,7 @@ void CUDPControlDlg::Start()
 	m_start = true;
 	m_udp.closesocket();
 	m_udp.create(m_nLocalPort, SOCK_DGRAM);
-	m_udp.makedestsockaddr(gtl::str((LPCTSTR)m_strRemoteIP), m_nRemotePort);
+	//m_udp.makedestsockaddr(gtl::str((LPCTSTR)m_strRemoteIP), m_nRemotePort);
 
 	m_thread.start([this]() -> unsigned long {
 
@@ -196,7 +286,7 @@ void CUDPControlDlg::Start()
 			gtl::tstr log;
 			log << (LPCTSTR)time.Format(_T("%Y-%m-%d %H:%M:%S\r\n"));
 			log << ip << ":" << port;
-			log << "    [" << ret << "字节数据]" << "\r\n";
+			log << "    [" << (const char*)buf << "]" << "\r\n";
 
 			m_strLog += log;
 
@@ -234,9 +324,6 @@ void CUDPControlDlg::OnBnClickedBtnstart()
 		Stop();
 
 		GetDlgItem(IDC_TxtLocalPort)->EnableWindow(TRUE);
-		GetDlgItem(IDC_TxtRemoteIP)->EnableWindow(TRUE);
-		GetDlgItem(IDC_TxtRemotePort)->EnableWindow(TRUE);
-
 		GetDlgItem(IDC_BtnStart)->SetWindowText(_T("启动"));
 		return;
 	}
@@ -248,30 +335,28 @@ void CUDPControlDlg::OnBnClickedBtnstart()
 		return;
 	}
 
-	if(m_nRemotePort <= 1024 || m_nRemotePort > 60000)
-	{
-		MessageBox(_T("对端接收端口的范围为: 1025-60000"), _T("错误"), MB_OK | MB_ICONINFORMATION);
-		return;
-	}
+	//if(m_nRemotePort <= 1024 || m_nRemotePort > 60000)
+	//{
+	//	MessageBox(_T("对端接收端口的范围为: 1025-60000"), _T("错误"), MB_OK | MB_ICONINFORMATION);
+	//	return;
+	//}
 
-	if(m_strRemoteIP.IsEmpty())
-	{
-		MessageBox(_T("对端IP不能为空"), _T("错误"), MB_OK | MB_ICONINFORMATION);
-		return;
-	}
+	//if(m_strRemoteIP.IsEmpty())
+	//{
+	//	MessageBox(_T("对端IP不能为空"), _T("错误"), MB_OK | MB_ICONINFORMATION);
+	//	return;
+	//}
 
-	std::vector<gtl::tstr> vecIP;
-	gtl::tstr((LPCTSTR)m_strRemoteIP).split(vecIP, _T("."));
-	if(vecIP.size() != 4)
-	{
-		MessageBox(_T("对端IP格式错误"), _T("错误"), MB_OK | MB_ICONINFORMATION);
-		return;
-	}
+	//std::vector<gtl::tstr> vecIP;
+	//gtl::tstr((LPCTSTR)m_strRemoteIP).split(vecIP, _T("."));
+	//if(vecIP.size() != 4)
+	//{
+	//	MessageBox(_T("对端IP格式错误"), _T("错误"), MB_OK | MB_ICONINFORMATION);
+	//	return;
+	//}
 
 	SaveSetting();
 	GetDlgItem(IDC_TxtLocalPort)->EnableWindow(FALSE);
-	GetDlgItem(IDC_TxtRemoteIP)->EnableWindow(FALSE);
-	GetDlgItem(IDC_TxtRemotePort)->EnableWindow(FALSE);
 	GetDlgItem(IDC_BtnStart)->SetWindowText(_T("停止"));
 
 	Start();
@@ -288,8 +373,8 @@ BOOL CUDPControlDlg::PreTranslateMessage(MSG* pMsg)
 void CUDPControlDlg::SaveSetting()
 {
 	m_xml.insert_if_not(true);
-	m_xml[_T("config")][_T("remote")](_T("ip")) = m_strRemoteIP;
-	m_xml[_T("config")][_T("remote")](_T("port")) = gtl::tstr(m_nRemotePort);
+	//m_xml[_T("config")][_T("remote")](_T("ip")) = m_strRemoteIP;
+	//m_xml[_T("config")][_T("remote")](_T("port")) = gtl::tstr(m_nRemotePort);
 	m_xml[_T("config")][_T("local")](_T("port")) = gtl::tstr(m_nLocalPort);
 	m_xml[_T("config")](_T("save")) = gtl::tstr(m_bSaveLog);
 	m_xml.insert_if_not(false);
@@ -375,11 +460,27 @@ bool CUDPControlDlg::CancelReboot(const gtl::str& cmd)
 
 bool CUDPControlDlg::Cmd(const gtl::str& cmd)
 {
+	std::vector<gtl::str> vecCmd;
+	cmd.split(vecCmd, ":");
+	if(vecCmd.size() != 2 || vecCmd.size() < 2 || vecCmd[1].cast<int>() <= 0)
+		return false;
+
+	int index = vecCmd[1].cast<int>();
+	if(index > 8)
+		return false;
+
+	const gtl::tstr& cmdline = m_xml[_T("config")][_T("cmd")][gtl::tstr(_T("cmd")) << index](_T("cmd"));
+	if(cmdline.empty())
+		return false;
+
 	return true;
 }
 
 bool CUDPControlDlg::Shortcut(const gtl::str& cmd)
 {
+	if(!gtl::keyboard::press(gtl::tstr(cmd)))
+		return false;
+
 	return true;
 }
 
@@ -393,4 +494,26 @@ void CUDPControlDlg::OnTimer(UINT_PTR nIDEvent)
 		SysReboot();
 
 	CDialogEx::OnTimer(nIDEvent);
+}
+
+void CUDPControlDlg::OnSetting()
+{
+	CDialogStartupSetting dlg;
+	dlg.DoModal();
+}
+
+void CUDPControlDlg::OnRemotesetting()
+{
+	CDialogRemoteIPSetting dlg;
+	dlg.DoModal();
+}
+
+void CUDPControlDlg::OnRegister()
+{
+
+}
+
+void CUDPControlDlg::OnAbout()
+{
+
 }
