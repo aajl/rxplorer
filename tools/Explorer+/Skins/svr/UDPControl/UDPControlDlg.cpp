@@ -9,6 +9,7 @@
 #include "DialogStartupSetting.h"
 #include "DialogRemoteIPSetting.h"
 
+#include <gtl/io/path.h>
 #include <gtl/string/str.h>
 #include <gtl/io/app_path.h>
 #include <gtl/io/ostrm.h>
@@ -22,14 +23,13 @@
 // CUDPControlDlg dialog
 CUDPControlDlg::CUDPControlDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CUDPControlDlg::IDD, pParent)
-	//, m_strRemoteIP(_T(""))
-	//, m_nRemotePort(0)
 	, m_nLocalPort(0)
 	, m_bSaveLog(FALSE)
 	, m_strLog(_T(""))
 	, m_strLocalIP(_T(""))
 {
 	m_start = false;
+	m_nTrialTimes = 0;
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
@@ -68,17 +68,22 @@ BOOL CUDPControlDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
+	CString strTitle;
+	GetWindowText(strTitle);
+	m_strTitle = strTitle;
+
 	// Set the icon for this dialog.  The framework does this automatically
 	//  when the application's main window is not a dialog
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	m_xml.load(gtl::io::get_app_path<gtl::tstr>() + _T("config.xml"));
+	m_xml.load(gtl::path::all_users_app_data() + _T("/config.xml"));
 
 	// TODO: Add extra initialization here
 	hostent* pHostent = gethostbyname(NULL);
 	if(pHostent == NULL)
 	{
+		GetDlgItem(IDC_BtnStart)->EnableWindow(FALSE);
 		MessageBox(_T("获取本机IP错误"), _T("错误"), MB_OK | MB_ICONINFORMATION);
 		return TRUE;
 	}
@@ -88,12 +93,26 @@ BOOL CUDPControlDlg::OnInitDialog()
 	gtl::str ip = inet_ntoa(addr);
 	m_strLocalIP = gtl::tstr(ip);
 	
-	//m_strRemoteIP = m_xml[_T("config")][_T("remote")](_T("ip"));
-	//m_nRemotePort = m_xml[_T("config")][_T("remote")](_T("port")).cast<int>();
+	GetRemoteIPs();
 	m_nLocalPort = m_xml[_T("config")][_T("local")](_T("port")).cast<int>();
 	m_bSaveLog = m_xml[_T("config")](_T("save")).cast<bool>();
 
 	UpdateData(FALSE);
+
+	gtl::tea tea;
+	gtl::tstr license = m_xml[_T("config")](_T("license"));
+	license = tea.decrypt(license, _T("udp-spc-key"));
+
+	uint16 flags = 0;
+	uint16 month = 0;
+	uint16 days = 0;
+	uint32 index = 0;
+	if(!m_license.verify(license, 1, &flags, &month, &days, &index) || month != 12 || days != 10)
+	{
+		m_nTrialTimes = 10/* * 60*/;
+		OnTimer(Timer_Trial);
+		SetTimer(Timer_Trial, 1000, NULL);
+	}
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -247,63 +266,101 @@ void CUDPControlDlg::Start()
 	m_start = true;
 	m_udp.closesocket();
 	m_udp.create(m_nLocalPort, SOCK_DGRAM);
-	//m_udp.makedestsockaddr(gtl::str((LPCTSTR)m_strRemoteIP), m_nRemotePort);
 
-	m_thread.start([this]() -> unsigned long {
+	typedef bool (CUDPControlDlg::*mem_fn_type)(const gtl::str&);
+	auto find_cmd = [](const char* cmd) -> mem_fn_type {
 
-		this->m_udp.sendto("online", 6);
+		mem_fn_type fn = NULL;
+		for(int i = 0; i < sizeof(cmds) / sizeof(cmds[0]); ++i)
+		{
+			if(gtl::str_warp(cmd).icmp(cmds[i].cmd, -1))
+			{
+				fn = cmds[i].fn;
+				break;
+			}
+		}
+
+		return fn;
+	};
+
+	auto is_valid_termina = [=](const char* ip, ushort port) -> bool {
+
+		for(size_t i = 0; i < this->m_termina.size(); ++i)
+		{
+			termina& tmn = m_termina[i];
+			if(gtl::str_warp(ip) == tmn.ip)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	};
+
+	m_thread.start([=]() -> unsigned long {
+
+		for(size_t i = 0; i < this->m_termina.size(); ++i)
+		{
+			termina& tmn = m_termina[i];
+			this->m_udp.sendto("online", 6, tmn.ip, tmn.port);
+		}
 
 		while(this->m_start)
 		{
+			ushort port = 0;
+			char ip[16] = {0};
 			char buf[1024] = {0};
 			int ret = this->m_udp.recvfrom(buf, sizeof(buf) / sizeof(buf[0]));
 			if(ret <= 0)
 				continue;
 
-			bool found = false;
-			bool (CUDPControlDlg::*fn)(const gtl::str&) = NULL;
-			for(int i = 0; i < sizeof(cmds) / sizeof(cmds[0]); ++i)
-			{
-				if(gtl::str_warp(buf).icmp(cmds[i].cmd, -1))
-				{
-					found = true;
-					fn = cmds[i].fn;
-					break;
-				}
-			}
+			CUDPControlDlg* pThis = this;
+			CTime time = CTime::GetCurrentTime();
+			bool valid_termina = is_valid_termina(ip, port);
+			
+			gtl::tstr log;
+			log << (LPCTSTR)time.Format(_T("%Y-%m-%d %H:%M:%S\r\n"));
+			if(!valid_termina)
+				log << "[错误: 未知终端] ";
+			log << (const char*)ip << ":" << port;
+			log << "    [" << (const char*)buf << "]" << "\r\n";
+			m_strLog += log;
 
-			if(!found)
+			if(!valid_termina)
 			{
-				this->m_udp.sendto("error", 3);
+				gtl::str cmd;
+				this->m_callback.call(cmd, (mem_fn_type)NULL, log, [=](const gtl::str& cmd, bool (CUDPControlDlg::*fn)(const gtl::str&), const gtl::tstr& log) {
+					pThis->UpdateData(FALSE);
+				});
+
 				continue;
 			}
 
-			gtl::tstr ip(this->m_udp.getsockaddr());
-			int port = this->m_udp.getsockport();
-
-			CTime time = CTime::GetCurrentTime();
-
-			gtl::tstr log;
-			log << (LPCTSTR)time.Format(_T("%Y-%m-%d %H:%M:%S\r\n"));
-			log << ip << ":" << port;
-			log << "    [" << (const char*)buf << "]" << "\r\n";
-
-			m_strLog += log;
+			mem_fn_type fn = find_cmd(buf);
+			if(fn == NULL)
+			{
+				this->m_udp.sendto("error", 3, ip, port);
+				continue;
+			}
 
 			gtl::str cmd = buf;
-			CUDPControlDlg* pThis = this;
-			this->m_callback.call(cmd, fn, log, [pThis](const gtl::str& cmd, bool (CUDPControlDlg::*fn)(const gtl::str&), const gtl::tstr& log) {
+			gtl::str ipaddr = ip;
+			this->m_callback.call(cmd, fn, log, [=](const gtl::str& cmd, bool (CUDPControlDlg::*fn)(const gtl::str&), const gtl::tstr& log) {
 
 				if(fn != NULL && (pThis->*fn)(cmd))
-					pThis->m_udp.sendto("ack", 3);
+					pThis->m_udp.sendto("ack", 3, ipaddr, port);
 				else
-					pThis->m_udp.sendto("error", 3);
+					pThis->m_udp.sendto("error", 3, ipaddr, port);
 
 				pThis->UpdateData(FALSE);
 			});
 		}
 
-		this->m_udp.sendto("offline", 6);
+		for(size_t i = 0; i < this->m_termina.size(); ++i)
+		{
+			termina& tmn = m_termina[i];
+			this->m_udp.sendto("offline", 7, tmn.ip, tmn.port);
+		}
 
 		gtl::dout << "停止\n";
 
@@ -335,26 +392,6 @@ void CUDPControlDlg::OnBnClickedBtnstart()
 		return;
 	}
 
-	//if(m_nRemotePort <= 1024 || m_nRemotePort > 60000)
-	//{
-	//	MessageBox(_T("对端接收端口的范围为: 1025-60000"), _T("错误"), MB_OK | MB_ICONINFORMATION);
-	//	return;
-	//}
-
-	//if(m_strRemoteIP.IsEmpty())
-	//{
-	//	MessageBox(_T("对端IP不能为空"), _T("错误"), MB_OK | MB_ICONINFORMATION);
-	//	return;
-	//}
-
-	//std::vector<gtl::tstr> vecIP;
-	//gtl::tstr((LPCTSTR)m_strRemoteIP).split(vecIP, _T("."));
-	//if(vecIP.size() != 4)
-	//{
-	//	MessageBox(_T("对端IP格式错误"), _T("错误"), MB_OK | MB_ICONINFORMATION);
-	//	return;
-	//}
-
 	SaveSetting();
 	GetDlgItem(IDC_TxtLocalPort)->EnableWindow(FALSE);
 	GetDlgItem(IDC_BtnStart)->SetWindowText(_T("停止"));
@@ -372,14 +409,38 @@ BOOL CUDPControlDlg::PreTranslateMessage(MSG* pMsg)
 
 void CUDPControlDlg::SaveSetting()
 {
-	m_xml.insert_if_not(true);
-	//m_xml[_T("config")][_T("remote")](_T("ip")) = m_strRemoteIP;
-	//m_xml[_T("config")][_T("remote")](_T("port")) = gtl::tstr(m_nRemotePort);
+	m_xml.insert_if_not(true, true);
 	m_xml[_T("config")][_T("local")](_T("port")) = gtl::tstr(m_nLocalPort);
 	m_xml[_T("config")](_T("save")) = gtl::tstr(m_bSaveLog);
-	m_xml.insert_if_not(false);
+	m_xml.insert_if_not(false, true);
 
-	m_xml.save(gtl::io::get_app_path<gtl::tstr>() + _T("config.xml"), _T("utf-8"));
+	GetRemoteIPs();
+
+	m_xml.save(gtl::path::all_users_app_data() + _T("/config.xml"), _T("utf-8"));
+}
+
+void CUDPControlDlg::GetRemoteIPs()
+{
+	m_termina.clear();
+
+	const gtl::xml::nodes_type& nodes = m_xml[_T("config")][_T("termina")];
+	auto first = nodes.begin();
+	auto last = nodes.end();
+	for(; first != last; ++first)
+	{
+		gtl::xml& nd = *(*first);
+
+		std::vector<gtl::str> ips;
+		gtl::str ip(nd(_T("ip")));
+		ushort port = nd(_T("port")).cast<ushort>();
+		ip.split(ips, ".");
+		if(ips.size() != 4 || port < 1025 || port > 60000)
+			continue;
+
+		m_termina.push_back(termina());
+		m_termina.back().ip = ip;
+		m_termina.back().port = port;
+	}
 }
 
 BOOL CUDPControlDlg::SysPoweroff()
@@ -473,25 +534,36 @@ bool CUDPControlDlg::Cmd(const gtl::str& cmd)
 	if(cmdline.empty())
 		return false;
 
+	ShellExecute(NULL, _T("open"), cmdline, NULL, NULL, SW_SHOWMAXIMIZED);
 	return true;
 }
 
 bool CUDPControlDlg::Shortcut(const gtl::str& cmd)
 {
-	if(!gtl::keyboard::press(gtl::tstr(cmd)))
-		return false;
-
-	return true;
+	return gtl::keyboard::press(gtl::tstr(cmd));
 }
 
 void CUDPControlDlg::OnTimer(UINT_PTR nIDEvent)
 {
-	KillTimer(nIDEvent);
-
 	if(nIDEvent == Timer_Poweroff)
+	{
+		KillTimer(nIDEvent);
 		SysPoweroff();
+	}
 	else if(nIDEvent == Timer_Reboot)
+	{
+		KillTimer(nIDEvent);
 		SysReboot();
+	}
+	else if(nIDEvent == Timer_Trial)
+	{
+		SetWindowText(gtl::tstr(m_strTitle) << _T("  试用倒计时: ") << m_nTrialTimes--);
+		if(m_nTrialTimes == 0)
+			SysPoweroff();
+			//PostQuitMessage(0);
+
+		return;
+	}
 
 	CDialogEx::OnTimer(nIDEvent);
 }
@@ -499,12 +571,18 @@ void CUDPControlDlg::OnTimer(UINT_PTR nIDEvent)
 void CUDPControlDlg::OnSetting()
 {
 	CDialogStartupSetting dlg;
+	dlg.set_xml(&m_xml);
+	dlg.set_dlg(this);
+	dlg.set_icon(m_hIcon);
 	dlg.DoModal();
 }
 
 void CUDPControlDlg::OnRemotesetting()
 {
 	CDialogRemoteIPSetting dlg;
+	dlg.set_xml(&m_xml);
+	dlg.set_dlg(this);
+	dlg.set_icon(m_hIcon);
 	dlg.DoModal();
 }
 
