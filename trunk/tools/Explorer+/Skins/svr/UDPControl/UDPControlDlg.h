@@ -28,6 +28,7 @@ public:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
 
 public:
+	bool Test(const gtl::str& cmd);
 	bool Poweroff(const gtl::str& cmd);
 	bool Reboot(const gtl::str& cmd);	
 	bool CancelPoweroff(const gtl::str& cmd);
@@ -36,6 +37,7 @@ public:
 	bool Shortcut(const gtl::str& cmd);
 
 	void SaveSetting();
+	void SetRegistered();
 
 // Implementation
 protected:
@@ -75,7 +77,8 @@ public:
 	bool m_start;
 	std::vector<termina> m_termina;
 	CLicense m_license;
-	uint m_nTrialTimes;
+	int m_nTrialTimes;
+	gtl::tstr m_strConfigFilePath;
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnSetting();
 	afx_msg void OnRemotesetting();

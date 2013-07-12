@@ -25,7 +25,7 @@ public:
 	{
 		m_hIcon = hIcon;
 	}
-	
+
 	void set_dlg(CUDPControlDlg* dlg)
 	{
 		m_dlg = dlg;

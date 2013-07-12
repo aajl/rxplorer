@@ -16,18 +16,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
-    <None Include="res\UDPControl.rc2">
+    <None Include="res\MakeLicense.rc2">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="res\UDPControl.ico">
+    <None Include="res\MakeLicense.ico">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="UDPControl.h">
+    <ClInclude Include="MakeLicense.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UDPControlDlg.h">
+    <ClInclude Include="MakeLicenseDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
@@ -39,38 +39,20 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DialogStartupSetting.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogRemoteIPSetting.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogRegister.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="UDPControl.cpp">
+    <ClCompile Include="MakeLicense.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UDPControlDlg.cpp">
+    <ClCompile Include="MakeLicenseDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DialogStartupSetting.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogRemoteIPSetting.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogRegister.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="UDPControl.rc">
+    <ResourceCompile Include="MakeLicense.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

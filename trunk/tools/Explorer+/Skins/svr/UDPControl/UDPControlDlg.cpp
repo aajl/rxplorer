@@ -8,6 +8,7 @@
 #include "afxdialogex.h"
 #include "DialogStartupSetting.h"
 #include "DialogRemoteIPSetting.h"
+#include "DialogRegister.h"
 
 #include <gtl/io/path.h>
 #include <gtl/string/str.h>
@@ -18,7 +19,6 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-
 
 // CUDPControlDlg dialog
 CUDPControlDlg::CUDPControlDlg(CWnd* pParent /*=NULL*/)
@@ -77,22 +77,20 @@ BOOL CUDPControlDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	m_xml.load(gtl::path::all_users_app_data() + _T("/config.xml"));
+	m_strConfigFilePath = gtl::path::all_users_app_data() + _T("/uspc");	
+	CreateDirectory(m_strConfigFilePath, NULL);
+	m_strConfigFilePath += _T("/config.xml");
+	m_xml.load(m_strConfigFilePath);
 
-	// TODO: Add extra initialization here
-	hostent* pHostent = gethostbyname(NULL);
-	if(pHostent == NULL)
+	if(!gtl::net::socket::get_local_ip(m_strLocalIP))
 	{
 		GetDlgItem(IDC_BtnStart)->EnableWindow(FALSE);
 		MessageBox(_T("获取本机IP错误"), _T("错误"), MB_OK | MB_ICONINFORMATION);
 		return TRUE;
 	}
 
-	in_addr addr = {0};
-	addr.s_addr = *((unsigned long*)pHostent->h_addr_list[0]);
-	gtl::str ip = inet_ntoa(addr);
-	m_strLocalIP = gtl::tstr(ip);
-	
+	//m_strLocalIP = gtl::tstr(ip);
+
 	GetRemoteIPs();
 	m_nLocalPort = m_xml[_T("config")][_T("local")](_T("port")).cast<int>();
 	m_bSaveLog = m_xml[_T("config")](_T("save")).cast<bool>();
@@ -105,11 +103,9 @@ BOOL CUDPControlDlg::OnInitDialog()
 
 	uint16 flags = 0;
 	uint16 month = 0;
-	uint16 days = 0;
-	uint32 index = 0;
-	if(!m_license.verify(license, 1, &flags, &month, &days, &index) || month != 12 || days != 10)
+	if(!m_license.verify(license, 1, &flags, &month) || month != 12)
 	{
-		m_nTrialTimes = 10/* * 60*/;
+		m_nTrialTimes = 10 * 60;
 		OnTimer(Timer_Trial);
 		SetTimer(Timer_Trial, 1000, NULL);
 	}
@@ -164,6 +160,7 @@ static struct CmdInfo
 	bool (CUDPControlDlg::*fn)(const gtl::str&);
 }cmds[] = 
 {
+	"test",					&CUDPControlDlg::Test,
 	"poweroff:",			&CUDPControlDlg::Poweroff,
 	"reboot:",				&CUDPControlDlg::Reboot,
 	"cancel poweroff",		&CUDPControlDlg::CancelPoweroff,
@@ -416,7 +413,13 @@ void CUDPControlDlg::SaveSetting()
 
 	GetRemoteIPs();
 
-	m_xml.save(gtl::path::all_users_app_data() + _T("/config.xml"), _T("utf-8"));
+	m_xml.save(m_strConfigFilePath, _T("utf-8"));
+}
+
+void CUDPControlDlg::SetRegistered()
+{
+	KillTimer(Timer_Trial);
+	SetWindowText(m_strTitle);
 }
 
 void CUDPControlDlg::GetRemoteIPs()
@@ -483,6 +486,11 @@ BOOL CUDPControlDlg::SysReboot()
 		return FALSE;
 
 	return TRUE;
+}
+
+bool CUDPControlDlg::Test(const gtl::str& cmd)
+{
+	return true;
 }
 
 bool CUDPControlDlg::Poweroff(const gtl::str& cmd)
@@ -558,9 +566,11 @@ void CUDPControlDlg::OnTimer(UINT_PTR nIDEvent)
 	else if(nIDEvent == Timer_Trial)
 	{
 		SetWindowText(gtl::tstr(m_strTitle) << _T("  试用倒计时: ") << m_nTrialTimes--);
-		if(m_nTrialTimes == 0)
-			SysPoweroff();
-			//PostQuitMessage(0);
+		if(m_nTrialTimes <= 0)
+		{
+			KillTimer(nIDEvent);
+			PostQuitMessage(0);
+		}
 
 		return;
 	}
@@ -588,7 +598,11 @@ void CUDPControlDlg::OnRemotesetting()
 
 void CUDPControlDlg::OnRegister()
 {
-
+	CDialogRegister dlg;
+	dlg.set_xml(&m_xml);
+	dlg.set_dlg(this);
+	dlg.set_icon(m_hIcon);
+	dlg.DoModal();
 }
 
 void CUDPControlDlg::OnAbout()

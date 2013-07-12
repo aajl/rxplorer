@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{55B2B138-2FEE-4A19-AF4A-D1292D0BC8F0}</ProjectGuid>
-    <RootNamespace>UDPControl</RootNamespace>
+    <ProjectGuid>{B9A8F650-C145-4732-A47A-479F3B70F3BA}</ProjectGuid>
+    <RootNamespace>MakeLicense</RootNamespace>
     <Keyword>MFCProj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -20,14 +20,14 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Static</UseOfMfc>
+    <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Static</UseOfMfc>
+    <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\OpenSrc\gtl\trunk;F:\TriOpenSrc\gtl\trunk;$(IncludePath)</IncludePath>
+    <IncludePath>F:\TriOpenSrc\gtl\trunk;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -96,39 +96,33 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
-    <None Include="res\UDPControl.ico" />
-    <None Include="res\UDPControl.rc2" />
+    <None Include="res\MakeLicense.ico" />
+    <None Include="res\MakeLicense.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DialogRegister.h" />
-    <ClInclude Include="DialogRemoteIPSetting.h" />
-    <ClInclude Include="DialogStartupSetting.h" />
+    <ClInclude Include="MakeLicense.h" />
+    <ClInclude Include="MakeLicenseDlg.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="UDPControl.h" />
-    <ClInclude Include="UDPControlDlg.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DialogRegister.cpp" />
-    <ClCompile Include="DialogRemoteIPSetting.cpp" />
-    <ClCompile Include="DialogStartupSetting.cpp" />
+    <ClCompile Include="MakeLicense.cpp" />
+    <ClCompile Include="MakeLicenseDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="UDPControl.cpp" />
-    <ClCompile Include="UDPControlDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="UDPControl.rc" />
+    <ResourceCompile Include="MakeLicense.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties RESOURCE_FILE="UDPControl.rc" />
+      <UserProperties RESOURCE_FILE="MakeLicense.rc" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
