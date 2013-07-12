@@ -5,7 +5,7 @@
 #include "UDPControl.h"
 #include "DialogRemoteIPSetting.h"
 #include "afxdialogex.h"
-
+#include "UDPControlDlg.h"
 
 // CDialogRemoteIPSetting dialog
 
@@ -24,7 +24,9 @@ CDialogRemoteIPSetting::CDialogRemoteIPSetting(CWnd* pParent /*=NULL*/)
 	, m_nRemotePort4(0)
 	, m_nRemotePort5(0)
 {
-
+	m_dlg = NULL;
+	m_xml = NULL;
+	m_hIcon = NULL;
 }
 
 CDialogRemoteIPSetting::~CDialogRemoteIPSetting()
@@ -53,10 +55,57 @@ END_MESSAGE_MAP()
 
 
 // CDialogRemoteIPSetting message handlers
+BOOL CDialogRemoteIPSetting::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
 
+	SetIcon(m_hIcon, FALSE);
+
+	if(m_xml != NULL)
+	{
+		gtl::xml& xml = *m_xml;
+		m_strRemoteIP1 = xml[_T("config")][_T("termina")][_T("ip1")](_T("ip"));
+		m_strRemoteIP2 = xml[_T("config")][_T("termina")][_T("ip2")](_T("ip"));
+		m_strRemoteIP3 = xml[_T("config")][_T("termina")][_T("ip3")](_T("ip"));
+		m_strRemoteIP4 = xml[_T("config")][_T("termina")][_T("ip4")](_T("ip"));
+		m_strRemoteIP5 = xml[_T("config")][_T("termina")][_T("ip5")](_T("ip"));
+
+		m_nRemotePort1 = xml[_T("config")][_T("termina")][_T("ip1")](_T("port")).cast<ushort>();
+		m_nRemotePort2 = xml[_T("config")][_T("termina")][_T("ip2")](_T("port")).cast<ushort>();
+		m_nRemotePort3 = xml[_T("config")][_T("termina")][_T("ip3")](_T("port")).cast<ushort>();
+		m_nRemotePort4 = xml[_T("config")][_T("termina")][_T("ip4")](_T("port")).cast<ushort>();
+		m_nRemotePort5 = xml[_T("config")][_T("termina")][_T("ip5")](_T("port")).cast<ushort>();
+
+		UpdateData(FALSE);
+	}
+
+	return TRUE;  // return TRUE  unless you set the focus to a control
+}
 
 void CDialogRemoteIPSetting::OnBnClickedOk()
 {
-	// TODO: Add your control notification handler code here
+	UpdateData();
+
+	if(m_xml == NULL)
+		return;
+
+	gtl::xml& xml = *m_xml;
+	xml.insert_if_not(true, true);
+	xml[_T("config")][_T("termina")][_T("ip1")](_T("ip")) = m_strRemoteIP1;
+	xml[_T("config")][_T("termina")][_T("ip2")](_T("ip")) = m_strRemoteIP2;
+	xml[_T("config")][_T("termina")][_T("ip3")](_T("ip")) = m_strRemoteIP3;
+	xml[_T("config")][_T("termina")][_T("ip4")](_T("ip")) = m_strRemoteIP4;
+	xml[_T("config")][_T("termina")][_T("ip5")](_T("ip")) = m_strRemoteIP5;
+
+	xml[_T("config")][_T("termina")][_T("ip1")](_T("port")) = gtl::tstr(m_nRemotePort1);
+	xml[_T("config")][_T("termina")][_T("ip2")](_T("port")) = gtl::tstr(m_nRemotePort2);
+	xml[_T("config")][_T("termina")][_T("ip3")](_T("port")) = gtl::tstr(m_nRemotePort3);
+	xml[_T("config")][_T("termina")][_T("ip4")](_T("port")) = gtl::tstr(m_nRemotePort4);
+	xml[_T("config")][_T("termina")][_T("ip5")](_T("port")) = gtl::tstr(m_nRemotePort5);
+	xml.insert_if_not(false, true);
+
+	if(m_dlg != NULL)
+		m_dlg->SaveSetting();
+
 	CDialogEx::OnOK();
 }
