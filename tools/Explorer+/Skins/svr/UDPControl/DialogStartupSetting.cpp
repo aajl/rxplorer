@@ -35,13 +35,13 @@ void CDialogStartupSetting::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_TxtCmd1, m_strCmd1);
-	DDX_Text(pDX, IDC_TxtCmd1, m_strCmd2);
-	DDX_Text(pDX, IDC_TxtCmd1, m_strCmd3);
-	DDX_Text(pDX, IDC_TxtCmd1, m_strCmd4);
-	DDX_Text(pDX, IDC_TxtCmd1, m_strCmd5);
-	DDX_Text(pDX, IDC_TxtCmd1, m_strCmd6);
-	DDX_Text(pDX, IDC_TxtCmd1, m_strCmd7);
-	DDX_Text(pDX, IDC_TxtCmd1, m_strCmd8);
+	DDX_Text(pDX, IDC_TxtCmd2, m_strCmd2);
+	DDX_Text(pDX, IDC_TxtCmd3, m_strCmd3);
+	DDX_Text(pDX, IDC_TxtCmd4, m_strCmd4);
+	DDX_Text(pDX, IDC_TxtCmd5, m_strCmd5);
+	DDX_Text(pDX, IDC_TxtCmd6, m_strCmd6);
+	DDX_Text(pDX, IDC_TxtCmd7, m_strCmd7);
+	DDX_Text(pDX, IDC_TxtCmd8, m_strCmd8);
 }
 
 
@@ -70,13 +70,13 @@ BOOL CDialogStartupSetting::OnInitDialog()
 		gtl::xml& xml = *m_xml;
 
 		m_strCmd1 = xml[_T("config")][_T("cmd")][_T("cmd1")](_T("cmd"));
-		m_strCmd1 = xml[_T("config")][_T("cmd")][_T("cmd2")](_T("cmd"));
-		m_strCmd1 = xml[_T("config")][_T("cmd")][_T("cmd3")](_T("cmd"));
-		m_strCmd1 = xml[_T("config")][_T("cmd")][_T("cmd4")](_T("cmd"));
-		m_strCmd1 = xml[_T("config")][_T("cmd")][_T("cmd5")](_T("cmd"));
-		m_strCmd1 = xml[_T("config")][_T("cmd")][_T("cmd6")](_T("cmd"));
-		m_strCmd1 = xml[_T("config")][_T("cmd")][_T("cmd7")](_T("cmd"));
-		m_strCmd1 = xml[_T("config")][_T("cmd")][_T("cmd8")](_T("cmd"));
+		m_strCmd2 = xml[_T("config")][_T("cmd")][_T("cmd2")](_T("cmd"));
+		m_strCmd3 = xml[_T("config")][_T("cmd")][_T("cmd3")](_T("cmd"));
+		m_strCmd4 = xml[_T("config")][_T("cmd")][_T("cmd4")](_T("cmd"));
+		m_strCmd5 = xml[_T("config")][_T("cmd")][_T("cmd5")](_T("cmd"));
+		m_strCmd6 = xml[_T("config")][_T("cmd")][_T("cmd6")](_T("cmd"));
+		m_strCmd7 = xml[_T("config")][_T("cmd")][_T("cmd7")](_T("cmd"));
+		m_strCmd8 = xml[_T("config")][_T("cmd")][_T("cmd8")](_T("cmd"));
 
 		UpdateData(FALSE);
 	}
