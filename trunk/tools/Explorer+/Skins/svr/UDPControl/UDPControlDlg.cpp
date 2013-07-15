@@ -295,14 +295,14 @@ void CUDPControlDlg::Start()
 	if(retsult == SOCKET_ERROR)
 	{
 		int err = WSAGetLastError();
-		MessageBox(_T("设置重用地址失败"), _T("错误"), MB_OK | MB_ICONINFORMATION);
+		//MessageBox(_T("设置重用地址失败"), _T("错误"), MB_OK | MB_ICONINFORMATION);
 	}
 
 	retsult = setsockopt(m_udp, SOL_SOCKET, SO_BROADCAST, (char*)&bOpt, sizeof(bOpt)); 
 	if(retsult == SOCKET_ERROR)
 	{
 		int err = WSAGetLastError();
-		MessageBox(_T("设置多播地址失败"), _T("错误"), MB_OK | MB_ICONINFORMATION);
+		//MessageBox(_T("设置多播地址失败"), _T("错误"), MB_OK | MB_ICONINFORMATION);
 	}
 
 	ip_mreq mreq;
@@ -313,7 +313,7 @@ void CUDPControlDlg::Start()
 	if(retsult == SOCKET_ERROR)
 	{
 		int err = WSAGetLastError();
-		MessageBox(_T("创建多播地址失败,此次启动将不支持局域网广播."), _T("错误"), MB_OK | MB_ICONINFORMATION);
+		//MessageBox(_T("创建多播地址失败,此次启动将不支持局域网广播."), _T("错误"), MB_OK | MB_ICONINFORMATION);
 	}
 
 	typedef bool (CUDPControlDlg::*mem_fn_type)(const gtl::str&);
