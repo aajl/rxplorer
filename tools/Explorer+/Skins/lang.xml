@@ -3,7 +3,7 @@
 	<menu menu_file="文件" menu_new_tab="新建标签(&T)        Ctrl+T" menu_new_folder="新建文件夹(&N)   Ctrl+N" menu_save_session="保存工作区(&S)   Ctrl+S" menu_exit="退出(&E)" />
 	<menu menu_edit_sub="编辑(&E)                  F4" menu_refresh="刷新(&R)                  F5" menu_copy="复制(&C)                  F6" menu_move="移动(&M)                  F7" />
 	<menu menu_options="选项" menu_language="语言" menu_accel_manager="快捷键管理" menu_gesture_manager="鼠标手势管理" />
-	<menu menu_help="帮助(&H)" menu_check_update="检查更新(&C)" menu_about="关于Explorer(&A)" />
+	<menu menu_help="帮助(&H)" menu_check_update="检查更新(&C)" menu_register="注册(&R)" menu_about="关于Explorer(&A)" />
 	<about about="关于Explorer++" />
 	<universal ok="确定" cancel="取消" close="关闭" showlist="显示列表" filter="过滤器" />
 	<tooltip up="向上" favorite="收藏夹" copy_curr_path="复制当前路径到剪贴板" search="搜索" clear="清除过滤器" />
@@ -26,6 +26,7 @@
 	<toolmenu open="打开(&O)" locate_tool="打开文件位置(&I)" remove_favorite_tool="删除(&D)" tool_setting="设置(&S)" />
 	<footer footer_edit="F4 编辑" footer_copy="F6 复制" footer_move="F7 移动" footer_new="F8 新建" />
 	<favmenu add_favorite_folder="添加到书签" />
+	<register register="注册" register_title="注册Explorer++" email="邮箱:" license="注册码:" />
 </strs>
 <strs id="english" title="Explorer++">
 	<menu menu_file="File(&F)" menu_edit="Edit(&E)" menu_view="View(&V)" menu_tools="Tools(&T)" menu_help="Help(&H)" />
@@ -55,4 +56,5 @@
 	<toolmenu open="Open(&O)" locate_tool="Locate On Disk(&I)" remove_favorite_tool="Delete(&D)" tool_setting="Setting(&S)" />
 	<footer footer_edit="F4 Edit" footer_copy="F6 Copy" footer_move="F7 Move" footer_new="F8 New Folder" />
 	<favmenu add_favorite_folder="Add To Favorite" />
+	<register register="Register" register_title="Register Explorer++" />
 </strs>
