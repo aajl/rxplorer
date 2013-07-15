@@ -322,7 +322,9 @@
 		<layer id="treeview" x="3" y="85" width="240" height="500" bkclr="#E5E5E5" float="height">
 			<border width="1" color="#ACA899" />
 			
-			<layer id=".tree" x="0" y="0" width="238" height="250" bkclr="#E5E5E5" float="height">
+			<layer id=".tree" x="0" y="0" width="240" height="250" bkclr="#E5E5E5" float="height">
+				<border width="1" color="#ACA899" />
+				
 				<label text="lang.treeview" position="relative" x="" y="0" width="240" height="22" align="vcenter" offset="21">
 					<border width="1" color="#ACA899" />
 				</label>
@@ -350,7 +352,7 @@
 					</states>
 				</button>				
 			
-				<panel id=".view" position="relative" x="1" y="22" width="238" height="250" bkclr="#ffffff" float="width,height">
+				<panel id=".view" position="relative" x="1" y="22" width="238" height="250" bkclr="#ffffff" float="height">
 				</panel>
 			</layer>
 			
@@ -587,4 +589,6 @@
 	<include>options.xml</include>
 	
 	<include>about.xml</include>
+	
+	<include>register.xml</include>
 </directui>

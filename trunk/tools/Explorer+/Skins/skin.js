@@ -17,6 +17,7 @@ var session_open = false;
 var session2_open = false;
 var maximize = false;
 var new_version = "";
+var opened = false;
 
 // 1. 左边的不能新标签 √
 // 11. 文件夹内双击空白处不能返回上一级 √
@@ -137,6 +138,17 @@ $(function(){
 			} else {
 				if(!setting.explorer.dual)
 					show_dual_pane(false);
+				
+				if(!opened) {
+					opened = true;
+					//var reg = sys.register.is_registered();
+					//print("--------------" + reg);
+					//if(!sys.register.is_registered("debug"))
+					//	register.show();
+					
+					//var result = sys.register.register("smart@163.com", "11323aa-fdfds");
+					//print("register result: " + result.result);
+				}
 			}
 		},
 		selected:function(files) {
@@ -253,6 +265,8 @@ $(function(){
 	addrbar.move(addrbar.x - offset, addrbar.y, addrbar.width + offset, addrbar.height);
 	insert_drives(drives, true);
 
+	var rr = treeview.tree.view.rect();
+	print("---------------" + rr.json());
 	sys.explorer.treeview_new("treeview.tree.view", treeview.tree.view.rect());
 	
 	load_setting();
