@@ -45,6 +45,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\OpenSrc\gtl\trunk;F:\TriOpenSrc\gtl\trunk;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -100,6 +101,8 @@
     <None Include="res\UDPControl.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\..\..\OpenSrc\gtl\trunk\gtl\ui\TrayIcon.h" />
+    <ClInclude Include="DialogAbout.h" />
     <ClInclude Include="DialogRegister.h" />
     <ClInclude Include="DialogRemoteIPSetting.h" />
     <ClInclude Include="DialogStartupSetting.h" />
@@ -110,6 +113,8 @@
     <ClInclude Include="UDPControlDlg.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\..\..\OpenSrc\gtl\trunk\gtl\ui\TrayIcon.cpp" />
+    <ClCompile Include="DialogAbout.cpp" />
     <ClCompile Include="DialogRegister.cpp" />
     <ClCompile Include="DialogRemoteIPSetting.cpp" />
     <ClCompile Include="DialogStartupSetting.cpp" />
