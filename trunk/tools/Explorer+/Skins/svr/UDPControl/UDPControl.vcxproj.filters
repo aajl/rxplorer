@@ -48,6 +48,12 @@
     <ClInclude Include="DialogRegister.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\OpenSrc\gtl\trunk\gtl\ui\TrayIcon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogAbout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UDPControl.cpp">
@@ -66,6 +72,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DialogRegister.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\OpenSrc\gtl\trunk\gtl\ui\TrayIcon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogAbout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

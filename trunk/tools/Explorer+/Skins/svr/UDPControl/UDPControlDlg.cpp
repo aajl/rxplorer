@@ -9,6 +9,7 @@
 #include "DialogStartupSetting.h"
 #include "DialogRemoteIPSetting.h"
 #include "DialogRegister.h"
+#include "DialogAbout.h"
 
 #include <gtl/io/path.h>
 #include <gtl/string/str.h>
@@ -22,7 +23,7 @@
 
 // CUDPControlDlg dialog
 CUDPControlDlg::CUDPControlDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(CUDPControlDlg::IDD, pParent)
+	: CTrayIconDialog(CUDPControlDlg::IDD, pParent)
 	, m_nLocalPort(0)
 	, m_bSaveLog(FALSE)
 	, m_strLog(_T(""))
@@ -59,6 +60,7 @@ BEGIN_MESSAGE_MAP(CUDPControlDlg, CDialogEx)
 	ON_COMMAND(ID_RemoteSetting, &CUDPControlDlg::OnRemotesetting)
 	ON_COMMAND(ID_Register, &CUDPControlDlg::OnRegister)
 	ON_COMMAND(ID_About, &CUDPControlDlg::OnAbout)
+	ON_WM_SYSCOMMAND()
 END_MESSAGE_MAP()
 
 
@@ -77,6 +79,8 @@ BOOL CUDPControlDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
+	CTrayIconDialog::Create(m_hIcon, IDR_Tray, _T("UDP-SPC"));
+
 	m_strConfigFilePath = gtl::path::all_users_app_data() + _T("/uspc");	
 	CreateDirectory(m_strConfigFilePath, NULL);
 	m_strConfigFilePath += _T("/config.xml");
@@ -94,6 +98,12 @@ BOOL CUDPControlDlg::OnInitDialog()
 	GetRemoteIPs();
 	m_nLocalPort = m_xml[_T("config")][_T("local")](_T("port")).cast<int>();
 	m_bSaveLog = m_xml[_T("config")](_T("save")).cast<bool>();
+	bool bAutoStart = true;
+	if(m_nLocalPort <= 0)
+	{
+		bAutoStart = false;
+		m_nLocalPort = 11257;
+	}
 
 	UpdateData(FALSE);
 
@@ -109,6 +119,9 @@ BOOL CUDPControlDlg::OnInitDialog()
 		OnTimer(Timer_Trial);
 		SetTimer(Timer_Trial, 1000, NULL);
 	}
+
+	if(bAutoStart)
+		OnBnClickedBtnstart();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -149,6 +162,16 @@ HCURSOR CUDPControlDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+void CUDPControlDlg::OnTrayMsg(UINT nCmdID, UINT nMessage)
+{
+	if(nCmdID == ID_Exit)
+		PostQuitMessage(0);
+	else if(nCmdID == ID_ShowMainDialog)
+		ShowWindow(SW_SHOW);
+
+	return CTrayIconDialog::OnTrayMsg(nCmdID, nMessage);
+}
+
 void CUDPControlDlg::OnBnClickedChksavelog()
 {
 	// TODO: Add your control notification handler code here
@@ -160,18 +183,19 @@ static struct CmdInfo
 	bool (CUDPControlDlg::*fn)(const gtl::str&);
 }cmds[] = 
 {
-	"test",					&CUDPControlDlg::Test,
 	"poweroff:",			&CUDPControlDlg::Poweroff,
 	"reboot:",				&CUDPControlDlg::Reboot,
-	"cancel poweroff",		&CUDPControlDlg::CancelPoweroff,
-	"cancel reboot",		&CUDPControlDlg::CancelReboot,
 	"cmd:",					&CUDPControlDlg::Cmd,
 	"ctrl+",				&CUDPControlDlg::Shortcut,
 	"shift+",				&CUDPControlDlg::Shortcut,
 	"alt+",					&CUDPControlDlg::Shortcut,
 	"win+",					&CUDPControlDlg::Shortcut,
+
+	"test",					&CUDPControlDlg::Test,
+	"cancel poweroff",		&CUDPControlDlg::CancelPoweroff,
+	"cancel reboot",		&CUDPControlDlg::CancelReboot,
 	"enter",				&CUDPControlDlg::Shortcut,
-	"Back Space",			&CUDPControlDlg::Shortcut,
+	"Backspace",			&CUDPControlDlg::Shortcut,
 	"Tab",					&CUDPControlDlg::Shortcut,
 	"Pause",				&CUDPControlDlg::Shortcut,
 	"CapsLock",				&CUDPControlDlg::Shortcut,
@@ -187,6 +211,7 @@ static struct CmdInfo
 	"Down",					&CUDPControlDlg::Shortcut,
 	"Insert",				&CUDPControlDlg::Shortcut,
 	"Delete",				&CUDPControlDlg::Shortcut,
+	"Print Screen",			&CUDPControlDlg::Shortcut,
 	"0",					&CUDPControlDlg::Shortcut,
 	"1",					&CUDPControlDlg::Shortcut,
 	"2",					&CUDPControlDlg::Shortcut,
@@ -223,6 +248,7 @@ static struct CmdInfo
 	"X",					&CUDPControlDlg::Shortcut,
 	"Y",					&CUDPControlDlg::Shortcut,
 	"Z",					&CUDPControlDlg::Shortcut,
+	"NumLock",				&CUDPControlDlg::Shortcut,
 	"Num pad 0",			&CUDPControlDlg::Shortcut,
 	"Num pad 1", 			&CUDPControlDlg::Shortcut,
 	"Num pad 2", 			&CUDPControlDlg::Shortcut,
@@ -264,13 +290,44 @@ void CUDPControlDlg::Start()
 	m_udp.closesocket();
 	m_udp.create(m_nLocalPort, SOCK_DGRAM);
 
+	bool bOpt = true;  
+	int retsult = setsockopt(m_udp, SOL_SOCKET, SO_REUSEADDR, (char*)&bOpt, sizeof(bOpt));
+	if(retsult == SOCKET_ERROR)
+	{
+		int err = WSAGetLastError();
+		MessageBox(_T("设置重用地址失败"), _T("错误"), MB_OK | MB_ICONINFORMATION);
+	}
+
+	retsult = setsockopt(m_udp, SOL_SOCKET, SO_BROADCAST, (char*)&bOpt, sizeof(bOpt)); 
+	if(retsult == SOCKET_ERROR)
+	{
+		int err = WSAGetLastError();
+		MessageBox(_T("设置多播地址失败"), _T("错误"), MB_OK | MB_ICONINFORMATION);
+	}
+
+	ip_mreq mreq;
+	memset(&mreq, 0, sizeof(mreq));
+	mreq.imr_interface.S_un.S_addr = INADDR_ANY;
+	mreq.imr_multiaddr.S_un.S_addr = inet_addr("224.0.0.127");
+	retsult = setsockopt(m_udp, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char*)&mreq, sizeof(mreq));
+	if(retsult == SOCKET_ERROR)
+	{
+		int err = WSAGetLastError();
+		MessageBox(_T("创建多播地址失败,此次启动将不支持局域网广播."), _T("错误"), MB_OK | MB_ICONINFORMATION);
+	}
+
 	typedef bool (CUDPControlDlg::*mem_fn_type)(const gtl::str&);
 	auto find_cmd = [](const char* cmd) -> mem_fn_type {
 
 		mem_fn_type fn = NULL;
 		for(int i = 0; i < sizeof(cmds) / sizeof(cmds[0]); ++i)
 		{
-			if(gtl::str_warp(cmd).icmp(cmds[i].cmd, -1))
+			if(i <= 6 && gtl::str_warp(cmd).icmp(cmds[i].cmd, -1))
+			{
+				fn = cmds[i].fn;
+				break;
+			}
+			else if(gtl::tstr(cmds[i].cmd).icmp(gtl::tstr(cmd)))
 			{
 				fn = cmds[i].fn;
 				break;
@@ -307,7 +364,7 @@ void CUDPControlDlg::Start()
 			ushort port = 0;
 			char ip[16] = {0};
 			char buf[1024] = {0};
-			int ret = this->m_udp.recvfrom(buf, sizeof(buf) / sizeof(buf[0]));
+			int ret = this->m_udp.recvfrom(buf, sizeof(buf) / sizeof(buf[0]), ip, port);
 			if(ret <= 0)
 				continue;
 
@@ -353,12 +410,6 @@ void CUDPControlDlg::Start()
 			});
 		}
 
-		for(size_t i = 0; i < this->m_termina.size(); ++i)
-		{
-			termina& tmn = m_termina[i];
-			this->m_udp.sendto("offline", 7, tmn.ip, tmn.port);
-		}
-
 		gtl::dout << "停止\n";
 
 		return 0;
@@ -367,6 +418,12 @@ void CUDPControlDlg::Start()
 
 void CUDPControlDlg::Stop()
 {
+	for(size_t i = 0; i < this->m_termina.size(); ++i)
+	{
+		termina& tmn = m_termina[i];
+		this->m_udp.sendto("offline", 7, tmn.ip, tmn.port);
+	}
+
 	m_start = false;
 	m_udp.closesocket();
 }
@@ -376,6 +433,20 @@ void CUDPControlDlg::OnBnClickedBtnstart()
 	if(m_start)
 	{
 		Stop();
+		UpdateData();
+
+		CTime time = CTime::GetCurrentTime();
+
+		gtl::tstr path = gtl::io::get_app_path<gtl::tstr>() + _T("Log/");
+		CreateDirectory(path, NULL);
+		path += time.Format(_T("%Y-%m-%d %H:%M:%S.log"));
+		gtl::file file;
+		if(m_bSaveLog && !m_strLog.IsEmpty() && file.open(path, _T("rw")))
+		{
+			file.write((LPCTSTR)m_strLog, m_strLog.GetLength());
+			m_strLog.Empty();
+			UpdateData(FALSE);
+		}	
 
 		GetDlgItem(IDC_TxtLocalPort)->EnableWindow(TRUE);
 		GetDlgItem(IDC_BtnStart)->SetWindowText(_T("启动"));
@@ -607,5 +678,17 @@ void CUDPControlDlg::OnRegister()
 
 void CUDPControlDlg::OnAbout()
 {
+	CDialogAbout dlg;
+	dlg.set_icon(m_hIcon);
+	dlg.DoModal();
+}
 
+void CUDPControlDlg::OnSysCommand(UINT nID, LPARAM lParam)
+{
+	if(nID == SC_MINIMIZE)
+	{
+		ShowWindow(SW_HIDE);
+	}
+
+	CTrayIconDialogT::OnSysCommand(nID, lParam);
 }

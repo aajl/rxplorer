@@ -11,9 +11,11 @@
 #include <gtl/mpl/fun.h>
 #include <gtl/crypto/tea.h>
 #include <gtl/modules/license.h>
+#include <gtl/ui/TrayIcon.h>
 
 // CUDPControlDlg dialog
-class CUDPControlDlg : public CDialogEx
+class CUDPControlDlg
+	: public CTrayIconDialogT<CDialogEx>
 {
 // Construction
 public:
@@ -26,6 +28,7 @@ public:
 
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
+	virtual void OnTrayMsg(UINT nCmdID, UINT nMessage);
 
 public:
 	bool Test(const gtl::str& cmd);
@@ -84,4 +87,5 @@ public:
 	afx_msg void OnRemotesetting();
 	afx_msg void OnRegister();
 	afx_msg void OnAbout();
+	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 };
