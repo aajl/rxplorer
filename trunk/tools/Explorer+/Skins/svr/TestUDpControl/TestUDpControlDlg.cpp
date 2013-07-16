@@ -24,7 +24,7 @@ CTestUDpControlDlg::CTestUDpControlDlg(CWnd* pParent /*=NULL*/)
 	, m_strSendText(_T(""))
 	, m_nLocalPort(2345)
 	//, m_strRemoveIP(_T("192.168.1.157"))
-	, m_strRemoveIP(_T("224.0.0.127"))
+	, m_strRemoveIP(_T("234.234.234.234"))
 	, m_nRemovePort(2346)
 	, m_strRecvText(_T(""))
 {
@@ -71,6 +71,17 @@ BOOL CTestUDpControlDlg::OnInitDialog()
 		int err = WSAGetLastError();
 		MessageBox(_T("设置多播地址失败"), _T("错误"), MB_OK | MB_ICONINFORMATION);
 	}
+
+	//ip_mreq mreq;
+	//memset(&mreq, 0, sizeof(mreq));
+	//mreq.imr_interface.S_un.S_addr = INADDR_ANY;
+	//mreq.imr_multiaddr.S_un.S_addr = inet_addr("234.234.234.234");
+	//retsult = setsockopt(m_udp, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char*)&mreq, sizeof(mreq));
+	//if(retsult == SOCKET_ERROR)
+	//{
+	//	int err = WSAGetLastError();
+	//	//MessageBox(_T("创建多播地址失败,此次启动将不支持局域网广播."), _T("错误"), MB_OK | MB_ICONINFORMATION);
+	//}
 
 	m_thread.start([=]() -> unsigned long {
 		

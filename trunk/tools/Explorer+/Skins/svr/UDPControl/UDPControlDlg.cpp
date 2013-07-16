@@ -9,7 +9,7 @@
 #include "DialogStartupSetting.h"
 #include "DialogRemoteIPSetting.h"
 #include "DialogRegister.h"
-#include "DialogAbout.h"
+//#include "DialogAbout.h"
 
 #include <gtl/io/path.h>
 #include <gtl/string/str.h>
@@ -295,26 +295,26 @@ void CUDPControlDlg::Start()
 	if(retsult == SOCKET_ERROR)
 	{
 		int err = WSAGetLastError();
-		//MessageBox(_T("设置重用地址失败"), _T("错误"), MB_OK | MB_ICONINFORMATION);
+		MessageBox(_T("设置重用地址失败"), _T("错误"), MB_OK | MB_ICONINFORMATION);
 	}
 
 	retsult = setsockopt(m_udp, SOL_SOCKET, SO_BROADCAST, (char*)&bOpt, sizeof(bOpt)); 
 	if(retsult == SOCKET_ERROR)
 	{
 		int err = WSAGetLastError();
-		//MessageBox(_T("设置多播地址失败"), _T("错误"), MB_OK | MB_ICONINFORMATION);
+		MessageBox(_T("设置广播地址失败,此次启动将不具备广播功能."), _T("错误"), MB_OK | MB_ICONINFORMATION);
 	}
 
-	ip_mreq mreq;
-	memset(&mreq, 0, sizeof(mreq));
-	mreq.imr_interface.S_un.S_addr = INADDR_ANY;
-	mreq.imr_multiaddr.S_un.S_addr = inet_addr("224.0.0.127");
-	retsult = setsockopt(m_udp, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char*)&mreq, sizeof(mreq));
-	if(retsult == SOCKET_ERROR)
-	{
-		int err = WSAGetLastError();
-		//MessageBox(_T("创建多播地址失败,此次启动将不支持局域网广播."), _T("错误"), MB_OK | MB_ICONINFORMATION);
-	}
+	//ip_mreq mreq;
+	//memset(&mreq, 0, sizeof(mreq));
+	//mreq.imr_interface.S_un.S_addr = INADDR_ANY;
+	//mreq.imr_multiaddr.S_un.S_addr = inet_addr("234.234.234.234");
+	//retsult = setsockopt(m_udp, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char*)&mreq, sizeof(mreq));
+	//if(retsult == SOCKET_ERROR)
+	//{
+	//	int err = WSAGetLastError();
+	//	//MessageBox(_T("创建多播地址失败,此次启动将不支持局域网广播."), _T("错误"), MB_OK | MB_ICONINFORMATION);
+	//}
 
 	typedef bool (CUDPControlDlg::*mem_fn_type)(const gtl::str&);
 	auto find_cmd = [](const char* cmd) -> mem_fn_type {
@@ -439,11 +439,11 @@ void CUDPControlDlg::OnBnClickedBtnstart()
 
 		gtl::tstr path = gtl::io::get_app_path<gtl::tstr>() + _T("Log/");
 		CreateDirectory(path, NULL);
-		path += time.Format(_T("%Y-%m-%d %H:%M:%S.log"));
+		path += (LPCTSTR)time.Format(_T("%Y-%m-%d %H.%M.log"));
 		gtl::file file;
-		if(m_bSaveLog && !m_strLog.IsEmpty() && file.open(path, _T("rw")))
+		if(m_bSaveLog && !m_strLog.IsEmpty() && file.open(path, _T("w")))
 		{
-			file.write((LPCTSTR)m_strLog, m_strLog.GetLength());
+			file.write_str((LPTSTR)(LPCTSTR)m_strLog);
 			m_strLog.Empty();
 			UpdateData(FALSE);
 		}	
@@ -678,9 +678,9 @@ void CUDPControlDlg::OnRegister()
 
 void CUDPControlDlg::OnAbout()
 {
-	CDialogAbout dlg;
-	dlg.set_icon(m_hIcon);
-	dlg.DoModal();
+	//CDialogAbout dlg;
+	//dlg.set_icon(m_hIcon);
+	//dlg.DoModal();
 }
 
 void CUDPControlDlg::OnSysCommand(UINT nID, LPARAM lParam)
