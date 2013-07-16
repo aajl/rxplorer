@@ -41,17 +41,17 @@ var opened = false;
 // 3. 驱动器栏要用异步的方式 √
 // 13. 常用工具栏多数工具不可用,并且太少. √
 // 23. 无undo/redo √
-// 6. 第二面板不能隐藏 (基本实现,但跟文件夹隐藏显示一起用时位置会不对) √
+// 6. 第二面板不能隐藏 (基本实现,但跟文件夹隐藏显示一起用时位置会不对,位置不对的也已解决.) √
+// 20. 改变窗口宽度时,文件夹窗口大小发生异常,且默认状态下宽度也偏宽. √
 // 21. 无各类设置窗口.
 // 9. 菜单栏不能用
-// 20. 改变窗口宽度时,文件夹窗口大小发生异常,且默认状态下宽度也偏宽.
 // 30. 显示过菜单之后,工具栏按钮的图标会发生变化.
 //
-// 10. 搜索栏不能用
 // 24 过滤器无滚动条 √
 // 29. 视图的查看方试没有 √
 // 31. 无注册模块 √
 // 32. 无更新模块 √
+// 10. 搜索栏不能用
 
 $(function(){
 	print("version: " + ver.version + "\n");
@@ -265,8 +265,6 @@ $(function(){
 	addrbar.move(addrbar.x - offset, addrbar.y, addrbar.width + offset, addrbar.height);
 	insert_drives(drives, true);
 
-	var rr = treeview.tree.view.rect();
-	print("---------------" + rr.json());
 	sys.explorer.treeview_new("treeview.tree.view", treeview.tree.view.rect());
 	
 	load_setting();
