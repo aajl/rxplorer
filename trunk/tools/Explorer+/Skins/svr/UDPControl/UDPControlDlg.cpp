@@ -9,7 +9,7 @@
 #include "DialogStartupSetting.h"
 #include "DialogRemoteIPSetting.h"
 #include "DialogRegister.h"
-//#include "DialogAbout.h"
+#include "DialogAbout.h"
 
 #include <gtl/io/path.h>
 #include <gtl/string/str.h>
@@ -678,9 +678,9 @@ void CUDPControlDlg::OnRegister()
 
 void CUDPControlDlg::OnAbout()
 {
-	//CDialogAbout dlg;
-	//dlg.set_icon(m_hIcon);
-	//dlg.DoModal();
+	CDialogAbout dlg;
+	dlg.set_icon(m_hIcon);
+	dlg.DoModal();
 }
 
 void CUDPControlDlg::OnSysCommand(UINT nID, LPARAM lParam)
