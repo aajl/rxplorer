@@ -74,10 +74,7 @@
     <ClCompile Include="DialogRegister.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\OpenSrc\gtl\trunk\gtl\ui\TrayIcon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogAbout.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\TriOpenSrc\gtl\trunk\gtl\ui\TrayIcon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
