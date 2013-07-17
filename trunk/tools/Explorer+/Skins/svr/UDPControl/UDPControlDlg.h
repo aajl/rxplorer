@@ -38,6 +38,7 @@ public:
 	bool CancelReboot(const gtl::str& cmd);
 	bool Cmd(const gtl::str& cmd);
 	bool Shortcut(const gtl::str& cmd);
+	bool JumpPPT(const gtl::str& cmd);
 
 	void SaveSetting();
 	void SetRegistered();

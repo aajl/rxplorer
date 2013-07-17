@@ -186,6 +186,7 @@ static struct CmdInfo
 	"poweroff:",			&CUDPControlDlg::Poweroff,
 	"reboot:",				&CUDPControlDlg::Reboot,
 	"cmd:",					&CUDPControlDlg::Cmd,
+	"ppt:",					&CUDPControlDlg::JumpPPT,
 	"ctrl+",				&CUDPControlDlg::Shortcut,
 	"shift+",				&CUDPControlDlg::Shortcut,
 	"alt+",					&CUDPControlDlg::Shortcut,
@@ -322,7 +323,7 @@ void CUDPControlDlg::Start()
 		mem_fn_type fn = NULL;
 		for(int i = 0; i < sizeof(cmds) / sizeof(cmds[0]); ++i)
 		{
-			if(i <= 6 && gtl::str_warp(cmd).icmp(cmds[i].cmd, -1))
+			if(i <= 7 && gtl::str_warp(cmd).icmp(cmds[i].cmd, -1))
 			{
 				fn = cmds[i].fn;
 				break;
@@ -620,6 +621,25 @@ bool CUDPControlDlg::Cmd(const gtl::str& cmd)
 bool CUDPControlDlg::Shortcut(const gtl::str& cmd)
 {
 	return gtl::keyboard::press(gtl::tstr(cmd));
+}
+
+bool CUDPControlDlg::JumpPPT(const gtl::str& cmd)
+{
+	std::vector<gtl::str> vecCmd;
+	cmd.split(vecCmd, ":");
+	if(vecCmd.size() != 2 || vecCmd.size() < 2 || vecCmd[1].cast<int>() <= 0)
+		return false;
+
+	const gtl::str& index = vecCmd[1];
+	for(int i = 0; i < index.size(); ++i)
+	{
+		gtl::keyboard::press(gtl::tstr((tchar)index[i]));
+		Sleep(100);
+	}
+
+	gtl::keyboard::press(_T("enter"));
+
+	return true;
 }
 
 void CUDPControlDlg::OnTimer(UINT_PTR nIDEvent)
