@@ -43,15 +43,20 @@ var opened = false;
 // 23. 无undo/redo √
 // 6. 第二面板不能隐藏 (基本实现,但跟文件夹隐藏显示一起用时位置会不对,位置不对的也已解决.) √
 // 20. 改变窗口宽度时,文件夹窗口大小发生异常,且默认状态下宽度也偏宽. √
-// 21. 无各类设置窗口.
-// 9. 菜单栏不能用
-// 30. 显示过菜单之后,工具栏按钮的图标会发生变化.
-//
 // 24 过滤器无滚动条 √
 // 29. 视图的查看方试没有 √
+// 35. 文件视图无论选择何种显示方式,顶部的列表头都在. √
 // 31. 无注册模块 √
 // 32. 无更新模块 √
+// 30. 显示过菜单之后,工具栏按钮的图标会发生变化(待改).
+// 32. 显示局域网内其它电脑共享的文件夹时,点击地址栏和下拉菜单均无效(待改).
+// 34. 过滤器里的滚动条在移动时,如果鼠标移到了文件视图里,则滚动条不再移动(待改).
+// 21. 无各类设置窗口.
+// 9. 菜单栏不能用
+// 33. 选择较多文件时,界面响应变慢.
 // 10. 搜索栏不能用
+// 36. 视图的查看方式没有保存,下次再打开时,会变成默认的列表方式.
+// 37. 框选文件后,右键菜单不能用.
 
 $(function(){
 	print("version: " + ver.version + "\n");
@@ -985,12 +990,16 @@ function show_dual_pane(show) {
 		xplorer2.show();
 		xplr.redraw();
 		setting.explorer.dual = true;
+		detailbar.tools.show();
+		statusbar.tools.show();
 	} else {
 		xplorer2.hide();
 		var rc = xplorer2.rect();
 		xplorer.move(xplorer.x, xplorer.y, xplrfrm.width, xplorer.height);
 		xplorer.redraw();
 		setting.explorer.dual = false;
+		detailbar.tools.hide();
+		statusbar.tools.hide();
 	}
 }
 
