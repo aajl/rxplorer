@@ -1,14 +1,14 @@
 ﻿<panel id="thumbs_pane" type="modeless" x="0" y="0" width="160" height="27" visible="false" alpha="95">
 	<border width="1" color="#ACA899" />
-	<custom id="thumbs" yadapt="true" type="tiled" row="100" col="1" margin="1" oninit="resize_panel(thumbs_pane, 5, 23, 1)">
+	<custom id="thumbs" yadapt="true" type="tiled" row="100" col="1" margin="1" oninit="resize_panel(thumbs_pane, sys.os.version >= 6.0 ? 7 : 5, 23, 1)">
 		<pos position="relative" x="2" y="2" width="156" height="23" float="width,height" />
 		<bkimg src="menu.png" width="23" height="23" />
 		<items height="adapt">
-			<item name="缩略图" icon="" action="sys.explorer.view_mode(5)" />
+			<!--item name="缩略图" icon="" action="sys.explorer.view_mode(5)" />
 			<item name="平铺(&N)" icon="" action="sys.explorer.view_mode(6)" />
 			<item name="图标(&T)" icon="" action="sys.explorer.view_mode(1)" />
 			<item name="列表(&L)" icon="" action="sys.explorer.view_mode(3)" />
-			<item name="详细信息(&D)" icon="" action="sys.explorer.view_mode(4)" />
+			<item name="详细信息(&D)" icon="" action="sys.explorer.view_mode(4)" /-->
 		</items>
 		<if condition="item.separator">
 			<layer x="0" y="0" width="156" height="3" margin="0,3">
@@ -29,5 +29,23 @@
 				</states>
 			</layer>
 		</if>
+		<script>
+			print(sys.os.name + " " + sys.os.version);
+			if(sys.os.version >= 6.0) {
+				thumbs.insert({"name": "超大图标(&S)", "action": "sys.explorer.view_mode(18)"});
+				thumbs.insert({"name": "大图标(&B)", "action": "sys.explorer.view_mode(17)"});
+				thumbs.insert({"name": "中等图标(&M)", "action": "sys.explorer.view_mode(1)"});
+				thumbs.insert({"name": "小图标(&S)", "action": "sys.explorer.view_mode(2)"});
+				thumbs.insert({"name": "列表(&L)", "action": "sys.explorer.view_mode(3)"});
+				thumbs.insert({"name": "详细信息(&D)", "action": "sys.explorer.view_mode(4)"});
+				thumbs.insert({"name": "平铺(&N)", "action": "sys.explorer.view_mode(6)"});
+			} else {
+				thumbs.insert({"name": "缩略图(&M)", "action": "sys.explorer.view_mode(5)"});
+				thumbs.insert({"name": "平铺(&N)", "action": "sys.explorer.view_mode(6)"});
+				thumbs.insert({"name": "图标(&S)", "action": "sys.explorer.view_mode(1)"});
+				thumbs.insert({"name": "列表(&L)", "action": "sys.explorer.view_mode(3)"});
+				thumbs.insert({"name": "详细信息(&D)", "action": "sys.explorer.view_mode(4)"});
+			}
+		</script>
 	</custom>
 </panel>
