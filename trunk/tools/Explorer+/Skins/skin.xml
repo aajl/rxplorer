@@ -438,7 +438,7 @@
 					<items width="adapt" height="20">
 						<!--<item id=".tab1" text="" icon="" tab="item.tab" />-->
 					</items>
-					<button id="item.id" width="adapt,15" height="20" view="item.view" path="vpath" text="item.text" align="center,vcenter" offset="24">
+					<button id="item.id" width="adapt,15" height="20" view="item.view" mode="4" path="vpath" text="item.text" align="center,vcenter" offset="24">
 						<tabs tab="item.tab" group="folders" action="click_tab('xplorer', this)" />
 						<events dbclk="close_tab(xplorer, this)" rbtn="pop_tab_menu('xplorer', this, 'this')" />
 						<states ix="6" iy="2">
@@ -493,7 +493,7 @@
 					<items width="adapt" height="20">
 						<!--<item id=".tab1" text="" icon="" tab="item.tab" />-->
 					</items>
-					<button id="item.id" width="adapt,15" height="20" view="item.view" path="vpath" text="item.text" align="center,vcenter" offset="24">
+					<button id="item.id" width="adapt,15" height="20" view="item.view" mode="4" path="vpath" text="item.text" align="center,vcenter" offset="24">
 						<tabs tab="item.tab" group="folders" action="click_tab('xplorer2', this)" />
 						<events dbclk="close_tab(xplorer2, this)" rbtn="pop_tab_menu('xplorer2', this, 'this')" />
 						<states ix="6" iy="2">

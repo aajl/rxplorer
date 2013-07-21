@@ -46,6 +46,7 @@ var opened = false;
 // 24 过滤器无滚动条 √
 // 29. 视图的查看方试没有 √
 // 35. 文件视图无论选择何种显示方式,顶部的列表头都在. √
+// 37. 框选文件后,右键菜单不能用. √
 // 31. 无注册模块 √
 // 32. 无更新模块 √
 // 30. 显示过菜单之后,工具栏按钮的图标会发生变化(待改).
@@ -56,7 +57,6 @@ var opened = false;
 // 33. 选择较多文件时,界面响应变慢.
 // 10. 搜索栏不能用
 // 36. 视图的查看方式没有保存,下次再打开时,会变成默认的列表方式.
-// 37. 框选文件后,右键菜单不能用.
 
 $(function(){
 	print("version: " + ver.version + "\n");
@@ -1052,6 +1052,9 @@ function on_check_for_update(version, detail) {
 
 function set_view_mode() {
 	var modes = [5, 6, 1, 3, 4];
+	if(sys.os.version >= 6.0)
+		modes = [18, 17, 1, 2, 3, 4, 6];
+		
 	var mode = sys.explorer.view_mode();
 	print(mode);
 	
