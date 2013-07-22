@@ -1080,7 +1080,10 @@ function set_view_mode() {
 		}
 	}
 	
-	var mode = modes[(index + 1) % modes.length];
+	set_curr_view_mode(modes[(index + 1) % modes.length]);
+}
+
+function set_curr_view_mode(mode) {
 	curr_tab.mode = mode;
 	sys.explorer.view_mode(mode);
 }
