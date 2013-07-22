@@ -47,6 +47,8 @@ var opened = false;
 // 29. 视图的查看方试没有 √
 // 35. 文件视图无论选择何种显示方式,顶部的列表头都在. √
 // 37. 框选文件后,右键菜单不能用. √
+// 33. 选择较多文件时,界面响应变慢. √
+// 36. 视图的查看方式没有保存,下次再打开时,会变成默认的列表方式. √
 // 31. 无注册模块 √
 // 32. 无更新模块 √
 // 30. 显示过菜单之后,工具栏按钮的图标会发生变化(待改).
@@ -54,9 +56,7 @@ var opened = false;
 // 34. 过滤器里的滚动条在移动时,如果鼠标移到了文件视图里,则滚动条不再移动(待改).
 // 21. 无各类设置窗口.
 // 9. 菜单栏不能用
-// 33. 选择较多文件时,界面响应变慢.
 // 10. 搜索栏不能用
-// 36. 视图的查看方式没有保存,下次再打开时,会变成默认的列表方式.
 
 $(function(){
 	print("version: " + ver.version + "\n");
@@ -197,6 +197,18 @@ $(function(){
 					detailbar.info.clear();
 					detailbar.info.insert({"text": "选择了 " + files.length + " 个文件"});
 				}
+			}
+		},
+		selected_count:function(count) {
+			if(setting.statusbar.show) {
+				if(count > 0)
+					statusbar.filename.text = "选择了 " + count + " 个文件";
+				else
+					statusbar.filename.text = "";
+			} else {
+				detailbar.info.clear();
+				if(count > 0)
+					detailbar.info.insert({"text": "选择了 " + count + " 个文件"});
 			}
 		},
 		filetypes:function(types) {
@@ -429,7 +441,7 @@ function save_session(xplor, filename) {
 	var children = xplor.tabs.children;
 	for(var i = 0; i < children; ++i) {
 		var tab = xplor.tabs.child(i);
-		sess.push({"name": tab.text, "path": tab.path});
+		sess.push({"name": tab.text, "path": tab.path, "mode": tab.mode});
 	}
 	
 	save2file(sess, filename);
@@ -438,9 +450,9 @@ function save_session(xplor, filename) {
 function load_session(xplor_id, filename, sess_open) {
 	var sess = json_from_file(filename, []);	
 	if(sess.length > 0) {
-		new_tab_view(xplor_id, sess[0].path, sess[0].name);
+		new_tab_view(xplor_id, sess[0].path, sess[0].name, sess[0].mode);
 		for(var i = 1; i < sess.length; ++i) {
-			new_tab(xplor_id, sess[i].path, sess[i].name);
+			new_tab(xplor_id, sess[i].path, sess[i].name, sess[i].mode);
 		}
 	} else {
 		new_tab_view(xplor_id);
@@ -492,7 +504,7 @@ function show_treeview(show) {
 	explorer.redraw(true);
 }
 
-function new_tab(xplor_id, path, name) {
+function new_tab(xplor_id, path, name, mode) {
 	++folder_index;
 	
 	// 增加一个tab按钮
@@ -506,12 +518,13 @@ function new_tab(xplor_id, path, name) {
 	
 	var tab = eval(tab_obj);
 	tab.path = path;
+	tab.mode = mode;
 	tab.obj = tab_obj;
 	tab.index = folder_index;
 	tab.uninit = true;
 }
 
-function new_tab_view(xplor_id, path, name) {
+function new_tab_view(xplor_id, path, name, mode) {
 	++folder_index;
 
 	print("new tab view: " + xplor_id + " " + path + "\n");
@@ -536,9 +549,10 @@ function new_tab_view(xplor_id, path, name) {
 	xplor.tabs.insert({"id":"." + tab_id, "tab":view.id, "view": view_obj, "text":name, "icon":path});	
 	curr_tab = eval(tab_obj);
 	curr_tab.path = path;
+	curr_tab.mode = mode;
 	curr_tab.click();
 	
-	var hid = sys.explorer.new(view.handler(), path, view.rect(), view_obj);
+	var hid = sys.explorer.new(view.handler(), path, view.rect(), view_obj, mode);
 }
 
 function open_folder(path) {
@@ -1051,7 +1065,7 @@ function on_check_for_update(version, detail) {
 }
 
 function set_view_mode() {
-	var modes = [5, 6, 1, 3, 4];
+	var modes = [7, 6, 1, 3, 4];
 	if(sys.os.version >= 6.0)
 		modes = [18, 17, 1, 2, 3, 4, 6];
 		
@@ -1066,5 +1080,7 @@ function set_view_mode() {
 		}
 	}
 	
-	sys.explorer.view_mode(modes[(index + 1) % modes.length]);
+	var mode = modes[(index + 1) % modes.length];
+	curr_tab.mode = mode;
+	sys.explorer.view_mode(mode);
 }
