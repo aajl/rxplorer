@@ -308,9 +308,9 @@
 		<layer id="searchbar" x="637" y="56" width="240" height="25" bkclr="#ffffff" float="right">
 			<border width="1" color="#316AC5" />
 			
-			<edit id="search" position="relative" x="1" y="5" width="216" height="15" bkclr="#ffffff" hint="搜索" />
+			<edit id=".search" position="relative" x="1" y="5" width="216" height="15" bkclr="#ffffff" hint="搜索" />
 			
-			<button id=".srchbtn" position="relative" x="-24" y="1" width="23" height="23" adapt="false">
+			<button id=".srchbtn" position="relative" x="-24" y="1" width="23" height="23" adapt="false" action="search(searchbar.search.text, curr_tab.path)">
 				<events tooltip="show_tooltip(this, lang.get('search'))" mouse_out="tooltip.hide()" />
 				<states normal="search_icon.png" dx="3" dy="3">
 					<hover dx="2" dy="2" />
@@ -591,4 +591,6 @@
 	<include>about.xml</include>
 	
 	<include>register.xml</include>
+	
+	<include>search.xml</include>
 </directui>

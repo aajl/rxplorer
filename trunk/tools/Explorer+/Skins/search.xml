@@ -1,0 +1,48 @@
+﻿<panel id="searcher" type="modeless" visible="false" alpha="95" bkclr="#E5E5E5">
+	<size x="0" y="0" width="800" height="600" resize="true" min-width="800" min-height="600" />
+	<border width="1" color="#404040" />
+	<hittest>
+		<rect x="0" y="0" width="745" height="24" />
+	</hittest>
+
+	<label id=".title" text="lang.search" x="9" y="0" width="100" height="20" color="#ffffff" font="fonts.bold_9">
+		<attribs adapt="true" align="center,vcenter" />
+		<bkimg src="imgs.main_hover" x="x" y="y" width="96" height="height">
+		</bkimg>		
+	</label>
+
+	<button id=".close" x="745" y="1" width="48" height="18" action="searcher.hide()" float="right">
+		<states normal="imgs.main_hover" x="825" width="width" height="height">
+			<normal y="2" />
+			<hover y="23" />
+		</states>
+	</button>
+	
+	<!--水平线-->
+	<line x="1" y="24" width="798" height="1" color="#ACA899" float="width" />
+	<line x="1" y="25" width="798" height="1" color="#FFFFFF" float="width" />
+
+	<edit id=".value" position="relative" x="3" y="35" width="729" height="24" bkclr="#ffffff" hint="输入文件名进行搜索" float="width">
+		<events enter="" />
+		<border width="1" color="#316AC5" />
+	</edit>
+
+	<button id=".btn" text="lang.search" action="" x="737" y="35" width="59" height="24" align="center,vcenter" float="right">
+		<states normal="button.png" width="59" height="24">
+			<normal x="0" />
+			<hover x="59" />
+			<down x="118" />
+		</states>
+	</button>
+
+	<layer id=".list" x="3" y="62" width="794" height="513" float="width,height">
+		<border width="1" color="#ACA899" />
+		
+		<panel id=".files" position="relative" x="1" y="1" width="792" height="511" bkclr="#ffffff" float="width,height">
+		</panel>
+	</layer>
+	
+	<label id=".status" text="searching..." x="3" y="577" width="794" height="20" align="vcenter" offset="4" float="bottom,width">
+		<border width="1" color="#ACA899" />
+	</layer>	
+</panel>
