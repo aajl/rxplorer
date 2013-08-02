@@ -123,7 +123,7 @@
 					</button>
 					<button id=".more" width="11" height="29" action="" adapt="false" popup="thumbs_pane">
 						<events tooltip="show_tooltip(this, lang.get('more'))" mouse_out="tooltip.hide()" />
-						<states normal="dropdown.png" width="7" height="24">
+						<states normal="dropdown.png" width="7" height="4">
 							<normal dx="2" dy="13" border="0" bkclr="#E5E5E5" />
 							<hover dx="2" dy="12" border="1" color="#316AC5" bkclr="#C1D2EE" />
 							<down dx="2" dy="13" border="1" color="#316AC5" bkclr="#C1D2EE" />
