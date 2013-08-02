@@ -1087,3 +1087,10 @@ function set_curr_view_mode(mode) {
 	curr_tab.mode = mode;
 	sys.explorer.view_mode(mode);
 }
+
+function search(text, path) {
+	searcher.show();
+	searcher.value.text = path + "\\" + text;
+	print(text);
+	searcher.btn.enable((text != null && text != "") ? false : true);	
+}
