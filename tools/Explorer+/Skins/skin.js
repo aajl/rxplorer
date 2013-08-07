@@ -1092,8 +1092,11 @@ function set_curr_view_mode(mode) {
 }
 
 function search(text, path) {
+	if(searcher.list.files.handler() == 0)
+		searcher.list.files.attach(sys.search.create_result_wnd(searcher.handler(), searcher.list.files.rect()));
+	
 	searcher.show();
 	searcher.value.text = path + "\\" + text;
-	print(text);
-	searcher.btn.enable((text != null && text != "") ? false : true);	
+	print(text + " " + searcher.list.files.handler());
+	searcher.btn.enable((text != null && text != "") ? false : true);
 }
