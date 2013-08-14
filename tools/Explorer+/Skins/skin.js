@@ -72,6 +72,25 @@ $(function(){
 		return this;
 	}
 
+	sys.search.scan();
+
+	sys.search.handler({
+		scan:function(operate, drive) {
+			if(drive == 0 || drive == "0")
+				searcher.status.text = operate;
+			else
+				searcher.status.text = operate + " " + String.fromCharCode(drive) + ":";
+		},
+		search:function(count, completed) {
+			if(Number(completed)) {
+				searcher.btn.enable(true);
+				searcher.status.text = count + " objects";
+			} else {
+				searcher.status.text = "searching";
+			}
+		},
+	});
+	
 	sys.updater.handler({
 		on_check:function(version, details) {
 			if(version == "") {
@@ -1091,12 +1110,23 @@ function set_curr_view_mode(mode) {
 	sys.explorer.view_mode(mode);
 }
 
-function search(text, path) {
+function show_search_wnd(text, path) {
 	if(searcher.list.files.handler() == 0)
 		searcher.list.files.attach(sys.search.create_result_wnd(searcher.handler(), searcher.list.files.rect()));
 	
 	searcher.show();
-	searcher.value.text = path + "\\" + text;
+	searchtxt.value.text = path + "\\" + text;
 	print(text + " " + searcher.list.files.handler());
-	searcher.btn.enable((text != null && text != "") ? false : true);
+	
+	if(text != null && text != "")
+		search();
+}
+
+function search() {
+	var text = searchtxt.value.text;
+	if(text == null || text.length <= 0)
+		return;
+	
+	searcher.btn.enable(false);
+	sys.search.search(text);
 }
