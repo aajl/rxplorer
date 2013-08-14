@@ -310,7 +310,7 @@
 			
 			<edit id=".search" position="relative" x="1" y="5" width="216" height="15" bkclr="#ffffff" hint="搜索" />
 			
-			<button id=".srchbtn" position="relative" x="-24" y="1" width="23" height="23" adapt="false" action="search(searchbar.search.text, curr_tab.path)">
+			<button id=".srchbtn" position="relative" x="-24" y="1" width="23" height="23" adapt="false" action="show_search_wnd(searchbar.search.text, curr_tab.path)">
 				<events tooltip="show_tooltip(this, lang.get('search'))" mouse_out="tooltip.hide()" />
 				<states normal="search_icon.png" dx="3" dy="3">
 					<hover dx="2" dy="2" />
