@@ -45,7 +45,7 @@
 	<layer id="searchtxt" x="3" y="34" width="729" height="25" bkclr="#ffffff" float="width">
 		<border width="1" color="#316AC5" />
 		<edit id=".value" position="relative" x="1" y="5" width="727" height="15" bkclr="#ffffff" hint="输入文件名进行搜索" float="width">
-			<events enter="" />
+			<events enter="search()" />
 		</edit>
 	</layer>
 	
