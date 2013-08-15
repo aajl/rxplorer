@@ -64,14 +64,8 @@ var opened = false;
 $(function(){
 	print("version: " + ver.version + "\n");
 
-	Number.prototype.toJSON = function() {
-		return this;
-	}
+	sys.shell_execute("F:/hackangel_soft/Explore/tools/Explorer+/search.exe",  "-app -Module Modules/MSearch.dll", on_scan_completed);
 	
-	Boolean.prototype.toJSON = function() {
-		return this;
-	}
-
 	sys.search.scan();
 
 	sys.search.handler({
@@ -1129,4 +1123,8 @@ function search() {
 	
 	searcher.btn.enable(false);
 	sys.search.search(text);
+}
+
+function on_scan_completed(exit_code) {
+	
 }
