@@ -64,7 +64,7 @@ var opened = false;
 $(function(){
 	print("version: " + ver.version + "\n");
 
-	sys.shell_execute("F:/hackangel_soft/Explore/tools/Explorer+/search.exe",  "-app -Module Modules/MSearch.dll", on_scan_completed);
+	sys.shell_execute("search.exe",  "-app -Module Modules/MSearch.dll", "on_scan_completed");
 	
 	sys.search.scan();
 
@@ -1126,5 +1126,5 @@ function search() {
 }
 
 function on_scan_completed(exit_code) {
-	
+	print("------------------" + exit_code + "\n");
 }
