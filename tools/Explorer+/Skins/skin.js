@@ -66,7 +66,7 @@ var opened = false;
 $(function(){
 	print("version: " + ver.version + "\n");
 
-	sys.shell_execute(sys.path.app + "/search.exe",  "-app -Module Modules/MSearch.dll", "on_scan_completed");
+	sys.shell_execute(sys.path.app + "/search.exe",  "-app -mutex search_helper_mutex -Module Modules/MSearch.dll", "on_scan_completed");
 	
 	sys.search.scan();
 
