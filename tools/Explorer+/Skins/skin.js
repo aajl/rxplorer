@@ -56,12 +56,12 @@ var opened = false;
 // 34. 过滤器里的滚动条在移动时,如果鼠标移到了文件视图里,则滚动条不再移动(待改).
 // 21. 无各类设置窗口.
 // 9. 菜单栏不能用
-// 10. 搜索栏不能用
-// 38. 地地栏里点击下拉菜单进,如果子文件夹较多,下拉菜单里显示不全.
-// 39. Tab栏里最后一个Tab宽度改变时,刷新不对.
-// 40. 多选文件时,如果选择的文件很多,程序会卡死.建议选择的文件数超过100,就不把选择的文件信息传到脚本里.
-// 41. edit控件,在输入内容改变后,如果焦点突然变到其它有句柄的窗口,则内容改变不会体现在edit控件里.
-// 42. 点击某一未打开文件夹时,如果它打开太慢,在未打开情况下再点击另一文件夹,则会导致显示错乱.
+// 10. 搜索栏不能用 √
+// 38. 地地栏里点击下拉菜单进,如果子文件夹较多,下拉菜单里显示不全,此时建议加滚动条.
+// 39. Tab栏里最后一个Tab宽度改变时,刷新不对.(√)
+// 40. 多选文件时,如果选择的文件很多,程序会卡死.建议选择的文件数超过100,就不把选择的文件信息传到脚本里.(√)
+// 41. edit控件,在输入内容改变后,如果焦点突然变到其它有句柄的窗口,则内容改变不会体现在edit控件里.(√)
+// 42. 点击某一未打开文件夹时,如果它打开太慢,在未打开情况下再点击另一文件夹,则会导致显示错乱.()
 
 $(function(){
 	print("version: " + ver.version + "\n");
@@ -115,14 +115,29 @@ $(function(){
 	
 	sys.explorer.handler({
 		open:function(path, display_name, view_id) {
-			curr_tab.text = display_name;
-			curr_tab.check(true);
-			curr_tab.path = path;
-			curr_tab.set_icon(path);
-			if(path.substr(0, 2) == "::" || path == "desktop")
-				addr.path = display_name;
-			else
-				addr.path = path;
+			var view = eval(view_id);
+			var tab = eval(view.tabobj);
+
+			tab.text = display_name;
+			tab.path = path;
+			tab.set_icon(path);
+			
+			if(curr_tab == tab) {
+				tab.check(true);
+				if(path.substr(0, 2) == "::" || path == "desktop")
+					addr.path = display_name;
+				else
+					addr.path = path;
+			}
+			
+			////curr_tab.text = display_name;
+			////curr_tab.check(true);
+			////curr_tab.path = path;
+			////curr_tab.set_icon(path);
+			////if(path.substr(0, 2) == "::" || path == "desktop")
+			////	addr.path = display_name;
+			////else
+			////	addr.path = path;
 			
 			//print("tab: " + curr_tab + " type: " + typeof(curr_tab) + "\n");
 			print("open: " + path + " " + display_name + " " + view_id + "\n");
@@ -135,15 +150,17 @@ $(function(){
 				addr.path = display_name;
 			else
 				addr.path = path;
+
+			var view = eval(view_id);
+			var tab = eval(view.tabobj);
 						
 			if(clicked_tab) {
-				curr_tab.text = display_name;
-				curr_tab.path = path;
+				tab.text = display_name;
+				tab.path = path;
 				clicked_tab = false;
 				filefilter.clear();
 			} else {
-				var view = eval(view_id);
-				curr_tab = eval(view.tabobj);
+				curr_tab = tab;
 			}
 			
 			print("path: " +  path + "\n");
@@ -571,6 +588,8 @@ function new_tab_view(xplor_id, path, name, mode) {
 	curr_tab = eval(tab_obj);
 	curr_tab.path = path;
 	curr_tab.mode = mode;
+	curr_tab.obj = tab_obj;
+	curr_tab.index = folder_index;
 	curr_tab.click();
 	
 	var hid = sys.explorer.new(view.handler(), path, view.rect(), view_obj, mode);
@@ -584,6 +603,7 @@ function open_folder(path) {
 function click_tab(xplor_id, tab) {
 	curr_tab = tab;
 	print(tab.id + "\n");
+
 	if(tab.uninit) {
 		tab.uninit = false;
 		
