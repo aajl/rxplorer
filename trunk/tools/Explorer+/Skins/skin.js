@@ -60,6 +60,7 @@ var opened = false;
 // 38. 地地栏里点击下拉菜单进,如果子文件夹较多,下拉菜单里显示不全.
 // 39. Tab栏里最后一个Tab宽度改变时,刷新不对.
 // 40. 多选文件时,如果选择的文件很多,程序会卡死.建议选择的文件数超过100,就不把选择的文件信息传到脚本里.
+// 41. edit控件,在输入内容改变后,如果焦点突然变到其它有句柄的窗口,则内容改变不会体现在edit控件里.
 
 $(function(){
 	print("version: " + ver.version + "\n");
@@ -74,6 +75,9 @@ $(function(){
 				searcher.status.text = operate;
 			else
 				searcher.status.text = operate + " " + String.fromCharCode(drive) + ":";
+		},
+		reload:function(operate) {
+			searcher.status.text = "updating: " + operate;
 		},
 		search:function(count, completed) {
 			if(Number(completed)) {
@@ -1109,11 +1113,10 @@ function show_search_wnd(text, path) {
 		searcher.list.files.attach(sys.search.create_result_wnd(searcher.handler(), searcher.list.files.rect()));
 	
 	searcher.show();
-	searchtxt.value.text = path + "\\" + text;
-	print(text + " " + searcher.list.files.handler());
-	
-	if(text != null && text != "")
+	if(text != null && text != "" && searchtxt.value.text != path + "\\" + text) {
 		search();
+		searchtxt.value.text = path + "\\" + text;
+	}
 }
 
 function search() {
@@ -1126,5 +1129,6 @@ function search() {
 }
 
 function on_scan_completed(exit_code) {
-	print("------------------" + exit_code + "\n");
+	if(exit_code == 1)
+		sys.search.reload();
 }
