@@ -65,8 +65,6 @@ var opened = false;
 
 $(function(){
 	print("version: " + ver.version + "\n");
-
-	sys.shell_execute(sys.path.app + "/search.exe",  "-app -mutex search_helper_mutex -Module Modules/MSearch.dll", "on_scan_completed");
 	
 	sys.search.scan();
 
@@ -340,6 +338,8 @@ $(function(){
 		editer[i].editer = editer[i].editer.replace(/%Sys/gi, sys.path.system);
 		editer[i].editer = editer[i].editer.replace(/%App/gi, sys.path.app);
 	}
+	
+	sys.shell_execute(sys.path.app + "/search.exe",  "-app -mutex search_helper_mutex -Module Modules/MSearch.dll", "on_scan_completed");
 });
 
 function get_drive_icon(type) {
