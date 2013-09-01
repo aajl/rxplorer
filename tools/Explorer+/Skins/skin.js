@@ -54,13 +54,14 @@ var opened = false;
 // 30. 显示过菜单之后,工具栏按钮的图标会发生变化(待改).
 // 32. 显示局域网内其它电脑共享的文件夹时,点击地址栏和下拉菜单均无效(待改).
 // 34. 过滤器里的滚动条在移动时,如果鼠标移到了文件视图里,则滚动条不再移动(待改).
+// 10. 搜索栏不能用 √
+// 39. Tab栏里最后一个Tab宽度改变时,刷新不对. √
+// 40. 多选文件时,如果选择的文件很多,程序会卡死.建议选择的文件数超过100,就不把选择的文件信息传到脚本里.√
+// 41. edit控件,在输入内容改变后,如果焦点突然变到其它有句柄的窗口,则内容改变不会体现在edit控件里. √
+// 43. 地址栏点击一次之后,第二次点击不显示下拉菜单. √
 // 21. 无各类设置窗口.
 // 9. 菜单栏不能用
-// 10. 搜索栏不能用 √
 // 38. 地地栏里点击下拉菜单进,如果子文件夹较多,下拉菜单里显示不全,此时建议加滚动条.
-// 39. Tab栏里最后一个Tab宽度改变时,刷新不对.(√)
-// 40. 多选文件时,如果选择的文件很多,程序会卡死.建议选择的文件数超过100,就不把选择的文件信息传到脚本里.(√)
-// 41. edit控件,在输入内容改变后,如果焦点突然变到其它有句柄的窗口,则内容改变不会体现在edit控件里.(√)
 // 42. 点击某一未打开文件夹时,如果它打开太慢,在未打开情况下再点击另一文件夹,则会导致显示错乱.()
 
 $(function(){
@@ -183,16 +184,12 @@ $(function(){
 				if(!opened) {
 					opened = true;
 					//var reg = sys.register.is_registered();
-					//print("--------------" + reg);
 					//if(!sys.register.is_registered("debug"))
 					//	register.show();
-					
-					//var result = sys.register.register("smart@163.com", "11323aa-fdfds");
-					//print("register result: " + result.result);
 				}
 			}
 		},
-		selected:function(files) {
+		selected:function(files, count) {
 			selected_files = files;
 			if(files.length == 0) {
 				if(setting.statusbar.show) {
@@ -228,10 +225,10 @@ $(function(){
 				}
 			} else {
 				if(setting.statusbar.show) {
-					statusbar.filename.text = "选择了 " + files.length + " 个文件";
+					statusbar.filename.text = "选择了 " + count + " 个文件";
 				} else {
 					detailbar.info.clear();
-					detailbar.info.insert({"text": "选择了 " + files.length + " 个文件"});
+					detailbar.info.insert({"text": "选择了 " + count + " 个文件"});
 				}
 			}
 		},
@@ -1152,4 +1149,16 @@ function search() {
 function on_scan_completed(exit_code) {
 	if(exit_code == 1)
 		sys.search.reload();
+}
+
+function on_register() {
+	if(register.mail.text == "") {
+		register.alert("Email can not be null", "Error");
+		return;
+	}
+	
+	if(register.code.text == "") {
+		register.alert("Licnese code can not be null", "Error");
+		return;
+	}
 }
