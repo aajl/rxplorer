@@ -1,4 +1,4 @@
-﻿<menu id="main_menu" x="504" y="24" width="166" height="145" visible="false" yadapt="true" alpha="95" bkclr="#ffffff" margin="1,0,0,0,-1">
+﻿<menu id="main_menu" x="504" y="24" width="180" height="145" visible="false" yadapt="true" alpha="95" bkclr="#ffffff" margin="1,0,0,0,-1">
 	<border width="1" color="#aca899" />
 	<bkimg src="menu.png" width="23" height="23" />
 
@@ -50,16 +50,16 @@
 	</items>
 	
 	<if condition="item.separator">
-		<layer x="0" y="0" width="162" height="3" margin="0,3">
+		<layer x="0" y="0" width="176" height="3" margin="0,3">
 			<img width="23" height="3" adapt="true">
 				<bkimg src="menu.png" width="23" height="3" />
 			</img>
-			<label width="135" height="3">
+			<label width="149" height="3">
 				<border width="1" color="#BEC3CB" center="1" />
 			</label>
 		</layer>
 	<else />
-		<layer x="0" y="0" width="162" height="23" adapt="false" action="item.action">
+		<layer x="0" y="0" width="176" height="23" adapt="false" action="item.action">
 			<events mouse_in="item.mouse_in" mouse_out="item.mouse_out" />
 			<states normal="menu.png" hover="null" down="null" width="23" height="23" ix="3" iy="3" >
 				<normal icon="item.icon" border="0" bkclr="#ffffff" />
@@ -67,7 +67,7 @@
 				<down border="1" color="#316AC5" bkclr="#C1D2EE" />
 			</states>
 
-			<label bkimg="item.img" icon="item.icon" width="162" height="23">
+			<label bkimg="item.img" icon="item.icon" width="176" height="23">
 				<attribs text="item.text" offset="30" align="singleline,vcenter" />
 				<icon x="3" y="3" size="16" />
 				<image x="item.x" y="item.y" width="19" height="19" dx="2" dy="2" />
