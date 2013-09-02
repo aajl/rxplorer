@@ -1,4 +1,4 @@
-﻿<strs id="lang" title="Explorer++">
+﻿<strs id="lang" lang="简体(中文)" title="Explorer++">
 	<menu menu_file="文件(&F)" menu_edit="编辑(E)" menu_view="视图(V)" menu_tools="工具(T)" menu_help="帮助(H)" />
 	<menu menu_file="文件" menu_new_tab="新建标签(&T)        Ctrl+T" menu_new_folder="新建文件夹(&N)   Ctrl+N" menu_save_session="保存工作区(&S)   Ctrl+S" menu_exit="退出(&E)" />
 	<menu menu_edit_sub="编辑(&E)                  F4" menu_refresh="刷新(&R)                  F5" menu_copy="复制(&C)                  F6" menu_move="移动(&M)                  F7" />
@@ -28,7 +28,7 @@
 	<favmenu add_favorite_folder="添加到书签" />
 	<register register="注册" register_title="注册Explorer++" email="邮箱:" license="注册码:" />
 </strs>
-<strs id="english" title="Explorer++">
+<strs id="english" lang="English" title="Explorer++">
 	<menu menu_file="File(&F)" menu_edit="Edit(&E)" menu_view="View(&V)" menu_tools="Tools(&T)" menu_help="Help(&H)" />
 	<menu menu_file="File" menu_new_tab="New Tab(&T)        Ctrl+T" menu_new_folder="New Folder(&N)   Ctrl+N" menu_save_session="Save Session(&S)   Ctrl+S" menu_exit="Exit(&E)" />
 	<menu menu_edit_sub="Edit(&E)                  F4" menu_refresh="Refresh(&R)                  F5" menu_copy="Copy(&C)                  F6" menu_move="Move(&M)                  F7" />

@@ -34,7 +34,7 @@
 		<item id="menu_tools" text="lang.menu_tools">
 			<item text="lang.menu_options" action="options.show()" />
 			<item id="menu_language" text="lang.menu_language" sub="triangle.png">
-				<item text="中文 (简体)" />
+				<item text="中文(简体)" action="lang.change(lang.id)" />
 				<item text="英语" action="lang.change(english.id)" />
 			</item>
 			<item separator="1" />
