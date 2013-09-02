@@ -58,5 +58,5 @@
 	<footer footer_edit="F4 Edit" footer_copy="F6 Copy" footer_move="F7 Move" footer_new="F8 New Folder" />
 	<favmenu add_favorite_folder="Add To Favorite" search_file_hint="Input Filename To Search" />
 	<register register="Register" register_title="Register Explorer++" email="Email:" license="License:" email_hint="Email" license_hint="License" />
-	<thumbs super_icon="Super Big Icon(&X)" thumb_icon="缩略图(&T)" big_icon="Bin icon(&R)" icon_icon="Icon(&I)" medium_icon="Medium Icon(&M)" small_icon="Small Icon(&N)" list_icon="List(&L)" detail_icon="Details(&D)" tile_icon="Tile(&S)" />
+	<thumbs super_icon="Super Large Icons(&X)" thumb_icon="Thumbnails(&T)" big_icon="Bin icons(&R)" icon_icon="Icons(&I)" medium_icon="Medium Icons(&M)" small_icon="Small Icons(&N)" list_icon="List(&L)" detail_icon="Details(&D)" tile_icon="Tiles(&S)" />
 </strs>
