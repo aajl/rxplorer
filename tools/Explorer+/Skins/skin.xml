@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <directui>
 	<layer id="ver" version="2.0.0">
-		<googlecode>http://explorerplus.googlecode.com/svn/update/update.xml</googlecode>
+		<googlecode upload="direct upload">http://explorerplus.googlecode.com/svn/update/update.xml</googlecode>
 		<dropbox>https://dl.dropbox.com/sh/wg1dh78mjvjh95b/4PloQWELb6/update.xml</dropbox>
 		<skydrive>https://14htia.bay.livefilestore.com/y1mJcOHYxwEJ8PTvVaj79-Y9XW1FhfiLfKTylClf-qsnMWZsEF9uzzmaf0ft6njk3UbXIeyDzaPMmuL1iWtXXB3f2XJ_6su3rPm3GJik9ZOOi8/update.xml</skydrive>
 	</layer>
