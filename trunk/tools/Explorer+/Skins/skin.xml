@@ -308,7 +308,7 @@
 		<layer id="searchbar" x="637" y="56" width="240" height="25" bkclr="#ffffff" float="right">
 			<border width="1" color="#316AC5" />
 			
-			<edit id=".search" position="relative" x="1" y="5" width="216" height="15" bkclr="#ffffff" hint="搜索">
+			<edit id=".search" position="relative" x="1" y="5" width="216" height="15" bkclr="#ffffff" hint="lang.search">
 				<events enter="show_search_wnd(searchbar.search.text, curr_tab.path)" />
 			</edit>
 			
@@ -378,7 +378,7 @@
 					</states>
 				</button>
 				
-				<edit id="fastfilter" position="relative" x="-168" y="3" width="130" height="17" bkclr="#ffffff" hint="快速过滤">
+				<edit id="fastfilter" position="relative" x="-168" y="3" width="130" height="17" bkclr="#ffffff" hint="lang.quick_filter">
 					<events change="sys.explorer.set_search_filter(fastfilter.text)" />
 					<border width="1" color="#316AC5" />
 				</edit>

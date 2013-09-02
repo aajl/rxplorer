@@ -56,6 +56,8 @@ protected:
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
 	afx_msg void OnPaint();
+	afx_msg void OnNcPaint();
+	afx_msg void OnWindowPosChanged(WINDOWPOS* lpwndpos);
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 
@@ -83,6 +85,7 @@ public:
 	CLicense m_license;
 	int m_nTrialTimes;
 	gtl::tstr m_strConfigFilePath;
+	bool m_bAutoStart;
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnSetting();
 	afx_msg void OnRemotesetting();

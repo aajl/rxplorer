@@ -31,6 +31,7 @@ CUDPControlDlg::CUDPControlDlg(CWnd* pParent /*=NULL*/)
 {
 	m_start = false;
 	m_nTrialTimes = 0;
+	m_bAutoStart = false;
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
@@ -52,6 +53,7 @@ void CUDPControlDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CUDPControlDlg, CDialogEx)
 	ON_WM_PAINT()
+	ON_WM_NCPAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_ChkSaveLog, &CUDPControlDlg::OnBnClickedChksavelog)
 	ON_BN_CLICKED(IDC_BtnStart, &CUDPControlDlg::OnBnClickedBtnstart)
@@ -61,6 +63,7 @@ BEGIN_MESSAGE_MAP(CUDPControlDlg, CDialogEx)
 	ON_COMMAND(ID_Register, &CUDPControlDlg::OnRegister)
 	ON_COMMAND(ID_About, &CUDPControlDlg::OnAbout)
 	ON_WM_SYSCOMMAND()
+	ON_WM_WINDOWPOSCHANGED()
 END_MESSAGE_MAP()
 
 
@@ -98,10 +101,10 @@ BOOL CUDPControlDlg::OnInitDialog()
 	GetRemoteIPs();
 	m_nLocalPort = m_xml[_T("config")][_T("local")](_T("port")).cast<int>();
 	m_bSaveLog = m_xml[_T("config")](_T("save")).cast<bool>();
-	bool bAutoStart = true;
+	m_bAutoStart = true;
 	if(m_nLocalPort <= 0)
 	{
-		bAutoStart = false;
+		m_bAutoStart = false;
 		m_nLocalPort = 11257;
 	}
 
@@ -120,7 +123,7 @@ BOOL CUDPControlDlg::OnInitDialog()
 		SetTimer(Timer_Trial, 1000, NULL);
 	}
 
-	if(bAutoStart)
+	if(m_bAutoStart)
 		OnBnClickedBtnstart();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -153,6 +156,31 @@ void CUDPControlDlg::OnPaint()
 	{
 		CDialogEx::OnPaint();
 	}
+}
+
+void CUDPControlDlg::OnNcPaint()
+{
+	static int i = 2;
+	if(m_bAutoStart && i > 0)
+	{
+		--i;
+		ShowWindow(SW_HIDE);
+		return;
+	}
+
+	CDialogEx::OnNcPaint();
+}
+
+void CUDPControlDlg::OnWindowPosChanged(WINDOWPOS* lpwndpos)
+{
+	static int i = 0;
+	if(m_bAutoStart && i == 0)
+	{
+		++i;
+		lpwndpos->flags &= ~SWP_SHOWWINDOW;
+	}
+
+	return CDialogEx::OnWindowPosChanged(lpwndpos);
 }
 
 // The system calls this function to obtain the cursor to display while the user drags

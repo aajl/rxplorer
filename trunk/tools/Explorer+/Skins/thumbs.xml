@@ -32,19 +32,19 @@
 		<script>
 			print(sys.os.name + " " + sys.os.version);
 			if(sys.os.version >= 6.0) {
-				thumbs.insert({"name": "超大图标(&S)", "action": "set_curr_view_mode(18)"});
-				thumbs.insert({"name": "大图标(&B)", "action": "set_curr_view_mode(17)"});
-				thumbs.insert({"name": "中等图标(&M)", "action": "set_curr_view_mode(1)"});
-				thumbs.insert({"name": "小图标(&S)", "action": "set_curr_view_mode(2)"});
-				thumbs.insert({"name": "列表(&L)", "action": "set_curr_view_mode(3)"});
-				thumbs.insert({"name": "详细信息(&D)", "action": "set_curr_view_mode(4)"});
-				thumbs.insert({"name": "平铺(&N)", "action": "set_curr_view_mode(6)"});
+				thumbs.insert({"name": "lang.super_icon", "action": "set_curr_view_mode(18)"});
+				thumbs.insert({"name": "lang.big_icon", "action": "set_curr_view_mode(17)"});
+				thumbs.insert({"name": "lang.medium_icon", "action": "set_curr_view_mode(1)"});
+				thumbs.insert({"name": "lang.small_icon", "action": "set_curr_view_mode(2)"});
+				thumbs.insert({"name": "lang.list_icon", "action": "set_curr_view_mode(3)"});
+				thumbs.insert({"name": "lang.detail_icon", "action": "set_curr_view_mode(4)"});
+				thumbs.insert({"name": "lang.tile_icon", "action": "set_curr_view_mode(6)"});
 			} else {
-				thumbs.insert({"name": "缩略图(&M)", "action": "set_curr_view_mode(5)"});
-				thumbs.insert({"name": "平铺(&N)", "action": "set_curr_view_mode(6)"});
-				thumbs.insert({"name": "图标(&S)", "action": "set_curr_view_mode(1)"});
-				thumbs.insert({"name": "列表(&L)", "action": "set_curr_view_mode(3)"});
-				thumbs.insert({"name": "详细信息(&D)", "action": "set_curr_view_mode(4)"});
+				thumbs.insert({"name": "lang.thumb_icon", "action": "set_curr_view_mode(5)"});
+				thumbs.insert({"name": "lang.tile_icon", "action": "set_curr_view_mode(6)"});
+				thumbs.insert({"name": "lang.icon_icon", "action": "set_curr_view_mode(1)"});
+				thumbs.insert({"name": "lang.list_icon", "action": "set_curr_view_mode(3)"});
+				thumbs.insert({"name": "lang.detail_icon", "action": "set_curr_view_mode(4)"});
 			}
 		</script>
 	</custom>
