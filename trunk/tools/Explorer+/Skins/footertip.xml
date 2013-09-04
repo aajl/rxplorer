@@ -1,4 +1,4 @@
-﻿<custom id=".tools" type="tiled" position="relative" x="-320" y="-18" width="300" height="16" row="1" col="10" margin="0,5" float="right">
+﻿<custom id=".tools" type="tiled" position="relative" x="-370" y="-18" width="350" height="16" row="1" col="10" margin="0,5" float="right">
 	<items width="adapt" height="16">
 		<item text="lang.footer_edit" action="edit_file()" />
 		<item text="lang.footer_copy" action="copy_file()" />
