@@ -507,6 +507,9 @@ function load_setting() {
 		setting.explorer = {};
 		setting.explorer.max = false;
 		setting.explorer.dual = true;
+	} else {
+		if(typeof(setting.explorer.lang) != "undefined")
+			change_language(setting.explorer.lang);
 	}
 	
 	if(typeof(setting.statusbar) == "undefined") {
@@ -1161,4 +1164,11 @@ function on_register() {
 		register.alert("Licnese code can not be null", "Error");
 		return;
 	}
+}
+
+function change_language(language) {
+	var langg = eval(language);
+	lang.change(langg.id);
+	
+	setting.explorer.lang = language;
 }
