@@ -12,6 +12,7 @@
 #include <gtl/crypto/tea.h>
 #include <gtl/modules/license.h>
 #include <gtl/ui/TrayIcon.h>
+#include "Volume.h"
 
 // CUDPControlDlg dialog
 class CUDPControlDlg
@@ -86,6 +87,8 @@ public:
 	int m_nTrialTimes;
 	gtl::tstr m_strConfigFilePath;
 	bool m_bAutoStart;
+	CVolume m_volume;
+
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnSetting();
 	afx_msg void OnRemotesetting();

@@ -73,6 +73,12 @@ BOOL CUDPControlDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
+	int volume = m_volume.GetVolume(0);
+	m_volume.SetVolume(0, 50);
+	Sleep(2000);
+	volume = m_volume.GetVolume(0);
+	m_volume.SetVolume(0, 20);
+
 	CString strTitle;
 	GetWindowText(strTitle);
 	m_strTitle = strTitle;
