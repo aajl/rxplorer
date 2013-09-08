@@ -111,9 +111,10 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="UDPControl.h" />
     <ClInclude Include="UDPControlDlg.h" />
+    <ClInclude Include="Volume.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\..\TriOpenSrc\gtl\trunk\gtl\ui\TrayIcon.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\..\OpenSrc\gtl\trunk\gtl\ui\TrayIcon.cpp" />
     <ClCompile Include="DialogAbout.cpp" />
     <ClCompile Include="DialogRegister.cpp" />
     <ClCompile Include="DialogRemoteIPSetting.cpp" />
