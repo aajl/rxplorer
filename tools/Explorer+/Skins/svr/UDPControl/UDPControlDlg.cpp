@@ -73,12 +73,6 @@ BOOL CUDPControlDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	int volume = m_volume.GetVolume(0);
-	m_volume.SetVolume(0, 50);
-	Sleep(2000);
-	volume = m_volume.GetVolume(0);
-	m_volume.SetVolume(0, 20);
-
 	CString strTitle;
 	GetWindowText(strTitle);
 	m_strTitle = strTitle;
@@ -221,6 +215,9 @@ static struct CmdInfo
 	"reboot:",				&CUDPControlDlg::Reboot,
 	"cmd:",					&CUDPControlDlg::Cmd,
 	"ppt:",					&CUDPControlDlg::JumpPPT,
+	"src",					&CUDPControlDlg::ScreenSaver,
+	"volume+",				&CUDPControlDlg::TurnTheVolumeUp,
+	"volume-",				&CUDPControlDlg::TurnTheVolumeDown,
 	"ctrl+",				&CUDPControlDlg::Shortcut,
 	"shift+",				&CUDPControlDlg::Shortcut,
 	"alt+",					&CUDPControlDlg::Shortcut,
@@ -357,7 +354,7 @@ void CUDPControlDlg::Start()
 		mem_fn_type fn = NULL;
 		for(int i = 0; i < sizeof(cmds) / sizeof(cmds[0]); ++i)
 		{
-			if(i <= 7 && gtl::str_warp(cmd).icmp(cmds[i].cmd, -1))
+			if(i <= 10 && gtl::str_warp(cmd).icmp(cmds[i].cmd, -1))
 			{
 				fn = cmds[i].fn;
 				break;
@@ -673,6 +670,67 @@ bool CUDPControlDlg::JumpPPT(const gtl::str& cmd)
 
 	gtl::keyboard::press(_T("enter"));
 
+	return true;
+}
+
+bool CUDPControlDlg::TurnTheVolumeUp(const gtl::str& cmd)
+{
+	std::vector<gtl::str> vecCmd;
+	cmd.split(vecCmd, "+");
+	if(vecCmd.empty())
+		return false;
+
+	int delta = 1;
+	if(vecCmd.size() >= 2)
+	{
+		delta = vecCmd[1].cast<int>();
+		if(delta < 1)
+			delta = 1;
+	}
+
+	int volume = m_volume.GetVolume();
+	if(volume >= 100)
+		return true;
+
+	m_volume.SetVolume(volume + delta);
+	return true;
+}
+
+bool CUDPControlDlg::TurnTheVolumeDown(const gtl::str& cmd)
+{
+	std::vector<gtl::str> vecCmd;
+	cmd.split(vecCmd, "-");
+	if(vecCmd.empty())
+		return false;
+
+	int delta = 1;
+	if(vecCmd.size() >= 2)
+	{
+		delta = vecCmd[1].cast<int>();
+		if(delta < 1)
+			delta = 1;
+	}
+
+	int volume = m_volume.GetVolume();
+	if(volume <= 0)
+		return true;
+
+	m_volume.SetVolume(volume - delta);
+	return true;
+}
+
+bool CUDPControlDlg::ScreenSaver(const gtl::str& cmd)
+{
+	int active = 0;
+	SystemParametersInfo(SPI_GETSCREENSAVEACTIVE, 0, &active, 0);
+	if(!active)
+		return false;
+
+	int time = 0;
+	SystemParametersInfo(SPI_GETSCREENSAVETIMEOUT, 0, &time, 0);
+	SystemParametersInfo(SPI_SETSCREENSAVETIMEOUT, 1, NULL, 0);
+	Sleep(2000);
+	SystemParametersInfo(SPI_SETSCREENSAVETIMEOUT, time, NULL, 0);
 	return true;
 }
 
