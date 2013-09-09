@@ -40,6 +40,9 @@ public:
 	bool Cmd(const gtl::str& cmd);
 	bool Shortcut(const gtl::str& cmd);
 	bool JumpPPT(const gtl::str& cmd);
+	bool TurnTheVolumeUp(const gtl::str& cmd);
+	bool TurnTheVolumeDown(const gtl::str& cmd);
+	bool ScreenSaver(const gtl::str& cmd);
 
 	void SaveSetting();
 	void SetRegistered();

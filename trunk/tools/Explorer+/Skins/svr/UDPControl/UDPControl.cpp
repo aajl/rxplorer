@@ -55,6 +55,8 @@ BOOL CUDPControlApp::InitInstance()
 
 	gtl::net::socket::init();
 
+	CoInitialize(NULL);
+
 	AfxEnableControlContainer();
 
 	// Create the shell manager, in case the dialog contains
