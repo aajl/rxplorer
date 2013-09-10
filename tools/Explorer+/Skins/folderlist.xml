@@ -3,27 +3,16 @@
 	<custom id="folderlist" yadapt="true" type="tiled" row="100" col="1" margin="1" oninit="" vscroll="true">
 		<pos position="relative" x="2" y="2" width="186" height="23" float="width,height" />
 		<bkimg src="menu.png" width="23" height="23" />
-		<items height="adapt">
+		<items height="23">
 			<item name="搜索目录" icon="icons.fav" action="" />
 			<item separator="1" />
 		</items>
-		<if condition="item.separator">
-			<layer x="0" y="0" width="156" height="3" margin="0,3">
-				<img width="23" height="3" adapt="true">
-					<bkimg src="menu.png" width="23" height="3" />
-				</img>
-				<label width="130" height="3">
-					<border width="1" color="#BEC3CB" center="1" />
-				</label>
-			</layer>
-		<else />
-			<layer id="item.id" x="0" y="0" width="156" height="23" adapt="false" text="item.name" align="vcenter" offset="30" action="item.action">
-				<states normal="menu.png" hover="null" down="null" width="23" height="23" ix="3" iy="3" >
-					<normal icon="item.icon" border="0" bkclr="#ffffff" />
-					<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
-					<down border="1" color="#316AC5" bkclr="#C1D2EE" />
-				</states>
-			</layer>
-		</if>
+		<layer id="item.id" x="0" y="0" width="156" height="23" adapt="false" text="item.name" align="vcenter" offset="30" action="item.action">
+			<states normal="menu.png" hover="null" down="null" width="23" height="23" ix="3" iy="3" >
+				<normal icon="item.icon" border="0" bkclr="#ffffff" />
+				<hover border="1" color="#316AC5" bkclr="#C1D2EE" />
+				<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+			</states>
+		</layer>
 	</custom>
 </panel>
