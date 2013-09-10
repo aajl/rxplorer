@@ -1,7 +1,7 @@
-﻿<panel id="folderlist_pane" type="modeless" x="0" y="0" width="160" height="27" visible="false" alpha="95">
+﻿<panel id="folderlist_pane" type="modeless" x="0" y="0" width="190" height="27" visible="false" alpha="95" max-height="120">
 	<border width="1" color="#ACA899" />
-	<custom id="folderlist" yadapt="true" type="tiled" row="100" col="1" margin="1" oninit="">
-		<pos position="relative" x="2" y="2" width="156" height="23" float="width,height" />
+	<custom id="folderlist" yadapt="true" type="tiled" row="100" col="1" margin="1" oninit="" vscroll="true">
+		<pos position="relative" x="2" y="2" width="186" height="23" float="width,height" />
 		<bkimg src="menu.png" width="23" height="23" />
 		<items height="adapt">
 			<item name="搜索目录" icon="icons.fav" action="" />
