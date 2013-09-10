@@ -59,6 +59,7 @@ var opened = false;
 // 40. 多选文件时,如果选择的文件很多,程序会卡死.建议选择的文件数超过100,就不把选择的文件信息传到脚本里.√
 // 41. edit控件,在输入内容改变后,如果焦点突然变到其它有句柄的窗口,则内容改变不会体现在edit控件里. √
 // 43. 地址栏点击一次之后,第二次点击不显示下拉菜单. √
+// 44. 按键盘上的字母,找到某个文件后,再按快捷键编辑选中的文件,打开的却不是当前选中的文件. √
 // 21. 无各类设置窗口.
 // 9. 菜单栏不能用
 // 38. 地地栏里点击下拉菜单进,如果子文件夹较多,下拉菜单里显示不全,此时建议加滚动条.
@@ -162,6 +163,8 @@ $(function(){
 				curr_tab = tab;
 			}
 			
+			curr_tab = tab;
+
 			print("path: " +  path + "\n");
 			if(view_id.split(".", 1) == "xplorer") {
 				pane1_curr_tab = curr_tab;
@@ -1034,6 +1037,7 @@ function show_folder_list(xplor, xplor_id) {
 	
 	var height = children * 23 + children - 1 + 4;
 	folderlist_pane.move(folderlist_pane.x, folderlist_pane.y, folderlist_pane.width, height);
+	folderlist_pane.redraw();
 }
 
 function show_dual_pane(show) {
