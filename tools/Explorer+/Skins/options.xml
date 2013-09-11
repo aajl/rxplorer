@@ -99,11 +99,11 @@
 						<hover border="1" color="#B9D7FC" bkclr="#EFF6FF" />
 						<down border="1" color="#84ACDD" bkclr="#D7E9FF" />
 					</states>
-					<label text="item.gesture" align="vcenter" offset="5" position="relative" width="99" height="20" />
+					<label text="item.gesture" align="vcenter" offset="5" position="relative" width="99" height="20" bkclr="#FFFFFF" />
 					<line width="1" height="20" color="#EBF4FE" />
 					<canvas id="item.id" width="100" height="20" gesture="item.gesture" oninit="draw_gesture(this, 20, this.gesture)" />
 					<line width="1" height="20" color="#EBF4FE" />
-					<label text="item.desc" align="vcenter" offset="5" position="relative" width="295" height="20" />
+					<label text="item.desc" align="vcenter" offset="5" position="relative" width="295" height="20" bkclr="#FFFFFF" />
 				</layer>
 			</custom>
 		</layer>
@@ -143,7 +143,7 @@
 				</button>
 			</custom>
 			
-			<custom position="relative" x="1" y="23" width="499" height="371" type="tiled" bkclr="#ffffff" col="1" margin="1,0,1,1">
+			<custom position="relative" x="1" y="23" width="499" height="371" type="tiled" bkclr="#FFFFFF" col="1" margin="1,0,1,1">
 				<items height="20">
 					<item key="F4" text="lang.edit" desc="lang.edit_desc" />
 					<item key="F5" text="lang.refresh" desc="lang.refresh_desc" />
@@ -163,15 +163,15 @@
 						<hover border="1" color="#B9D7FC" bkclr="#EFF6FF" />
 						<down border="1" color="#84ACDD" bkclr="#D7E9FF" />
 					</states>
-					<label text="item.key" align="vcenter" offset="5" position="relative" width="99" height="20" />
+					<label text="item.key" align="vcenter" offset="5" position="relative" width="99" height="20" bkclr="#FFFFFF" />
 					<label width="1" height="20">
 						<border width="1" color="#EBF4FE" left="1" />
 					</label>
-					<label text="item.text" align="vcenter" offset="5" position="relative" width="100" height="20" />
+					<label text="item.text" align="vcenter" offset="5" position="relative" width="100" height="20" bkclr="#FFFFFF" />
 					<label width="1" height="20">
 						<border width="1" color="#EBF4FE" left="1" />
 					</label>
-					<label text="item.desc" align="vcenter" offset="5" position="relative" width="295" height="20" />
+					<label text="item.desc" align="vcenter" offset="5" position="relative" width="295" height="20" bkclr="#FFFFFF" />
 				</layer>
 			</custom>
 		</layer>
