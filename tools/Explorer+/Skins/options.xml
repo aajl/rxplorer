@@ -2,6 +2,7 @@
 <panel id="options" type="modal" visible="false" alpha="95" bkclr="#E5E5E5">
 	<size x="0" y="0" width="720" height="500" />
 	<border width="1" color="#404040" />
+	<events show="print('1111111111111111');" />
 	<hittest>
 		<rect x="0" y="0" width="670" height="24" />
 	</hittest>
@@ -39,81 +40,11 @@
 		</states>
 	</button>
 
-	<custom id="opts_btn" x="5" y="30" width="195" height="430" type="tiled" bkclr="#ffffff" col="1" margin="1,0,1,2">
-		<border width="1" color="#818488" />
-		<items height="adapt">
-			<item id=".accel" text="lang.accel_manager" tab="accel_options" check="true" />
-			<item id=".gesture" text="lang.gesture_manager" tab="gesture_options" />
-		</items>
-		<button id="item.id" text="item.text" align="left,vcenter" offset="2" width="191" height="22" check="item.check" tab="item.tab" group="options">
-			<states>
-				<normal border="0" bkclr="#ffffff" />
-				<hover border="1" color="#316AC5" bkclr="#F5F9FF" />
-				<down border="1" color="#316AC5" bkclr="#C1D2EE" />
-				<checked border="1" color="#316AC5" bkclr="#CEE3FD" />
-			</states>
-		</button>
-	</custom>
-
-	<layer id="gesture_options" x="204" y="30" width="511" height="430" bkclr="#ffffff" visible="false">
-		<border width="1" color="#818488" />
-		
-		<label text="lang.modify_gesture" align="vcenter" position="relative" x="6" y="5" width="70" height="20" />
-
-		<layer id=".list" x="5" y="30" width="501" height="395">
-			<border width="1" color="#818488" />
-			
-			<custom position="relative" x="1" y="1" width="499" height="22" type="tiled" bkclr="#E3E4E6" row="1" margin="0,1">
-				<border width="1" color="#d5d5d5" bottom="1" />
-				<items width="adapt">
-					<item text="lang.name" width="100" />
-					<item text="lang.shape" width="100" />
-					<item text="lang.action" width="299" />
-				</items>
-				<button x="1" y="1" text="item.text" align="left,vcenter" offset="5" width="item.width" height="21">
-					<states>
-						<normal border="0" bkclr="#f5f6f8" />
-						<hover border="1" color="#93C9E3" bkclr="#BBEBFE" />
-						<down border="1" color="#93C9E3" bkclr="#BBEBFE" />
-					</states>
-				</button>
-			</custom>
-			
-			<custom id=".gesture" position="relative" x="1" y="23" width="499" height="371" type="tiled" bkclr="#ffffff" col="1" margin="1,0,1,1">
-				<items height="20">
-					<item lid=".row1" id=".cnvsDR" gesture="DR" text="" desc="lang.close_curr_tab" />
-					<item lid=".row2" id=".cnvsLU" gesture="LU" text="" desc="lang.restore_tab" />
-					<item lid=".row3" id=".cnvsDU" gesture="DU" text="" desc="lang.copy_curr_path" />
-					<item lid=".row4" id=".cnvsRD" gesture="RD" text="" desc="lang.new_tab_desc" />
-					<item lid=".row5" id=".cnvsU" gesture="U" text="" desc="lang.up" />
-					<item lid=".row6" id=".cnvsL" gesture="L" text="" desc="lang.undo" />
-					<item lid=".row7" id=".cnvsR" gesture="R" text="" desc="lang.redo" />
-					<item lid=".row8" id=".cnvsRDR" gesture="RDR" text="" desc="lang.next_tab" />
-					<item lid=".row9" id=".cnvsLDL" gesture="LDL" text="" desc="lang.prev_tab" />
-					<item lid=".row10" id=".cnvsLDR" gesture="LDR" text="" desc="lang.open_folder_desc" />
-					<item lid=".row11" id=".cnvsUDU" gesture="UDU" text="" desc="lang.new_folder_desc" />
-				</items>
-				<layer id="item.lid" align="left,vcenter" offset="5" width="497" height="20" margin="0" bkclr="#EBF4FE">
-					<states>
-						<normal border="0" bkclr="#ffffff" />
-						<hover border="1" color="#B9D7FC" bkclr="#EFF6FF" />
-						<down border="1" color="#84ACDD" bkclr="#D7E9FF" />
-					</states>
-					<label text="item.gesture" align="vcenter" offset="5" position="relative" width="99" height="20" bkclr="#FFFFFF" />
-					<line width="1" height="20" color="#EBF4FE" />
-					<canvas id="item.id" width="100" height="20" gesture="item.gesture" oninit="draw_gesture(this, 20, this.gesture)" />
-					<line width="1" height="20" color="#EBF4FE" />
-					<label text="item.desc" align="vcenter" offset="5" position="relative" width="295" height="20" bkclr="#FFFFFF" />
-				</layer>
-			</custom>
-		</layer>
-	</layer>
-	
 	<layer id="accel_options" x="204" y="30" width="511" height="430" bkclr="#ffffff">
 		<border width="1" color="#818488" />
 
-		<label text="lang.modify_accel" align="vcenter" position="relative" x="6" y="5" width="70" height="20" />
-		<edit position="relative" x="85" y="6" width="200" height="18" bkclr="#ffffff" hint="lang.accel">
+		<label text="lang.accel" align="vcenter" position="relative" x="6" y="5" width="70" height="20" bkclr="#FFFFFF" />
+		<!--edit position="relative" x="85" y="6" width="200" height="18" bkclr="#ffffff" hint="lang.accel">
 			<border width="1" color="#316AC5" />
 		</edit>
 		<button text="lang.setting" position="relative" x="290" y="5" width="59" height="20" align="center,vcenter">
@@ -122,7 +53,7 @@
 				<hover x="59" />
 				<down x="118" />
 			</states>
-		</button>
+		</button-->
 
 		<layer x="5" y="30" width="501" height="395">
 			<border width="1" color="#818488" />
@@ -163,18 +94,92 @@
 						<hover border="1" color="#B9D7FC" bkclr="#EFF6FF" />
 						<down border="1" color="#84ACDD" bkclr="#D7E9FF" />
 					</states>
-					<label text="item.key" align="vcenter" offset="5" position="relative" width="99" height="20" bkclr="#FFFFFF" />
+					<label text="item.key" align="vcenter" offset="5" position="relative" width="99" height="20" bkclr="#" />
 					<label width="1" height="20">
 						<border width="1" color="#EBF4FE" left="1" />
 					</label>
-					<label text="item.text" align="vcenter" offset="5" position="relative" width="100" height="20" bkclr="#FFFFFF" />
+					<label text="item.text" align="vcenter" offset="5" position="relative" width="100" height="20" bkclr="#" />
 					<label width="1" height="20">
 						<border width="1" color="#EBF4FE" left="1" />
 					</label>
-					<label text="item.desc" align="vcenter" offset="5" position="relative" width="295" height="20" bkclr="#FFFFFF" />
+					<label text="item.desc" align="vcenter" offset="5" position="relative" width="295" height="20" bkclr="#" />
 				</layer>
 			</custom>
 		</layer>
 	</layer>
+	
+	<layer id="gesture_options" x="204" y="30" width="511" height="430" bkclr="#ffffff" visible="false">
+		<border width="1" color="#818488" />
+		
+		<label text="lang.mouse_gesture" align="vcenter" position="relative" x="6" y="5" width="170" height="20" />
+
+		<layer id=".list" x="5" y="30" width="501" height="395">
+			<border width="1" color="#818488" />
+			
+			<custom position="relative" x="1" y="1" width="499" height="22" type="tiled" bkclr="#E3E4E6" row="1" margin="0,1">
+				<border width="1" color="#d5d5d5" bottom="1" />
+				<items width="adapt">
+					<item text="lang.name" width="100" />
+					<item text="lang.gesture" width="100" />
+					<item text="lang.action" width="299" />
+				</items>
+				<button x="1" y="1" text="item.text" align="left,vcenter" offset="5" width="item.width" height="21">
+					<states>
+						<normal border="0" bkclr="#f5f6f8" />
+						<hover border="1" color="#93C9E3" bkclr="#BBEBFE" />
+						<down border="1" color="#93C9E3" bkclr="#BBEBFE" />
+					</states>
+				</button>
+			</custom>
+			
+			<custom id=".gesture" position="relative" x="1" y="23" width="499" height="371" type="tiled" bkclr="#ffffff" col="1" margin="1,0,1,1">
+				<items height="20">
+					<item lid=".row5" id=".cnvsU" gesture="U" text="" desc="lang.up" bkimg="gesture_up.png" />
+					<item lid=".row6" id=".cnvsL" gesture="L" text="" desc="lang.undo" bkimg="gesture_left.png" />
+					<item lid=".row7" id=".cnvsR" gesture="R" text="" desc="lang.redo" bkimg="gesture_right.png" />
+					<item lid=".row1" id=".cnvsDR" gesture="DR" text="" desc="lang.close_curr_tab" bkimg="gesture_down_right.png" />
+					<item lid=".row2" id=".cnvsLU" gesture="LU" text="" desc="lang.restore_tab" bkimg="gesture_left_up.png" />
+					<item lid=".row3" id=".cnvsDU" gesture="DU" text="" desc="lang.copy_curr_path" bkimg="gesture_down_up.png" />
+					<item lid=".row4" id=".cnvsRD" gesture="RD" text="" desc="lang.new_tab_desc" bkimg="gesture_right_down.png" />
+					<item lid=".row10" id=".cnvsLDR" gesture="LDR" text="" desc="lang.open_folder_desc" bkimg="gesture_left_down_right.png" />
+					<item lid=".row11" id=".cnvsUDU" gesture="UDU" text="" desc="lang.new_folder_desc" bkimg="gesture_up_down_up.png" />
+					<!--item lid=".row8" id=".cnvsRDR" gesture="RDR" text="" desc="lang.next_tab" bkimg="" /-->
+					<!--item lid=".row9" id=".cnvsLDL" gesture="LDL" text="" desc="lang.prev_tab" bkimg="" /-->
+				</items>
+				<layer id="item.lid" align="left,vcenter" offset="5" width="497" height="20" margin="0" bkclr="#EBF4FE">
+					<states>
+						<normal border="0" bkclr="#ffffff" />
+						<hover border="1" color="#B9D7FC" bkclr="#EFF6FF" />
+						<down border="1" color="#84ACDD" bkclr="#D7E9FF" />
+					</states>
+					<label text="item.gesture" align="vcenter" offset="5" position="relative" width="99" height="20" />
+					<line width="1" height="20" color="#EBF4FE" />
+					<img id="item.id" width="100" height="20" dx="5" gesture="item.gesture" bkimg="item.bkimg">
+						<bkimg dx="center" dy="center" />
+					</img>
+					<!--canvas id="item.id" width="100" height="20" gesture="item.gesture" oninit="draw_gesture(this, 20, this.gesture)" /-->
+					<line width="1" height="20" color="#EBF4FE" />
+					<label text="item.desc" align="vcenter" offset="5" position="relative" width="295" height="20" />
+				</layer>
+			</custom>
+		</layer>
+	</layer>
+	
+	<custom id="opts_btn" x="5" y="30" width="195" height="430" type="tiled" bkclr="#ffffff" col="1" margin="1,0,1,2">
+		<border width="1" color="#818488" />
+		<items height="adapt">
+			<item id=".accel" text="lang.accel_manager" tab="accel_options" check="true" action="accel_options.redraw(true)" />
+			<item id=".gesture" text="lang.gesture_manager" tab="gesture_options" action="gesture_options.redraw(true)" />
+		</items>
+		<button id="item.id" text="item.text" align="left,vcenter" check="item.check" tab="item.tab" group="options">
+			<attrib offset="2" width="191" height="22" action="item.action"/>
+			<states>
+				<normal border="0" bkclr="#ffffff" />
+				<hover border="1" color="#316AC5" bkclr="#F5F9FF" />
+				<down border="1" color="#316AC5" bkclr="#C1D2EE" />
+				<checked border="1" color="#316AC5" bkclr="#CEE3FD" />
+			</states>
+		</button>
+	</custom>
 
 </panel>
