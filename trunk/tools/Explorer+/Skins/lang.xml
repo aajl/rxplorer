@@ -1,18 +1,18 @@
-﻿<strs id="lang" lang="English" title="Explorer++">
+﻿<strs id="lang" lang="English" title="Explorer+">
 	<menu menu_file="File(&F)" menu_edit="Edit(&E)" menu_view="View(&V)" menu_tools="Tools(&T)" menu_help="Help(&H)" />
 	<menu menu_file="File" menu_new_tab="New Tab(&T)              Ctrl+T" menu_new_folder="New Folder(&N)        Ctrl+N" menu_save_session="Save Session(&S)    Ctrl+S" menu_exit="Exit(&E)" />
 	<menu menu_edit_sub="Edit(&E)                        F4" menu_refresh="Refresh(&R)                F5" menu_copy="Copy(&C)                      F6" menu_move="Move(&M)                      F7" />
 	<menu menu_options="Option" menu_language="Languages" menu_accel_manager="Accel Manager" menu_gesture_manager="Gesture Manager" />
 	<menu menu_help="Help(&H)" menu_check_update="Check for updates(&C)" menu_register="Register(&R)" menu_about="About Explorer(&A)" />
-	<about about="About Explorer++" />
+	<about about="About Explorer+" />
 	<universal ok="OK" cancel="Cancel" close="Close" showlist="Folder Lists" filter="Filters" quick_filter="Quick Filter" />
-	<tooltip up="Up" favorite="Favorite" copy_curr_path="Copy Current Path To Clipboard" search="Search" clear="Clear Filters" />
+	<tooltip up="Open Parent Folder" favorite="Favorite" copy_curr_path="Copy Current Path To Clipboard" search="Search" clear="Clear Filters" />
 	<tooltip undo="Backward" redo="Forward" history="Historys" more="Mor Options" sync="Sync With File View" />
 	<tooltip newtab="New Tab" newfolder="New Folder" treeview="Folder View" dual="Dual Panes" thumb="View Mode" />
 	<statusbar size="Size" byte="Bytes" create_time="Create Time" modify_time="Modify Time" detail_bar="Detail Status Bar" />
 	<setting tools_setting="Tool Setting" tooltip="Tooltip:" cmd="Command:" param="Params:" icon="Icon:" beginpath="Begin Path:" />
-	<options options="Options" setting="Setting" accel="Accel" modify_accel="Modify Accel:" modify_gesture="Modify Gesture:" />
-	<options name="Name" action="Action" shape="Shape" desc="Description" edit="Edit" copy="Copy" move="Move" refresh="Refresh" />
+	<options options="Options" setting="Setting" accel="Accel" modify_accel="Modify Accel:" modify_gesture="Modify Gesture:" mouse_gesture="Mouse Gesture" />
+	<options name="Name" action="Action" gesture="Gesture" desc="Description" edit="Edit" copy="Copy" move="Move" refresh="Refresh" />
 	<options accel_manager="Accel Manager" gesture_manager="Gesture Manager" copy_path="Copy Path" copy_file_path="Copy File Path" />
 	<options close_curr_tab="Close Current Tab" restore_tab="Restore Closed Tab" />
 	<options new_tab_desc="New Tab In Current View" next_tab="Next Tab" prev_tab="Prev Tab" />
@@ -26,24 +26,24 @@
 	<toolmenu open="Open(&O)" locate_tool="Locate On Disk(&I)" remove_favorite_tool="Delete(&D)" tool_setting="Setting(&S)" />
 	<footer footer_edit="F4 Edit" footer_copy="F6 Copy" footer_move="F7 Move" footer_new="F8 New Folder" />
 	<favmenu add_favorite_folder="Add To Favorite" search_file_hint="Input Filename To Search" />
-	<register register="Register" register_title="Register Explorer++" email="Email:" license="License:" email_hint="Email" license_hint="License" />
+	<register register="Register" register_title="Register Explorer+" email="Email:" license="License:" email_hint="Email" license_hint="License" />
 	<thumbs super_icon="Super Large Icons(&X)" thumb_icon="Thumbnails(&T)" big_icon="Bin icons(&R)" icon_icon="Icons(&I)" medium_icon="Medium Icons(&M)" small_icon="Small Icons(&N)" list_icon="List(&L)" detail_icon="Details(&D)" tile_icon="Tiles(&S)" />
 </strs>
-<strs id="chinese" lang="简体(中文)" title="Explorer++">
+<strs id="chinese" lang="简体(中文)" title="Explorer+">
 	<menu menu_file="文件(&F)" menu_edit="编辑(E)" menu_view="视图(V)" menu_tools="工具(T)" menu_help="帮助(H)" />
 	<menu menu_file="文件" menu_new_tab="新建标签(&T)        Ctrl+T" menu_new_folder="新建文件夹(&N)   Ctrl+N" menu_save_session="保存工作区(&S)   Ctrl+S" menu_exit="退出(&E)" />
 	<menu menu_edit_sub="编辑(&E)                  F4" menu_refresh="刷新(&R)                  F5" menu_copy="复制(&C)                  F6" menu_move="移动(&M)                  F7" />
 	<menu menu_options="选项" menu_language="语言" menu_accel_manager="快捷键管理" menu_gesture_manager="鼠标手势管理" />
 	<menu menu_help="帮助(&H)" menu_check_update="检查更新(&C)" menu_register="注册(&R)" menu_about="关于Explorer(&A)" />
-	<about about="关于Explorer++" />
+	<about about="关于Explorer+" />
 	<universal ok="确定" cancel="取消" close="关闭" showlist="显示列表" filter="过滤器" quick_filter="快速过滤" />
-	<tooltip up="向上" favorite="收藏夹" copy_curr_path="复制当前路径到剪贴板" search="搜索" clear="清除过滤器" />
+	<tooltip up="打开上一级目录" favorite="收藏夹" copy_curr_path="复制当前路径到剪贴板" search="搜索" clear="清除过滤器" />
 	<tooltip undo="后退" redo="前进" history="历史记录" more="更多选项" sync="与文件视图同步" />
 	<tooltip newtab="新建标签" newfolder="新建文件夹" treeview="文件夹" dual="双面板" thumb="视图模式" />
 	<statusbar size="大小" byte="字节" create_time="创建时间" modify_time="修改时间" detail_bar="详细状态栏" />
 	<setting tools_setting="工具设置" tooltip="按钮提示:" cmd="命令:" param="参数:" icon="图标:" beginpath="开始路径:" />
-	<options options="选项" setting="设置" accel="快捷键" modify_accel="更改快捷键:" modify_gesture="更改手势:" />
-	<options name="名称" action="动作" shape="形状" desc="描述" edit="编辑" copy="复制" move="移动" refresh="刷新" />
+	<options options="选项" setting="设置" accel="快捷键" modify_accel="更改快捷键:" modify_gesture="更改手势:" mouse_gesture="鼠标手势" />
+	<options name="名称" action="动作" gesture="手势" desc="描述" edit="编辑" copy="复制" move="移动" refresh="刷新" />
 	<options accel_manager="快捷键管理" gesture_manager="鼠标手势管理" copy_path="复制路径" copy_file_path="复制文件路径" />
 	<options close_curr_tab="关闭当前标签" restore_tab="恢复关闭的标签" />
 	<options new_tab_desc="在当前视图新建标签" next_tab="下一个标签" prev_tab="上一个标签" />
@@ -57,6 +57,6 @@
 	<toolmenu open="打开(&O)" locate_tool="打开文件位置(&I)" remove_favorite_tool="删除(&D)" tool_setting="设置(&S)" />
 	<footer footer_edit="F4 编辑" footer_copy="F6 复制" footer_move="F7 移动" footer_new="F8 新建" />
 	<favmenu add_favorite_folder="添加到书签" search_file_hint="输入文件名进行搜索" />
-	<register register="注册" register_title="注册Explorer++" email="邮箱:" license="注册码:" email_hint="邮箱" license_hint="注册码" />
+	<register register="注册" register_title="注册Explorer+" email="邮箱:" license="注册码:" email_hint="邮箱" license_hint="注册码" />
 	<thumbs super_icon="超大图标(&X)" thumb_icon="缩略图(&T)" big_icon="大图标(&R)" icon_icon="图标(&I)" medium_icon="中等图标(&M)" small_icon="小图标(&N)" list_icon="列表(&L)" detail_icon="详细信息(&D)" tile_icon="平铺(&S)" />
 </strs>
