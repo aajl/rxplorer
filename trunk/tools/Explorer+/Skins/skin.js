@@ -339,6 +339,8 @@ $(function(){
 		editer[i].editer = editer[i].editer.replace(/%App/gi, sys.path.app);
 	}
 	
+	show_editors();
+	
 	sys.shell_execute(sys.path.app + "/search.exe",  "-app -mutex search_helper_mutex -Module Modules/MSearch.dll", "on_scan_completed");
 });
 
@@ -1175,4 +1177,11 @@ function change_language(language) {
 	lang.change(langg.id);
 	
 	setting.explorer.lang = language;
+}
+
+function show_editors() {
+	edit_view_options.editor.list.clear();
+	for(var i = 0; i < editer.length; ++i) {
+		edit_view_options.editor.list.insert({"ext": "." + editer[i].ext, "desc": "", "editor": editer[i].editer});
+	}
 }
