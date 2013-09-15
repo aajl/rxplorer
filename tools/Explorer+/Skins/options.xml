@@ -216,11 +216,11 @@
 						<border width="1" color="#EBF4FE" left="1" />
 					</label>
 					<label text="item.editor" align="vcenter" offset="5" position="relative" width="335" height="24" />
-					<button id=".open" visible="false" attrib="visible_along" ext="item.ext" action="">
+					<button id=".open" visible="false" attrib="visible_along" ext="item.ext" action="change_editor(this.ext)">
 						<pos position="relative" adapt="false" x="-44" y="2" width="20" height="20" />
 						<states link="states.open_folder" />
 					</button>
-					<button id=".close" visible="false" attrib="visible_along" ext="item.ext" action="">
+					<button id=".close" visible="false" attrib="visible_along" ext="item.ext" action="delete_editor(this.ext)">
 						<pos position="relative" adapt="false" x="-22" y="2" width="20" height="20" />
 						<states link="states.trash" />
 					</button>
