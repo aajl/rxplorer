@@ -32,14 +32,15 @@
 			<item text="lang.detail_bar" icon="" action="show_statusbar(!setting.statusbar.show)" />
 		</item>
 		<item id="menu_tools" text="lang.menu_tools">
-			<item text="lang.menu_options" action="options.show();print('2222222222222')" />
+			<item text="lang.menu_options" action="options.show();" />
 			<item id="menu_language" text="lang.menu_language" sub="triangle.png">
 				<item text="中文(简体)" action="change_language('chinese')" />
 				<item text="English" action="change_language('lang');" />
 			</item>
 			<item separator="1" />
-			<item text="lang.menu_accel_manager" action="options.show();opts_btn.accel.click()" />
-			<item text="lang.menu_gesture_manager" action="options.show();opts_btn.gesture.click()" />
+			<item text="lang.accel_setting" action="options.show();opts_btn.accel.click()" />
+			<item text="lang.gesture_setting" action="options.show();opts_btn.gesture.click()" />
+			<item text="lang.edit_view_setting" action="options.show();opts_btn.edit.click()" />
 		</item>
 		<item id="menu_help" text="帮助">
 			<item text="lang.menu_help" />

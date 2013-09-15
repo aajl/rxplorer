@@ -2,7 +2,7 @@
 	<menu menu_file="File(&F)" menu_edit="Edit(&E)" menu_view="View(&V)" menu_tools="Tools(&T)" menu_help="Help(&H)" />
 	<menu menu_file="File" menu_new_tab="New Tab(&T)              Ctrl+T" menu_new_folder="New Folder(&N)        Ctrl+N" menu_save_session="Save Session(&S)    Ctrl+S" menu_exit="Exit(&E)" />
 	<menu menu_edit_sub="Edit(&E)                        F4" menu_refresh="Refresh(&R)                F5" menu_copy="Copy(&C)                      F6" menu_move="Move(&M)                      F7" />
-	<menu menu_options="Option" menu_language="Languages" menu_accel_manager="Accel Manager" menu_gesture_manager="Gesture Manager" />
+	<menu menu_options="Options" menu_language="Languages" />
 	<menu menu_help="Help(&H)" menu_check_update="Check for updates(&C)" menu_register="Register(&R)" menu_about="About Explorer(&A)" />
 	<about about="About Explorer+" />
 	<universal ok="OK" cancel="Cancel" close="Close" showlist="Folder Lists" filter="Filters" quick_filter="Quick Filter" />
@@ -10,17 +10,17 @@
 	<tooltip undo="Backward" redo="Forward" history="Historys" more="Mor Options" sync="Sync With File View" />
 	<tooltip newtab="New Tab" newfolder="New Folder" treeview="Folder View" dual="Dual Panes" thumb="View Mode" />
 	<statusbar size="Size" byte="Bytes" create_time="Create Time" modify_time="Modify Time" detail_bar="Detail Status Bar" />
-	<setting tools_setting="Tool Setting" tooltip="Tooltip:" accel_setting_label="Accel:" cmd="Command:" param="Params:" param_hint="e.g. '%FullPath'" icon="Icon:" beginpath="Begin Path:" />
+	<setting tools_setting="Tool Setting" tooltip="Tooltip:" accel_setting_label="Accel:" cmd="Command:" param="Parameters:" param_hint="e.g. '%FullPath'" icon="Icon:" beginpath="Begin Path:" />
 	<options options="Options" setting="Setting" accel="Accel" accel_hint="e.g. Ctrl+E" modify_accel="Modify Accel:" modify_gesture="Modify Gesture:" mouse_gesture="Mouse Gesture" />
 	<options name="Name" action="Action" gesture="Gesture" desc="Description" edit="Edit" copy="Copy" move="Move" refresh="Refresh" />
-	<options accel_manager="Accel Manager" gesture_manager="Gesture Manager" copy_path="Copy Path" copy_file_path="Copy File Path" />
-	<options close_curr_tab="Close Current Tab" restore_tab="Restore Closed Tab" edit_view="Edit/View" />
+	<options accel_setting="Accel Setting" gesture_setting="Gesture Setting" edit_view_setting="Edit/View Setting" copy_path="Copy Path" copy_file_path="Copy File Path" />
+	<options close_curr_tab="Close Current Tab" restore_tab="Restore Closed Tab" />
 	<options new_tab_desc="New Tab In Current View" next_tab="Next Tab" prev_tab="Prev Tab" />
 	<options open_folder_desc="Open Folder With Windows Explorer" new_folder_desc="New Folder In Current View" />
 	<options new_tab="New Tab" new_folder="New Folder" open_folder="Open Folder" save_session="Save Session" />
 	<options save_session_desc="Save All" copy_file_path_desc="Copy Current Selected Filepath To Clipboard" />
 	<options copy_desc="Copy File(s) To Other Side" move_desc="Move File(s) To Other Side" />
-	<options refresh_desc="Refresh" edit_desc="Edit Current Selected File" />
+	<options refresh_desc="Refresh" edit_desc="Edit Current Selected File" add_editor="Add Editor" add_viewer="Add Viewer" />
 	<tabmenu copy_tab="Copy Tab" close_tab="Close Tab" close_other_tab="Close Other Tabs" close_left_of_tab="Close Left Tabs" close_right_of_tab="Close Right Tabs" />
 	<tabmenu fix_tab="Fix Tab" rename="Rename" extension="Extension" editor="Edtior" editor_setting="Editor Setting" />
 	<viewer viewer="Viewer" viewer_setting="Viewer Setting" />
@@ -29,13 +29,13 @@
 	<favmenu add_favorite_folder="Add To Favorite" search_file_hint="Input Filename To Search" />
 	<register register="Register" register_title="Register Explorer+" email="Email:" license="License:" email_hint="Email" license_hint="License" />
 	<thumbs super_icon="Super Large Icons(&X)" thumb_icon="Thumbnails(&T)" big_icon="Bin icons(&R)" icon_icon="Icons(&I)" medium_icon="Medium Icons(&M)" small_icon="Small Icons(&N)" list_icon="List(&L)" detail_icon="Details(&D)" tile_icon="Tiles(&S)" />
-	<tools variable_desc="" />
+	<tools variable_desc="'Command' of valid variables:\n\t%Sys  The system's path.\n\t%App  The application's path.\n'Parameters' of valid variables:\n\t%FullPath  The full path of selected file(s).\n\t%Path  The path of selected file(s), not include filename." />
 </strs>
 <strs id="chinese" lang="简体(中文)" title="Explorer+">
 	<menu menu_file="文件(&F)" menu_edit="编辑(E)" menu_view="视图(V)" menu_tools="工具(T)" menu_help="帮助(H)" />
 	<menu menu_file="文件" menu_new_tab="新建标签(&T)        Ctrl+T" menu_new_folder="新建文件夹(&N)   Ctrl+N" menu_save_session="保存工作区(&S)   Ctrl+S" menu_exit="退出(&E)" />
 	<menu menu_edit_sub="编辑(&E)                  F4" menu_refresh="刷新(&R)                  F5" menu_copy="复制(&C)                  F6" menu_move="移动(&M)                  F7" />
-	<menu menu_options="选项" menu_language="语言" menu_accel_manager="快捷键管理" menu_gesture_manager="鼠标手势管理" />
+	<menu menu_options="选项" menu_language="语言" />
 	<menu menu_help="帮助(&H)" menu_check_update="检查更新(&C)" menu_register="注册(&R)" menu_about="关于Explorer(&A)" />
 	<about about="关于Explorer+" />
 	<universal ok="确定" cancel="取消" close="关闭" showlist="显示列表" filter="过滤器" quick_filter="快速过滤" />
@@ -46,14 +46,14 @@
 	<setting tools_setting="工具设置" tooltip="按钮提示:" accel_setting_label="快捷键:" cmd="命令:" param="参数:" param_hint="例如 '%FullPath'" icon="图标:" beginpath="开始路径:" />
 	<options options="选项" setting="设置" accel="快捷键" accel_hint="例如 Ctrl+E" modify_accel="更改快捷键:" modify_gesture="更改手势:" mouse_gesture="鼠标手势" />
 	<options name="名称" action="动作" gesture="手势" desc="描述" edit="编辑" copy="复制" move="移动" refresh="刷新" />
-	<options accel_manager="快捷键管理" gesture_manager="鼠标手势管理" copy_path="复制路径" copy_file_path="复制文件路径" />
-	<options close_curr_tab="关闭当前标签" restore_tab="恢复关闭的标签" edit_view="编辑/查看" />
+	<options accel_setting="快捷键设置" gesture_setting="鼠标手势设置" edit_view_setting="编辑/查看设置" copy_path="复制路径" copy_file_path="复制文件路径" />
+	<options close_curr_tab="关闭当前标签" restore_tab="恢复关闭的标签" />
 	<options new_tab_desc="在当前视图新建标签" next_tab="下一个标签" prev_tab="上一个标签" />
 	<options open_folder_desc="在Windows浏览器中打开当前文件夹" new_folder_desc="在当前视图新建文件夹" />
 	<options new_tab="新建标签" new_folder="新建文件夹" open_folder="打开文件夹" save_session="保存工作区" />
 	<options save_session_desc="保存工作区及设置到文件" copy_file_path_desc="复制当前视图选中的文件路径到剪贴板" />
 	<options copy_desc="将当前视图选中的文件复制到另一侧" move_desc="将当前视图选中的文件移动到另一侧" />
-	<options refresh_desc="刷新当前视图" edit_desc="编辑当前选中的文件" />
+	<options refresh_desc="刷新当前视图" edit_desc="编辑当前选中的文件" add_editor="添加编辑器" add_viewer="添加查看器" />
 	<tabmenu copy_tab="复制标签" close_tab="关闭标签" close_other_tab="关闭其它标签" close_left_of_tab="关闭左边的标签" close_right_of_tab="关闭右边的标签" />
 	<tabmenu fix_tab="固定标签" rename="重命名" extension="扩展名" editor="编辑器" editor_setting="编辑器设置" />
 	<viewer viewer="查看器" viewer_setting="查看器设置" />
@@ -62,5 +62,5 @@
 	<favmenu add_favorite_folder="添加到书签" search_file_hint="输入文件名进行搜索" />
 	<register register="注册" register_title="注册Explorer+" email="邮箱:" license="注册码:" email_hint="邮箱" license_hint="注册码" />
 	<thumbs super_icon="超大图标(&X)" thumb_icon="缩略图(&T)" big_icon="大图标(&R)" icon_icon="图标(&I)" medium_icon="中等图标(&M)" small_icon="小图标(&N)" list_icon="列表(&L)" detail_icon="详细信息(&D)" tile_icon="平铺(&S)" />
-	<tools variable_desc="'命令' 里可用的通用变量:\n\t%Sys:  系统所在目录\n\t%App:  本应用程序所在目录\n'参数' 里可用的通用变量:\n\t%FullPath:  选中文件的全路径\n p" />
+	<tools variable_desc="'命令' 里可用的通用变量:\n\t%Sys  系统所在目录\n\t%App  本应用程序所在目录\n'参数' 里可用的通用变量:\n\t%FullPath  选中文件的全路径\n\t%Path  选中文件的路径,不包含文件名." />
 </strs>

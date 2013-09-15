@@ -28,7 +28,7 @@
 				</states>
 				
 				<button id=".close" visible="false" attrib="visible_along" path="item.path" action="remove_favorite_folder(this.path, this.id)">
-					<pos position="relative" adapt="false" x="-16" y="4" width="14" height="14" />
+					<pos position="relative" adapt="false" x="-22" y="2" width="20" height="20" />
 					<states link="states.delete" />
 				</button>
 			</layer>

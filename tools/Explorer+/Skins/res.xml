@@ -98,10 +98,20 @@
 		<hover x="14" />
 		<down x="28" />
 	</states>
-	<states id="delete" normal="delete.png" width="14" height="14">
-		<normal x="0" />
-		<hover x="14" />
-		<down x="28" />
+	<states id="delete" normal="trash.png" width="16" height="16">
+		<normal dx="2" dy="2" bkclr="#C1D2EE" />
+		<hover dx="1" dy="1" />
+		<down dx="2" dy="2" />
+	</states>
+	<states id="trash" normal="trash.png" width="16" height="16">
+		<normal dx="2" dy="2" bkclr="#EFF6FF" />
+		<hover dx="1" dy="1" />
+		<down dx="2" dy="2" />
+	</states>
+	<states id="open_folder" normal="open_folder.png" width="16" height="16">
+		<normal dx="2" dy="2" bkclr="#EFF6FF" />
+		<hover dx="1" dy="1" />
+		<down dx="2" dy="2" />
 	</states>
 	<states id="top_tab">
 		<normal link="javascript:top_tab_normal.id" />

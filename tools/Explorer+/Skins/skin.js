@@ -1180,8 +1180,21 @@ function change_language(language) {
 }
 
 function show_editors() {
+	var save = false;
+	var path = new jpath();
 	edit_view_options.editor.list.clear();
 	for(var i = 0; i < editer.length; ++i) {
-		edit_view_options.editor.list.insert({"ext": "." + editer[i].ext, "desc": "", "editor": editer[i].editer});
+		var typename = editer[i].typename;
+		if(typeof(typename) == "undefined") {
+			save = true;
+			typename = path.typename(editer[i].ext);
+			editer[i].typename = typename;
+		}
+		
+		var id = sys.hash(editer[i].ext + typename);
+		edit_view_options.editor.list.insert({"id": "lyer" + id, "ext": editer[i].ext, "desc": editer[i].ext + " (" + typename + ")", "editor": editer[i].editer});
 	}
+	
+	if(save)
+		save2file(editer, "editer.json");
 }
