@@ -1191,12 +1191,34 @@ function show_editors() {
 			editer[i].typename = typename;
 		}
 		
-		var id = sys.hash(editer[i].ext + typename);
-		edit_view_options.editor.list.insert({"id": "lyer" + id, "ext": editer[i].ext, "desc": editer[i].ext + " (" + typename + ")", "editor": editer[i].editer});
+		typename = editer[i].ext + " (" + typename + ")";
+		var id = sys.hash(typename);
+		edit_view_options.editor.list.insert({"id": "lyer" + id, "ext": editer[i].ext, "desc": typename, "editor": editer[i].editer});
 	}
 	
 	if(save)
 		save2file(editer, "editer.json");
+}
+
+function delete_editor(ext) {
+	for(var i = 0; i < editer.length; ++i) {
+		if(editer[i].ext == ext) {
+			print(editer[i].typename);
+			break;
+		}
+	}
+}
+
+function change_editor(ext) {
+	for(var i = 0; i < editer.length; ++i) {
+		if(editer[i].ext == ext) {
+			var pathname = sys.dialog_open();
+			if(pathname.length > 0)
+				editer[i].editer = pathname;
+				
+			break;
+		}
+	}
 }
 
 function add_editor() {
