@@ -1198,3 +1198,12 @@ function show_editors() {
 	if(save)
 		save2file(editer, "editer.json");
 }
+
+function add_editor() {
+	var path = sys.dialog_open();
+	print(path);
+}
+
+function add_viewer() {
+	sys.dialog_open();
+}
