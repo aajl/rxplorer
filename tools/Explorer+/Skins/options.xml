@@ -172,7 +172,7 @@
 		<!--editor setting-->
 		<label text="lang.editor_setting" align="vcenter" position="relative" x="6" y="5" width="170" height="20" />
 		
-		<button id=".add_editor" text="lang.add_editor" align="left,vcenter" offset="26" action="">
+		<button id=".add_editor" text="lang.add_editor" align="left,vcenter" offset="26" action="add_editor()">
 			<pos position="relative" adapt="false" x="366" y="3" width="140" height="24" />
 			<states normal="add_editor.png" width="20" height="20">
 				<normal dx="2" dy="2" bkclr="#ffffff" />
@@ -231,7 +231,7 @@
 		<!--viewer setting-->
 		<label text="lang.viewer_setting" align="vcenter" position="relative" x="6" y="218" width="170" height="20" />
 		
-		<button id=".add_viewer" text="lang.add_viewer" align="left,vcenter" offset="26" action="">
+		<button id=".add_viewer" text="lang.add_viewer" align="left,vcenter" offset="26" action="add_viewer()">
 			<pos position="relative" adapt="false" x="366" y="215" width="140" height="24" />
 			<states normal="add_viewer.png" width="20" height="20">
 				<normal dx="2" dy="2" bkclr="#ffffff" />
