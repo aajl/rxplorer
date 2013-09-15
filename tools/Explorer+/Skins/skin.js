@@ -701,10 +701,7 @@ function remove_favorite_folder(path, folder_id) {
 			save2file(favorite_folders, "folders.json");
 			resize_favorite_folder_panel();
 			
-			var ids = folder_id.split(".");
-			ids.splice(ids.length - 1, 1);
-			folder_id = ids.join(".");
-			favfolders.remove(folder_id);
+			delete_ctrl_item(favfolders, folder_id);
 			break;
 		}
 	}
@@ -1200,10 +1197,22 @@ function show_editors() {
 		save2file(editer, "editer.json");
 }
 
-function delete_editor(ext) {
+function delete_ctrl_item(ctrl, item_id) {
+	var ids = item_id.split(".");
+	ids.splice(ids.length - 1, 1);
+	item_id = ids.join(".");
+	ctrl.remove(item_id);
+}
+
+function delete_editor(ext, item_id) {
+	if(ext == ".unknow_editor_ext") {
+		delete_ctrl_item(edit_view_options.editor.list, item_id);
+		return;
+	}
+	
 	for(var i = 0; i < editer.length; ++i) {
 		if(editer[i].ext == ext) {
-			print(editer[i].typename);
+			delete_ctrl_item(edit_view_options.editor.list, item_id);
 			break;
 		}
 	}
@@ -1229,9 +1238,20 @@ function change_editor(ext) {
 
 function add_editor() {
 	var path = sys.dialog_open(get_filters_exe());
-	print(path);
+	if(path.length == 0)
+		return;
+	
+	var ext = ".unknow_editor_ext";
+	var id = sys.hash(ext);
+	edit_view_options.editor.list.insert({"id": "lyer" + id, "ext": ext, "desc": "", "editor": path});
 }
 
 function add_viewer() {
-	sys.dialog_open(get_filters_exe());
+	var path = sys.dialog_open(get_filters_exe());
+	if(path.length == 0)
+		return;
+	
+	var ext = ".unknow_viewer_ext";
+	var id = sys.hash(ext);
+	edit_view_options.viewer.list.insert({"id": "lyer" + id, "ext": ext, "desc": "", "viewer": path});
 }

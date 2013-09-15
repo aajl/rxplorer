@@ -203,7 +203,7 @@
 				<items height="24">
 				</items>
 				<layer id="item.id" align="left,vcenter" offset="5" width="497" height="24" margin="0" bkclr="#EBF4FE">
-					<events mouse_in="this.open.show();this.close.show();" mouse_out="this.open.hide();this.close.hide();" />
+					<events mouse_in="this.edit.show();this.open.show();this.close.show();" mouse_out="this.edit.hide();this.open.hide();this.close.hide();" />
 					<states>
 						<normal border="0" bkclr="#ffffff" />
 						<hover border="1" color="#B9D7FC" bkclr="#EFF6FF" />
@@ -212,6 +212,10 @@
 					<label text="item.desc" icon="item.ext" align="vcenter" offset="22" position="relative" width="159" height="24">
 						<icon x="3" y="4" size="16" />
 					</label>
+					<button id=".edit" visible="false" attrib="visible_along" ext="item.ext" action="">
+						<pos position="relative" adapt="false" x="137" y="2" width="20" height="20" />
+						<states link="states.edit" />
+					</button>
 					<label width="1" height="24">
 						<border width="1" color="#EBF4FE" left="1" />
 					</label>
@@ -220,7 +224,7 @@
 						<pos position="relative" adapt="false" x="-44" y="2" width="20" height="20" />
 						<states link="states.open_folder" />
 					</button>
-					<button id=".close" visible="false" attrib="visible_along" ext="item.ext" action="delete_editor(this.ext)">
+					<button id=".close" visible="false" attrib="visible_along" ext="item.ext" action="delete_editor(this.ext, this.id)">
 						<pos position="relative" adapt="false" x="-22" y="2" width="20" height="20" />
 						<states link="states.trash" />
 					</button>
@@ -265,7 +269,7 @@
 					<item id=".lyer13" ext=".bmp" desc=".bmp (BMP 文件)" viewer="Window 照片照片器" />
 				</items>
 				<layer id="item.id" align="left,vcenter" offset="5" width="497" height="24" margin="0" bkclr="#EBF4FE">
-					<events mouse_in="this.open.show();this.close.show();" mouse_out="this.open.hide();this.close.hide();" />
+					<events mouse_in="this.edit.show();this.open.show();this.close.show();" mouse_out="this.edit.hide();this.open.hide();this.close.hide();" />
 					<states>
 						<normal border="0" bkclr="#ffffff" />
 						<hover border="1" color="#B9D7FC" bkclr="#EFF6FF" />
@@ -274,6 +278,10 @@
 					<label text="item.desc" icon="item.ext" align="vcenter" offset="24" position="relative" width="159" height="24">
 						<icon x="3" y="4" size="16" />
 					</label>
+					<button id=".edit" visible="false" attrib="visible_along" ext="item.ext" action="">
+						<pos position="relative" adapt="false" x="137" y="2" width="20" height="20" />
+						<states link="states.edit" />
+					</button>
 					<label width="1" height="24">
 						<border width="1" color="#EBF4FE" left="1" />
 					</label>
