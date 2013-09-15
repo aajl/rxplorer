@@ -113,6 +113,11 @@
 		<hover dx="1" dy="1" />
 		<down dx="2" dy="2" />
 	</states>
+	<states id="edit" normal="edit.png" width="16" height="16">
+		<normal dx="2" dy="2" bkclr="#EFF6FF" />
+		<hover dx="1" dy="1" />
+		<down dx="2" dy="2" />
+	</states>
 	<states id="top_tab">
 		<normal link="javascript:top_tab_normal.id" />
 		<hover link="javascript:top_tab_down.id" />
