@@ -18,6 +18,7 @@ var session2_open = false;
 var maximize = false;
 var new_version = "";
 var opened = false;
+var extension = new jpath();
 
 // 1. 左边的不能新标签 √
 // 11. 文件夹内双击空白处不能返回上一级 √
@@ -1181,13 +1182,12 @@ function change_language(language) {
 
 function show_editors() {
 	var save = false;
-	var path = new jpath();
 	edit_view_options.editor.list.clear();
 	for(var i = 0; i < editer.length; ++i) {
 		var typename = editer[i].typename;
 		if(typeof(typename) == "undefined") {
 			save = true;
-			typename = path.typename(editer[i].ext);
+			typename = extension.typename(editer[i].ext);
 			editer[i].typename = typename;
 		}
 		
@@ -1209,10 +1209,16 @@ function delete_editor(ext) {
 	}
 }
 
+function get_filters_exe() {
+	var typename = extension.typename(".exe");
+	var filters = typename + "(*.exe)|*.exe||";
+	return filters;
+}
+
 function change_editor(ext) {
 	for(var i = 0; i < editer.length; ++i) {
 		if(editer[i].ext == ext) {
-			var pathname = sys.dialog_open();
+			var pathname = sys.dialog_open(get_filters_exe());
 			if(pathname.length > 0)
 				editer[i].editer = pathname;
 				
@@ -1222,10 +1228,10 @@ function change_editor(ext) {
 }
 
 function add_editor() {
-	var path = sys.dialog_open();
+	var path = sys.dialog_open(get_filters_exe());
 	print(path);
 }
 
 function add_viewer() {
-	sys.dialog_open();
+	sys.dialog_open(get_filters_exe());
 }
