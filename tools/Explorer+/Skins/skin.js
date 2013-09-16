@@ -1245,11 +1245,7 @@ function show_edit_ctrl(lyer_id, ext) {
 	edt.show();
 }
 
-function change_extension(lyer_id, ext) {
-	print(lyer_id);
-	var btn = eval(lyer_id + ".edit");
-	btn.show();
-	
+function change_extension(lyer_id, ext) {	
 	var edt = eval(lyer_id + ".change");
 	edt.hide();
 	
