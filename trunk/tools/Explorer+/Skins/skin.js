@@ -1236,6 +1236,27 @@ function change_editor(ext) {
 	}
 }
 
+function show_edit_ctrl(lyer_id, ext) {
+	var btn = eval(lyer_id + ".edit");
+	btn.hide();
+	
+	var edt = eval(lyer_id + ".change");
+	edt.text = ext;
+	edt.show();
+}
+
+function change_extension(lyer_id, ext) {
+	print(lyer_id);
+	var btn = eval(lyer_id + ".edit");
+	btn.show();
+	
+	var edt = eval(lyer_id + ".change");
+	edt.hide();
+	
+	var lyer = eval(lyer_id);
+	lyer.redraw();
+}
+
 function add_editor() {
 	var path = sys.dialog_open(get_filters_exe());
 	if(path.length == 0)
