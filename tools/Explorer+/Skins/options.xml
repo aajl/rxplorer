@@ -212,10 +212,14 @@
 					<label text="item.desc" icon="item.ext" align="vcenter" offset="22" position="relative" width="159" height="24">
 						<icon x="3" y="4" size="16" />
 					</label>
-					<button id=".edit" visible="false" attrib="visible_along" ext="item.ext" action="">
+					<button id=".edit" visible="false" attrib="visible_along" ext="item.ext" parent_id="item.id" action="show_edit_ctrl(this.parent_id, this.ext)">
 						<pos position="relative" adapt="false" x="137" y="2" width="20" height="20" />
 						<states link="states.edit" />
 					</button>
+					<edit id=".change" position="relative" x="1" y="4" width="156" height="16" bkclr="#ffffff" ext="item.ext" parent_id="item.id">
+						<attribs visible="false" attrib="visible_along" />
+						<events enter="change_extension(this.parent_id)" killfocus="change_extension(this.parent_id, this.ext)" />
+					</edit>
 					<label width="1" height="24">
 						<border width="1" color="#EBF4FE" left="1" />
 					</label>
