@@ -217,14 +217,14 @@
 						<states link="states.edit" />
 					</button>
 					<edit id=".change" position="relative" x="1" y="2" width="156" height="20" bkclr="#ffffff" ext="item.ext" parent_id="item.id">
-						<attribs visible="false" attrib="visible_along" />
+						<attribs visible="false" attrib="visible_along" offset="1" />
 						<border width="1" color="#316AC5" />
 						<events enter="change_extension(this.parent_id, this.ext)" killfocus="change_extension(this.parent_id, this.ext)" />
 					</edit>
 					<label width="1" height="24">
 						<border width="1" color="#EBF4FE" left="1" />
 					</label>
-					<label text="item.editor" align="vcenter" offset="5" position="relative" width="335" height="24" />
+					<label id=".editor" text="item.editor" align="vcenter" offset="5" position="relative" width="335" height="24" />
 					<button id=".open" visible="false" attrib="visible_along" ext="item.ext" action="change_editor(this.ext)">
 						<pos position="relative" adapt="false" x="-44" y="2" width="20" height="20" />
 						<states link="states.open_folder" />

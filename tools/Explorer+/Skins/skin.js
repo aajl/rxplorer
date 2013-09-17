@@ -1256,6 +1256,7 @@ function show_edit_ctrl(lyer_id, ext) {
 }
 
 function change_extension(lyer_id, ext) {
+	print(lyer_id);
 	var edt = eval(lyer_id + ".change");
 	edt.hide();
 	
@@ -1283,6 +1284,9 @@ function add_editor() {
 	
 	var btn = eval("lyer" + id + ".edit");
 	btn.click();
+	
+	var edt = eval("lyer" + id + ".change");
+	edt.click();
 }
 
 function add_viewer() {

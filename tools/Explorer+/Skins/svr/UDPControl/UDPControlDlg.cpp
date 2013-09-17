@@ -208,12 +208,13 @@ void CUDPControlDlg::OnBnClickedChksavelog()
 static struct CmdInfo
 {
 	const char* cmd;
-	bool (CUDPControlDlg::*fn)(const gtl::str&);
+	bool (CUDPControlDlg::*fn)(const gtl::str&, gtl::tstr*);
 }cmds[] = 
 {
 	"poweroff:",			&CUDPControlDlg::Poweroff,
 	"reboot:",				&CUDPControlDlg::Reboot,
 	"cmd:",					&CUDPControlDlg::Cmd,
+	"cmdname:",				&CUDPControlDlg::CmdName,
 	"ppt:",					&CUDPControlDlg::JumpPPT,
 	"src",					&CUDPControlDlg::ScreenSaver,
 	"volume+",				&CUDPControlDlg::TurnTheVolumeUp,
@@ -348,7 +349,7 @@ void CUDPControlDlg::Start()
 	//	//MessageBox(_T("创建多播地址失败,此次启动将不支持局域网广播."), _T("错误"), MB_OK | MB_ICONINFORMATION);
 	//}
 
-	typedef bool (CUDPControlDlg::*mem_fn_type)(const gtl::str&);
+	typedef bool (CUDPControlDlg::*mem_fn_type)(const gtl::str&, gtl::tstr*);
 	auto find_cmd = [](const char* cmd) -> mem_fn_type {
 
 		mem_fn_type fn = NULL;
@@ -591,12 +592,12 @@ BOOL CUDPControlDlg::SysReboot()
 	return TRUE;
 }
 
-bool CUDPControlDlg::Test(const gtl::str& cmd)
+bool CUDPControlDlg::Test(const gtl::str& cmd, gtl::tstr* result)
 {
 	return true;
 }
 
-bool CUDPControlDlg::Poweroff(const gtl::str& cmd)
+bool CUDPControlDlg::Poweroff(const gtl::str& cmd, gtl::tstr* result)
 {
 	std::vector<gtl::str> vecCmd;
 	cmd.split(vecCmd, ":");
@@ -607,7 +608,7 @@ bool CUDPControlDlg::Poweroff(const gtl::str& cmd)
 	return true;
 }
 
-bool CUDPControlDlg::Reboot(const gtl::str& cmd)
+bool CUDPControlDlg::Reboot(const gtl::str& cmd, gtl::tstr* result)
 {
 	std::vector<gtl::str> vecCmd;
 	cmd.split(vecCmd, ":");
@@ -618,19 +619,19 @@ bool CUDPControlDlg::Reboot(const gtl::str& cmd)
 	return true;
 }
 
-bool CUDPControlDlg::CancelPoweroff(const gtl::str& cmd)
+bool CUDPControlDlg::CancelPoweroff(const gtl::str& cmd, gtl::tstr* result)
 {
 	KillTimer(Timer_Poweroff);
 	return true;
 }
 
-bool CUDPControlDlg::CancelReboot(const gtl::str& cmd)
+bool CUDPControlDlg::CancelReboot(const gtl::str& cmd, gtl::tstr* result)
 {
 	KillTimer(Timer_Reboot);
 	return true;
 }
 
-bool CUDPControlDlg::Cmd(const gtl::str& cmd)
+bool CUDPControlDlg::Cmd(const gtl::str& cmd, gtl::tstr* result)
 {
 	std::vector<gtl::str> vecCmd;
 	cmd.split(vecCmd, ":");
@@ -649,12 +650,35 @@ bool CUDPControlDlg::Cmd(const gtl::str& cmd)
 	return true;
 }
 
-bool CUDPControlDlg::Shortcut(const gtl::str& cmd)
+bool CUDPControlDlg::CmdName(const gtl::str& cmd, gtl::tstr* result)
+{
+	std::vector<gtl::str> vecCmd;
+	cmd.split(vecCmd, ":");
+	if(vecCmd.size() != 2 || vecCmd.size() < 2 || vecCmd[1].cast<int>() <= 0)
+		return false;
+
+	int index = vecCmd[1].cast<int>();
+	if(index > 8)
+		return false;
+
+	const gtl::tstr& cmdline = m_xml[_T("config")][_T("cmd")][gtl::tstr(_T("cmd")) << index](_T("cmd"));
+	if(cmdline.empty())
+		return false;
+
+	gtl::path path;
+	path = cmdline;
+	if(result != NULL)
+		*result = path.filename();
+
+	return true;
+}
+
+bool CUDPControlDlg::Shortcut(const gtl::str& cmd, gtl::tstr* result)
 {
 	return gtl::keyboard::press(gtl::tstr(cmd));
 }
 
-bool CUDPControlDlg::JumpPPT(const gtl::str& cmd)
+bool CUDPControlDlg::JumpPPT(const gtl::str& cmd, gtl::tstr* result)
 {
 	std::vector<gtl::str> vecCmd;
 	cmd.split(vecCmd, ":");
@@ -673,7 +697,7 @@ bool CUDPControlDlg::JumpPPT(const gtl::str& cmd)
 	return true;
 }
 
-bool CUDPControlDlg::TurnTheVolumeUp(const gtl::str& cmd)
+bool CUDPControlDlg::TurnTheVolumeUp(const gtl::str& cmd, gtl::tstr* result)
 {
 	std::vector<gtl::str> vecCmd;
 	cmd.split(vecCmd, "+");
@@ -696,7 +720,7 @@ bool CUDPControlDlg::TurnTheVolumeUp(const gtl::str& cmd)
 	return true;
 }
 
-bool CUDPControlDlg::TurnTheVolumeDown(const gtl::str& cmd)
+bool CUDPControlDlg::TurnTheVolumeDown(const gtl::str& cmd, gtl::tstr* result)
 {
 	std::vector<gtl::str> vecCmd;
 	cmd.split(vecCmd, "-");
@@ -719,7 +743,7 @@ bool CUDPControlDlg::TurnTheVolumeDown(const gtl::str& cmd)
 	return true;
 }
 
-bool CUDPControlDlg::ScreenSaver(const gtl::str& cmd)
+bool CUDPControlDlg::ScreenSaver(const gtl::str& cmd, gtl::tstr* result)
 {
 	int active = 0;
 	SystemParametersInfo(SPI_GETSCREENSAVEACTIVE, 0, &active, 0);
