@@ -2,6 +2,7 @@ var folder_index = 0;
 var xplorer_left_pos = 0;
 var setting = {};
 var editer = [];
+var editer_backup = [];
 var bookmark = [];
 var selected_files = [];
 var favorite_folders = [];
@@ -340,7 +341,7 @@ $(function(){
 		editer[i].editer = editer[i].editer.replace(/%App/gi, sys.path.app);
 	}
 	
-	show_editors();
+	//show_editors();
 	
 	sys.shell_execute(sys.path.app + "/search.exe",  "-app -mutex search_helper_mutex -Module Modules/MSearch.dll", "on_scan_completed");
 });
@@ -1193,9 +1194,11 @@ function insert_editor_item(ext, edtr, typename) {
 
 function show_editors() {
 	var save = false;
+	edit_view_options.editor.list.set_redraw(false);
 	edit_view_options.editor.list.clear();
 	for(var i = 0; i < editer.length; ++i) {
 		var typename = editer[i].typename;
+		print(typename + "\n");
 		var name = insert_editor_item(editer[i].ext, editer[i].editer, typename);
 		if(name.length > 0) {
 			save = true;
@@ -1203,8 +1206,22 @@ function show_editors() {
 		}
 	}
 	
+	edit_view_options.editor.list.set_redraw(true);
+	
+	// save typename to file.
 	if(save)
 		save2file(editer, "editer.json");
+
+	// backup editor for restore.
+	editer_backup = editer.slice(0);
+}
+
+function on_ok_options() {
+	options.hide();
+	
+	// apply changes.
+	editer = editer_backup.concat();
+	save2file(editer, "editer.json");
 }
 
 function delete_ctrl_item(ctrl, item_id) {
@@ -1220,9 +1237,10 @@ function delete_editor(ext, item_id) {
 		return;
 	}
 	
-	for(var i = 0; i < editer.length; ++i) {
-		if(editer[i].ext == ext) {
+	for(var i = 0; i < editer_backup.length; ++i) {
+		if(editer_backup[i].ext == ext) {
 			delete_ctrl_item(edit_view_options.editor.list, item_id);
+			editer_backup.splice(i, 1);
 			break;
 		}
 	}
@@ -1235,11 +1253,11 @@ function get_filters_exe() {
 }
 
 function change_editor(ext) {
-	for(var i = 0; i < editer.length; ++i) {
-		if(editer[i].ext == ext) {
+	for(var i = 0; i < editer_backup.length; ++i) {
+		if(editer_backup[i].ext == ext) {
 			var pathname = sys.dialog_open(get_filters_exe());
 			if(pathname.length > 0)
-				editer[i].editer = pathname;
+				editer_backup[i].editer = pathname;
 				
 			break;
 		}
@@ -1256,19 +1274,31 @@ function show_edit_ctrl(lyer_id, ext) {
 }
 
 function change_extension(lyer_id, ext) {
-	print(lyer_id);
 	var edt = eval(lyer_id + ".change");
 	edt.hide();
 	
 	var lyer = eval(lyer_id);
 	var new_ext = edt.text;
 	if(ext == ".unknow") {
+		// get editor
+		var edtr = eval(lyer_id + ".editor");
+		var edtr_txt = edtr.text;
+		
+		// delete temp item
 		edit_view_options.editor.list.remove(lyer.id);
 		if(new_ext.length == 0 || new_ext == ".unknow")
 			return;
-			
-		insert_editor_item(new_ext, "......");
-	}	
+		
+		// insert new item
+		var typename = insert_editor_item(new_ext, edtr_txt);
+		if(typename.length > 0) {
+			var edr = {};
+			edr.ext = new_ext;
+			edr.editer = edtr_txt;
+			edr.typename = typename;
+			editer_backup.push(edr);
+		}
+	}
 	
 	lyer.redraw();
 }
@@ -1278,14 +1308,18 @@ function add_editor() {
 	if(path.length == 0)
 		return;
 	
+	// insert temp item.
 	var ext = ".unknow";
 	var id = sys.hash(ext + "editor_ext");
 	edit_view_options.editor.list.insert({"id": "lyer" + id, "ext": ext, "desc": "", "editor": path});
 	
+	// show edit ctrl.
 	var btn = eval("lyer" + id + ".edit");
 	btn.click();
+	btn.hide();
 	
 	var edt = eval("lyer" + id + ".change");
+	edt.text = "";
 	edt.click();
 }
 

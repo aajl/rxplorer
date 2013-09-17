@@ -2,7 +2,7 @@
 <panel id="options" type="modal" visible="false" alpha="95" bkclr="#E5E5E5">
 	<size x="0" y="0" width="720" height="500" />
 	<border width="1" color="#404040" />
-	<events show="" />
+	<events show="show_editors()" />
 	<hittest>
 		<rect x="0" y="0" width="670" height="24" />
 	</hittest>
@@ -32,7 +32,7 @@
 		</states>
 	</button>
 
-	<button text="lang.ok" action="window.close()" x="650" y="465" width="59" height="24" align="center,vcenter">
+	<button text="lang.ok" action="on_ok_options()" x="650" y="465" width="59" height="24" align="center,vcenter">
 		<states normal="button.png" width="59" height="24">
 			<normal x="0" />
 			<hover x="59" />
