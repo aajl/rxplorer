@@ -1,5 +1,7 @@
 ::说明: 传入的路径后面必须带\
 
+::使用方法: MakeCabPack.bat F:\update_package\ Package.cab
+
 @echo off
 
 ::如果不加这句,for里的set strPath=%%d就会无效
