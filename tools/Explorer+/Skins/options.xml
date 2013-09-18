@@ -2,7 +2,7 @@
 <panel id="options" type="modal" visible="false" alpha="95" bkclr="#E5E5E5">
 	<size x="0" y="0" width="720" height="500" />
 	<border width="1" color="#404040" />
-	<events show="show_editors()" />
+	<events show="show_editor_viewer()" />
 	<hittest>
 		<rect x="0" y="0" width="670" height="24" />
 	</hittest>
@@ -172,7 +172,7 @@
 		<!--editor setting-->
 		<label text="lang.editor_setting" align="vcenter" position="relative" x="6" y="5" width="170" height="20" />
 		
-		<button id=".add_editor" text="lang.add_editor" align="left,vcenter" offset="26" action="add_editor()">
+		<button id=".add_editor" text="lang.add_editor" align="left,vcenter" offset="26" action="add_editor_viewer('editor')">
 			<pos position="relative" adapt="false" x="366" y="3" width="140" height="24" />
 			<states normal="add_editor.png" width="20" height="20">
 				<normal dx="2" dy="2" bkclr="#ffffff" />
@@ -219,17 +219,17 @@
 					<edit id=".change" position="relative" x="1" y="2" width="156" height="20" bkclr="#ffffff" ext="item.ext" parent_id="item.id">
 						<attribs visible="false" attrib="visible_along" offset="1" />
 						<border width="1" color="#316AC5" />
-						<events enter="change_extension(this.parent_id, this.ext)" killfocus="change_extension(this.parent_id, this.ext)" />
+						<events enter="change_editor_viewer_ext('editor', editor_backup, this.parent_id, this.ext)" killfocus="change_editor_viewer_ext('editor', editor_backup, this.parent_id, this.ext)" />
 					</edit>
 					<label width="1" height="24">
 						<border width="1" color="#EBF4FE" left="1" />
 					</label>
 					<label id=".editor" text="item.editor" align="vcenter" offset="5" position="relative" width="335" height="24" />
-					<button id=".open" visible="false" attrib="visible_along" ext="item.ext" action="change_editor(this.ext)">
+					<button id=".open" visible="false" attrib="visible_along" ext="item.ext" parent_id="item.id" action="change_editor_viewer_path('editor', editor_backup, this.parent_id, this.ext)">
 						<pos position="relative" adapt="false" x="-44" y="2" width="20" height="20" />
 						<states link="states.open_folder" />
 					</button>
-					<button id=".close" visible="false" attrib="visible_along" ext="item.ext" action="delete_editor(this.ext, this.id)">
+					<button id=".close" visible="false" attrib="visible_along" ext="item.ext" action="delete_editor_viewer('editor', editor_backup, this.ext, this.id)">
 						<pos position="relative" adapt="false" x="-22" y="2" width="20" height="20" />
 						<states link="states.trash" />
 					</button>
@@ -240,7 +240,7 @@
 		<!--viewer setting-->
 		<label text="lang.viewer_setting" align="vcenter" position="relative" x="6" y="218" width="170" height="20" />
 		
-		<button id=".add_viewer" text="lang.add_viewer" align="left,vcenter" offset="26" action="add_viewer()">
+		<button id=".add_viewer" text="lang.add_viewer" align="left,vcenter" offset="26" action="add_editor_viewer('viewer')">
 			<pos position="relative" adapt="false" x="366" y="215" width="140" height="24" />
 			<states normal="add_viewer.png" width="20" height="20">
 				<normal dx="2" dy="2" bkclr="#ffffff" />
@@ -283,19 +283,24 @@
 					<label text="item.desc" icon="item.ext" align="vcenter" offset="24" position="relative" width="159" height="24">
 						<icon x="3" y="4" size="16" />
 					</label>
-					<button id=".edit" visible="false" attrib="visible_along" ext="item.ext" action="">
+					<button id=".edit" visible="false" attrib="visible_along" ext="item.ext" parent_id="item.id" action="show_edit_ctrl(this.parent_id, this.ext)">
 						<pos position="relative" adapt="false" x="137" y="2" width="20" height="20" />
 						<states link="states.edit" />
 					</button>
+					<edit id=".change" position="relative" x="1" y="2" width="156" height="20" bkclr="#ffffff" ext="item.ext" parent_id="item.id">
+						<attribs visible="false" attrib="visible_along" offset="1" />
+						<border width="1" color="#316AC5" />
+						<events enter="change_editor_viewer_ext('viewer', viewer_backup, this.parent_id, this.ext)" killfocus="change_editor_viewer_ext('viewer', viewer_backup, this.parent_id, this.ext)" />
+					</edit>
 					<label width="1" height="24">
 						<border width="1" color="#EBF4FE" left="1" />
 					</label>
-					<label text="item.viewer" align="vcenter" offset="5" position="relative" width="335" height="24" />
-					<button id=".open" visible="false" attrib="visible_along" ext="item.ext" action="">
+					<label id=".viewer" text="item.viewer" align="vcenter" offset="5" position="relative" width="335" height="24" />
+					<button id=".open" visible="false" attrib="visible_along" ext="item.ext" parent_id="item.id" action="change_editor_viewer_path('viewer', viewer_backup, this.parent_id, this.ext)">
 						<pos position="relative" adapt="false" x="-44" y="2" width="20" height="20" />
 						<states link="states.open_folder" />
 					</button>
-					<button id=".close" visible="false" attrib="visible_along" ext="item.ext" action="">
+					<button id=".close" visible="false" attrib="visible_along" ext="item.ext" action="delete_editor_viewer('viewer', viewer_backup, this.ext, this.id)">
 						<pos position="relative" adapt="false" x="-22" y="2" width="20" height="20" />
 						<states link="states.trash" />
 					</button>

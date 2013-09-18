@@ -1,8 +1,8 @@
 var folder_index = 0;
 var xplorer_left_pos = 0;
 var setting = {};
-var editer = [];
-var editer_backup = [];
+var editor = [];
+var viewer = [];
 var bookmark = [];
 var selected_files = [];
 var favorite_folders = [];
@@ -335,14 +335,18 @@ $(function(){
 	if(setting.explorer.max)
 		explorer.max();
 	
-	editer = json_from_file("editer.json", []);
-	for(var i = 0; i < editer.length; ++i) {
-		editer[i].editer = editer[i].editer.replace(/%Sys/gi, sys.path.system);
-		editer[i].editer = editer[i].editer.replace(/%App/gi, sys.path.app);
+	editor = json_from_file("editor.json", []);
+	for(var i = 0; i < editor.length; ++i) {
+		editor[i].editor = editor[i].editor.replace(/%Sys/gi, sys.path.system);
+		editor[i].editor = editor[i].editor.replace(/%App/gi, sys.path.app);
 	}
 	
-	//show_editors();
-	
+	viewer = json_from_file("viewer.json", []);
+	for(var i = 0; i < viewer.length; ++i) {
+		viewer[i].viewer = viewer[i].viewer.replace(/%Sys/gi, sys.path.system);
+		viewer[i].viewer = viewer[i].viewer.replace(/%App/gi, sys.path.app);
+	}
+
 	sys.shell_execute(sys.path.app + "/search.exe",  "-app -mutex search_helper_mutex -Module Modules/MSearch.dll", "on_scan_completed");
 });
 
@@ -881,20 +885,41 @@ function on_accel(accel) {
 	print(accel + "\n");
 }
 
-function find_editer(ext) {
+function find_editor(ext) {
 	print("ext " + ext + "\n");
-	for(var i = 0; i < editer.length; ++i) {
-		if(editer[i].ext.toLowerCase() == ext)
-			return editer[i].editer;
+	for(var i = 0; i < editor.length; ++i) {
+		if(editor[i].ext.toLowerCase() == ext)
+			return editor[i].editor;
 	}
 	
-	return editer.length == 0 ? null : editer[0].editer;
+	return editor.length == 0 ? null : editor[0].editor;
 }
 
 function edit_file() {
 	for(var i = 0; i < selected_files.length; ++i) {
 		var path = new jpath(selected_files[i]);
-		var edtr = find_editer(path.ext().toLowerCase());
+		var edtr = find_editor(path.ext().toLowerCase());
+		if(edtr == null)
+			continue;
+		
+		sys.shell_execute(edtr, "\"" + selected_files[i] + "\"");
+	}
+}
+
+function find_viewer(ext) {
+	print("ext " + ext + "\n");
+	for(var i = 0; i < viewer.length; ++i) {
+		if(viewer[i].ext.toLowerCase() == ext)
+			return viewer[i].viewer;
+	}
+	
+	return viewer.length == 0 ? null : viewer[0].viewer;
+}
+
+function view_file() {
+	for(var i = 0; i < selected_files.length; ++i) {
+		var path = new jpath(selected_files[i]);
+		var edtr = find_viewer(path.ext().toLowerCase());
 		if(edtr == null)
 			continue;
 		
@@ -1176,159 +1201,4 @@ function change_language(language) {
 	lang.change(langg.id);
 	
 	setting.explorer.lang = language;
-}
-
-function insert_editor_item(ext, edtr, typename) {
-	var name = "";
-	if(typeof(typename) == "undefined") {
-		typename = extension.typename(ext);
-		name = typename;
-	}
-
-	typename = ext + " (" + typename + ")";
-	var id = sys.hash(typename);
-	edit_view_options.editor.list.insert({"id": "lyer" + id, "ext": ext, "desc": typename, "editor": edtr});
-	
-	return name;
-}
-
-function show_editors() {
-	var save = false;
-	edit_view_options.editor.list.set_redraw(false);
-	edit_view_options.editor.list.clear();
-	for(var i = 0; i < editer.length; ++i) {
-		var typename = editer[i].typename;
-		print(typename + "\n");
-		var name = insert_editor_item(editer[i].ext, editer[i].editer, typename);
-		if(name.length > 0) {
-			save = true;
-			editer[i].typename = name;
-		}
-	}
-	
-	edit_view_options.editor.list.set_redraw(true);
-	
-	// save typename to file.
-	if(save)
-		save2file(editer, "editer.json");
-
-	// backup editor for restore.
-	editer_backup = editer.slice(0);
-}
-
-function on_ok_options() {
-	options.hide();
-	
-	// apply changes.
-	editer = editer_backup.concat();
-	save2file(editer, "editer.json");
-}
-
-function delete_ctrl_item(ctrl, item_id) {
-	var ids = item_id.split(".");
-	ids.splice(ids.length - 1, 1);
-	item_id = ids.join(".");
-	ctrl.remove(item_id);
-}
-
-function delete_editor(ext, item_id) {
-	if(ext == ".unknow") {
-		delete_ctrl_item(edit_view_options.editor.list, item_id);
-		return;
-	}
-	
-	for(var i = 0; i < editer_backup.length; ++i) {
-		if(editer_backup[i].ext == ext) {
-			delete_ctrl_item(edit_view_options.editor.list, item_id);
-			editer_backup.splice(i, 1);
-			break;
-		}
-	}
-}
-
-function get_filters_exe() {
-	var typename = extension.typename(".exe");
-	var filters = typename + "(*.exe)|*.exe||";
-	return filters;
-}
-
-function change_editor(ext) {
-	for(var i = 0; i < editer_backup.length; ++i) {
-		if(editer_backup[i].ext == ext) {
-			var pathname = sys.dialog_open(get_filters_exe());
-			if(pathname.length > 0)
-				editer_backup[i].editer = pathname;
-				
-			break;
-		}
-	}
-}
-
-function show_edit_ctrl(lyer_id, ext) {
-	var btn = eval(lyer_id + ".edit");
-	btn.hide();
-	
-	var edt = eval(lyer_id + ".change");
-	edt.text = ext;
-	edt.show();
-}
-
-function change_extension(lyer_id, ext) {
-	var edt = eval(lyer_id + ".change");
-	edt.hide();
-	
-	var lyer = eval(lyer_id);
-	var new_ext = edt.text;
-	if(ext == ".unknow") {
-		// get editor
-		var edtr = eval(lyer_id + ".editor");
-		var edtr_txt = edtr.text;
-		
-		// delete temp item
-		edit_view_options.editor.list.remove(lyer.id);
-		if(new_ext.length == 0 || new_ext == ".unknow")
-			return;
-		
-		// insert new item
-		var typename = insert_editor_item(new_ext, edtr_txt);
-		if(typename.length > 0) {
-			var edr = {};
-			edr.ext = new_ext;
-			edr.editer = edtr_txt;
-			edr.typename = typename;
-			editer_backup.push(edr);
-		}
-	}
-	
-	lyer.redraw();
-}
-
-function add_editor() {
-	var path = sys.dialog_open(get_filters_exe());
-	if(path.length == 0)
-		return;
-	
-	// insert temp item.
-	var ext = ".unknow";
-	var id = sys.hash(ext + "editor_ext");
-	edit_view_options.editor.list.insert({"id": "lyer" + id, "ext": ext, "desc": "", "editor": path});
-	
-	// show edit ctrl.
-	var btn = eval("lyer" + id + ".edit");
-	btn.click();
-	btn.hide();
-	
-	var edt = eval("lyer" + id + ".change");
-	edt.text = "";
-	edt.click();
-}
-
-function add_viewer() {
-	var path = sys.dialog_open(get_filters_exe());
-	if(path.length == 0)
-		return;
-	
-	var ext = ".unknow";
-	var id = sys.hash(ext);
-	edit_view_options.viewer.list.insert({"id": "lyer" + id, "ext": ext, "desc": "", "viewer": path});
 }

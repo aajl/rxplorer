@@ -7,6 +7,7 @@
 	</layer>
 	
 	<script type="javascript" src="skin.js" />
+	<script type="javascript" src="options.js" />
 
 	<include>res.xml</include>
 	
@@ -24,6 +25,7 @@
 	</scroll>
 
 	<accels id="accel" handler="on_accel">
+		<accel vkey="" key="F3" action="view_file()" />
 		<accel vkey="" key="F4" action="edit_file()" />
 		<accel vkey="" key="F6" action="copy_file()" />
 		<accel vkey="" key="F7" action="move_file()" />
