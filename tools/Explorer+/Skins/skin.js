@@ -64,7 +64,7 @@ var extension = new jpath();
 // 44. 按键盘上的字母,找到某个文件后,再按快捷键编辑选中的文件,打开的却不是当前选中的文件. √
 // 38. 地地栏里点击下拉菜单进,如果子文件夹较多,下拉菜单里显示不全,此时建议加滚动条. √
 // 42. 点击某一未打开文件夹时,如果它打开太慢,在未打开情况下再点击另一文件夹,则会导致显示错乱.()
-// 21. 无各类设置窗口.
+// 21. 无各类设置窗口. √
 // 9. 菜单栏不能用
 
 $(function(){
@@ -1128,7 +1128,7 @@ function resize_panel(pnl, item_count, item_height, margin) {
 
 function check_for_update() {
 	new_version = "";
-	sys.updater.check(sys.path.app + '/Skins/Explorer/skin.xml');
+	sys.updater.check("explorer", sys.path.app + '/Skins/skin.xml');
 	about.show()
 }
 

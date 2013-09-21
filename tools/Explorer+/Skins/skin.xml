@@ -6,6 +6,7 @@
 		<skydrive>https://14htia.bay.livefilestore.com/y1mJcOHYxwEJ8PTvVaj79-Y9XW1FhfiLfKTylClf-qsnMWZsEF9uzzmaf0ft6njk3UbXIeyDzaPMmuL1iWtXXB3f2XJ_6su3rPm3GJik9ZOOi8/update.xml</skydrive>
 	</layer>
 	
+	<script type="javascript" src="update.js" />
 	<script type="javascript" src="skin.js" />
 	<script type="javascript" src="options.js" />
 
