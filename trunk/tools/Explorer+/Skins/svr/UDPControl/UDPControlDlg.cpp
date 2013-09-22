@@ -208,7 +208,7 @@ void CUDPControlDlg::OnBnClickedChksavelog()
 static struct CmdInfo
 {
 	const char* cmd;
-	bool (CUDPControlDlg::*fn)(const gtl::str&, gtl::tstr*);
+	bool (CUDPControlDlg::*fn)(const gtl::str&, gtl::str*);
 }cmds[] = 
 {
 	"poweroff:",			&CUDPControlDlg::Poweroff,
@@ -349,7 +349,7 @@ void CUDPControlDlg::Start()
 	//	//MessageBox(_T("创建多播地址失败,此次启动将不支持局域网广播."), _T("错误"), MB_OK | MB_ICONINFORMATION);
 	//}
 
-	typedef bool (CUDPControlDlg::*mem_fn_type)(const gtl::str&, gtl::tstr*);
+	typedef bool (CUDPControlDlg::*mem_fn_type)(const gtl::str&, gtl::str*);
 	auto find_cmd = [](const char* cmd) -> mem_fn_type {
 
 		mem_fn_type fn = NULL;
@@ -416,7 +416,7 @@ void CUDPControlDlg::Start()
 			if(!valid_termina)
 			{
 				gtl::str cmd;
-				this->m_callback.call(cmd, (mem_fn_type)NULL, log, [=](const gtl::str& cmd, bool (CUDPControlDlg::*fn)(const gtl::str&), const gtl::tstr& log) {
+				this->m_callback.call(cmd, (mem_fn_type)NULL, log, [=](const gtl::str& cmd, bool (CUDPControlDlg::*fn)(const gtl::str&, gtl::str*), const gtl::tstr& log) {
 					pThis->UpdateData(FALSE);
 				});
 
@@ -432,12 +432,20 @@ void CUDPControlDlg::Start()
 
 			gtl::str cmd = buf;
 			gtl::str ipaddr = ip;
-			this->m_callback.call(cmd, fn, log, [=](const gtl::str& cmd, bool (CUDPControlDlg::*fn)(const gtl::str&), const gtl::tstr& log) {
+			this->m_callback.call(cmd, fn, log, [=](const gtl::str& cmd, bool (CUDPControlDlg::*fn)(const gtl::str&, gtl::str*), const gtl::tstr& log) {
 
-				if(fn != NULL && (pThis->*fn)(cmd))
-					pThis->m_udp.sendto("ack", 3, ipaddr, port);
+				gtl::str result;
+				if(fn != NULL && (pThis->*fn)(cmd, &result))
+				{
+					if(result.empty())
+						pThis->m_udp.sendto("ack", 3, ipaddr, port);
+					else
+						pThis->m_udp.sendto(result, result.length(), ipaddr, port);
+				}
 				else
+				{
 					pThis->m_udp.sendto("error", 3, ipaddr, port);
+				}
 
 				pThis->UpdateData(FALSE);
 			});
@@ -592,12 +600,12 @@ BOOL CUDPControlDlg::SysReboot()
 	return TRUE;
 }
 
-bool CUDPControlDlg::Test(const gtl::str& cmd, gtl::tstr* result)
+bool CUDPControlDlg::Test(const gtl::str& cmd, gtl::str* result)
 {
 	return true;
 }
 
-bool CUDPControlDlg::Poweroff(const gtl::str& cmd, gtl::tstr* result)
+bool CUDPControlDlg::Poweroff(const gtl::str& cmd, gtl::str* result)
 {
 	std::vector<gtl::str> vecCmd;
 	cmd.split(vecCmd, ":");
@@ -608,7 +616,7 @@ bool CUDPControlDlg::Poweroff(const gtl::str& cmd, gtl::tstr* result)
 	return true;
 }
 
-bool CUDPControlDlg::Reboot(const gtl::str& cmd, gtl::tstr* result)
+bool CUDPControlDlg::Reboot(const gtl::str& cmd, gtl::str* result)
 {
 	std::vector<gtl::str> vecCmd;
 	cmd.split(vecCmd, ":");
@@ -619,19 +627,19 @@ bool CUDPControlDlg::Reboot(const gtl::str& cmd, gtl::tstr* result)
 	return true;
 }
 
-bool CUDPControlDlg::CancelPoweroff(const gtl::str& cmd, gtl::tstr* result)
+bool CUDPControlDlg::CancelPoweroff(const gtl::str& cmd, gtl::str* result)
 {
 	KillTimer(Timer_Poweroff);
 	return true;
 }
 
-bool CUDPControlDlg::CancelReboot(const gtl::str& cmd, gtl::tstr* result)
+bool CUDPControlDlg::CancelReboot(const gtl::str& cmd, gtl::str* result)
 {
 	KillTimer(Timer_Reboot);
 	return true;
 }
 
-bool CUDPControlDlg::Cmd(const gtl::str& cmd, gtl::tstr* result)
+bool CUDPControlDlg::Cmd(const gtl::str& cmd, gtl::str* result)
 {
 	std::vector<gtl::str> vecCmd;
 	cmd.split(vecCmd, ":");
@@ -639,7 +647,7 @@ bool CUDPControlDlg::Cmd(const gtl::str& cmd, gtl::tstr* result)
 		return false;
 
 	int index = vecCmd[1].cast<int>();
-	if(index > 8)
+	if(index > 16)
 		return false;
 
 	const gtl::tstr& cmdline = m_xml[_T("config")][_T("cmd")][gtl::tstr(_T("cmd")) << index](_T("cmd"));
@@ -650,7 +658,7 @@ bool CUDPControlDlg::Cmd(const gtl::str& cmd, gtl::tstr* result)
 	return true;
 }
 
-bool CUDPControlDlg::CmdName(const gtl::str& cmd, gtl::tstr* result)
+bool CUDPControlDlg::CmdName(const gtl::str& cmd, gtl::str* result)
 {
 	std::vector<gtl::str> vecCmd;
 	cmd.split(vecCmd, ":");
@@ -668,17 +676,17 @@ bool CUDPControlDlg::CmdName(const gtl::str& cmd, gtl::tstr* result)
 	gtl::path path;
 	path = cmdline;
 	if(result != NULL)
-		*result = path.filename();
+		*result = gtl::str(path.filename());
 
 	return true;
 }
 
-bool CUDPControlDlg::Shortcut(const gtl::str& cmd, gtl::tstr* result)
+bool CUDPControlDlg::Shortcut(const gtl::str& cmd, gtl::str* result)
 {
 	return gtl::keyboard::press(gtl::tstr(cmd));
 }
 
-bool CUDPControlDlg::JumpPPT(const gtl::str& cmd, gtl::tstr* result)
+bool CUDPControlDlg::JumpPPT(const gtl::str& cmd, gtl::str* result)
 {
 	std::vector<gtl::str> vecCmd;
 	cmd.split(vecCmd, ":");
@@ -697,7 +705,7 @@ bool CUDPControlDlg::JumpPPT(const gtl::str& cmd, gtl::tstr* result)
 	return true;
 }
 
-bool CUDPControlDlg::TurnTheVolumeUp(const gtl::str& cmd, gtl::tstr* result)
+bool CUDPControlDlg::TurnTheVolumeUp(const gtl::str& cmd, gtl::str* result)
 {
 	std::vector<gtl::str> vecCmd;
 	cmd.split(vecCmd, "+");
@@ -720,7 +728,7 @@ bool CUDPControlDlg::TurnTheVolumeUp(const gtl::str& cmd, gtl::tstr* result)
 	return true;
 }
 
-bool CUDPControlDlg::TurnTheVolumeDown(const gtl::str& cmd, gtl::tstr* result)
+bool CUDPControlDlg::TurnTheVolumeDown(const gtl::str& cmd, gtl::str* result)
 {
 	std::vector<gtl::str> vecCmd;
 	cmd.split(vecCmd, "-");
@@ -743,7 +751,7 @@ bool CUDPControlDlg::TurnTheVolumeDown(const gtl::str& cmd, gtl::tstr* result)
 	return true;
 }
 
-bool CUDPControlDlg::ScreenSaver(const gtl::str& cmd, gtl::tstr* result)
+bool CUDPControlDlg::ScreenSaver(const gtl::str& cmd, gtl::str* result)
 {
 	int active = 0;
 	SystemParametersInfo(SPI_GETSCREENSAVEACTIVE, 0, &active, 0);

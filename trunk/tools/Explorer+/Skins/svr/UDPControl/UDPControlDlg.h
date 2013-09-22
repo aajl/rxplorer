@@ -32,18 +32,18 @@ public:
 	virtual void OnTrayMsg(UINT nCmdID, UINT nMessage);
 
 public:
-	bool Test(const gtl::str& cmd, gtl::tstr* result = NULL);
-	bool Poweroff(const gtl::str& cmd, gtl::tstr* result = NULL);
-	bool Reboot(const gtl::str& cmd, gtl::tstr* result = NULL);
-	bool CancelPoweroff(const gtl::str& cmd, gtl::tstr* result = NULL);
-	bool CancelReboot(const gtl::str& cmd, gtl::tstr* result = NULL);
-	bool Cmd(const gtl::str& cmd, gtl::tstr* result = NULL);
-	bool CmdName(const gtl::str& cmd, gtl::tstr* result = NULL);
-	bool Shortcut(const gtl::str& cmd, gtl::tstr* result = NULL);
-	bool JumpPPT(const gtl::str& cmd, gtl::tstr* result = NULL);
-	bool TurnTheVolumeUp(const gtl::str& cmd, gtl::tstr* result = NULL);
-	bool TurnTheVolumeDown(const gtl::str& cmd, gtl::tstr* result = NULL);
-	bool ScreenSaver(const gtl::str& cmd, gtl::tstr* result = NULL);
+	bool Test(const gtl::str& cmd, gtl::str* result = NULL);
+	bool Poweroff(const gtl::str& cmd, gtl::str* result = NULL);
+	bool Reboot(const gtl::str& cmd, gtl::str* result = NULL);
+	bool CancelPoweroff(const gtl::str& cmd, gtl::str* result = NULL);
+	bool CancelReboot(const gtl::str& cmd, gtl::str* result = NULL);
+	bool Cmd(const gtl::str& cmd, gtl::str* result = NULL);
+	bool CmdName(const gtl::str& cmd, gtl::str* result = NULL);
+	bool Shortcut(const gtl::str& cmd, gtl::str* result = NULL);
+	bool JumpPPT(const gtl::str& cmd, gtl::str* result = NULL);
+	bool TurnTheVolumeUp(const gtl::str& cmd, gtl::str* result = NULL);
+	bool TurnTheVolumeDown(const gtl::str& cmd, gtl::str* result = NULL);
+	bool ScreenSaver(const gtl::str& cmd, gtl::str* result = NULL);
 
 	void SaveSetting();
 	void SetRegistered();
@@ -84,7 +84,7 @@ public:
 	gtl::xml m_xml;
 	gtl::net::socket m_udp;
 	gtl::thread<> m_thread;
-	gtl::callback<gtl::mpl::fun<void (const gtl::str& /*cmd*/, 	bool (CUDPControlDlg::*)(const gtl::str&), const gtl::tstr& /*log*/)>> m_callback;
+	gtl::callback<gtl::mpl::fun<void (const gtl::str& /*cmd*/, 	bool (CUDPControlDlg::*)(const gtl::str&, gtl::str*), const gtl::tstr& /*log*/)>> m_callback;
 	bool m_start;
 	std::vector<termina> m_termina;
 	CLicense m_license;

@@ -21,6 +21,14 @@ CDialogStartupSetting::CDialogStartupSetting(CWnd* pParent /*=NULL*/)
 	, m_strCmd6(_T(""))
 	, m_strCmd7(_T(""))
 	, m_strCmd8(_T(""))
+	, m_strCmd9(_T(""))
+	, m_strCmd10(_T(""))
+	, m_strCmd11(_T(""))
+	, m_strCmd12(_T(""))
+	, m_strCmd13(_T(""))
+	, m_strCmd14(_T(""))
+	, m_strCmd15(_T(""))
+	, m_strCmd16(_T(""))
 {
 	m_dlg = NULL;
 	m_xml = NULL;
@@ -42,6 +50,14 @@ void CDialogStartupSetting::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_TxtCmd6, m_strCmd6);
 	DDX_Text(pDX, IDC_TxtCmd7, m_strCmd7);
 	DDX_Text(pDX, IDC_TxtCmd8, m_strCmd8);
+	DDX_Text(pDX, IDC_TxtCmd9, m_strCmd9);
+	DDX_Text(pDX, IDC_TxtCmd10, m_strCmd10);
+	DDX_Text(pDX, IDC_TxtCmd11, m_strCmd11);
+	DDX_Text(pDX, IDC_TxtCmd12, m_strCmd12);
+	DDX_Text(pDX, IDC_TxtCmd13, m_strCmd13);
+	DDX_Text(pDX, IDC_TxtCmd14, m_strCmd14);
+	DDX_Text(pDX, IDC_TxtCmd15, m_strCmd15);
+	DDX_Text(pDX, IDC_TxtCmd16, m_strCmd16);
 }
 
 
@@ -55,6 +71,14 @@ BEGIN_MESSAGE_MAP(CDialogStartupSetting, CDialogEx)
 	ON_BN_CLICKED(IDC_BtnBrowse7, &CDialogStartupSetting::OnBnClickedBtnbrowse7)
 	ON_BN_CLICKED(IDC_BtnBrowse8, &CDialogStartupSetting::OnBnClickedBtnbrowse8)
 	ON_BN_CLICKED(IDOK, &CDialogStartupSetting::OnBnClickedOk)
+	ON_BN_CLICKED(IDC_BtnBrowse9, &CDialogStartupSetting::OnBnClickedBtnbrowse9)
+	ON_BN_CLICKED(IDC_BtnBrowse10, &CDialogStartupSetting::OnBnClickedBtnbrowse10)
+	ON_BN_CLICKED(IDC_BtnBrowse11, &CDialogStartupSetting::OnBnClickedBtnbrowse11)
+	ON_BN_CLICKED(IDC_BtnBrowse12, &CDialogStartupSetting::OnBnClickedBtnbrowse12)
+	ON_BN_CLICKED(IDC_BtnBrowse13, &CDialogStartupSetting::OnBnClickedBtnbrowse13)
+	ON_BN_CLICKED(IDC_BtnBrowse14, &CDialogStartupSetting::OnBnClickedBtnbrowse14)
+	ON_BN_CLICKED(IDC_BtnBrowse15, &CDialogStartupSetting::OnBnClickedBtnbrowse15)
+	ON_BN_CLICKED(IDC_BtnBrowse16, &CDialogStartupSetting::OnBnClickedBtnbrowse16)
 END_MESSAGE_MAP()
 
 
@@ -77,6 +101,14 @@ BOOL CDialogStartupSetting::OnInitDialog()
 		m_strCmd6 = xml[_T("config")][_T("cmd")][_T("cmd6")](_T("cmd"));
 		m_strCmd7 = xml[_T("config")][_T("cmd")][_T("cmd7")](_T("cmd"));
 		m_strCmd8 = xml[_T("config")][_T("cmd")][_T("cmd8")](_T("cmd"));
+		m_strCmd9 = xml[_T("config")][_T("cmd")][_T("cmd9")](_T("cmd"));
+		m_strCmd10 = xml[_T("config")][_T("cmd")][_T("cmd10")](_T("cmd"));
+		m_strCmd11 = xml[_T("config")][_T("cmd")][_T("cmd11")](_T("cmd"));
+		m_strCmd12 = xml[_T("config")][_T("cmd")][_T("cmd12")](_T("cmd"));
+		m_strCmd13 = xml[_T("config")][_T("cmd")][_T("cmd13")](_T("cmd"));
+		m_strCmd14 = xml[_T("config")][_T("cmd")][_T("cmd14")](_T("cmd"));
+		m_strCmd15 = xml[_T("config")][_T("cmd")][_T("cmd15")](_T("cmd"));
+		m_strCmd16 = xml[_T("config")][_T("cmd")][_T("cmd16")](_T("cmd"));
 
 		UpdateData(FALSE);
 	}
@@ -151,10 +183,66 @@ void CDialogStartupSetting::OnBnClickedOk()
 	xml[_T("config")][_T("cmd")][_T("cmd6")](_T("cmd")) = m_strCmd6;
 	xml[_T("config")][_T("cmd")][_T("cmd7")](_T("cmd")) = m_strCmd7;
 	xml[_T("config")][_T("cmd")][_T("cmd8")](_T("cmd")) = m_strCmd8;
+	xml[_T("config")][_T("cmd")][_T("cmd9")](_T("cmd")) = m_strCmd9;
+	xml[_T("config")][_T("cmd")][_T("cmd10")](_T("cmd")) = m_strCmd10;
+	xml[_T("config")][_T("cmd")][_T("cmd11")](_T("cmd")) = m_strCmd11;
+	xml[_T("config")][_T("cmd")][_T("cmd12")](_T("cmd")) = m_strCmd12;
+	xml[_T("config")][_T("cmd")][_T("cmd13")](_T("cmd")) = m_strCmd13;
+	xml[_T("config")][_T("cmd")][_T("cmd14")](_T("cmd")) = m_strCmd14;
+	xml[_T("config")][_T("cmd")][_T("cmd15")](_T("cmd")) = m_strCmd15;
+	xml[_T("config")][_T("cmd")][_T("cmd16")](_T("cmd")) = m_strCmd16;
 	xml.insert_if_not(false, true);
 
 	if(m_dlg != NULL)
 		m_dlg->SaveSetting();
 
 	CDialogEx::OnOK();
+}
+
+
+void CDialogStartupSetting::OnBnClickedBtnbrowse9()
+{
+	SelectFile(m_strCmd9);
+}
+
+
+void CDialogStartupSetting::OnBnClickedBtnbrowse10()
+{
+	SelectFile(m_strCmd10);
+}
+
+
+void CDialogStartupSetting::OnBnClickedBtnbrowse11()
+{
+	SelectFile(m_strCmd11);
+}
+
+
+void CDialogStartupSetting::OnBnClickedBtnbrowse12()
+{
+	SelectFile(m_strCmd12);
+}
+
+
+void CDialogStartupSetting::OnBnClickedBtnbrowse13()
+{
+	SelectFile(m_strCmd13);
+}
+
+
+void CDialogStartupSetting::OnBnClickedBtnbrowse14()
+{
+	SelectFile(m_strCmd14);
+}
+
+
+void CDialogStartupSetting::OnBnClickedBtnbrowse15()
+{
+	SelectFile(m_strCmd15);
+}
+
+
+void CDialogStartupSetting::OnBnClickedBtnbrowse16()
+{
+	SelectFile(m_strCmd16);
 }
