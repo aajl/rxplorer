@@ -6,7 +6,7 @@
 		<skydrive>https://14htia.bay.livefilestore.com/y1mJcOHYxwEJ8PTvVaj79-Y9XW1FhfiLfKTylClf-qsnMWZsEF9uzzmaf0ft6njk3UbXIeyDzaPMmuL1iWtXXB3f2XJ_6su3rPm3GJik9ZOOi8/update.xml</skydrive>
 	</layer>
 	
-	<script type="javascript" src="update.js" />
+	<script type="javascript" encrypt="false" src="update.js" />
 	<script type="javascript" src="skin.js" />
 	<script type="javascript" src="options.js" />
 
@@ -56,7 +56,7 @@
 			<bkimg x="x" y="y" width="width" height="height" />
 		</label>
 
-		<!--系统按钮-->
+		<!--sys button-->
 		<layer id="sys_btn" x="770" y="2" width="103" height="18" float="right" margin="0,0">
 			<button id=".min" action="window.min();" width="28">
 				<states normal="imgs.main_hover" x="770" width="width" height="height">
@@ -82,9 +82,9 @@
 					<hover y="23" />
 				</states>
 			</button>
-		</layer> <!--系统按钮-->
+		</layer> <!--sys button-->
 		
-		<!--主菜单按钮-->
+		<!--main menu-->
 		<custom id="main_menu_btns" type="tiled" x="110" y="2" width="275" height="20" col="7" margin="0,2" bkclr="#E5E5E5">
 			<items width="53" height="20">
 				<item id="menu_file_btn" text="lang.menu_file" popup="main_menu.menu_file" />
@@ -104,7 +104,7 @@
 			</button>
 		</custom>
 
-		<!--常用工具栏-->
+		<!--toolbar-->
 		<custom id="toolbar" x="1" y="24" width="172" height="29" col="10" type="tiled" margin="0,1,0,7" bkclr="#E5E5E5" bkimg="dragable.png">
 			<bkimg dx="2" dy="3" />
 			<items width="29" height="29">
@@ -145,7 +145,7 @@
 			</if>
 		</custom>
 		
-		<!--收藏工具栏-->
+		<!--favorite tools-->
 		<custom id="favtools" x="173" y="24" width="704" height="29" row="1" col="100" type="tiled" margin="0,1,0,7" float="width">
 			<attribs bkclr="#E5E5E5" bkimg="dragable.png" oninit="load_favorite_tools()" />
 			<bkimg dx="2" dy="3" />
@@ -162,7 +162,7 @@
 			</button>
 		</custom>
 
-		<!--磁盘栏-->
+		<!--drive bar-->
 		<custom id="drivebar" x="1" y="54" width="200" height="29" col="26" type="tiled" margin="0,1,0,7">
 			<attribs bkclr="#E5E5E5" oninit="" />
 			<bkimg src="dragable.png" dx="2" dy="3" />
@@ -184,7 +184,7 @@
 			</layer>
 		</custom>
 		
-		<!--地址栏-->
+		<!--address bar-->
 		<layer id="addrbar" x="201" y="56" width="433" height="26" float="width">
 			<!--Undo/Redo-->
 			<custom id=".do" position="relative" x="0" y="0" width="59" height="26" col="4" type="tiled" margin="0,1,0,7" bkclr="#E5E5E5">
@@ -204,7 +204,7 @@
 				</button>
 			</custom>
 
-			<!--历史记录按钮-->
+			<!--history button-->
 			<button id=".history" position="relative" x="56" y="2" width="17" height="23" action="load_historys()" popup="historys_pane">
 				<events tooltip="show_tooltip(this, lang.get('history'))" mouse_out="tooltip.hide()" />
 				<states normal="recent.png" width="17" height="23">
@@ -215,7 +215,7 @@
 				</states>
 			</button>
 
-			<!--向上按钮-->
+			<!--up button-->
 			<button id=".up" position="relative" x="74" y="2" width="24" height="22" action="up()">
 				<events tooltip="show_tooltip(this, lang.get('up'))" mouse_out="tooltip.hide()" />
 				<states normal="up.png" width="24" height="22">
@@ -225,11 +225,11 @@
 				</states>
 			</button>
 
-			<!--地址栏-->
+			<!--address bar-->
 			<layer id=".addrbar" x="100" y="0" width="333" height="25" bkclr="#FFFFFF" float="width">
 				<border width="1" color="#316AC5" />
 				
-				<!--图标按钮-->
+				<!--system folder-->
 				<button id=".sysfolder" position="relative" x="3" y="2" width="21" height="21" popup="common_folders_pane">
 					<states width="16" height="16">
 						<normal icon="icons.computer" border="0" bkclr="#FFFFFF" />
@@ -238,7 +238,7 @@
 					</states>
 				</button>
 
-				<!--多功能箭头-->
+				<!--system folder-->
 				<button id=".sysfolder2" position="relative" x="26" y="2" width="9" height="21" adapt="false" popup="common_folders_pane">
 					<states normal="triangle.png" dx="3" dy="9">
 						<normal border="0" bkclr="#FFFFFF" />
@@ -246,7 +246,7 @@
 					</states>
 				</button>
 
-				<!--地址栏-->
+				<!--address bar-->
 				<addr id="addr" path="" position="relative" x="36" y="1" width="260" height="23" bkclr="#FFFFFF" float="width">
 					<events click_path="open_folder" />
 					<states width="0" height="0">
@@ -285,7 +285,7 @@
 					</panel>
 				</addr>
 				
-				<!--收藏夹按钮-->
+				<!--favorite button-->
 				<button id=".favorite" position="relative" x="-36" y="2" width="12" height="21" adapt="false" popup="favfolders_pane" float="right">
 					<events tooltip="show_tooltip(this, lang.get('favorite'))" mouse_out="tooltip.hide()" />
 					<states normal="fav.png" dx="1" dy="6">
@@ -295,7 +295,7 @@
 					</states>
 				</button>
 
-				<!--复制当前路径按钮-->
+				<!--copy current path button-->
 				<button id=".copy" position="relative" x="-23" y="2" width="21" height="21" adapt="false" float="right" action="copy_curr_path()">
 					<events tooltip="show_tooltip(this, lang.get('copy_curr_path'), 'F10')" mouse_out="tooltip.hide()" />
 					<states width="16" height="16">
@@ -307,7 +307,7 @@
 			</layer>
 		</layer>
 		
-		<!--搜索栏-->
+		<!--search bar-->
 		<layer id="searchbar" x="637" y="56" width="240" height="25" bkclr="#ffffff" float="right">
 			<border width="1" color="#316AC5" />
 			
@@ -323,7 +323,7 @@
 			</button>
 		</layer>
 			
-		<!--文件夹树控件-->
+		<!--folder tree ctrl-->
 		<layer id="treeview" x="3" y="85" width="240" height="500" bkclr="#E5E5E5" float="height">
 			<border width="1" color="#ACA899" />
 			
@@ -412,7 +412,7 @@
 		
 		<layer id="xplrfrm" x="245" y="85" width="632" height="500" float="width,height" />
 
-		<!--文件视图-->
+		<!--file view-->
 		<layer id="xplr" x="245" y="85" width="630" height="500" bkclr="#E5E5E5" float="width,height">
 			<layer id="xplorer" x="0" y="0" width="315" height="500" float="wratio,height">
 				<border width="1" color="#ACA899" />
@@ -468,7 +468,7 @@
 				</custom>
 			</layer>
 			
-			<!--文件视图2-->
+			<!--file view 2-->
 			<layer id="xplorer2" x="leftof-xplorer,2" y="0" width="315" height="500" float="wratio,height">
 				<border width="1" color="#ACA899" />
 				
