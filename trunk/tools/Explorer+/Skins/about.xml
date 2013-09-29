@@ -10,12 +10,12 @@
 		<border width="1" color="#404040" right="1" />
 	</label>
 
-	<label id="title" text="lang.about" x="9" y="0" width="120" height="20" color="#ffffff" font="fonts.bold_9">
+	<!--label id="title" text="lang.about" x="9" y="0" width="120" height="20" color="#ffffff" font="fonts.bold_9">
 		<attribs adapt="true" align="center,vcenter" />
 		<bkimg src="imgs.main_hover" x="x" y="y" width="96" height="height">
-			<!--x x="10" y="0" width="20" height="23" /-->
+			<!--x x="10" y="0" width="20" height="23" /->
 		</bkimg>		
-	</label>
+	</label-->
 
 	<button id="close" x="365" y="1" width="48" height="18" action="window.close()">
 		<states normal="imgs.main_hover" x="825" width="width" height="height">
@@ -24,23 +24,42 @@
 		</states>
 	</button>
 	
-	<img src="about.png" x="1" y="26" width="418" height="93" adapt="true" />
+	<img icon="Explorer.ico|0|128" x="1" y="26" width="128" height="128">
+		<icon x="0" size="128" />
+	</img>
 	
-	<label text="lang.title" x="14" y="140" width="70" height="20" font="fonts.song_10" />
-	<label id=".version" text="1.0.0" x="90" y="140" width="50" height="20" font="fonts.song_10" />
+	<label text="lang.title" x="140" y="26" width="260" height="40">
+		<font color="RGB(229, 135, 42)" size="20" weight="700" />
+	</label>
 	
-	<button id=".update" x="140" y="140" width="adapt,8" height="20" align="left,top" font="fonts.arial_9" color="#606060" text="已是最新版本">
+	<label id=".version" text="1.0.0" x="140" y="65" width="50" height="20" align="left,vcenter" font="fonts.arial_9" />
+	
+	<button id=".update" x="190" y="66" width="adapt,8" height="20" align="left,vcenter" font="fonts.arial_9" color="#606060" text="已是最新版本">
 		<states>
 			<normal bkclr="#E5E5E5" />
 		</states>
 	</button>
 	
-	<label x="14" y="160" width="400" height="60" font="fonts.song_10">
-		<text>
-			Copyright (C) 2007-2013 Explorer+.
-		</text>
-	</label>
+	<label text="Copyright (C) 2007-2013 Future Studio." x="140" y="90" width="260" height="20" font="fonts.song_10" />	
 	
+	<label text="explorerplus@gmail.com" x="140" y="115" width="260" height="20" align="left,vcenter" color="#3484DF" font="fonts.arial_9_hyperlink" action="print('')" />
+	
+	<label text="License to:" x="140" y="140" width="100" height="20" align="left,vcenter" />
+	
+	<label id=".user" text="Unregistered" x="205" y="140" width="160" height="20" align="left,vcenter" font="fonts.arial_9" />
+
+	<label id=".email" text="lang.email" x="14" y="204" width="70" height="20" font="fonts.arial_9" />
+	<edit id=".mail" x="84" y="200" width="200" height="20" offset="1" bkclr="#ffffff" hint="lang.email_hint">
+		<border width="1" color="#316AC5" />
+	</edit>
+
+	<label id=".license" text="lang.license" x="14" y="234" width="70" height="20" font="fonts.arial_9" />
+	<edit id=".code" x="84" y="230" width="200" height="20" offset="1" bkclr="#ffffff" hint="lang.license_hint">
+		<border width="1" color="#316AC5" />
+	</edit>
+
+	<label text="Buy Explorer+" x="290" y="234" width="120" height="20" align="left,vcenter" color="#3484DF" font="fonts.arial_9_hyperlink" hypelink="www.google.com" />
+
 	<line x="1" y="263" width="418" height="1" color="#ACA899" />
 	<line x="1" y="264" width="418" height="1" color="#FFFFFF" />
 
