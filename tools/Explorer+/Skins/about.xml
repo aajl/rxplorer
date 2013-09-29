@@ -34,7 +34,7 @@
 	
 	<label id=".version" text="1.0.0" x="140" y="65" width="50" height="20" align="left,vcenter" font="fonts.arial_9" />
 	
-	<button id=".update" x="190" y="66" width="adapt,8" height="20" align="left,vcenter" font="fonts.arial_9" color="#606060" text="已是最新版本">
+	<button id=".update" x="190" y="64" width="adapt,8" height="20" align="left,vcenter" font="fonts.arial_9" color="#606060" text="已是最新版本">
 		<states>
 			<normal bkclr="#E5E5E5" />
 		</states>
@@ -42,11 +42,11 @@
 	
 	<label text="Copyright (C) 2007-2013 Future Studio." x="140" y="90" width="260" height="20" font="fonts.song_10" />	
 	
-	<label text="explorerplus@gmail.com" x="140" y="115" width="260" height="20" align="left,vcenter" color="#3484DF" font="fonts.arial_9_hyperlink" action="print('')" />
+	<label text="explorerplus@gmail.com" x="140" y="115" width="adapt" height="20" align="left,vcenter" color="#3484DF" font="fonts.arial_9_hyperlink" action="print('')" />
 	
-	<label text="License to:" x="140" y="140" width="100" height="20" align="left,vcenter" />
+	<label id=".licnsto" text="License to:" x="140" y="140" width="adapt,3" height="20" align="left,vcenter" />
 	
-	<label id=".user" text="Unregistered" x="205" y="140" width="160" height="20" align="left,vcenter" font="fonts.arial_9" />
+	<label id=".user" text="Unregistered" x="rightof:about.licnsto,2" y="140" width="adapt,1" height="20" align="left,vcenter" font="fonts.arial_9" float="right" />
 
 	<label id=".email" text="lang.email" x="14" y="204" width="70" height="20" font="fonts.arial_9" />
 	<edit id=".mail" x="84" y="200" width="200" height="20" offset="1" bkclr="#ffffff" hint="lang.email_hint">
@@ -58,7 +58,7 @@
 		<border width="1" color="#316AC5" />
 	</edit>
 
-	<label text="Buy Explorer+" x="290" y="234" width="120" height="20" align="left,vcenter" color="#3484DF" font="fonts.arial_9_hyperlink" hypelink="www.google.com" />
+	<label text="Buy Explorer+" x="290" y="234" width="adapt" height="20" align="left,vcenter" color="#3484DF" font="fonts.arial_9_hyperlink" hypelink="www.google.com" />
 
 	<line x="1" y="263" width="418" height="1" color="#ACA899" />
 	<line x="1" y="264" width="418" height="1" color="#FFFFFF" />
