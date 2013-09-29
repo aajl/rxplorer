@@ -469,7 +469,7 @@
 			</layer>
 			
 			<!--file view 2-->
-			<layer id="xplorer2" x="leftof-xplorer,2" y="0" width="315" height="500" float="wratio,height">
+			<layer id="xplorer2" x="rightof:xplorer,2" y="0" width="315" height="500" float="wratio,height">
 				<border width="1" color="#ACA899" />
 				
 				<label position="relative" x="0" y="0" width="315" height="22" bkclr="#E5E5E5" float="width">
