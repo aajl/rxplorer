@@ -2,6 +2,7 @@
 <panel id="about" type="modal" visible="false" alpha="95" bkclr="#E5E5E5">
 	<size x="0" y="0" width="420" height="310" />
 	<border width="1" color="#404040" />
+	<events show="on_show_about()" />
 	<hittest>
 		<rect x="0" y="0" width="370" height="24" />
 	</hittest>
@@ -58,12 +59,20 @@
 		<border width="1" color="#316AC5" />
 	</edit>
 
-	<label text="Buy Explorer+" x="290" y="234" width="adapt" height="20" align="left,vcenter" color="#3484DF" font="fonts.arial_9_hyperlink" hypelink="www.google.com" />
+	<label id=".buy" text="Buy Explorer+" x="290" y="234" width="adapt" height="20" align="left,vcenter" color="#3484DF" font="fonts.arial_9_hyperlink" hypelink="www.google.com" />
 
 	<line x="1" y="263" width="418" height="1" color="#ACA899" />
 	<line x="1" y="264" width="418" height="1" color="#FFFFFF" />
 
-	<button text="lang.ok" action="window.close()" x="350" y="275" width="59" height="24" align="center,vcenter">
+	<button id=".ok" text="lang.ok" action="window.close()" x="350" y="275" width="59" height="24" align="center,vcenter">
+		<states normal="button.png" width="59" height="24">
+			<normal x="0" />
+			<hover x="59" />
+			<down x="118" />
+		</states>
+	</button>
+
+	<button id=".register" text="lang.register" action="on_register()" x="350" y="275" width="59" height="24" align="center,vcenter">
 		<states normal="button.png" width="59" height="24">
 			<normal x="0" />
 			<hover x="59" />

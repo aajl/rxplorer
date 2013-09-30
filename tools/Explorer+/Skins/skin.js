@@ -1132,6 +1132,24 @@ function check_for_update() {
 	about.show()
 }
 
+function on_show_about() {
+	if(sys.register.is_registered()) {
+		about.email.hide();
+		about.mail.hide();
+		about.license.hide();
+		about.code.hide();
+		about.buy.hide();
+		about.ok.show();
+	} else {
+		about.email.show();
+		about.mail.show();
+		about.license.show();
+		about.code.show();
+		about.buy.show();
+		about.ok.hide();
+	}
+}
+
 function on_check_for_update(version, detail) {
 }
 
@@ -1185,12 +1203,12 @@ function on_scan_completed(exit_code) {
 }
 
 function on_register() {
-	if(register.mail.text == "") {
+	if(about.mail.text == "") {
 		register.alert("Email can not be null", "Error");
 		return;
 	}
 	
-	if(register.code.text == "") {
+	if(about.code.text == "") {
 		register.alert("Licnese code can not be null", "Error");
 		return;
 	}
