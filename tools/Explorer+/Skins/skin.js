@@ -96,7 +96,7 @@ $(function(){
 		on_check:function(version, details) {
 			if(version == "") {
 				print("当前版本已是最新版本\n");
-				about.update.text = "当前版本已是最新版本";
+				about.update.text = "已是最新版本";
 			} else {
 				print("有新的版本: " + version + "\n");
 				new_version = version;
@@ -188,9 +188,8 @@ $(function(){
 				
 				if(!opened) {
 					opened = true;
-					//var reg = sys.register.is_registered();
-					//if(!sys.register.is_registered("debug"))
-					//	register.show();
+					if(!sys.register.registered("undefined", "debug"))
+						about.show();
 				}
 			}
 		},
@@ -1133,7 +1132,7 @@ function check_for_update() {
 }
 
 function on_show_about() {
-	if(sys.register.is_registered()) {
+	if(sys.register.registered()) {
 		about.email.hide();
 		about.mail.hide();
 		about.license.hide();
@@ -1148,6 +1147,10 @@ function on_show_about() {
 		about.buy.show();
 		about.ok.hide();
 	}
+}
+
+function on_hide_about() {
+	print("hide about\n");
 }
 
 function on_check_for_update(version, detail) {
