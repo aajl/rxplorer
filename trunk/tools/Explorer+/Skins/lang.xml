@@ -1,4 +1,4 @@
-﻿<strs id="lang" lang="English" title="Explorer+">
+﻿<strs id="lang" lang="English" title="Explorer+" copyright="Copyright (C) 2007-2013 Future Studio.">
 	<menu menu_file="File(&F)" menu_edit="Edit(&E)" menu_view="View(&V)" menu_tools="Tools(&T)" menu_help="Help(&H)" />
 	<menu menu_file="File" menu_new_tab="New Tab(&T)              Ctrl+T" menu_new_folder="New Folder(&N)        Ctrl+N" menu_save_session="Save Session(&S)    Ctrl+S" menu_exit="Exit(&E)" />
 	<menu menu_edit_sub="Edit(&E)                        F4" menu_refresh="Refresh(&R)                F5" menu_copy="Copy(&C)                      F6" menu_move="Move(&M)                      F7" />
@@ -27,11 +27,13 @@
 	<toolmenu open="Open(&O)" locate_tool="Locate On Disk(&I)" remove_favorite_tool="Delete(&D)" tool_setting="Setting(&S)" />
 	<footer footer_edit="F4 Edit" footer_copy="F6 Copy" footer_move="F7 Move" footer_new="F8 New Folder" />
 	<favmenu add_favorite_folder="Add To Favorite" search_file_hint="Input Filename To Search" />
-	<register register="Register" register_title="Register Explorer+" email="Email:" license="License:" email_hint="Email" license_hint="License" />
+	<register register="Register" register_title="Register Explorer+" email="Email:" license="License:" email_hint="Email" license_hint="License" buy="Buy Now" />
+	<register unreg="Unregistered" license_to="License to:" trial="%td days trial version: %ld day(s) left!" expired="Your free trial has expired, please click to buy." />
+	<update checking_update="Checking for updates..." last_version="Your version is the last version." new_version="New version: " downloading="downloading: " download_completed="restart to complete." />
 	<thumbs super_icon="Super Large Icons(&X)" thumb_icon="Thumbnails(&T)" big_icon="Bin icons(&R)" icon_icon="Icons(&I)" medium_icon="Medium Icons(&M)" small_icon="Small Icons(&N)" list_icon="List(&L)" detail_icon="Details(&D)" tile_icon="Tiles(&S)" />
 	<tools variable_desc="'Command' of valid variables:\n\t%Sys  The system's path.\n\t%App  The application's path.\n'Parameters' of valid variables:\n\t%FullPath  The full path of selected file(s).\n\t%Path  The path of selected file(s), not include filename." />
 </strs>
-<strs id="chinese" lang="简体(中文)" title="Explorer+">
+<strs id="chinese" lang="简体(中文)" title="Explorer+" copyright="版权所有 (C) 2007-2013 Future Studio.">
 	<menu menu_file="文件(&F)" menu_edit="编辑(E)" menu_view="视图(V)" menu_tools="工具(T)" menu_help="帮助(H)" />
 	<menu menu_file="文件" menu_new_tab="新建标签(&T)        Ctrl+T" menu_new_folder="新建文件夹(&N)   Ctrl+N" menu_save_session="保存工作区(&S)   Ctrl+S" menu_exit="退出(&E)" />
 	<menu menu_edit_sub="编辑(&E)                  F4" menu_refresh="刷新(&R)                  F5" menu_copy="复制(&C)                  F6" menu_move="移动(&M)                  F7" />
@@ -60,7 +62,9 @@
 	<toolmenu open="打开(&O)" locate_tool="打开文件位置(&I)" remove_favorite_tool="删除(&D)" tool_setting="设置(&S)" />
 	<footer footer_edit="F4 编辑" footer_copy="F6 复制" footer_move="F7 移动" footer_new="F8 新建" />
 	<favmenu add_favorite_folder="添加到书签" search_file_hint="输入文件名进行搜索" />
-	<register register="注册" register_title="注册Explorer+" email="邮箱:" license="注册码:" email_hint="邮箱" license_hint="注册码" />
+	<register register="注册" register_title="注册Explorer+" email="邮箱:" license="注册码:" email_hint="邮箱" license_hint="注册码" buy="现在购买" />
+	<register unreg="未注册" license_to="注册给:" trial="%td 天试用版本: 还剩下%ld天!" expired="您的免费试用已过期,请点击购买." />
+	<update checking_update="正在检查更新..." last_version="已是最新版本" new_version="有新的版本: " downloading="正在下载: " download_completed="重启完成更新." />
 	<thumbs super_icon="超大图标(&X)" thumb_icon="缩略图(&T)" big_icon="大图标(&R)" icon_icon="图标(&I)" medium_icon="中等图标(&M)" small_icon="小图标(&N)" list_icon="列表(&L)" detail_icon="详细信息(&D)" tile_icon="平铺(&S)" />
 	<tools variable_desc="'命令' 里可用的通用变量:\n\t%Sys  系统所在目录\n\t%App  本应用程序所在目录\n'参数' 里可用的通用变量:\n\t%FullPath  选中文件的全路径\n\t%Path  选中文件的路径,不包含文件名." />
 </strs>

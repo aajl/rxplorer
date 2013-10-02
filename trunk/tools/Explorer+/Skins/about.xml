@@ -2,7 +2,7 @@
 <panel id="about" type="modal" visible="false" alpha="95" bkclr="#E5E5E5">
 	<size x="0" y="0" width="420" height="310" />
 	<border width="1" color="#404040" />
-	<events show="on_show_about()" />
+	<events show="on_show_about()" hide="on_hide_about()" />
 	<hittest>
 		<rect x="0" y="0" width="370" height="24" />
 	</hittest>
@@ -29,40 +29,41 @@
 		<icon x="0" size="128" />
 	</img>
 	
-	<label text="lang.title" x="140" y="26" width="260" height="40">
+	<label text="lang.title" x="130" y="26" width="260" height="40">
 		<font color="RGB(229, 135, 42)" size="20" weight="700" />
 	</label>
 	
-	<label id=".version" text="1.0.0" x="140" y="65" width="50" height="20" align="left,vcenter" font="fonts.arial_9" />
+	<label id=".version" text="1.0.0" x="130" y="65" width="40" height="20" align="left,vcenter" font="fonts.arial_9" />
 	
-	<button id=".update" x="190" y="64" width="adapt,8" height="20" align="left,vcenter" font="fonts.arial_9" color="#606060" text="已是最新版本">
-		<states>
-			<normal bkclr="#E5E5E5" />
-		</states>
-	</button>
+	<label id=".update" x="170" y="64" width="adapt" height="20" enable="false" align="left,vcenter" font="fonts.arial_9" bkclr="#E5E5E5" color="#606060" action="restart()" />
 	
-	<label text="Copyright (C) 2007-2013 Future Studio." x="140" y="90" width="260" height="20" font="fonts.song_10" />	
+	<label text="lang.copyright" x="130" y="90" width="260" height="20" bkclr="#E5E5E5" font="fonts.arial_9" />	
 	
-	<label text="explorerplus@gmail.com" x="140" y="115" width="adapt" height="20" align="left,vcenter" color="#3484DF" font="fonts.arial_9_hyperlink" action="print('')" />
+	<label text="explorerplus@gmail.com" x="130" y="115" width="adapt" height="20" align="left,vcenter" bkclr="#E5E5E5" color="#0000C0" font="fonts.arial_9_hyperlink" action="print('')" />
 	
-	<label id=".licnsto" text="License to:" x="140" y="140" width="adapt,3" height="20" align="left,vcenter" />
+	<label id=".licnsto" text="lang.license_to" x="130" y="140" width="adapt,3" height="20" bkclr="#E5E5E5" align="left,vcenter" />
 	
-	<label id=".user" text="Unregistered" x="rightof:about.licnsto,2" y="140" width="adapt,1" height="20" align="left,vcenter" font="fonts.arial_9" float="right" />
+	<label id=".user" text="" x="rightof:about.licnsto,2" y="140" width="adapt,1" height="20" bkclr="#E5E5E5" align="left,vcenter">
+		<font size="9" face="Arial" weight="600" color="#C7402A" />
+	</label>
 
-	<label id=".email" text="lang.email" x="14" y="204" width="70" height="20" font="fonts.arial_9" />
+	<label id=".email" text="lang.email" x="14" y="204" width="70" height="20" bkclr="#E5E5E5" font="fonts.arial_9" />
 	<edit id=".mail" x="84" y="200" width="200" height="20" offset="1" bkclr="#ffffff" hint="lang.email_hint">
 		<border width="1" color="#316AC5" />
 	</edit>
 
-	<label id=".license" text="lang.license" x="14" y="234" width="70" height="20" font="fonts.arial_9" />
+	<label id=".license" text="lang.license" x="14" y="234" width="70" height="20" bkclr="#E5E5E5" font="fonts.arial_9" />
 	<edit id=".code" x="84" y="230" width="200" height="20" offset="1" bkclr="#ffffff" hint="lang.license_hint">
 		<border width="1" color="#316AC5" />
 	</edit>
 
-	<label id=".buy" text="Buy Explorer+" x="290" y="234" width="adapt" height="20" align="left,vcenter" color="#3484DF" font="fonts.arial_9_hyperlink" hypelink="www.google.com" />
+	<label id=".buy" text="lang.buy" x="290" y="234" width="adapt" height="20" align="left,vcenter" bkclr="#E5E5E5" color="#0000C0" font="fonts.arial_9_hyperlink" hypelink="www.google.com" />
 
 	<line x="1" y="263" width="418" height="1" color="#ACA899" />
 	<line x="1" y="264" width="418" height="1" color="#FFFFFF" />
+
+	<label id=".trial" text="" x="14" y="175" width="adapt" height="20" bkclr="#E5E5E5" align="left,vcenter" />
+	<label id=".expired" text="lang.expired" x="14" y="175" width="adapt" height="20" bkclr="#E5E5E5" align="left,vcenter" color="#ff0000" font="fonts.arial_9_hyperlink" hypelink="www.google.com" />
 
 	<button id=".ok" text="lang.ok" action="window.close()" x="350" y="275" width="59" height="24" align="center,vcenter">
 		<states normal="button.png" width="59" height="24">
