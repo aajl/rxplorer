@@ -21,50 +21,9 @@ var new_version = "";
 var opened = false;
 var extension = new jpath();
 
-// 1. 左边的不能新标签 √
-// 11. 文件夹内双击空白处不能返回上一级 √
-// 12. 状态栏高度应该可调整,可变为简洁模式和详细模式. √
-// 4. 关闭标签后没有自动选择一个标签 √
-// 5. 隐藏文件夹后坐标错误 √
-// 2. 过滤器不能用 √
-// 27. edit控件的内嵌edit坐标不对 √
-// 26. img控件不支持图标 √
-// 22. 无多语言 √
-// 18. 弹出菜单在点击文件夹时不自动隐藏. √
-// 7. 地址栏不能使用 √
-// 17. 弹出窗口的高度不能根据项数自动计算. √
-// 8. 状态栏信息显示不全 √
-// 14. 改变大小后,第二面板的关闭按钮不见了. √
-// 19. 无tooltip √
-// 15. 点击标签右边的关闭不能关闭标签. √
-// 16. 标签过多时,无滚动条或其它方式显示所有标签. √
-// 28. 无鼠标手势 √
-// 25 过滤器的快速过滤不能用 √
-// 3. 驱动器栏要用异步的方式 √
-// 13. 常用工具栏多数工具不可用,并且太少. √
-// 23. 无undo/redo √
-// 6. 第二面板不能隐藏 (基本实现,但跟文件夹隐藏显示一起用时位置会不对,位置不对的也已解决.) √
-// 20. 改变窗口宽度时,文件夹窗口大小发生异常,且默认状态下宽度也偏宽. √
-// 24 过滤器无滚动条 √
-// 29. 视图的查看方试没有 √
-// 35. 文件视图无论选择何种显示方式,顶部的列表头都在. √
-// 37. 框选文件后,右键菜单不能用. √
-// 33. 选择较多文件时,界面响应变慢. √
-// 36. 视图的查看方式没有保存,下次再打开时,会变成默认的列表方式. √
-// 31. 无注册模块 √
-// 32. 无更新模块 √
-// 30. 显示过菜单之后,工具栏按钮的图标会发生变化(待改). √
 // 32. 显示局域网内其它电脑共享的文件夹时,点击地址栏和下拉菜单均无效(待改).
 // 34. 过滤器里的滚动条在移动时,如果鼠标移到了文件视图里,则滚动条不再移动(待改).
-// 10. 搜索栏不能用 √
-// 39. Tab栏里最后一个Tab宽度改变时,刷新不对. √
-// 40. 多选文件时,如果选择的文件很多,程序会卡死.建议选择的文件数超过100,就不把选择的文件信息传到脚本里.√
-// 41. edit控件,在输入内容改变后,如果焦点突然变到其它有句柄的窗口,则内容改变不会体现在edit控件里. √
-// 43. 地址栏点击一次之后,第二次点击不显示下拉菜单. √
-// 44. 按键盘上的字母,找到某个文件后,再按快捷键编辑选中的文件,打开的却不是当前选中的文件. √
-// 38. 地地栏里点击下拉菜单进,如果子文件夹较多,下拉菜单里显示不全,此时建议加滚动条. √
 // 42. 点击某一未打开文件夹时,如果它打开太慢,在未打开情况下再点击另一文件夹,则会导致显示错乱.()
-// 21. 无各类设置窗口. √
 // 9. 菜单栏不能用
 
 $(function(){
@@ -94,22 +53,23 @@ $(function(){
 	
 	sys.updater.handler({
 		on_check:function(version, details) {
+			about.update.enable(false);
 			if(version == "") {
-				print("当前版本已是最新版本\n");
-				about.update.text = "已是最新版本";
+				about.update.text = lang.get("last_version");
 			} else {
-				print("有新的版本: " + version + "\n");
 				new_version = version;
-				about.update.text = "有新的版本: " + version;
+				about.update.text = lang.get("new_version") + version;
 				sys.updater.download();
 			}
 		},
 		on_download:function(path, readsize, filesize, index, count) {
 			var percent = parseInt(100 / count * (index - 1) + readsize / filesize * (100 / 3));
-			about.update.text = "有新的版本: " + new_version + ", 正在下载: " + percent + "%";
+			about.update.text = lang.get("new_version") + new_version + ", " + lang.get("downloading") + percent + "%";
 			print(path + " -> readsize: " + readsize + ", filesize: " + filesize + " " + index + " " + count + "\n");
-			if(percent == 100)
-				about.update.text = "新版本" + new_version + "已下载完,重启完成更新.";
+			if(percent == 100) {
+				about.update.enable(true);
+				about.update.text = lang.get("new_version") + new_version + ", " + lang.get("download_completed");
+			}
 		},
 		on_update:function() {
 		},
@@ -188,7 +148,7 @@ $(function(){
 				
 				if(!opened) {
 					opened = true;
-					if(!sys.register.registered("undefined", "debug"))
+					if(!sys.register.registered())
 						about.show();
 				}
 			}
@@ -1125,37 +1085,6 @@ function resize_panel(pnl, item_count, item_height, margin) {
 	pnl.move(pnl.x, pnl.y, pnl.width, height);
 }
 
-function check_for_update() {
-	new_version = "";
-	sys.updater.check("explorer", sys.path.app + '/Skins/skin.xml');
-	about.show()
-}
-
-function on_show_about() {
-	if(sys.register.registered()) {
-		about.email.hide();
-		about.mail.hide();
-		about.license.hide();
-		about.code.hide();
-		about.buy.hide();
-		about.ok.show();
-	} else {
-		about.email.show();
-		about.mail.show();
-		about.license.show();
-		about.code.show();
-		about.buy.show();
-		about.ok.hide();
-	}
-}
-
-function on_hide_about() {
-	print("hide about\n");
-}
-
-function on_check_for_update(version, detail) {
-}
-
 function set_view_mode() {
 	var modes = [7, 6, 1, 3, 4];
 	if(sys.os.version >= 6.0)
@@ -1203,18 +1132,6 @@ function search() {
 function on_scan_completed(exit_code) {
 	if(exit_code == 1)
 		sys.search.reload();
-}
-
-function on_register() {
-	if(about.mail.text == "") {
-		register.alert("Email can not be null", "Error");
-		return;
-	}
-	
-	if(about.code.text == "") {
-		register.alert("Licnese code can not be null", "Error");
-		return;
-	}
 }
 
 function change_language(language) {

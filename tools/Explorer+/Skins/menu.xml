@@ -44,9 +44,9 @@
 		</item>
 		<item id="menu_help" text="帮助">
 			<item text="lang.menu_help" />
-			<item text="lang.menu_check_update" action="check_for_update()" />
-			<item text="lang.menu_register" action="about.show()" />
-			<item text="lang.menu_about" action="about.show()" />
+			<item text="lang.menu_check_update" action="check_for_updates()" />
+			<item text="lang.menu_register" action="show_about()" />
+			<item text="lang.menu_about" action="show_about()" />
 		</item>
 	</items>
 	
