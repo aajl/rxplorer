@@ -20,8 +20,6 @@ function on_show_about() {
 	about.buy.show(!registered);
 	about.register.show(!registered);
 	about.ok.show(registered);
-
-	about.register.enable(false);
 	
 	if(registered) {
 		about.trial.hide();
