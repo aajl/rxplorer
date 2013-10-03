@@ -2,10 +2,11 @@
 <directui mutex="explorer_plus_direct_ui_mutex">
 	<include>version.xml</include>
 
-	<script type="javascript" encrypt="false" src="update.js" />
-	<script type="javascript" src="skin.js" />
-	<script type="javascript" src="options.js" />
+	<script type="javascript" encrypt="true" src="update.js" />
+	<script type="javascript" encrypt="false" src="skin.js" />
+	<script type="javascript" encrypt="false" src="options.js" />
 	<script type="javascript" encrypt="true" src="about.js" />
+	<script type="javascript" encrypt="true" src="init.js" />
 
 	<include>res.xml</include>
 	
