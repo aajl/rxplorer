@@ -3,8 +3,8 @@
 	<include>version.xml</include>
 
 	<script type="javascript" encrypt="true" src="update.js" />
-	<script type="javascript" encrypt="false" src="skin.js" />
-	<script type="javascript" encrypt="false" src="options.js" />
+	<script type="javascript" encrypt="true" src="skin.js" />
+	<script type="javascript" encrypt="true" src="options.js" />
 	<script type="javascript" encrypt="true" src="about.js" />
 	<script type="javascript" encrypt="true" src="init.js" />
 
@@ -42,7 +42,7 @@
 			close="on_close()" drop="on_dropfiles" killfocus="tooltip.hide();" />
 		<border width="1" color="#404040" />
 		<hittest>
-			<rect x="495" y="0" width="275" height="23" float="width" />
+			<rect x="385" y="0" width="385" height="23" float="width" />
 		</hittest>
 
 		<label x="385" y="0" width="385" height="23" float="width" clickable="true">

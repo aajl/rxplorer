@@ -39,7 +39,7 @@
 	
 	<label text="lang.copyright" x="130" y="90" width="260" height="20" bkclr="#E5E5E5" font="fonts.arial_9" />	
 	
-	<label text="explorerplus@gmail.com" x="130" y="115" width="adapt" height="20" align="left,vcenter" bkclr="#E5E5E5" color="#0000C0" font="fonts.arial_9_hyperlink" action="print('')" />
+	<label text="xplorerplus@gmail.com" x="130" y="115" width="adapt" height="20" align="left,vcenter" bkclr="#E5E5E5" color="#0000C0" font="fonts.arial_9_hyperlink" action="print('')" />
 	
 	<label id=".licnsto" text="lang.license_to" x="130" y="140" width="adapt,3" height="20" bkclr="#E5E5E5" align="left,vcenter" />
 	
@@ -57,13 +57,13 @@
 		<border width="1" color="#316AC5" />
 	</edit>
 
-	<label id=".buy" text="lang.buy" x="290" y="234" width="adapt" height="20" align="left,vcenter" bkclr="#E5E5E5" color="#0000C0" font="fonts.arial_9_hyperlink" hypelink="www.google.com" />
+	<label id=".buy" text="lang.buy" x="290" y="234" width="adapt" height="20" align="left,vcenter" bkclr="#E5E5E5" color="#0000C0" font="fonts.arial_9_hyperlink" hyperlink="#" />
 
 	<line x="1" y="263" width="418" height="1" color="#ACA899" />
 	<line x="1" y="264" width="418" height="1" color="#FFFFFF" />
 
 	<label id=".trial" text="" x="14" y="175" width="adapt" height="20" bkclr="#E5E5E5" align="left,vcenter" />
-	<label id=".expired" text="lang.expired" x="14" y="175" width="adapt" height="20" bkclr="#E5E5E5" align="left,vcenter" color="#ff0000" font="fonts.arial_9_hyperlink" hypelink="www.google.com" />
+	<label id=".expired" text="lang.expired" x="14" y="175" width="adapt" height="20" bkclr="#E5E5E5" align="left,vcenter" color="#ff0000" font="fonts.arial_9_hyperlink" hyperlink="#" />
 
 	<button id=".ok" text="lang.ok" action="window.close()" x="350" y="275" width="59" height="24" align="center,vcenter">
 		<states normal="button.png" width="59" height="24">

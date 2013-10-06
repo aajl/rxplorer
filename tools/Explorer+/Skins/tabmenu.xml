@@ -1,4 +1,4 @@
-﻿<panel id="tabmenu_pane" type="modeless" x="0" y="0" width="155" height="227" visible="false" alpha="">
+﻿<panel id="tabmenu_pane" type="modeless" x="0" y="0" width="155" height="79" visible="false" alpha="">
 	<border width="1" color="#ACA899" />
 	<custom id="tabmenu"  yadapt="true" type="tiled" margin="1" oninit="">
 		<pos position="relative" x="2" y="2" width="151" height="224" />
@@ -8,13 +8,6 @@
 			<item name="lang.copy_tab" icon="" action="duplicate_tab(poped_menu_xplor_id)" />
 			<item separator="1" />
 			<item name="lang.close_tab" icon="" action="close_tab(eval(poped_menu_xplor_id), poped_menu_tab)" />
-			<item name="lang.close_other_tab" icon="" action="" />
-			<item name="lang.close_left_of_tab" icon="" action="" />
-			<item name="lang.close_right_of_tab" icon="" action="" />
-			<item separator="1" />
-			<item name="lang.fix_tab" icon="" action="" />
-			<item name="lang.restore_tab" icon="" action="" />
-			<item name="lang.rename" icon="" action="" />
 		</items>
 		<if condition="item.separator">
 			<layer x="0" y="0" width="151" height="3" margin="0,3">

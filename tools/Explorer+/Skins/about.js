@@ -70,3 +70,7 @@ function on_register() {
 
 function restart() {
 }
+
+function on_help() {
+	sys.shell_execute("www.winxplorer.net/help");
+}

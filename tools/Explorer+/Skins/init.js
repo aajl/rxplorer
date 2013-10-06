@@ -8,6 +8,10 @@ $(function(){
 	
 	sys.search.scan();
 
+	var buylink = "https://shopper.mycommerce.com/checkout/cart/new/49846-3?quantity=1&locale=en_US&currency=USD";
+	about.buy.hyperlink = buylink;
+	about.expired.hyperlink = buylink;
+	
 	sys.search.handler({
 		scan:function(operate, drive) {
 			if(drive == 0 || drive == "0")

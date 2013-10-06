@@ -43,7 +43,7 @@
 			<item text="lang.edit_view_setting" action="options.show();opts_btn.edit.click()" />
 		</item>
 		<item id="menu_help" text="帮助">
-			<item text="lang.menu_help" />
+			<item text="lang.menu_help" action="on_help()" />
 			<item text="lang.menu_check_update" action="check_for_updates()" />
 			<item text="lang.menu_register" action="show_about()" />
 			<item text="lang.menu_about" action="show_about()" />
