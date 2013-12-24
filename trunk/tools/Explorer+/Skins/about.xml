@@ -30,7 +30,7 @@
 	</img>
 	
 	<label text="lang.title" x="130" y="26" width="260" height="40">
-		<font color="RGB(229, 135, 42)" size="20" weight="700" />
+		<font color="RGB(229, 135, 42)" size="20" weight="700" face="Arial" />
 	</label>
 	
 	<label id=".version" text="1.0.0" x="130" y="65" width="40" height="20" align="left,vcenter" font="fonts.arial_9" />

@@ -30,13 +30,9 @@
 <!--字体集-->
 <fonts id="fonts">
 	<font id="default" size="9" face="Arial" />
-	<font id="bold_10" size="10" weight="700" />
-	<font id="bold_9" size="9" weight="700" />
-	<font id="bold_8" size="8" weight="700" />
-	<font id="about_dplayer" size="13" weight="700" />
-	<font id="song_10" size="10" face="Arial" />
-	<font id="song_8" size="8" face="Arial" />
-	<font id="song_9" size="9" face="Arial" />
+	<font id="bold_10" size="10" weight="700" face="Arial" />
+	<font id="bold_9" size="9" weight="700" face="Arial" />
+	<font id="bold_8" size="8" weight="700" face="Arial" />
 	<font id="arial_7" size="7" face="Arial" />
 	<font id="arial_8" size="8" face="Arial" />
 	<font id="arial_9" size="9" face="Arial" />
