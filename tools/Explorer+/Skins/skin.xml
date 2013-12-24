@@ -592,8 +592,6 @@
 	<include>options.xml</include>
 	
 	<include>about.xml</include>
-	
-	<include>register.xml</include>
-	
+		
 	<include>search.xml</include>
 </directui>

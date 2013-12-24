@@ -196,7 +196,7 @@ function load_setting() {
 	
 	if(typeof(setting.statusbar) == "undefined") {
 		setting.statusbar = {};
-		setting.statusbar.show = false;
+		setting.statusbar.show = true;
 	}
 	
 	if(setting.treeview.sync)

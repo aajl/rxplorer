@@ -197,11 +197,11 @@ $(function(){
 				for(var i = 0; i < types.length; ++i) {
 					var check = filters[types[i]];
 					if(types[i] == "#1folder")
-						filefilter.insert({"text":"显示文件夹", "icon":"icons.folder", "ext": types[i], "id": ".filterfolder", "check":typeof(check) == "undefined" ? true : check});
+						filefilter.insert({"text":lang.get("show_folders"), "icon":"icons.folder", "ext": types[i], "id": ".filterfolder", "check":typeof(check) == "undefined" ? true : check});
 					else if(types[i] == "#2hidden")
-						filefilter.insert({"text":"显示隐藏文件", "icon":"icons.hiddenfile", "ext": types[i], "id": ".filterhidden", "check":typeof(check) == "undefined" ? true : check});
+						filefilter.insert({"text":lang.get("show_hidden_files"), "icon":"icons.hiddenfile", "ext": types[i], "id": ".filterhidden", "check":typeof(check) == "undefined" ? true : check});
 					else if(types[i] == "#3file")
-						filefilter.insert({"text":"显示所有文件", "icon":"icons.allfile", "ext": types[i], "id": ".filterfile", "check":typeof(check) == "undefined" ? true : check});
+						filefilter.insert({"text":lang.get("show_all_files"), "icon":"icons.allfile", "ext": types[i], "id": ".filterfile", "check":typeof(check) == "undefined" ? true : check});
 					else
 						filefilter.insert({"text":types[i], "icon":types[i], "ext": types[i], "id": ".filter" + sys.hash(types[i]), "check":check});
 				}

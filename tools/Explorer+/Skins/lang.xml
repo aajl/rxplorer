@@ -32,6 +32,7 @@
 	<update checking_update="Checking for updates..." last_version="Your version is the last version." new_version="New version: " downloading="downloading: " download_completed="restart to complete." />
 	<thumbs super_icon="Super Large Icons(&X)" thumb_icon="Thumbnails(&T)" big_icon="Bin icons(&R)" icon_icon="Icons(&I)" medium_icon="Medium Icons(&M)" small_icon="Small Icons(&N)" list_icon="List(&L)" detail_icon="Details(&D)" tile_icon="Tiles(&S)" />
 	<tools variable_desc="'Command' of valid variables:\n\t%Sys  The system's path.\n\t%App  The application's path.\n'Parameters' of valid variables:\n\t%FullPath  The full path of selected file(s).\n\t%Path  The path of selected file(s), not include filename." />
+	<filters show_folders="Show Folders" show_hidden_files="Show Hidden Files" show_all_files="Show All Files" />
 </strs>
 <strs id="chinese" lang="简体(中文)" title="Explorer+" copyright="版权所有 (C) 2007-2013 Future Studio.">
 	<menu menu_file="文件(&F)" menu_edit="编辑(E)" menu_view="视图(V)" menu_tools="工具(T)" menu_help="帮助(H)" />
@@ -67,4 +68,5 @@
 	<update checking_update="正在检查更新..." last_version="已是最新版本" new_version="有新的版本: " downloading="正在下载: " download_completed="重启完成更新." />
 	<thumbs super_icon="超大图标(&X)" thumb_icon="缩略图(&T)" big_icon="大图标(&R)" icon_icon="图标(&I)" medium_icon="中等图标(&M)" small_icon="小图标(&N)" list_icon="列表(&L)" detail_icon="详细信息(&D)" tile_icon="平铺(&S)" />
 	<tools variable_desc="'命令' 里可用的通用变量:\n\t%Sys  系统所在目录\n\t%App  本应用程序所在目录\n'参数' 里可用的通用变量:\n\t%FullPath  选中文件的全路径\n\t%Path  选中文件的路径,不包含文件名." />
+	<filters show_folders="显示文件夹" show_hidden_files="显示隐藏文件" show_all_files="显示所有文件" />
 </strs>
